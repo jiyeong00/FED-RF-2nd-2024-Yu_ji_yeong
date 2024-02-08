@@ -46,6 +46,7 @@
             /* height: 300px; */
             /* height: auto; */
             border: 1px solid #000;
+            border-radius: 20px;
 
             /* 패딩
             padding : 수치; (4방향)
@@ -68,7 +69,6 @@
                 margin: 0 auto;
             */
             margin: 20px auto;
-
         }
 
 
@@ -94,8 +94,13 @@
 
         #info-area{            
             background-color: #e1e1e1;
-            font-family: "Noto Sans KR", sans-serif;
+            font-family: "Black Han Sans", sans-serif;
+        }
+        /* 주소요소 */
+        #info-area address{
             font-style: normal;
+            color: rgb(104, 104, 104);
+
         }
 
         .menu{
@@ -110,7 +115,8 @@
         }
 
         /* 메뉴링크 오버시
-        앞에 a가 있는 것만 바꿀 것 >>a+<<a..~ */
+        :hover는 가상클래스(마우스 오버시(갖다댈때))/
+
         .menu a+a:hover{
             text-decoration: underline;
             text-decoration-style: wavy;
@@ -124,10 +130,13 @@
             4. 자손선택자 : 띄어쓰기
             5. 직계자손선택자 : >
             6. 그룹선택자 : ,
+            7. 형제선택자 : +
+                  예) a+a -> 앞에 a요소가 있는 a요소 선택
+                     div+a.on < div뒤에있는 a중 클래스가 on인거
         */
     </style>
   </head>
-
+  
   <body>
     <!-- 1. 상단영역 - 제목, 메뉴 -->
     <header id="top-area" class="part">
