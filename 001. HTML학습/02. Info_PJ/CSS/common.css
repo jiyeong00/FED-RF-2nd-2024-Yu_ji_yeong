@@ -1,0 +1,125 @@
+/* info PJ 공통 CSS = common.css */
+
+
+        /* 웹폰트 구글 CDN */
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@100..900&display=swap');
+
+
+        /* CSS코딩 구역 
+            CSS 설정 코딩 방식
+
+            선택자 {
+                속성:값;
+            }
+            -> 선택자는 요소명 또는 클래스명 또는 아이디명 등으로 사용
+
+            [CSS 박스모델]
+            - 모든 HTML요소는 사각형으로 이루어져있음.
+            가로, 세로, 패딩, 마진, 보더의 속성으로 구성됨.
+            (width, height, padding, margin, border)
+            -> 기본 박스 디자인은 가로,세로,크기를 줄 경우 패딩과 보더는 박스 크기에 포함되지 않음
+            >> 이런 박스를 컨텐트 박스라고 함.
+            */
+        
+        /* 공통 디자인 : 클래스를 주로 사용 */
+        .part{
+            /* 가로, 세로 크기 기본값 : auto
+            (가로)
+            블록의 기본값은 부모박스 채우기
+            인라인의 기본값은 내용물 만큼
+            (세로)
+            모든요소에서 기본값은 내용물 만큼
+            안주면 기본값 auto로 설정*/
+            width: 750px;
+            /* height: 300px; */
+            /* height: auto; */
+            border: 4px double #14a72c;
+            border-radius: 20px;
+
+            /* 패딩
+            padding : 수치; (4방향)
+            padding : 수치 수치; (위아래 양쪽)
+            padding : 수치 수치 수치; (위 양쪽 아래)
+            padding : 수치 수치 수치 수치; (위 오른쪽 아래 왼쪽)
+            =마진도 동일
+            */
+            padding: 50px;
+            /* 이렇게만 쓰면 기본 width + 패딩(*2) + 보더(*2) */
+
+            /* 박스가 패딩,보더를 포함하는 설정 */
+            /* 주석된 게 기본값 */
+            /* box-sizing: content-box; */
+            box-sizing: border-box;
+
+            /* 마진 : 박스의 바깥쪽 여백
+
+                [블록박스 가로방향 !!!중앙정렬!!! 마진 설정]
+                margin: 0 auto;
+            */
+            margin: 20px auto;
+        }
+
+
+        /* 메인 이미지 크기 변경하기 
+        main img << main 밑에 img <<띄어쓰기 혹은 > 로 자식구분함 */
+        main > img{
+            /* main#main-area img로 써도 됨.
+            main #main-area img << 요렇게 되면 main 자식 중에 main-area를 가져오라는 뜻임 */
+            width: 100%;
+
+        }
+
+        /* 콤마는 그룹 선택자(다중선택 가능) */
+        header.part,footer.part{
+            /* color: red; */
+            text-align: center;
+        }
+
+        #top-area{
+            background-color: #c7ffd4;
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+        #info-area{            
+            background-color: #e1e1e1;
+            font-family: "Black Han Sans", sans-serif;
+        }
+        /* 주소요소 */
+        #info-area address{
+            font-style: normal;
+            color: rgb(104, 104, 104);
+
+        }
+
+        .menu{
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+        /* 메뉴링크 */
+        .menu a{
+            color: #327a50;
+            text-decoration: none;
+            font-size: 24px;
+        }
+
+        /* 메뉴링크 오버시
+        :hover는 가상클래스(마우스 오버시(갖다댈때))*/
+
+        .menu a+a:hover{
+            text-decoration: underline;
+            text-decoration-style: wavy;
+            color: #ca8712;
+        }
+
+        /* [선택자들]
+            1. 타입선택자 : 태그명
+            2. 아이디/클래스 선택자 : 요소이름
+            3. 종속선택자 : 요소명 + 이름(h1#my)
+            4. 자손선택자 : 띄어쓰기
+            5. 직계자손선택자 : >
+            6. 그룹선택자 : ,
+            7. 형제선택자 : +
+                  예) a+a -> 앞에 a요소가 있는 a요소 선택
+                     div+a.on < div뒤에있는 a중 클래스가 on인거
+        */
+    
