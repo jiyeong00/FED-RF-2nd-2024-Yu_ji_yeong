@@ -14,8 +14,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@100..900&display=swap');
 
 
-
-
         /* CSS코딩 구역 
             CSS 설정 코딩 방식
 
@@ -30,7 +28,6 @@
             (width, height, padding, margin, border)
             -> 기본 박스 디자인은 가로,세로,크기를 줄 경우 패딩과 보더는 박스 크기에 포함되지 않음
             >> 이런 박스를 컨텐트 박스라고 함.
-
             */
         
         /* 공통 디자인 : 클래스를 주로 사용 */
@@ -115,7 +112,7 @@
         }
 
         /* 메뉴링크 오버시
-        :hover는 가상클래스(마우스 오버시(갖다댈때))/
+        :hover는 가상클래스(마우스 오버시(갖다댈때))*/
 
         .menu a+a:hover{
             text-decoration: underline;
@@ -143,7 +140,7 @@
       <!-- 1-1. 타이틀 -->
       <h1 class="tit">네이버 요약뉴스</h1>
       <!-- 1-2. 메뉴 -->
-      <div class="menu">
+      <nav class="menu">
         <a href="#">
           <img
             src="./images/logo.png"
@@ -158,7 +155,7 @@
         <a href="">사회</a> |
         <a href="">IT/과학</a> |
         <a href="">TV/연예</a>
-      </div>
+      </nav>
     </header>
 
     <!-- 2. 메인영역 - 컨텐츠 -->
