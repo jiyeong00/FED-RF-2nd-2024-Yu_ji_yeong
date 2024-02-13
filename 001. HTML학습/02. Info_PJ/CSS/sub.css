@@ -7,13 +7,76 @@
     > 웹요청(httprequest)이 줄어들어 html의 랜더링 속도가 향상된다.
  */
 
-.sub-title{
-    font-size: 50px;
-    color: red;
+ /* 서브페이지 타이틀 */
+h2.sub-title{
+        /* color: rgba(140, 225, 170, 0.294);
+        color: rgba(140 225 170 / 0.294); */
+        color: #85ce76;
 
+        font-size: 38px;
+        /* font-weight: bold; */
+        font-weight: normal;
+        /* 글자체 : font-family
+            - 콤마로 구분된 글자체는 대체체임 
+            (첫번째 글씨체가 없으면 두번째걸로 반영됨, 만약 모두 없으면 기본체 = 맑은 고딕으로 나옴)  */
+        font-family: "Black Han Sans", sans-serif;
+        text-align: center;
+
+        /* 글자 그림자 : text-shadow 
+                      x축  y축  경계선흐림 색
+        text-shadow: hoff voff blur #000; */
+        text-shadow: 4px 4px 2px #00000030;
+
+        /* 박스 테두리 - border */
+        /* border: 3px dashed #2b56f1; */
+
+        /* 둥근 모서리 border-radius */
+        border-radius: 10px;
+
+        padding: 25px;
+        
+        /* 배경이미지 : bgi 
+            외부 CSS에서 이미지 경로 주의
+               - html파일 위치가 아닌 CSS파일 위치에서 상대경로를 잡아야 이미지가 나옴*/
+        /* background-image: url(../images/titbg4.jpg); < 각 메뉴마다 다르게 나오게 하기위해 밖으로 뺐음 */
+
+        /* 배경반복여부 */
+        background-repeat: no-repeat;
+
+        /* 배경고정 */
+
+        /* 배경위치 bgp */
+        background-position: center;
+
+        /* 배경크기 bgz 
+        contain - 이미지가 전체 다보이며 반복함 (반복여부 지정안했을때)
+        cover - 박스를 빈틈없이 비율유지하여 채움. */
+        background-size: cover;
 }
 .article-exp{
     text-align: center;
     color: rgb(203, 203, 203);
     font-size: 15px;
+}
+
+/* 각 메뉴마다 이미지를 다르게 넣음 */
+.politics{
+    border: 3px dashed #2b56f1;
+    background-image: url(../images/titbg1.jpg);
+}
+.economy{
+    border: 3px dashed #2b56f1;
+    background-image: url(../images/titbg2.jpg);
+}
+.society{
+    border: 3px dashed #1f1950;
+    background-image: url(../images/titbg3.jpg);
+}
+.IT{
+    border: 3px dashed #133688;
+    background-image: url(../images/titbg4.jpg);
+}
+.TV{
+    border: 3px dashed #501919;
+    background-image: url(../images/titbg5.jpg);
 }

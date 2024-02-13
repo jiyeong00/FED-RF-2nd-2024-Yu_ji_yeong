@@ -65,9 +65,14 @@
             text-align: center;
         }
 
+        .tit{
+            font-weight: lighter;
+            font-family: "Black Han Sans", sans-serif;
+            font-size: 40px;
+        }
+
         #top-area{
             background-color: #c7ffd4;
-            font-family: "Noto Sans KR", sans-serif;
         }
 
         #info-area{            
