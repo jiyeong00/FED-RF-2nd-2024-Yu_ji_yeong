@@ -53,11 +53,12 @@ h2.sub-title {
         cover - 박스를 빈틈없이 비율유지하여 채움. */
   background-size: cover;
 }
-.article-exp {
-  text-align: center;
-  color: rgb(203, 203, 203);
-}
 
+.article-picture{
+    margin: auto;
+    text-align: center;
+    color: rgb(203, 203, 203);
+}
 /* 각 메뉴마다 이미지를 다르게 넣음 */
 .sub-title.politics {
   border: 3px dashed #2b56f1;
