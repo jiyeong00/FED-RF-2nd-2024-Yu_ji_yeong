@@ -1,3 +1,4 @@
+@charset "utf-8";
 /* INFO PJ 서브페이지용 CSS - sub.css */
 
 /* 공통 외부CSS 불러오기 */
@@ -7,6 +8,10 @@
     > 웹요청(httprequest)이 줄어들어 html의 랜더링 속도가 향상된다.
  */
 
+ /* 서브페이지 글씨체 지정 */
+#main-area{
+    font-family: "Noto Sans KR", sans-serif;
+}
 /* 서브페이지 타이틀 */
 h2.sub-title {
   /* color: rgba(140, 225, 170, 0.294);
@@ -54,11 +59,6 @@ h2.sub-title {
   background-size: cover;
 }
 
-.article-picture{
-    margin: auto;
-    text-align: center;
-    color: rgb(203, 203, 203);
-}
 /* 각 메뉴마다 이미지를 다르게 넣음 */
 .sub-title.politics {
   border: 3px dashed #2b56f1;
@@ -85,3 +85,53 @@ h2.sub-title {
   background-image: url(../images/titbg5.jpg);
   color: #fff874;
 }
+
+
+/* 언론사 로고 */
+.press-logo img{
+    height: 32px;
+    /* 이미지는 가로,세로 중 하나만 주면 비율을 유지하여 변경된다. */
+}
+
+/* 기사타이틀 */
+.article-title{
+    font-size: 30px;
+    color: #111;
+}
+
+/* 기사이미지 박스*/
+.article-picture {
+    margin: 20px auto;
+    /* text-align: center; */
+    color: rgb(203, 203, 203);
+}
+
+.article-picture img{
+    /* 박스안에 마진을 제외한 모든 부분에 맞게 채워줌(블럭 + 패딩 부분) */
+    width: 100%;
+    padding-bottom: 14px;
+}
+
+/* 기사 설명 */
+.article-picture figcaption{
+    padding: 0 5px;
+    text-align: center;
+    /* font-size: 15px; < small은 원래 글자 크기에 비례해서 계산되기 때문에 여기에 글자크기를 넣으면 부모에 크기를 넣어주는 것이여서 원래 상속되었던 크기가 바뀌어 브라우저에서 크기가 바뀌는 거임. 
+    (기본 크기 16인데 16에 비례한 small크기였다가 small부모클래스에 15를 넣어줘서 15에 비례한 small크기가 나와서 폰트사이즈를 껐다키면 글씨크기가 조금씩 바뀜 */
+}
+
+/* 기사 이미지 설명 글자크기 변경*/
+.article-picture figcaption small{
+    font-size: 15px;
+    /* small에 글자크기가 지정되어 있으므로 여기에서 글자크기를 변경해야 반영된다. */
+
+
+}
+
+/* 기사내용 */
+.contents p{
+    font-size: 17px;
+    color: #303038;
+    /* line-heignt(줄간격) - 위아래 높이값을 말하며, 단위가 없으면 글자 크기에 n배 */
+    line-height: 1.56;
+} 
