@@ -60,23 +60,29 @@ h2.sub-title{
 }
 
 /* 각 메뉴마다 이미지를 다르게 넣음 */
-.politics{
+.sub-title.politics{
     border: 3px dashed #2b56f1;
     background-image: url(../images/titbg1.jpg);
+    color: #fff874;
 }
-.economy{
+.sub-title.economy{
     border: 3px dashed #2b56f1;
     background-image: url(../images/titbg2.jpg);
+    color: white;
 }
-.society{
+.sub-title.society{
     border: 3px dashed #1f1950;
     background-image: url(../images/titbg3.jpg);
+    color: #ff9442;
+
 }
-.IT{
+.sub-title.IT{
     border: 3px dashed #133688;
     background-image: url(../images/titbg4.jpg);
+    color: #0073ff;
 }
-.TV{
+.sub-title.TV{
     border: 3px dashed #501919;
     background-image: url(../images/titbg5.jpg);
+    color: #fff874;
 }
