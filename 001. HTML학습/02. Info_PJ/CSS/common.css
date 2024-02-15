@@ -86,7 +86,8 @@
             font-family: "Black Han Sans", sans-serif;
             font-size: 50px;
             color: white;
-            margin: auto;
+            /* margin: auto; */
+            margin: 17px auto auto;
         }
 
         #top-area{
