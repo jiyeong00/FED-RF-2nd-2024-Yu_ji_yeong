@@ -130,8 +130,64 @@ h2.sub-title {
 
 /* 기사내용 */
 .contents p{
-    font-size: 17px;
+    font-size: 18px;
     color: #303038;
     /* line-heignt(줄간격) - 위아래 높이값을 말하며, 단위가 없으면 글자 크기에 n배 */
-    line-height: 1.56;
+    line-height: 1.7;
 } 
+
+/* 인라인 인용구 디자인 변경*/
+.contents q{
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* mark 요소 디자인 변경*/
+.contents mark{
+  display: block;
+  /* 크기요소는 인라인일때 적용안됨 < 위 라인처럼 display를 변경해줘야함*/
+  width: 65%;
+  /* 크기를 가진 블록요소 중앙정렬
+  - 마영오! margin : 0 auto */
+  margin: 15px auto;
+
+  text-align: center;
+
+  /* 박스디자인 변경 */
+  padding: 20px 50px;
+  border-top: 2px solid #adadad;
+  border-bottom: 2px solid #adadad;
+  
+  background-color: #ededed;
+
+  color: darkorange;
+  font-family: "Black Han Sans", sans-serif;
+}
+
+
+/* 인용구박스 */
+.quote-box{
+  border-top: 2px dashed #ccc;
+  border-bottom: 2px dashed #ccc;
+  margin: 20px 0;
+}
+
+/* 인용구 제목 */
+.quote-box h4{
+  /* 기본 display가 block이어서 글씨만큼 크기를 가지려면 inline-block으로 바꿔야한다  */
+  display: inline-block;
+  font-size: 20px;
+  border: 1px solid #808080;
+  border-radius: 30px;
+  /* width: 250px; */
+  text-align: center;
+  padding: 15px;
+
+  /* 박스그림자  
+    x축이동 y축이동 블러 그림자크기(spread) 색
+    
+    - 내부 그림자일 경우 inset 키워드를 앞에 씀
+      box-shadow: inset x축이동 y축이동 블러 그림자크기(spread) 색;*/
+  /* box-shadow: 4px 4px 5px 10px #888; */
+  box-shadow: inset 0 0 20px #888;
+}
