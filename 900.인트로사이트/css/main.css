@@ -8,8 +8,10 @@ html,body{
     height: 100%;
 }
 body{
-    background-image: 
-    linear-gradient(to bottom,rgb(98, 200, 244),rgb(217, 239, 242));
+    background: url('../images/Intro_bg.jpg') no-repeat 50% top/100%;
+    background-size: auto 100%;
+    /* background-image: 
+    linear-gradient(to bottom,rgb(98, 200, 244),rgb(217, 239, 242)); */
 
     /* [ 선형 그라데이션 ] 
     linear-gradient(방향, 색1,색2,색3,...);
@@ -22,4 +24,5 @@ body{
     margin: 0 auto;
     padding: 20px;
     text-align: center;
+    background-color: #ffffff94;
 }
