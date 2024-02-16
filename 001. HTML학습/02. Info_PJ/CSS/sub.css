@@ -273,3 +273,11 @@ h2.sub-title {
   background-color: #00c604;
   box-shadow: 0 0 10px 5px green;
 }
+
+.work{
+  text-align: center;
+  background-color: #fffebf;
+  width: 100%;
+  height: 100%;
+  
+}

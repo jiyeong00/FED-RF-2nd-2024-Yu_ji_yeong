@@ -26,3 +26,56 @@ body{
     text-align: center;
     background-color: #ffffff94;
 }
+
+
+/* html,body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.wrap{
+    display: inline-block;
+    box-sizing: border-box;
+    list-style-type: none;
+    padding: 0 10px;
+    /* width: 100%; 
+    height: 100%;
+    position: fixed;
+    right: 0px;
+    text-align: right;
+    background-color: #fff;
+
+    /* border: 2px dashed darkblue;
+    border-radius: 20px;
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #ffffff94; 
+}
+.wrap h1{
+    font-size: 20px;
+}
+
+body{
+    background: url('../images/Intro_bg.jpg');
+    background-size:cover;
+
+    /* background-image: 
+    linear-gradient(to bottom,rgb(98, 200, 244),rgb(217, 239, 242)); 
+
+     [ 선형 그라데이션 ] 
+    linear-gradient(방향, 색1,색2,색3,...);
+    - 방향 to top,to left... 
+}
+   .bg-box{
+    background: url('../images/Intro_bg.jpg') no-repeat 50% top/100%;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    position: fixed;
+    text-align-last: left;
+    background-size: auto 100%;
+} */ 
