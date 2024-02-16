@@ -2,14 +2,19 @@
 
 /* 인트로사이트 메인 CSS - main.css */
 
-html,body{
+html,body,h1,h2,h3,p{
     margin: 0;
     padding: 0;
+}
+
+html,body,.page{
+    /* 높이값 보이는 화면 기준 채우기 */
     height: 100%;
 }
+
 body{
-    background: url('../images/Intro_bg.jpg') no-repeat center/100%;
-    background-size: cover;
+    background: url('../images/Intro_bg.jpg') no-repeat fixed center/cover;
+    /* background-size: cover; */
     
     /* background-image: 
     linear-gradient(to bottom,rgb(98, 200, 244),rgb(217, 239, 242)); */
@@ -18,7 +23,23 @@ body{
     linear-gradient(방향, 색1,색2,색3,...);
     - 방향 to top,to left... */
 }
-.wrap{
+
+
+/* 메뉴박스 */
+.menu{
+    width: 700px;
+    margin: 0 auto;
+    background-color: #cc741096;
+    padding: 15px;
+    
+    /* text-align: center; */
+}
+.menu>*{
+    display: inline-block;
+}
+
+/* 컨텐츠 박스 */
+.link-box{
     border: 2px dashed darkblue;
     border-radius: 20px;
     width: 600px;
