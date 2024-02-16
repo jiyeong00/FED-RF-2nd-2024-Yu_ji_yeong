@@ -295,7 +295,8 @@ h2.sub-title {
   background-image: 
   linear-gradient(45deg, rgb(239, 202, 255) 10%, rgb(255, 246, 185) 50%, rgb(123, 106, 251) 90%);
 
-  padding: 1px;
+  padding: 20px;
+  border: 3px dashed rgb(81 81 203);
   /* 
   부모박스에 패딩이 없는 상태에서,
   첫번째 자식 블록박스의 마진은 부모 바깥쪽으로 나가서 세팅된다.
@@ -304,6 +305,27 @@ h2.sub-title {
 
   -> 패딩을 주는 순간 자식의 마진은 패딩의 내부공간을 맡게된다.
   */
+
+  /* 
+  [배경관련 표시 영역지정] 
+    값 : border-box 보더 영역까지 표시 (기본값)
+    값 : padding-box 패딩 영역까지 표시
+    값 : content-box 내영 영역까지 표시
+    */
+  background-clip: border-box;
+  
+  /* 
+  [배경관련 시작 영역지정] 
+    값 : border-box 보더 영역부터 표시
+    값 : padding-box 패딩 영역부터 표시 (기본값)
+    값 : content-box 내영 영역부터 표시
+  */
+  background-origin: padding-box;
+
+  /* 배경 반복 빼기 */
+  background-repeat: no-repeat;
+  box-shadow: inset 0 0 17px #333;
+
 }
 
 /* 작품 타이틀 */
@@ -318,4 +340,19 @@ h2.sub-title {
     참고) 마지막 자식블록요소도 부모박스 하단 마진은 바깥으로 나감.
   */
 
+}
+
+.work img{
+  border: 10px ridge darkgoldenrod;
+}
+
+.work cite{
+  font-style: normal;
+  color: #80207d;
+}
+
+.work figcaption{
+  font-family: "Gugi", sans-serif;
+  font-size: 20px;
+  margin-top: 20px;
 }
