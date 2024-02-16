@@ -7,8 +7,13 @@
 
 
         /* 웹폰트 구글 CDN */
-        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Black+Han+Sans&family=Noto+Sans+KR:wght@100..900&display=swap');
 
+        /* 폰트
+          font-family: "Black And White Picture", system-ui;
+          font-family: "Black Han Sans", sans-serif;
+          font-family: "Noto Sans KR", sans-serif;
+        */
 
         /* CSS코딩 구역 
             CSS 설정 코딩 방식
@@ -37,8 +42,8 @@
             안주면 기본값 auto로 설정*/
 
 
-            /* width: 750px;
-            최대 가로크기로 유동적인 사이즈 만들기 */
+             /* width: 750px; */
+            /*최대 가로크기로 유동적인 사이즈 만들기 */
             max-width: 1000px;
             /* 최대크기 1000px을 유지하다가 화면 또는 부모박스가 이 크기보다 작아지면
             자동으로 auto로 전환되어 가로 스크롤바가 안생기고 크기가 화면에 적응된다 */
