@@ -565,3 +565,17 @@ h2.sub-title {
 
     line-height: 1.5;
   }
+
+  .recom-box table{
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 10px;
+  }
+  .recom-box td{
+    width: 100px;
+  }
+  .recom-box tr:first-child{
+    font-size: 23px;
+ 
+  }
