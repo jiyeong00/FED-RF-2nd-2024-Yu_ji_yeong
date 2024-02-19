@@ -356,3 +356,34 @@ h2.sub-title {
   font-size: 20px;
   margin-top: 20px;
 }
+
+/* 뉴스파트 공통클래스 */
+.news-box{
+  border-top: 2px dashed #ccc;
+  margin: 20px 0;
+  padding: 20px 0;
+}
+
+.news-box a{
+  font-size: 17px;
+  line-height: 2.5;
+  color: #222;
+  /* 밑줄없앰 */
+  text-decoration: none;
+}
+
+/* 공통 마우스 오버시 */
+.news-box a:hover{
+  color: yellowgreen;
+  text-shadow: 1px 1px 1px #000;
+}
+.news-box h3{
+  /* font-family: "Black And White Picture", system-ui; */
+  font-family: "Black Han Sans", sans-serif;
+  font-weight: normal;
+  font-size: 30px;
+  background-image: linear-gradient(to right, rgb(163, 232, 243), transparent);
+  /* transparent << 투명색 */
+  padding: 10px;
+}
+
