@@ -378,6 +378,7 @@ h2.sub-title {
   text-shadow: 1px 1px 1px #000;
 }
 .news-box h3{
+  margin: 0;
   /* font-family: "Black And White Picture", system-ui; */
   font-family: "Black Han Sans", sans-serif;
   font-weight: normal;
@@ -386,4 +387,34 @@ h2.sub-title {
   /* transparent << 투명색 */
   padding: 10px;
 }
+
+.main-news ul{
+  /* 기본 리스트 숨기기 */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.main-news ol{
+  margin: 0;
+  padding: 0;
+}
+
+.main-news ul li::before{
+  content: '🛫';
+}
+.main-news ul li::after{
+  content: '💦';
+  /* 이미지 넣는 법 - content: url(../images/logo.png); <<크기 변경 못함 */
+}
+
+/* 
+[ CSS의 가상요소 : before, after] 
+  - 모든 요소는 맨앞과 맨뒤에 가상요소를 사용할 수 있다.
+  - 가상요소 표기 : 요소명 뒤에 콜론 2개 겹쳐씀(::)
+  - 맨 앞은 before / 맨 뒤는 after
+  - 필수속성 : content
+  - 이미지는 content속성값으로 url()사용
+
+*/
+
 
