@@ -484,3 +484,84 @@ h2.sub-title {
   margin-top: 22px;
 }
 
+/* 사진 뉴스 박스 */
+/* 타이틀 변경하기 */
+.photo-news h3{
+  background-image: none;
+  text-align: center;
+}
+.photo-news h3::before{
+  content: '📷';
+  font-size: 40px;
+  margin-right: 10px;
+}
+.photo-news h3::after{
+  content: '📺';
+  font-size: 40px;
+  margin-left: 10px;
+}
+
+/* 
+사진뉴스 테이블 
+  - 테이블은 기본적으로 내용만큼 가로크기를 가지며, 부모박스의 크기가 작아질 경우,
+  그 크기에 맞춰진다.
+*/
+
+.photo-news table{
+  max-width: 600px;
+
+  /* 테이블 중앙 */
+  margin: 0 auto;
+
+  border: 2px solid #ccc;
+
+  /* 
+  테이블 기본 간격없앰 
+  border-collapse: separate; - 기본값 (사이 간격 있음)
+    -> 테이블 테그에 border='1'로 확인가능
+  */
+  border-collapse: collapse;
+}
+
+/* tr,td에 child선택자 사용 가능 
+  -> table tr td 정해짐 / 같은 종류의 형제요소들만 올 수 있어서*/
+  /* 첫번째 td - 숫자 부분 */
+  .photo-news td:first-child{
+    width: 50px;
+    height: 84px;
+    text-align: center;
+    background-color: #ccc;
+  }
+  .photo-news td:nth-child(2){
+    background-color: #dcdcdc;
+    padding: 0 20px;
+  }
+  .photo-news td:nth-child(3){
+    background-color: #dcdcdc;
+  }
+  .photo-news img{
+    height: 70px;
+    vertical-align: middle;
+  }
+  .photo-news tr+tr{
+    border-top: 2px solid #ccc;
+  }
+  /* 사진뉴스 기사링크2줄 말줄임표시 셋팅하기 */
+  .photo-news td:nth-child(2) a{
+    /* 말줄임 처리(2줄) 
+    웹페이지 모바일버전에서 2줄인 기사 찾으면 요런식으로 css되어있음*/
+    /* 1.넘치는 컨텐츠 숨기기 */
+    overflow: hidden;
+    /* 2.넘치는 글 말줄임표시 */
+    text-overflow: ellipsis;
+    /* 3. display 변경 */
+    display: -webkit-box;
+    /* 4.말줄임표시 라인설정:숫자가 줄 수 임 */
+    -webkit-line-clamp: 2;
+    /* 5.기준축 진행방향 설정 */
+    -webkit-box-orient:vertical;
+
+
+
+    line-height: 1.5;
+  }
