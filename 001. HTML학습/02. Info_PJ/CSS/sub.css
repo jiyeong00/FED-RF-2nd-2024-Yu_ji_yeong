@@ -379,7 +379,7 @@ h2.sub-title {
 }
 
 /* 뉴스 공통 말줄임표시 넣기 */
-.news-box li{
+.news-box li, .sec-news dd{
   /* 기본적으로 블록박스는 내용이 넘치면 줄바꿈이 되는 랩핑박스이다. 
   줄바꿈 방지하는 속성 - white-space:nowrap;
     (기본값은 normal;)
@@ -424,12 +424,26 @@ h2.sub-title {
   - 맨 앞은 before / 맨 뒤는 after
   - 필수속성 : content
   - 이미지는 content속성값으로 url()사용
-
 */
-.sec-news dl{
-  margin: 0;
-  /* padding: 20px 0; */
+
+/* 주요뉴스 li의 가상클래스를 사용한 선택법 
+[ 같은 종료의 자식요소일 경우 선택법 ]
+  :first-child - 첫번째 자식
+  :last-child - 마지막 자식
+  :nth-child(n) - n번째 자식(n은 1부터)
+    ntj-child(n) <<< n은 1부터 써도 괜찮음(첫번째 자식)
+*/
+.main-news li:first-child a{
+  color: red;
 }
+.main-news li:nth-child(2) a{
+  color: blue;
+}
+.main-news li:last-child a{
+  color: burlywood;
+}
+
+
 .sec-news dt{
   display: inline-block;
   border: 3px dashed #ff306e;
@@ -437,15 +451,36 @@ h2.sub-title {
   font-size: 20px;
   padding: 10px;
   font-family: "Gugi", sans-serif;
-  margin-top: 45px;
+  /* margin-top: 45px; */
 }
-.sec-news dd{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+
 .sec-news dd::before{
   content: '📌';
 }
 
+/* 분야별뉴스 dt의 가상클래스를 사용한 선택법 
+[ 2가지 이상의 종류의 자식요소가 있을 경우 선택법 ]
+  :first-of-type - 같은 타입(요소) 중 첫번째
+  :last-of-type - 같은 타입(요소) 중 마지막
+  :nth-of-type(n) - 같은 타입(요소) 중 n번째(n은 1부터)
+    ntj-of-type(n) <<< n은 1부터 써도 괜찮음(같은 타입(요소) 중 첫번째)
+*/
+
+.sec-news dt:nth-of-type(1){
+  color: red;
+  background-color: lightpink;
+}
+.sec-news dt:nth-of-type(2){
+  color: blue;
+  background-color: lightblue;
+  border-color: #0073ff;
+}
+.sec-news dt:nth-of-type(3){
+  color: brown;
+  background-color: blanchedalmond;
+  border-color: yellow;
+}
+.sec-news dd+dt{
+  margin-top: 22px;
+}
 
