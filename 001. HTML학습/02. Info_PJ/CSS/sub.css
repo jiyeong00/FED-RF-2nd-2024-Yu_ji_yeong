@@ -377,6 +377,20 @@ h2.sub-title {
   color: yellowgreen;
   text-shadow: 1px 1px 1px #000;
 }
+
+/* 뉴스 공통 말줄임표시 넣기 */
+.news-box li{
+  /* 기본적으로 블록박스는 내용이 넘치면 줄바꿈이 되는 랩핑박스이다. 
+  줄바꿈 방지하는 속성 - white-space:nowrap;
+    (기본값은 normal;)
+  */
+  /* 1.줄바꿈방지 */
+  white-space: nowrap;
+  /* 2.넘치는 내용 숨기기 */
+  overflow: hidden;
+  /* 3.넘치는 텍스트 말줄임표 */
+  text-overflow: ellipsis;
+}
 .news-box h3{
   margin: 0;
   /* font-family: "Black And White Picture", system-ui; */
@@ -388,13 +402,9 @@ h2.sub-title {
   padding: 10px;
 }
 
-.main-news ul{
+.news-box ul,ol{
   /* 기본 리스트 숨기기 */
   list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.main-news ol{
   margin: 0;
   padding: 0;
 }
@@ -416,5 +426,26 @@ h2.sub-title {
   - 이미지는 content속성값으로 url()사용
 
 */
+.sec-news dl{
+  margin: 0;
+  /* padding: 20px 0; */
+}
+.sec-news dt{
+  display: inline-block;
+  border: 3px dashed #ff306e;
+  border-radius: 50%;
+  font-size: 20px;
+  padding: 10px;
+  font-family: "Gugi", sans-serif;
+  margin-top: 45px;
+}
+.sec-news dd{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sec-news dd::before{
+  content: '📌';
+}
 
 
