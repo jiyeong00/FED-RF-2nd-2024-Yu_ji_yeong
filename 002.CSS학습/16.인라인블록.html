@@ -13,10 +13,19 @@
                 /* 3無 */
 
                 outline: 10px dotted blue;
+                
             }
 
+            /* float :left를 사용한 경우 가상요소로 클리어 설정하기 */
+            .menu::after{
+                content: '';
+                display: block;
+                clear: both;
+            }
             .menu li {
                 display: inline-block;
+                /* float: left; <<<이렇게해야지 간극이 사라짐 */
+                 
                 width: 200px;
                 height: 150px;
                 font-size: 40px;
@@ -31,6 +40,7 @@
                 -> 보통 1번을 많이 쓰는데 왜일까?
                 답: 엔터간극때문!
                 (엄밀한 디자인, 가독성코드 때문)
+
                 -> 엔터사이에 주석을 넣으면
                 엔터가 없는 것으로 인식하지만
                 너무 불편하다~~~~!
