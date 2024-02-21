@@ -144,6 +144,53 @@
             vertical-align: top;
         }
 
+        /* 앱솔루트끼지는 서로 겹친다. */
+        .absimg{
+            /* 자식이 앱솔루트면 스스로 박스크기를 지정해야한다. */
+            width: 92px;
+            height: 115px;
+            border: 10px ridge goldenrod;
+            margin: 100px auto;
+            border-radius: 50%;
+            /* 사격형 이미지가 바깥으로 나가 보이는것 숨기기위해 hidden설정 주었으나 효과 없음
+                -> 숨기기는 원래 앱솔루트의 부모자격이 있는 요소에서만 가능 */
+            overflow: hidden;
+            /* 이미지가 젠틀하나 히든적용을 위해 포지션을 준다 */
+            position: relative;
+
+
+        }
+        /* 이미지 앱솔루트 */
+        .absimg img{
+            position: absolute;
+        }
+
+        /* 두번째 이미지 투명하게 만들기 */
+        .absimg img:last-child{
+            /* filter: opacity(); << 옛날방식투명도 */
+
+            opacity: 0;
+            /* [opacity속성 - 투명도] 
+                - 실제로 요소가 위치하고 있지만 화면에 투명하게 보이게하는 속성
+                - 값 : 0 < 완전투명
+                       1 < 불투명
+                     0.n < 중간 투명도
+            */   
+
+            /* 트랜지션: 두 상태간 애니메이션 효과속성 
+                transition : 속성 시간 이징 지연시간
+                간단하게 "시간"만 쓰면 모든 변화가 애니메이션 된다.
+                ->시간은 초단위(s)
+            */
+            transition: 1s;
+            
+        }
+
+        /* 박스에 마우스 오버시 두번째 이미지 나오기 */
+        .absimg:hover img:last-child{
+            opacity: 1;
+        }
+
 
     </style>
 </head>
@@ -166,7 +213,7 @@
         <img src="./images/ab3.jpg" alt="토르">
         <img src="./images/ab4.jpg" alt="닥스">
     </div>
-    
+
     <!-- 부모를 찾는 앱솔루트 -->
     <div class="bx2 s5">s5
         <div class="bx2 s6">s6
