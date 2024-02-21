@@ -592,4 +592,23 @@ h2.sub-title {
 .recom-box span{
   color: #39ab4e;
 }
+.reporter span{
+  font-size: 14px;
+  color: #c5c5c5;
+}
+.reporter ul{
+  padding-left: 20px;
+}
+.reporter ul,li{
+  list-style-type: circle;
+  margin: 0;
+  font-size: 15px;
+}
+.reporter a{
+  text-decoration: none;
+  color: #000;
+}
+.reporter a:hover{
+  color: #39ab4e;
+}
 
