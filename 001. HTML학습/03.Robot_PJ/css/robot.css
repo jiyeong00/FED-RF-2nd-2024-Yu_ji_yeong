@@ -11,3 +11,116 @@
     font-family: 'Chakra Petch', sans-serif;
     font-family: 'Orbitron', sans-serif;
 */
+
+        /* 가지고있는 폰트
+          font-family: "Black And White Picture", system-ui;
+          font-family: "Black Han Sans", sans-serif;
+          font-family: "Noto Sans KR", sans-serif;
+          font-family: "Gugi", sans-serif;
+        */
+
+/* 초기화 */
+html,body,h1,h2,h3,ul,ol{
+    margin: 0;
+    padding: 0;
+}
+/* 배경이미지 */
+body{
+    background: url(../images/bg.jpg) no-repeat fixed top/cover;
+}
+/* 공사중 표시 */
+body *{
+    outline: 2px dashed yellow;
+}
+
+/* 공통클래스 */
+
+/********************* 공통클래스 *********************/
+/* 메탈배경 클래스 */
+.metal1{
+    background: url(../images/metal01.jpg) no-repeat center/cover;
+}
+.metal2{
+    background: url(../images/metal02.jpg) no-repeat center/cover;
+}
+
+
+
+/********************* 1. 상단영역 *********************/
+
+
+
+/********************* 2. 메인영역 *********************/
+/* 2-1.로봇박스 */
+.robot-box{
+
+}
+/* 2-1-1.머리 */
+.head{
+    width: 250px;
+    height: 250px;
+    /* 부모자격 - eye의 부모 */
+    position: relative;
+    margin: 0 auto;
+    border-radius: 90px 90px 30px 30px;
+}
+/* 눈 공통 */
+.eye{
+    /* 부모는 .head */
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    /* 배경공통 */
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 4px double #000;
+    top: 50px;
+    
+}
+/* 왼눈 */
+.eye1{
+    left: 50px;
+    background-image: url(../images/e1.jpg);
+}
+.eye2{
+    right: 50px;
+    background-image: url(../images/e2.jpg);
+}
+.nose{
+    position: absolute;
+    width: 50px;
+    height: 70px;
+    top: 101px;
+    left: 101px;
+    background: url(../images/nose.jpg) no-repeat -7px/cover;
+    border-radius: 20px;
+}
+.mouth{
+    position: absolute;
+    width: 120px;
+    height: 50px;
+    top: 176px;
+    left: 66px;
+    background: url(../images/mouth.png) no-repeat center/cover;
+}
+.ear{
+    position: absolute;
+    top: 90px;
+    width: 60px;
+    height: 90px;
+}
+.ear1{
+    left: -60px;
+    border-radius: 20px 0 0 20px;
+}
+.ear2{
+    right: -60px;
+    border-radius: 0 20px 20px 0;
+    
+}
+
+
+
+/********************* 3. 하단영역 *********************/
