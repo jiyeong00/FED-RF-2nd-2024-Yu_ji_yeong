@@ -13,10 +13,10 @@
       /* 
         JS함수 ->function 함수명(){ 코드 }
         */
-      function 멍멍이() {
-        alert('ㅎㅎ');
+      function 멍멍이(먹이) {
+        alert(먹이);
         document.getElementById("ifr").src =
-          "https://www.youtube.com/embed/dW8klYbV5t0?autoplay=1&mute=1&loop=1&playlist=dW8klYbV5t0";
+          "https://www.youtube.com/embed/"+먹이;
       }
     </script>
   </head>
@@ -42,12 +42,13 @@
       <nav class="poster-menu">
         <ul>
           <li>
-            <a href="#" onclick="멍멍이()">
+            <a href="#" onclick="멍멍이('aa0WjdSYdCk')">
               <img src="./images/m1.jpg" alt="스파이더맨-어크로스더유니버스"
             /></a>
           </li>
           <li>
-            <a href="#"> <img src="./images/m2.jpg" alt="서울의 봄" /></a>
+            <a href="#" onclick="멍멍이('-AZ7cnwn2YI')">
+                <img src="./images/m2.jpg" alt="서울의 봄" /></a>
           </li>
           <li>
             <a href="#">
