@@ -1,2 +1,71 @@
 @charset "utf-8";
 /* CGV PJ 메인 페이지 CSS - main.css */
+
+/*********** 1. 웹폰트 : CDN ***********/
+/* Cute Font, Jua, Audiowide 체 */
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Cute+Font&family=Jua&display=swap');
+/* 
+    font-family: 'Audiowide', cursive;
+    font-family: 'Cute Font', cursive;
+    font-family: 'Jua', sans-serif;
+*/
+
+
+/* 초기화 */
+html,body,h1,h2,ul,ol{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #000;
+}
+/********************************* 공사중 *********************************/
+body *{
+    outline:2px dashed yellow;
+}
+
+/* 공통클래스 */
+/* 파트공통 */
+.part{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/********************************* 1.상단영역 *********************************/
+.top-area{
+    height: 80px;
+    background: url(../images/curtain.jpg) repeat-x;
+}
+.tit{
+    font-family: 'Jua', sans-serif;
+    font-size: 40px;
+    color: aquamarine;
+    line-height: 80px;
+    text-align: center;
+}
+/********************************* 2.메인영역 *********************************/
+.main-area{
+    /* 스크린 부모자격줌 */
+    position: relative;
+    height: 788px;
+    background: url(../images/bg.jpg) no-repeat;
+}
+.screen{
+    /* 부모는 .main-area */
+    position: absolute;
+    width: 701px;
+    height: 398px;
+    background-color: #000;
+    top: 135px;
+    left: 256px;
+}
+/* 유튜브 아이프레임 */
+.screen iframe#ifr{
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+/********************************* 3.하단영역 *********************************/
+.footer-area{
+    height: 100px;
+}

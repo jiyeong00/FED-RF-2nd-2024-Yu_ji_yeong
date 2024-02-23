@@ -4,7 +4,7 @@
 https://developers.google.com/youtube/player_parameters?hl=ko
 
     autoplay=1 // 자동플레이
-    loop=1 //반복재생하기(playlist=같은동영상id) 
+    loop=1 //반복재생하기(playlist=같은동영상id (id는 주소끝에 embed뒤에 있는 애)) 
     showinfo=0 //상단 정보바 없애기(2018년 지원중단!)
     controls=0 //하단 컨트롤바 없애기
     cc_load_policy=0 //자막해제
