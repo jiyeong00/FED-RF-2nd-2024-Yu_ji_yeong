@@ -63,30 +63,55 @@
         text-decoration: underline;
       }
 
+      /* 클래스만으로 보더 속성 만들기 */
+      .bd6{
+        border: 10px dotted hotpink !important;
+      }
+      
+      /* 아이디로 보더 속성 만들기 */
+      #bd4{
+          border: 10px dotted darkgreen;
+      }
+      #bd5{
+        border: 1px solid red;
+      }
       /* 보더관련 클래스 */
-      .bd1 {
+      .bx .bd1 {
         border: 10px dotted pink;
       }
-      .bd3 {
-        border: 20px ridge darkorchid;
-      }
-      .bd2 {
-        border: 5px dashed darkcyan;
-      }
+      .bx .bd2 {
+          border: 5px dashed darkcyan;
+        }
+        .bx .bd3 {
+          border: 20px ridge darkorchid;
+        }
+
+        /* 
+        클래스 다중적용 가이드 
+        - 의미 : 클래스는 한 요소에 띄어쓰기로 여러 클래스를 적용할 수 있다.
+
+        1. 디자인 분야별 별도로 작성된 클래스를 조합할때 사용함.
+        2. 클래스를 다중 적용할 때 같은 레벨이라면 나중에 쓴 것이 먼저 쓴 클래스보다 우선한다.
+            (CSS에서 코딩의 순서가 중요함)
+        3. 상위 레벨에 같은 속성이 셋팅되어 있으면 상위레벨 세팅이 하위레벨 세팅에 우선한다. (호가호위)
+        4. 일반적으로 아래와 같은 순서로 적용이 우선한다.
+            type < class < id < inline < !important
+            (주의! !important는 inline CSS보다 우선하므로 JS적용시에도 우선권을 가진다. 따라서 이 키워드는 조심해서 사용해야함.)
+        */
     </style>
   </head>
   <body>
     <h1>클래스 다중적용</h1>
     <ul class="bx">
-      <li class="fcls1">클래스적용1</li>
-      <li class="fcls2">클래스적용2</li>
-      <li class="fcls3">클래스적용3</li>
-      <li class="fcls1">클래스적용4</li>
-      <li class="fcls2">클래스적용5</li>
-      <li class="fcls3">클래스적용6</li>
-      <li class="fcls1">클래스적용7</li>
-      <li class="fcls2">클래스적용8</li>
-      <li class="fcls3">클래스적용9</li>
+      <li class="fcls1 bd1">클래스적용1</li>
+      <li class="fcls2 bd2">클래스적용2</li>
+      <li class="fcls3 bd3">클래스적용3</li>
+      <li class="fcls1 bd1 bd6" id="bd5" style="border: 5px dashed yellow;">클래스적용4</li>
+      <li class="fcls2 bd2" id="bd4">클래스적용5</li>
+      <li class="fcls3 bd3 bd2">클래스적용6</li>
+      <li class="fcls1 bd1">클래스적용7</li>
+      <li class="fcls2 bd2">클래스적용8</li>
+      <li class="fcls3 bd3">클래스적용9</li>
     </ul>
 
     <!--  하단컨텐츠박스 -->
@@ -105,3 +130,12 @@
     </div>
   </body>
 </html>
+<!-- 
+    [우선순위]
+    -1. !important가 가장 큼<<함부로 쓰지 말 것 / 안쓰는게 좋음
+    0. 요소에 바로 쓴 애가 큼 (inline)
+    1. 큼 아이디 > 클래스 > 타입명 작음
+    2. 부모표시가 있는게 더 큼 (.fcls1 보다 .bx .bd1 이게 더 큼)
+    3. 같은 레벨에선 나중에 코딩한게 더 큼
+
+ -->
