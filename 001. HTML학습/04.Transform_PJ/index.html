@@ -211,7 +211,7 @@
             #trans9:hover img {
                 transform: rotate(720deg) scale(3) skewX(50deg) translate(-200%, -100%);
                 /* 트렌지션 시간 늘리기 */
-                transition-duration: 30s;
+                transition-duration: 3s;
             }
 
             /* 
@@ -222,7 +222,39 @@
                 - 적절한 트랜스폼, 트랜지션을 이용한다!
             */
             
+            #trans10{
+                width: 200px;
+                height: 200px;
+            }
+            #trans10 img{
+                position: absolute;
+            }
+            
+            /* 김유정 원본 회전하여 숨기기 */
+            #trans10 img:first-child{
+                transform: rotateY(90deg);
+                transition: .4s ease-in;
+                /* 오버시 바로 0.4s초 애니 이때 처음에만 천천히*/
+            }
+            /* 김유정 오버시 회전하여 보이기*/
+            #trans10:hover img:first-child{
+                transform: rotateY(0deg);
+                transition: .4s .4s ease-out;
+                /* 오버시 0.4s 기다린 후 0.4s초 애니, 나중에만 천천히*/
+            }
 
+            /* 박보검 원본 회전하기 */
+            #trans10 img:last-child{
+                transform: rotateY(0deg);
+                transition: .4s .4s ease-out;
+                /* 오버시 바로 0.4s 애니, 나중에만 천천히 */
+            }
+            /* 박보검 오버시 회전하기 */
+            #trans10:hover img:last-child{
+                transform: rotateY(90deg);
+                transition: .4s ease-in;
+                /* 오버시 바로 0.4s 애니 이때 처음에만 천천히*/
+            }
         </style>
     </head>
     <body>
