@@ -225,14 +225,98 @@
         4번째 li이후 모든 li를 전부 선택하기
         ~(틸드)는 다중형제선택자
         선택요소~요소명 -> 선택요소 뒤에 있는 모든 형제요소를 선택함!
+
+        .part1 li:nth-child(4)~li {
+          font-size: 24px;
+          color: darkgoldenrod;
+        }
+
+
+        [ 시작부터 특정 순번까지만 선택하려면? ]
+        - 필드 뒤에 선택가상클래스를 :nth-child()를 사용하여 마지막 대입순번을 만들어준다.
+        :nth-child(-n+원하는 순번)
+
+        예) :nth-child(-n+20) <<20번부터 거꾸로 올라감 (20, 19,18.....)
+        -> 주의 : -n을 반드시 먼저 써야함
       */
-
-
-      .part1 li:nth-child(4)~li {
+      /* .part1 li:nth-child(4)~li{
+        선택순번이후 끝까지 선택} */
+      .part1 li:nth-child(4)~li:nth-child(-n+9) {
+        /* 5번째부터 9번째까지 선택됨 */
         font-size: 24px;
         color: darkgoldenrod;
       }
-    </style>
+
+      /* 짝수번째 li 그라데이션 넣기 
+      :nth-child(even)
+
+      홀수번째 li 그라데이션 넣기
+      :nth-child(odd)
+      */
+
+      .part1 li:nth-child(even){
+        background-image: linear-gradient(to right,lightskyblue,coral);
+      }
+      
+      .part1 li:nth-child(odd){
+        background-image: linear-gradient(to right,rgb(245, 210, 241),rgb(201, 241, 201));
+      }
+
+      /* 
+      :nth-child(3n+1) 가상요소 아이콘 넣기
+        -> :nth-child(n이 들어간 수식) : n에 0부터 대입된 순번이 계산되어 선택간다. 
+            예) 3n+1 = 1,4,7,10...
+      
+      */
+      .part1 li:nth-child(3n+1)::before{
+        content: '🧧';
+      }
+
+      /* 마지막 li선택 */
+      .part1 li:last-child{
+        font:40px '굴림';
+        font-weight:bold;
+
+        /* 글자그라데이션 */
+        /* 1.배경그라데이션넣기 */
+        background-image: linear-gradient(to right, red,blue);
+        /* 2. 배경 부분보이기 text로 설정 */
+        background-clip: text; /* <<표준화 속성은 접두어가 없는 셋팅을 병행표기함. */
+        /* 3. 글자 채우기 색 'transparent'<<투명 설정 */
+        -webkit-text-fill-color: transparent;
+      }
+      
+
+      /* ***************************************************************
+      
+      여러종료의 요소가 섞여있을 경우
+      of-type 가상클래스를 사용한다.
+      
+      
+      */
+
+    .part2 div:nth-of-type(2){
+        font-size: 30px;
+        color: red;
+        font-weight: bold;
+      }
+    .part2 i:first-of-type{
+        font: 25px '궁서';
+        color: purple;
+        font-weight: bold;
+        font-style: italic;
+      }
+
+      /* i중에 첫번째 이후 모든 요소 선택 */
+      .part2 i:nth-of-type(1)~*{
+        color: orange;
+      }
+      
+      /* 틸드(~) 뒤, *있는 자리에 특정 요소를 쓰면 이후에 있는 특정요소만 선택된다. */
+      .part2 i:nth-of-type(1)~div{
+        font-size: 30px;
+      }
+      </style>
   </head>
   <body>
     <h1>004.가상클래스</h1>
