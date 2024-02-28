@@ -292,7 +292,7 @@
         //3-1.트랜지션
         멍청이.style.transition = 
         `1s ease-out, 
-        borderRadius 5s ease-in-out 1s`;
+        border-radius .5s ease-in-out 1s`;
 
         //3-2.위치이동
         멍청이.style.top= 'calc(100% - 200px)';
@@ -330,6 +330,19 @@
         padding:0;
         `;
 
+        // 5. .원이야 클래스 on제거하여 회전 애니메이션 없애기
+        // 대상 : .원이야(해당순번)
+        멍청이.classList.remove('on');
+        // 멍청이.classList.add('on'); -> 클래스 넣기
+        // 멍청이.classList.toggle('on'); -> 클래스 넣기 빼기
+
+
+        /* 
+        [ JS의 클래스 제어 객체 : classList ]
+        1. 클래스 넣기 : add(클래스명)
+        2. 클래스 빼기 : remove(클래스명)
+        3. 클래스 넣기/빼기 : toggle(클래스명)
+        */
        }//마음대로 함수
     </script>
     <style>
@@ -407,6 +420,23 @@
         .원이야:nth-child(3){
           background-image: url(./images/03.png);
         }
+
+
+        /* .원이야.on 일 경우 애니 적용 */
+        .원이야.on{
+          /* 애니메이션 키프레임 호출은 animation속성으로  */
+          /* animation: 키프레임이름 시간 가속도 반복횟수; */
+          animation: rotate-ani 5s linear infinite;
+        }
+        /* .원이야 회전 키프레임 
+        애니메이션을 위한 장면연출 구역을 키프레임이라고 함.
+        */
+        @keyframes rotate-ani {
+          to{
+            /* css나중 상태 */
+            transform: rotate(360deg);
+          }  
+        }
     </style>
 </head>
 <body>
@@ -420,9 +450,9 @@
     <!-- 원모양박스 -->
     <div class="박스야">
       <!-- 원모양 -->
-      <div class="원이야" onmouseover="마음대로(0,'별이 빛나는 밤')"></div>
-      <div class="원이야" onmouseover="마음대로(1, '론강의 별이 빛나는 밤')"></div>
-      <div class="원이야" onmouseover="마음대로(2, '밤의 카페 테라스')"></div>
+      <div class="원이야 on" onmouseover="마음대로(0,'별이 빛나는 밤')"></div>
+      <div class="원이야 on" onmouseover="마음대로(1, '론강의 별이 빛나는 밤')"></div>
+      <div class="원이야 on" onmouseover="마음대로(2, '밤의 카페 테라스')"></div>
     </div>
     
     <!-- <div class="pbox"></div>
