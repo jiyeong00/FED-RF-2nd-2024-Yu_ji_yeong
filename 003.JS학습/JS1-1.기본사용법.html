@@ -336,55 +336,70 @@
         */
       } //마음대로 함수
 
-
       /*********************************************** 
       함수명 : 사각사각
       기능 : 전체가 사각형으로 화면을 채우며 애니메이션 됨
       ***********************************************/
-     function 사각사각(){
-      //1.함수호출확인
-      console.log("사각사각하세요~");
+      function 사각사각() {
+        //1.함수호출확인
+        console.log("사각사각하세요~");
 
-      //2.대상선정 : .넌뭐냐
-       var 나야나 = document.querySelector('.넌뭐냐')
-       console.log(나야나);
+        //2.대상선정 : .넌뭐냐
+        var 나야나 = document.querySelector(".넌뭐냐");
+        console.log(나야나);
 
-       //3.변경내용 : top, transition, width, height
-       나야나.style.top ='0';
-       나야나.style.width='100%';
-       나야나.style.borderRadius='0';
-       나야나.style.height='100%';
-       나야나.style.transition='3s 1s, top 1s 0s';
-       /* top값부터 1초간 작동한다. */
-       나야나.style.zIndex=2;
+        //3.변경내용 : top, transition, width, height
+        나야나.style.top = "0";
+        나야나.style.width = "100%";
+        나야나.style.borderRadius = "0";
+        나야나.style.height = "100%";
+        나야나.style.transition = "3s 1s, top 1s 0s";
+        /* top값부터 1초간 작동한다. */
+        나야나.style.zIndex = 2;
 
-      //4. 추가변경 : 글자넣기
-      //innerText = 글자내용 -> 태그없는 글자 데이터넣기
-       나야나.innerText = "JS입문을 환영합니다.";
+        //4. 추가변경 : 글자넣기
+        //innerText = 글자내용 -> 태그없는 글자 데이터넣기
+        나야나.innerText = "JS입문을 환영합니다.";
 
-      //  5. 글자관련 CSS넣기
-      나야나.style.fontSize = "70px";
-      나야나.style.color = "aqua";
-      나야나.style.fontWeight = "bold";
-      나야나.style.textShadow = "5px 5px 3px #000";
-      나야나.style.lineHeight = window.innerHeight +'px';
-      // window.innerHeight -> 현재 화면의 높이값을 리턴(윈도우 내부높이)
+        //  5. 글자관련 CSS넣기
+        나야나.style.fontSize = "70px";
+        나야나.style.color = "aqua";
+        나야나.style.fontWeight = "bold";
+        나야나.style.textShadow = "5px 5px 3px #000";
+        나야나.style.lineHeight = window.innerHeight + "px";
+        // window.innerHeight -> 현재 화면의 높이값을 리턴(윈도우 내부높이)
 
-      // 화면높이값
-      console.log('화면높이값:',window.innerHeight);
+        // 화면높이값
+        console.log("화면높이값:", window.innerHeight);
+      } //사각사각 함수
 
-     } //사각사각 함수
+      function 우영우() {
+        //1.함수호출확인
+        console.log("우영우 나오나");
 
-     function 우영우(){
+        //2.대상선정 : .넌뭐냐
+        var 인사 = document.querySelector(".pbox");
+        console.log(인사);
 
-     }//우영우 함수
+        //4. 추가변경 : 글자넣기
+        //innerText = 글자내용 -> 태그없는 글자 데이터넣기
+        인사.innerHTML = "<h4>우 to the 영 to the 우 <br> 동 to the 그 to the 라미</h4>";
+        인사.style.background="url(./images/oyo.jpg) no-repeat center/cover";
+
+        //  5. 글자관련 CSS넣기
+        // 인사.style.fontSize = "50px";
+        // 인사.style.color = "aqua";
+        // 인사.style.fontWeight = "bold";
+        // 인사.style.textShadow = "5px 5px 3px #000";
+        // 인사.style.lineHeight ="780px";
+        // window.innerHeight -> 현재 화면의 높이값을 리턴(윈도우 내부높이)
+
+      } //우영우 함수
     </script>
-    
-    
-    
+
     <style>
       html,
-      body {
+      body,h4 {
         margin: 0;
         padding: 0;
         height: 100%;
@@ -420,10 +435,9 @@
         /* 사용자 텍스트 영역 선택방지 */
         user-select: none;
 
-        /* background: url(./images/kimbs.jpg) no-repeat center/cover; */
       }
       p.pbox {
-        z-index: 1;
+        /* z-index: 1; */
       }
 
       /* 원모양 */
@@ -491,7 +505,12 @@
   </head>
   <body>
     <!-- 드라마소개박스 -->
-    <p class="pbox" onclick="김비서()">
+    <p
+      class="pbox"
+      onclick="김비서()"
+      ondblclick="우영우()"
+      title="더블클릭하세요"
+    >
       나는 요즘 매일 생각한다. <br />
       도대체 <span id="name"> </span>
     </p>
