@@ -53,13 +53,37 @@
              */
         /* h2요소 맨앞에 이미지 넣기 */
        h2::before{
-            
+            content: url(./imgs/blogo.png);
+            /* 이미지는 원본을 그대로 사용할 경우 url로 호출하여 사용 < 가로,세로 크기 변경 불가 */
+            margin-right: 20px;
+
+            /* 인라인요소 세로정렬 */
+            vertical-align: -10px;
        }
         
 
         /* 맨뒤 추가요소 ::after */
         h2::after{
+            /* 이미지 크기 조절하려면 박스를 만들고 배경이미지로 넣는다. */
+            content: '';
+            /* 디자인 적용하기 위해 인라인 블로 */
+            display: inline-block;
+            width: 40px;
+            height: 60px;
+
+            border: 2px solid gray;
+            border-radius: 5px;
+
+            background: url(./imgs/bg_logo_a_01.png) no-repeat center/80%;
             
+            /* 박스그림자 여러개주기
+            x y blur spread 색...을 콤마로 연결하면 여러개 사용 가능 */
+            box-shadow: 0 0 10px purple, 10px 10px 5px 2px rgba(255, 0, 89, 0.312);
+            
+            /* 간격, 위치 조정 */
+            vertical-align: middle;
+            margin-left: 20px;
+
         }
         
         
@@ -80,31 +104,79 @@
         }
 
         /* 반복되는 요소의 앞에 아이콘 가상요소로 넣기 */
-        
+        dt::before{
+            content: '📢';
+            font-size: 30px;
+            vertical-align: -2px;
+        }
+        /* dt아이콘 변경 */
+        dt:nth-of-type(2)::before{
+            content: '🎭';
+        }
+        dt:nth-of-type(3)::before{
+            content: '🎹';
+        }
+        dt:nth-of-type(4)::before{
+            content: '🎥';
+        }
 
         /* dd전체 before적용하기 */
-               
+        dd::before{
+            content: '🎉';
+            font-size: 15px;
+            vertical-align: 3px;
+            margin-right: 15px;
+        }   
 
-
-        /* 출연배우의 dd부터 아이콘변경 */
-       
-        
-        /* 아티스트의 dd부터 아이콘변경 */
-        
+        /* 여자인 경우 이모지 변경 */
+        dd:nth-of-type(3)::before,
+        dd:nth-of-type(4)::before,
+        dd:nth-of-type(8)::before,
+        dd:nth-of-type(9)::before,
+        dd:nth-of-type(11)::before,
+        dd:nth-of-type(12)::before
+        {
+            content: '✨';
+            font-size: 15px;
+            vertical-align: 3px;
+        }       
+        dd:nth-of-type(13)::before
+        {
+            content: '🎊';
+            font-size: 15px;
+            vertical-align: 3px;
+        }       
+   
 
         /* 스토리의 dd는 가상요소 없애기 */
-        
+        dd:nth-of-type(14)::before{
+            display: none;
+        }
         
         /* 스토리의 dd 아래 h3 이모지넣기 */
-        
+        dd.story h3::before{
+            content: '🎞';
+            margin-right: 10px;
+        }
         
         
 
         /* .story의 첫번째 p태그의 첫번째 글자 디자인 변경하기 */
-        
+        .story p:nth-of-type(1)::first-letter{
+            font-weight: bold;
+            font-size: 50px;
+            color: hotpink;
+
+        }
         
         
         /* .story의 첫번째 p태그의 첫번째줄 디자인 변경하기 */
+        .story p:nth-of-type(1)::first-line{
+            font-size: 22px;
+            color: blue;
+            font-family: '궁서';
+
+        }
         
         
 
@@ -112,7 +184,16 @@
 
         /* 두번째 p태그는 태그로 
         첫번째 글자(b태그), 첫번째 줄(span)변경 */
-        
+        .story p:nth-of-type(2) b{
+            font-size: 50px;
+            color: hotpink;
+
+        }
+        .story p:nth-of-type(2) span{
+            font-size: 22px;
+            color: blue;
+            font-family: '궁서';
+        }
         
 
         
