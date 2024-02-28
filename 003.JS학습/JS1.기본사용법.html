@@ -265,9 +265,27 @@
         함수명 : 마음대로
         기능 : 선택요소의 style과 html를 변경함
         *************************************************************/
-       function 마음대로(){
+       function 마음대로(헐,헉스){
+        // 헐 - .원이야 순번, 헉스 - 그림제목
         //1.함수호출 확인
-        console.log("네맘대로하세요");
+        console.log("네맘대로하세요",헐,헉스);
+
+        // 2. 대상선정 : .박스야 .원이야
+        var 멍청이 = document.querySelectorAll('.박스야 .원이야');
+        //주의!!!! 따옴표 안은 CSS선택자 문법을 써야함
+        
+       /* 기존 선택 방법이 너무 길어서 간단한 CSS 선택자 선택법이 있음
+        1. queryselector(CSS선택자) - 하나만 바로 선택(컬렉션에 안담음)
+        2. queryselectorAll(CSS선택자) - 여러개 선택 (컬렉션에 담음)
+          -> .item(순번), [순번]으로 세부선택
+          -> length로 컬렉션 길이도 알 수 있음.
+       */
+
+        // document.getElementsByClassName("박스야").item(0)
+        // .getElementsByClassName('원이야');
+        
+        
+        console.log(멍청이);
 
        }//마음대로 함수
     </script>
@@ -359,9 +377,9 @@
     <!-- 원모양박스 -->
     <div class="박스야">
       <!-- 원모양 -->
-      <div class="원이야" onmouseover="마음대로()"></div>
-      <div class="원이야" onmouseover="마음대로()"></div>
-      <div class="원이야" onmouseover="마음대로()"></div>
+      <div class="원이야" onmouseover="마음대로(0,'별이 빛나는 밤')"></div>
+      <div class="원이야" onmouseover="마음대로(1, '론강의 별이 빛나는 밤')"></div>
+      <div class="원이야" onmouseover="마음대로(2, '밤의 카페 테라스')"></div>
     </div>
     
     <!-- <div class="pbox"></div>
