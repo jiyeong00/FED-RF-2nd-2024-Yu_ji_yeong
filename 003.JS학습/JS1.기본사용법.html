@@ -275,17 +275,60 @@
         //주의!!!! 따옴표 안은 CSS선택자 문법을 써야함
         
        /* 기존 선택 방법이 너무 길어서 간단한 CSS 선택자 선택법이 있음
-        1. queryselector(CSS선택자) - 하나만 바로 선택(컬렉션에 안담음)
-        2. queryselectorAll(CSS선택자) - 여러개 선택 (컬렉션에 담음)
-          -> .item(순번), [순번]으로 세부선택
-          -> length로 컬렉션 길이도 알 수 있음.
+         1) queryselector(CSS선택자) - 하나만 바로 선택(컬렉션에 안담음)
+         2) queryselectorAll(CSS선택자) - 여러개 선택 (컬렉션에 담음)
+            -> .item(순번), [순번]으로 세부선택
+            -> length로 컬렉션 길이도 알 수 있음.
        */
 
         // document.getElementsByClassName("박스야").item(0)
         // .getElementsByClassName('원이야');
-        
-        
-        console.log(멍청이);
+        console.log(멍청이, 멍청이.length);
+
+        //한번에 3개가 컬렉션에 있으므로 구체적은 순번으로 선택한다.
+        멍청이=멍청이.item(헐);
+
+        //3.변경내용 : 트랜지션으로 화면 왼쪽하단으로 나열되도록 위치와 모양을 변경하고 작품명이 하단에 나오도록 함
+        //3-1.트랜지션
+        멍청이.style.transition = 
+        `1s ease-out, 
+        borderRadius 5s ease-in-out 1s`;
+
+        //3-2.위치이동
+        멍청이.style.top= 'calc(100% - 200px)';
+        멍청이.style.right= 'calc(100% - 200px - '+헐+'*200px)';
+
+        /* 
+        [ 문자 데이터와 변수 합치기 ]
+        따옴표를 내부에 2개 넣고 +를 2개 넣고 사이에 변수를 넣으면 중간 변수 삽입됨
+        예) 'calc(100% - 200px - '+헐+'*200px)';
+
+        만약 앞/뒤에 변수를 합칠때는 더하기 기호만 사용하며 된다.
+        */
+
+        //3-3. 원형을 사각형으로 변경
+        멍청이.style.borderRadius='0';
+        //3-4. 액자 보더넣기
+        멍청이.style.border='10px ridge goldenrod';
+
+        //4-1. HTML넣기 - 그림제목
+        멍청이.innerHTML='<h4>고흐<br>'+헉스+'</h4>';
+        console.log('<h4>고흐<br>'+헉스+'</h4>');
+
+        // 4-2. 넣은 h4요소에 CSS한번에 넣기
+        // 한번에 CSS를 세팅하는 방법 : style.cssText 속성
+        // 주의 : 상단에서 세팅된 style.속성명이 있다면 한번에 세팅된 css로 모두 덮어써진다.
+        // 백틱(`)을 사용하여 엔터를 허용한 문자표시법 사용
+        멍청이.querySelector('h4').style.cssText=
+        `position:absolute;
+        bottom:10px;
+        width:100%;
+        color:white;
+        font-size:14px;
+        text-align:center;
+        margin:0;
+        padding:0;
+        `;
 
        }//마음대로 함수
     </script>
