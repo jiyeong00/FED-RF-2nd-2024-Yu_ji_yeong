@@ -491,7 +491,15 @@
   </head>
   <body>
     <!-- 드라마소개박스 -->
-    <p class="pbox" onclick="김비서()">
+    <!-- this키워드 : 현재 요소 자신
+    document.querySelector('.pbox')[0] 라고 안해도 요소 자신을 설정해준다. -->
+    <p class="pbox" onclick="김비서()"
+    ondblclick="
+    this.style.backgroundImage='url(./images/oyo.jpg)';
+
+    this.innerHTML='우 to the 영 to the 우<br>동 to the 그 to the 라미';
+    "
+    title="더블클릭하세요">
       나는 요즘 매일 생각한다. <br />
       도대체 <span id="name"> </span>
     </p>
