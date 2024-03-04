@@ -78,11 +78,107 @@
 
 /* 1. 로고애니 */
 .logo{
-    animation: logo-ani 2s ease-in-out 1s alternate forwards;
+    /* 처음출발 크기지정 */
+    transform: scale(2);
+
+    animation: logo-ani 3s linear 1s forwards,
+    swing-ani .8s ease-in-out 4s infinite alternate;
+    /* animation: logo-ani(이름) 5s(시간) linear(이징) 1s(지연시간) 3(반복- infinite(무한)) alternate(방향) forwards(마지막상태); */
+    z-index: 2;
 }
 @keyframes logo-ani {
-    to{
-        top: 3vw;
-        left: 3vw;
+    /* 정가운데..? */
+    0%{
+        top: calc(50% - 10vw);
+        left: calc(50% - 10vw);
+        transform: scale(2);
+        
     }
+    /* 처음위치 - 왼쪽위 */
+    20%{
+        top: calc(0% + 5vw);
+        left: calc(0% + 5vw);
+        transform: scale(.5);
+    }
+    /* 두번째위치 - 오른쪽위 */
+    40%{
+        top: calc(0% + 5vw);
+        left: calc(100% - 25vw);
+        transform: scale(.5);
+    }
+    /* 세번째위치 - 오른쪽아래 */
+    60%{
+        top: calc(100% - 25vw);
+        left: calc(100% - 25vw);
+        transform: scale(.5);
+    }
+    /* 네번째위치 - 왼쪽아래 */
+    80%{
+        top: calc(100% - 25vw);
+        left: calc(0% + 5vw);
+        transform: scale(.5);
+    }
+    90%{
+        top: calc(0% + 5vw);
+        left: calc(0% + 5vw);
+        transform: scale(1);
+    }
+    /* 각도 돌리기 */
+    100%{
+        top: calc(0% + 5vw);
+        left: calc(0% + 5vw);
+        transform: scale(1) rotate(30deg);
+    }
+}
+
+/* 제자리 스윙 애니 */
+@keyframes swing-ani {
+    from{
+        transform: scale(1) rotate(30deg);
+    }
+    to{
+        transform: scale(1) rotate(-30deg);
+    }
+    
+}
+
+.robot-box{
+    /* 4초후 4초간 한번만 끝상태 유지 */
+    animation: move-ani 4s ease-in-out 4s forwards;
+}
+
+@keyframes move-ani {
+    to{
+        transform: translate(-50%,0%) scale(.7);
+    }
+    
+}
+
+.leg1{
+    transform: translateY(0%);
+    animation: leg1-ani .5s linear 4s 9 alternate forwards;
+}
+.leg2{
+    transform: translateY(0%);
+    animation: leg2-ani .5s linear 4s 8 alternate backwards;
+}
+
+/* 로봇다리작동 애니 */
+@keyframes leg1-ani {
+    from{
+        transform: translateY(-40%);
+    }
+    to{
+        transform: translateY(0%);
+    }
+    
+}
+@keyframes leg2-ani {
+    from{
+        transform: translateY(0%);
+    }
+    to{
+        transform: translateY(-40%);
+    }
+    
 }
