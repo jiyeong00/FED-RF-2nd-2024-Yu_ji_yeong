@@ -46,3 +46,10 @@ ul::after, ol::after,.clb{
     margin: 0 auto;
     outline: 2px dashed lime;
 }
+
+/* gnb메뉴 */
+.gnb li{
+    float: left;
+    line-height: 78px;
+    padding: 0px 32px;
+}
