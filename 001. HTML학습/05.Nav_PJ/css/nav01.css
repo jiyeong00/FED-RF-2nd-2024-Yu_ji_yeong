@@ -153,16 +153,10 @@ ul::after, ol::after, .clb{
 }
 /* 하위 메뉴 a요소 opacity 조정 */
 .gnb ul>li .smenu a:hover{
-    font-weight: bold;
     opacity: 1;
+    font-weight: bold;
 }
 
-/* 하위 메뉴 오버시
-.gnb ul>li .smenu li:hover{
-    opacity: 1;
-    font-weight: bold;
-    transition: 0s !important;
-} */
 
 /* 오버시 li순서별 트랜지션 dealy주기 */
 .gnb ul>li:hover .smenu li:nth-child(2){
