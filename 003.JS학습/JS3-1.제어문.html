@@ -58,18 +58,16 @@
         }else if(60<=score){
             msg="노력요함";
             fcolor="orange";
-        }else if(60>score){
+        }else{
             msg="재시험";
             fcolor="red";
-        }else{
-            msg="다시 입력해주세요.";
         }
 
 
 
         // 6.화면출력
         //innnerText는 텍스트 출력
-        jexp.innerText=msg;
+        jexp.innerText="평가결과는 "+msg;
         // 글자색 처리하기
         jexp.style.color=fcolor;
 
