@@ -225,7 +225,7 @@
 
       /* 타이틀 4 */
       /* 오른쪽을 기준한 박스 */
-      .t4{
+      .t4 {
         left: 10px;
         transform: none;
         width: 150px;
@@ -251,14 +251,13 @@
       }
 
       /* 수직방향일때 3번째 li부터 끝으로 보내기 */
-      .t4 li:nth-child(3){
+      .t4 li:nth-child(3) {
         margin-top: auto;
         /* 위쪽마진 auto면 끝으로 감 */
       }
 
-
       /* 타이틀 5 */
-      .t5{
+      .t5 {
         top: 10px;
         width: 150px;
         height: 80px;
@@ -269,7 +268,7 @@
       }
       /* 자식플렉스박스의 flex-shrink:1이 기본값임 -> 줄어들래? 응(1)
       이것을 수정해야 강제로 줄어든 박스의 크기를 유지해야할 경우 변경해야한다. */
-      .t5 li{
+      .t5 li {
         flex-shrink: 0;
         /* 
         [flex-shrink 속성 ]
@@ -280,7 +279,7 @@
       }
 
       /* 타이틀 6 */
-      .t6{
+      .t6 {
         top: 520px;
         height: 250px;
 
@@ -288,8 +287,72 @@
         /* 플랙스 랩핑박스
         - 내용이 넘치면 줄바꿈함 */
         flex-wrap: wrap;
+        justify-content: center;
+
+        /* 진행방향수직정렬 여러줄:align-content속성 */
+        align-content: space-evenly;
+        /* 
+        [ align-content 속성 ]
+
+        - 진행방향의 수직으로 정렬
+        - 진행방향의 수직으로 여러줄이므로 content!
+
+        1) flex-start : 처음위치(기본값)
+        2) flex-end : 끝위치
+        3) center : 중앙
+        4) space-between : 
+            아이템요소 양쪽끝에 붙고 사이간격 일정
+        5) space-around : 
+            아이템요소 양쪽간격 일정
+        6) space-evenly : 
+            아이템요소 양쪽과 사이간격 일정
+        7) stretch :
+            높이값이 auto인 경우 등분할 늘려주기!
+    */
+      }
+      /* 마진으로 한줄에 오는 글자를 조정한다. */
+      .t6 li {
+        margin: 0 15px;
       }
 
+      /* 타이틀 7 - 마진없이 플렉스 랩핑박스 줄바꿈하기 */
+      .t7{
+        top: 0;
+        /* 기존 left값 해제 */
+        left: auto;
+        right: 10px;
+        width: 400px;
+        height: 250px;
+
+        transform: none;
+
+        display: flex;
+        flex-wrap: wrap;
+
+        /* 진행방향 */
+        /* 균등정렬 */
+        justify-content: space-evenly;
+        /* 중앙정렬 */
+        align-content: center;
+      }
+
+      /* 줄바꿈 클래스 세팅 */
+      .t7 li.brk{
+        /* width: 100%; */
+        flex-basis: 100%;
+        /* flex-basis는 width와 동일하지만 flex에서만 사용가능한 가로크기 속성 */
+        
+        
+        /* 기존디자인 변경 */
+        height: 0;
+        border: none;
+
+        /* 사이간격조정 */
+        /* margin-top: 40px; */
+
+
+
+      }
     </style>
   </head>
   <body>
@@ -343,32 +406,49 @@
 
     <!-- 타이틀박스 5 -->
     <ol class="tit t5">
-        <li>W</li>
-        <li>O</li>
-        <li>R</li>
-        <li>L</li>
-        <li>D</li>
+      <li>W</li>
+      <li>O</li>
+      <li>R</li>
+      <li>L</li>
+      <li>D</li>
     </ol>
 
     <!-- 타이틀박스 6 -->
-    <ol class="tit t6">                
-        <li>L</li>
-        <li>O</li>
-        <li>T</li>
-        <li>T</li>
-        <li>E</li>
+    <ol class="tit t6">
+      <li>L</li>
+      <li>O</li>
+      <li>T</li>
+      <li>T</li>
+      <li>E</li>
 
-        <li>W</li>
-        <li>O</li>
-        <li>R</li>
-        <li>L</li>
-        <li>D</li>
-        
-        <li>L</li>
-        <li>O</li>
-        <li>T</li>
-        <li>T</li>
-        <li>E</li>
+      <li>W</li>
+      <li>O</li>
+      <li>R</li>
+      <li>L</li>
+      <li>D</li>
+
+      <li>L</li>
+      <li>O</li>
+      <li>T</li>
+      <li>T</li>
+      <li>E</li>
+    </ol>
+
+    <!-- 타이틀박스 7 -->
+    <ol class="tit t7">
+      <li>L</li>
+      <li>O</li>
+      <li>T</li>
+      <li>T</li>
+      <li>E</li>
+
+      <li class="brk"></li>
+
+      <li>W</li>
+      <li>O</li>
+      <li>R</li>
+      <li>L</li>
+      <li>D</li>
     </ol>
   </body>
 </html>
