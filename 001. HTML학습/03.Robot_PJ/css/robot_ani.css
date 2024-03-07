@@ -284,7 +284,7 @@
 /* 말풍선 나타나기 애니 */
 .link-title{
     animation: 
-    link-title-ani .5s ease-in-out 9.8s forwards;
+    link-title-ani .6s ease-in 10s forwards;
 }
 @keyframes link-title-ani {
     to{

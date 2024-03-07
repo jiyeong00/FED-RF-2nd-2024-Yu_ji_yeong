@@ -33,6 +33,7 @@ ol {
 /* html 루트설정 */
 html {
   font-size: 10px;
+  scroll-behavior: smooth;
 }
 /* 배경이미지 */
 body {
@@ -76,6 +77,45 @@ body * {
   text-shadow: 0 0 10px #2a66e9;
   
 }
+
+/* 탑 버튼 */
+.btn-top{
+  position: fixed;
+  bottom: 3vw;
+  right: 3vw;
+  
+  width: 8vw;
+  height: 8vw;
+  
+  border-radius: 50%;
+  border: 5px outset #fff;
+  font-family: 'Black Ops One', cursive;
+  background-color: #ccc;
+
+  z-index: 1;
+}
+
+/* a요소 확장 */
+.btn-top a{
+  display: block;
+  width: 100%;
+  height: 100%;
+  
+  color: blue;
+  text-decoration: none;
+  /* font: 스두크/줄체; */
+  font: 2.5vw/8vw 'Black Ops One';
+}
+/* 오버시 */
+.btn-top:hover{
+  background-color: yellow;
+  /* outset 나온 버튼, inset 들어간 버튼 */
+  border-style: inset;
+}
+.btn-top:hover a{
+  color: red;
+}
+
 /********************* 2. 메인영역 *********************/
 /* 2-1.로봇박스 */
 .robot-box {
@@ -99,9 +139,11 @@ body * {
   transform-origin: left bottom;
   width: 40vw;
   height: 20vw;
+  border-radius: 50%;
 
   
 
+  background-color: #ffffff;
   text-decoration: none;
   color: orangered;
   font-size: 5vw;
@@ -114,7 +156,6 @@ body * {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: #fff;
   text-align: center;
   line-height: 20vw;
   border: 10px dashed orangered;
@@ -138,6 +179,44 @@ body * {
   border-left: 1.5vw solid transparent;
   border-right: 1.5vw solid transparent;
 }
+
+/* 로봇말풍선 오버시 */
+.link-title:hover{
+  color: white;
+  background-image:radial-gradient(circle,red,yellow,orange 20%);
+}
+
+/* 
+    [ 원형 그라데이션 ]
+
+    - 기본형, 영역지정형은 박스모양을 따라감!
+
+    1) 기본형: 중앙중심, 모양은 박스크기에 맞춤
+    background-image: 
+        radial-gradient(색1,색2,색3,...);
+    - 시작색으로부터 중앙에서 시작됨
+
+    2) 영역 지정형:
+    background-image: 
+        radial-gradient(색1 몇%,색2 몇%,색3 몇%,...);
+    - 색 뒤에 한칸 띄고 %수치로 영역지정함
+
+    3) 그라데이션 모양을 원형으로 사용할 경우:
+    background-image: 
+        radial-gradient(circle,색1,색2,색3,...);
+    - circle 키워드를 첫번째에 사용함
+
+    4) 영역옵션 지정형: 중심점 변경
+    background-image: 
+        radial-gradient(옵션 at 가로위치 세로위치,색1,색2,색3,...);
+    - 옵션4가지 : closest-side / farthest-side
+                closest-corner / farthest-corner
+                ___________________________________
+                - closest는 중심점으로 좀더 모아진것
+                - farthest는 중심점에서 멀리 퍼진것
+                - side와 corner는 경계선과 끝부분옵션임
+    - 가로위치, 세로위치 (중심점) - 단위는 px / %
+*/
 
 /* 2-1-1.머리 */
 .head {
