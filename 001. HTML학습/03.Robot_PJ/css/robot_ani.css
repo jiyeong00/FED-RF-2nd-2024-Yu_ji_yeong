@@ -154,24 +154,24 @@
     
 }
 
-.leg1{
+
+/* 로봇다리작동 애니 */
+/* 내가한거 */
+/* .leg1{
     transform: translateY(0%);
-    animation: leg1-ani .5s linear 4s 9 alternate forwards;
+    animation: leg1-ani .5s ease-in-out 4s 9 alternate forwards;
 }
 .leg2{
     transform: translateY(0%);
-    animation: leg2-ani .5s linear 4s 8 alternate backwards;
+    animation: leg2-ani .5s ease-in-out 4s 8 alternate backwards;
 }
-
-/* 로봇다리작동 애니 */
 @keyframes leg1-ani {
     from{
         transform: translateY(-40%);
     }
     to{
         transform: translateY(0%);
-    }
-    
+    }    
 }
 @keyframes leg2-ani {
     from{
@@ -180,5 +180,116 @@
     to{
         transform: translateY(-40%);
     }
+} */
+
+/* 강사님이 하신 것 */
+.leg{
+    animation: leg-ani .3s linear 4s 12 alternate;
+    /* 0.3초 애니 시간으로 4초 후에 12번 작동(alternate로 6번 작동과 비슷함) */
+}
+
+/* 한쪽다리는 올라간 다음 올라가야하므로 애니 시작지연시간을 준다. */
+.leg2{
+    /* 한방향이 .3초이므로 .3초 + 전체 기다리는시간 4s */
+    animation-delay: 4.3s;
+}
+@keyframes leg-ani {
+    to{
+        top: 76%;
+    }
     
 }
+
+
+/* 양쪽 팔 공통 트랜스폼 세로축 기준 top으로 변경 */
+.arm,.arm span, .arm span::after{
+    transform-origin: top;
+}
+
+/* 로봇 왼팔 허리에 올리기 */
+.arm1{
+    animation: left-arm-ani1 .4s  8s forwards;
+}
+@keyframes left-arm-ani1 {
+    to{
+        transform: rotate(30deg);
+    }
+    
+}
+.arm1 span{
+    animation: left-arm-ani2 .4s  8s forwards;
+}
+@keyframes left-arm-ani2 {
+    to{
+        transform: rotate(-70deg);
+    }
+    
+}
+.arm1 span::after{
+    animation: left-arm-ani3 .4s  8s forwards;
+}
+@keyframes left-arm-ani3 {
+    to{
+        transform: rotate(60deg);
+    }
+    
+}
+
+
+
+/* 오른쪽 팔 */
+.arm2{
+    animation: 
+    /* 팔올리기 */
+    right-arm-ani1 .4s 9s forwards,
+    /* 팔흔들기 : 팔올린다음(지연 9.4s) */
+    right-arm-ani2 .4s ease-in-out 9.4s infinite alternate;
+}
+
+/* 팔 올리기 */
+@keyframes right-arm-ani1 {
+    to{
+        transform: rotate(-150deg);
+    }    
+}
+/* 오른쪽 팔 흔들기 */
+@keyframes right-arm-ani2 {
+    to{
+        transform: rotate(-135deg);
+    }    
+}
+
+/* 오른손 팔꿈치 살짝 움직이기 */
+.arm2 span{
+    animation: 
+    right-arm-ani3 .4s ease-in-out 9.8s infinite alternate;
+}
+@keyframes right-arm-ani3 {
+    to{
+        transform: rotate(-30deg);
+    }
+}
+
+/* 오른손 y축회전 움직이기 */
+.arm2 span::after{
+    animation: right-arm-ani4 .2s 9s forwards;
+}
+@keyframes right-arm-ani4 {
+    to{
+        transform: rotateY(180deg);
+        left: -13px;
+    }
+}
+
+/* 말풍선 나타나기 애니 */
+.link-title{
+    animation: 
+    link-title-ani .5s ease-in-out 9.8s forwards;
+}
+@keyframes link-title-ani {
+    to{
+        transform: translateX(200px) scale(1);
+    }
+}
+
+

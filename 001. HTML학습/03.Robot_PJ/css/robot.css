@@ -82,10 +82,63 @@ body * {
   position: fixed;
   top: 0;
   left: 50%;
-  transform: scale(.3) translate(350%, 43%);
+  transform: translate(164%, 15%) scale(.3);
   /* padding-top: 200px; */
   margin-bottom: 560px;
   }
+
+/* 2-1-0. 로봇 말풍선 */
+.link-title{
+  position: absolute;
+  top: -7vw;
+  left: 50%;
+  /* 로봇머리로 부터 위치 일정하게 */
+  transform: translateX(200px) scale(0);
+  /* 로봇쪽에서 커지게 하기위해
+  트랜스폼 기준 변경(왼쪽아래) */
+  transform-origin: left bottom;
+  width: 40vw;
+  height: 20vw;
+
+  
+
+  text-decoration: none;
+  color: orangered;
+  font-size: 5vw;
+
+
+}
+.link-title span{
+  
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #fff;
+  text-align: center;
+  line-height: 20vw;
+  border: 10px dashed orangered;
+  box-sizing: border-box;
+  z-index: 1;
+}
+/* 가상요소로 삼각형 만들기 */
+.link-title::after{
+  content: '';
+  position: absolute;
+  top: 62.7%;
+  left: -8%;
+  /* 왜%인가? 유동적인 부모를 기준한 위치값이다! */
+  transform: rotate(43deg);
+  /* 가로,세로 크기 0 */
+  width: 0;
+  height: 0;
+  /* 보더탑 크기+색 설정 */
+  border-top: 11vw solid orangered;
+  /* 양쪽보더 크기+투명색 설정 */
+  border-left: 1.5vw solid transparent;
+  border-right: 1.5vw solid transparent;
+}
+
 /* 2-1-1.머리 */
 .head {
   width: 250px;
@@ -214,9 +267,10 @@ body * {
 .arm {
   /* 부모 = body */
   position: absolute;
-  top: 0;
+  top: 20px;
   width: 50px;
   height: 180px;
+  z-index: 1;
 }
 /* 팔 원형관절 가상요소 공통 */
 /* 큰원 */
@@ -307,7 +361,8 @@ body * {
 .leg {
   /* 부모 = body */
   position: absolute;
-  top: 100%;
+  border-radius: 20px 20px 0 0;
+  top: 97%;
   width: 70px;
   height: 200px;
 }
@@ -315,8 +370,8 @@ body * {
 /* 큰사각 */
 .leg::before {
   content: "";
-  position: absolute;
   /* 부모는? .leg */
+  position: absolute;
   top: calc(100% - 50px / 2);
   left: 0;
   width: 70px;
@@ -405,8 +460,9 @@ body * {
 /* 어깨공통 */
 .shdr {
   position: absolute;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
+  z-index: 1;
 }
 /* 왼어깨 */
 .shdr1 {
