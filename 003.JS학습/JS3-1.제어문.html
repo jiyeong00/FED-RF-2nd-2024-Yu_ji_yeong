@@ -307,7 +307,7 @@
         } ///switch
         // break안쓰면 그 아래쪽 break써져있는 case문 결과값으로 나옴
 
-        
+
         console.log("스위치결과 : ", message);
 
         // 6. 메시지만들기
@@ -315,13 +315,14 @@
         if(message == "etc"){
           message="등록되지 않은 지역입니다.";
         }else{
-          message=`${txt}의 지역번호는 ${message}입니다.`;
+          message=`${txt}의 지역번호는 
+          <span style='color:hotpink;font-size:25px'>${message}</span>입니다.`;
           
         }
 
         // 7. 화면 출력 
         // 출력 대상 : h3#info ->info변수
-        info.innerText =  message;
+        info.innerHTML =  message;
         // 선택요소.innerText - 요소의 문자데이터 넣기
         // -> html태그를 넣을 때는 innerHTML 사용
 
