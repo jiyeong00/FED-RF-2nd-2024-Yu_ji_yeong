@@ -23,6 +23,8 @@
         var jumsu = document.querySelector("#jumsu");
         // 2-2.출력요소 : #jxep
         var jexp = document.querySelector(".jexp");
+        // 2-3.칭찬스티커요소: #jshow 
+        var jshow = document.querySelector(".jshow");
 
         // console.log('선택요소들:',jumsu,jexp);
 
@@ -39,6 +41,8 @@
           // 기존값 지우고 포커스 넣기
           jumsu.value = "";
           jumsu.focus();
+          // 칭찬스티커 초기화하기
+          jshow.style.backgroundPosition = "-50% 0%";
         };
         // 4.입력된 값 필터링처리
         // 4-1. 빈값 여부 - 공백제거 후 검사
@@ -83,23 +87,30 @@
         var msg;
         // 글자색 변수
         var fcolor;
+        // 배경위치 변수
+        var bgPos;
 
         //else if없이 if만 쓰면 구간 설정을 해야함 예) 80<=score && score<90
         if (score >= 90) {
           msg = "매우잘함";
           fcolor = "blue";
+          bgPos = "100% 50%"
         } else if (80 <= score) {
           msg = "잘함";
           fcolor = "green";
+          bgPos = "0% 100%"
         } else if (70 <= score) {
           msg = "보통";
           fcolor = "yellow";
+          bgPos = "50% 50%"
         } else if (60 <= score) {
           msg = "노력요함";
           fcolor = "orange";
+          bgPos = "100% 100%"
         } else {
           msg = "재시험";
           fcolor = "red";
+          bgPos = "100% 0%"
         }
 
         // 6.화면출력
@@ -107,6 +118,8 @@
         jexp.innerText = "평가결과는 " + msg;
         // 글자색 처리하기
         jexp.style.color = fcolor;
+        // 칭찬스티커 배경 위치 변경하기
+        jshow.style.backgroundPosition=bgPos;
       } /////////showJumsu함수
 
       // if문 튜닝
@@ -230,6 +243,50 @@
       body {
         text-align: center;
       }
+
+      .jshow{
+        position: absolute;
+        top: 18vw;
+        left: 74vw;
+        /* 부모는? .bx-if */
+        width: 15vw;
+        height: 15vw;
+        outline: 5px dotted lightsalmon;
+        border-radius: 50%;
+        background: url(./images/ifshow.jpg) no-repeat;
+        /* 배경위치 : 처음에 안보임 */
+        background-position: -50% 0%;
+        /* 배경크기 */
+        background-size: 300%;
+
+        /* 트랜지션 : 배경위치만! */
+        transition: background-position 1s;
+      }
+      .jshow::before{
+        position: relative;
+        z-index: -1;
+        /* 글자를 배경보다 아래로 할려면 z-index를 -1주면 됨
+        (z-index에 경우, 포지션 필수임.) */
+        
+        content: "칭찬스티커";
+        line-height: 15vw;
+        font-size: 2vw;
+        color: lightsalmon;
+        font-weight: bold;
+      }
+      .jshow::after{
+        position: absolute;
+        z-index: -1;
+        left: 50%;
+        top: 15%;
+        transform: translateX(-50%);
+        
+        content: "♥";
+        font-size: 2vw;
+        color: lightsalmon;
+        font-weight: bold;
+      }
+
     </style>
   </head>
   <body>
@@ -277,6 +334,9 @@
             https://www.w3schools.com/charsets/ref_html_ascii.asp
         -->
       <button class="sbtn" onclick="showJumsu()">평가하기</button>
+      <!-- 칭찬스티커박스 -->
+      <div class="jshow"></div>
+
     </div>
   </body>
 </html>
