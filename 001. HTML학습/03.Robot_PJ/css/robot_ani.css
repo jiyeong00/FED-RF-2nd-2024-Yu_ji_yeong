@@ -149,7 +149,7 @@
 
 @keyframes move-ani {
     to{
-        transform: translate(-50%,0%) scale(.7);
+        transform: translate(-50%,0%) scale(.6);
     }
     
 }

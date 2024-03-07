@@ -41,9 +41,9 @@ body {
   background: url(../images/bg.jpg) no-repeat fixed top/cover;
 }
 /* 공사중 표시 */
-body * {
+/* body * {
   outline: 2px dashed yellow;
-}
+} */
 
 /* 공통클래스 */
 
@@ -92,7 +92,7 @@ body * {
   font-family: 'Black Ops One', cursive;
   background-color: #ccc;
 
-  z-index: 1;
+  z-index: 2;
 }
 
 /* a요소 확장 */
@@ -125,6 +125,13 @@ body * {
   transform: translate(164%, 15%) scale(.3);
   /* padding-top: 200px; */
   margin-bottom: 560px;
+
+  /* 박스 내에 있는 모든 요소의 외곽에 그림자(글로우) 효과에는 
+  filter : drop-shadow()를 사용함 */
+  
+  /* filter: drop-shadow(x축 y축 블러 색); */
+
+  filter: drop-shadow(0 0 7px orange);
   }
 
 /* 2-1-0. 로봇 말풍선 */
@@ -689,3 +696,21 @@ body * {
 }
 
 /********************* 3. 하단영역 *********************/
+/* 3-1. 회사 정보 */
+#bottom-area{
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  font:3rem 'Black Ops One';
+  text-shadow: 2px 2px 2px #000;
+
+  margin-top: 10px;
+
+  text-align: center;
+  /* 패딩 : 가로,세로 중 작은 화면 기준 7% */
+  /* vmin -> 작은 거 기준 , vmax-> 큰거 기준 */
+  padding: 7vmin;
+
+  /* 반투명 배경넣기 */
+  background-color: #00000051;
+}
