@@ -204,6 +204,7 @@ body{
     max-height .4s .4s;
     box-shadow: 0 0 20px 3px rgb(0, 166, 255);
 }
+
 /* ----------------------------------------------------------------- */
 .ef1,.ef2,.ef3,.ef4,.ef5{
     width: 0px;
@@ -479,8 +480,9 @@ rotate(0deg); ->이동된 요소의 회전
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 2px solid #ccc;
+    border: 2px solid #cccccc3e;
     border-radius: 50%;
+    z-index: -1;
 
 }
 /* 지구경로크기 */
@@ -504,3 +506,6 @@ rotate(0deg); ->이동된 요소의 회전
     width: calc(var(--pluto-trans-size)*2);
     height: calc(var(--pluto-trans-size)*2);
 }
+
+
+
