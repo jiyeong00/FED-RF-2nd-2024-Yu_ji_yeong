@@ -113,6 +113,7 @@ body *{
     overflow: hidden;
 
     border-radius: 50%;
+    box-shadow: 0 0 50px 5px orange;
 }
 #sun img{
     width: 100%;
@@ -132,6 +133,69 @@ body *{
     transform: scale(1.5);
 } */
 
+/* 행성공통 - 애니메이션 멈춤설정 */
+/* [ 애니메이션 상태] 
+    animation-play-state: running; - 실행 상태
+    animation-play-state: paused; - 멈춘 상태
+*/
+.planet:hover{
+    /* 기존 애니메이션이 id로 세팅되어 기본값 running이 더 우선됨. 
+    !important로 우선순위 높임 */
+    animation-play-state: paused !important;
+    /* 손가락 보이기 */
+    cursor: pointer;
+    z-index: 1;
+}
+/* 행성 설명박스 공통 */
+.info{
+    position: absolute;
+    top: 0;
+    left: 100%;
+
+    width: 0;
+    max-height: 2px;
+    /* 내부패딩이 없어서 완벽하게 숨겨짐 */
+    overflow: hidden;
+
+    /* 트랜지션 - width 먼저 보이고 max-height값은 나중에 */
+    transition: 
+    width .4s .4s,
+    max-height .4s;
+
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+
+    border-top: 2px solid #3877ed;
+    border-bottom: 2px solid #3877ed;
+
+    line-height: 1.8;
+    background-color: #3636c34c;
+
+    /* 드롭필터 */
+    /* backdrop-filter: blur(2px); */
+}
+/* 정보제목 내용 */
+.info h2, .info p{
+    margin: 0;
+    padding: 10px;
+
+    width: 200px;
+    box-sizing: border-box;
+
+    font-size: 13px;
+}
+/* 행성에 마우스 오버시 정보 보이는 애니 */
+.planet:hover .info{
+    width: 200px;
+    /* 최대 높이값은 컨텐츠 중 가장 큰 사이즈로 */
+    max-height: 300px;
+
+    /* 트랜지션 - width 먼저 보이고 max-height값은 나중에 */
+    transition: 
+    width .4s,
+    max-height .4s .4s;
+}
 
 /* 지구 */
 #earth{
