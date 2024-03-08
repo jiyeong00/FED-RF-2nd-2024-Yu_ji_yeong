@@ -32,6 +32,25 @@
     --earth-size : 80px;
     /* 지구거리 */
     --earth-trans-size : -250px;
+    /* 달크기 */
+    --moon-size : 40px;
+    /* 달거리 */
+    --moon-trans-size : 80px;
+
+    /* 목성크기 */
+    --jupiter-size : 150px;
+    /* 목성거리 */
+    --jupiter-trans-size : 400px;
+
+    /* 토성크기 */
+    --saturn-size : 160px;
+    /* 토성거리 */
+    --saturn-trans-size : -460px;
+
+    /* 명왕성크기 */
+    --pluto-size : 50px;
+    /* 명왕성거리 */
+    --pluto-trans-size : 650px;
 }
 
 /* 초기화 */
@@ -127,5 +146,149 @@ body *{
 
     background: url(../images/earth.png) no-repeat 0/100% 100%;
 
+    animation: earth-ani 10s linear infinite;
+}
+/* 지구회전 키프레임 */
+/* 가만히 서있는채로 공전함 (주석처럼해도됨) */
+@keyframes earth-ani {
+    from{
+        transform: rotate(0deg) translateX(var(--earth-trans-size)) rotate(0deg) /* rotate(360deg) */;
+
+    }
+    to{
+        transform: rotate(360deg) translateX(var(--earth-trans-size)) rotate(-360deg) /* rotate(0deg) */;
+    }
+    
 }
 
+/* 달 */
+#moon{
+    /* 부모 : #earth */
+    position: absolute;
+    /* 달 중앙이동 : 50% - 크기 절반 */
+    top: calc(50% - var(--moon-size)/2);
+    left: calc(50% - var(--moon-size)/2);
+
+    width: var(--moon-size);
+    height: var(--moon-size);
+
+    background: url(../images/moon.png) no-repeat 0/100% 100%;
+
+    animation: moon-ani 5s linear infinite;
+}
+/* 달회전 키프레임 */
+/* 가만히 서있는채로 공전함 (주석처럼해도됨) */
+@keyframes moon-ani {
+    from{
+        transform: rotate(0deg) translateX(var(--moon-trans-size)) rotate(0deg) /* rotate(360deg) */;
+
+    }
+    to{
+        transform: rotate(360deg) translateX(var(--moon-trans-size)) rotate(-360deg) /* rotate(0deg) */;
+    }
+    
+}
+/* 
+[ 키프레임 회전 시 2번째 회전의 의미는? ]
+
+transform: 
+rotate(0deg) -> 중앙회전 
+translateX(300px) -> 위치이동
+rotate(0deg); ->이동된 요소의 회전
+*/
+
+
+/* 목성 */
+#jupiter{
+    /* 부모 : #solar */
+    position: absolute;
+    /* 목성 중앙이동 : 50% - 크기 절반 */
+    top: calc(50% - var(--jupiter-size)/2);
+    left: calc(50% - var(--jupiter-size)/2);
+
+    width: var(--jupiter-size);
+    height: var(--jupiter-size);
+
+    background: url(../images/jupiter.png) no-repeat 0/100% 100%;
+
+    animation: jupiter-ani 40s linear infinite;
+}
+/* 목성회전 키프레임 */
+/* 가만히 서있는채로 공전함 (주석처럼해도됨) */
+@keyframes jupiter-ani {
+    from{
+        transform: rotate(0deg) translateX(var(--jupiter-trans-size)) rotate(0deg) /* rotate(360deg) */;
+
+    }
+    to{
+        transform: rotate(360deg) translateX(var(--jupiter-trans-size)) rotate(-360deg) /* rotate(0deg) */;
+    }
+    
+}
+
+/* 토성 */
+#saturn{
+    /* 부모 : #solar */
+    position: absolute;
+    /* 토성 중앙이동 : 50% - 크기 절반 */
+    top: calc(50% - var(--saturn-size)/2);
+    left: calc(50% - var(--saturn-size)/2);
+
+    width: var(--saturn-size);
+    height: var(--saturn-size);
+
+    /* background: url(../images/saturn.png) no-repeat 0/100% 100%; */
+
+    animation: saturn-ani 15s linear infinite;
+}
+/* 토성회전 키프레임 */
+/* 가만히 서있는채로 공전함 (주석처럼해도됨) */
+@keyframes saturn-ani {
+    from{
+        transform: rotate(0deg) translateY(var(--saturn-trans-size)) rotate(0deg) /* rotate(360deg) */;
+
+    }
+    to{
+        transform: rotate(360deg) translateY(var(--saturn-trans-size)) rotate(-360deg) /* rotate(0deg) */;
+    }
+    
+}
+
+/* 가상요소로 토성이미지 배경으로 넣기 */
+#saturn::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -30%;
+    width: 160%;
+    height: 100%;
+    background: url(../images/saturn.png) no-repeat 0/100% 100%;
+}
+
+/* 명왕성 */
+#pluto{
+    /* 부모 : #solar */
+    position: absolute;
+    /* 명왕성 중앙이동 : 50% - 크기 절반 */
+    top: calc(50% - var(--pluto-size)/2);
+    left: calc(50% - var(--pluto-size)/2);
+
+    width: var(--pluto-size);
+    height: var(--pluto-size);
+
+    background: url(../images/pluto.png) no-repeat 0/100% 100%;
+
+    animation: pluto-ani 35s linear infinite;
+}
+/* 명왕성회전 키프레임 */
+/* 가만히 서있는채로 공전함 (주석처럼해도됨) */
+@keyframes pluto-ani {
+    from{
+        transform: rotate(0deg) translateX(var(--pluto-trans-size)) rotate(0deg) /* rotate(360deg) */;
+
+    }
+    to{
+        transform: rotate(360deg) translateX(var(--pluto-trans-size)) rotate(-360deg) /* rotate(0deg) */;
+    }
+    
+}
