@@ -86,9 +86,9 @@ body{
 }
 
 /* 공사중 */
-body *{
+/* body *{
     outline: 2px dashed yellow;
-}
+} */
 /* 태양계박스 */
 #solar{
     /* 부모 보이는 화면 */
@@ -146,6 +146,7 @@ body *{
     cursor: pointer;
     z-index: 1;
 }
+
 /* 행성 설명박스 공통 */
 .info{
     position: absolute;
@@ -184,6 +185,12 @@ body *{
     box-sizing: border-box;
 
     font-size: 13px;
+    text-align: justify;
+}
+.ef1{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 /* 행성에 마우스 오버시 정보 보이는 애니 */
 .planet:hover .info{
@@ -196,6 +203,101 @@ body *{
     width .4s,
     max-height .4s .4s;
 }
+/* ----------------------------------------------------------------- */
+.ef1,.ef2,.ef3,.ef4,.ef5{
+    width: 0px;
+    height: 2px;
+
+    overflow: hidden;
+
+    background-color: #3636c3c3;
+}
+
+.planet:hover .ef1,.planet:hover .ef2,.planet:hover .ef3,.planet:hover .ef4,.planet:hover .ef5{
+    width: 70px;
+    height: 30px;
+
+    z-index: 2;
+}
+.ef1{
+    position: absolute;
+    top: -10px;
+    left: 210%;
+
+    /* 트랜지션 - width 먼저 보이고 max-height값은 나중에 */
+    transition: 
+    width .4s .4s,
+    height .4s;
+
+}
+.planet:hover .ef1{
+    /* 트랜지션 - width 먼저 보이고 max-height값은 나중에 */
+    transition: 
+    width .4s .2s,
+    height .4s .5s;
+}
+
+.ef2{
+    position: absolute;
+    top: 10px;
+    left: 230%;
+
+    transition: 
+    width .2s .3s,
+    height .7s;
+}
+.planet:hover .ef2{
+    transition: 
+    width .4s .4s,
+    height .4s .6s;
+}
+
+.ef3{
+    position: absolute;
+    top: 130%;
+    left: 76%;
+    
+    transition: 
+    width .2s .3s,
+    height .3s;
+}
+.planet:hover .ef3{
+    transition: 
+    width .4s .4s,
+    height .4s .6s;
+}
+
+.ef4{
+    position: absolute;
+    top: 350%;
+    left: 60%;
+    
+    transition: 
+    width .2s .2s,
+    height .2s;
+}
+.planet:hover .ef4{
+    transition: 
+    width .4s .1s,
+    height .4s .2s;
+}
+
+.ef5{
+    position: absolute;
+    top: -30%;
+    left: 450%;
+    
+    transition: 
+    width .2s .3s,
+    height .7s;
+}
+.planet:hover .ef5{
+    transition: 
+    width .4s,
+    height .4s .2s;
+}
+/* ----------------------------------------------------------------- */
+
 
 /* 지구 */
 #earth{
