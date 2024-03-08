@@ -174,7 +174,7 @@ body{
     background-color: #3636c34c;
 
     /* 드롭필터 */
-    /* backdrop-filter: blur(2px); */
+    backdrop-filter: blur(2px);
 }
 /* 정보제목 내용 */
 .info h2, .info p{
@@ -193,7 +193,7 @@ body{
     box-sizing: border-box;
 }
 /* 행성에 마우스 오버시 정보 보이는 애니 */
-.planet:hover .info{
+.planet:hover>.info, #earth:hover .info, #moon:hover .info{
     width: 200px;
     /* 최대 높이값은 컨텐츠 중 가장 큰 사이즈로 */
     max-height: 300px;
@@ -299,8 +299,8 @@ body{
 /* ----------------------------------------------------------------- */
 
 
-/* 지구 */
-#earth{
+/* 지구 + 달 랩핑박스 : 실제로 도는 박스 */
+.earth-wrap{
     /* 부모 : #solar */
     position: absolute;
     /* 지구 중앙이동 : 50% - 크기 절반 */
@@ -310,8 +310,6 @@ body{
     width: var(--earth-size);
     height: var(--earth-size);
 
-    background: url(../images/earth.png) no-repeat 0/100% 100%;
-
     animation: earth-ani 10s linear infinite;
 }
 /* 지구회전 키프레임 */
@@ -319,17 +317,30 @@ body{
 @keyframes earth-ani {
     from{
         transform: rotate(0deg) translateX(var(--earth-trans-size)) rotate(0deg) /* rotate(360deg) */;
-
+        
     }
     to{
         transform: rotate(360deg) translateX(var(--earth-trans-size)) rotate(-360deg) /* rotate(0deg) */;
     }
     
 }
+/* 지구 */
+#earth{
+    /* 부모 : #solar */
+    position: absolute;
+    /* 지구 중앙이동 : 50% - 크기 절반 */
+    top: 0;
+    left: 0;
+
+    width: var(--earth-size);
+    height: var(--earth-size);
+
+    background: url(../images/earth.png) no-repeat 0/100% 100%;
+}
 
 /* 달 */
 #moon{
-    /* 부모 : #earth */
+    /* 부모 : .earth-wrap */
     position: absolute;
     /* 달 중앙이동 : 50% - 크기 절반 */
     top: calc(50% - var(--moon-size)/2);
