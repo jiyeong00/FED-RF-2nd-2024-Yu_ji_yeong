@@ -485,6 +485,7 @@ rotate(0deg); ->이동된 요소의 회전
     z-index: -1;
 
 }
+
 /* 지구경로크기 */
 .path-way div.earth{
     width: calc(var(--earth-trans-size)*-2);
