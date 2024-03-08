@@ -1,0 +1,77 @@
+@charset "utf-8";
+/* 태양계2D애니메이션 css - SolarSystem2D.html */
+
+/* 웹폰트 */
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@900&display=swap');
+/* font-family: 'Big Shoulders Stencil Text', cursive; */
+
+/* 초기화 */
+html, body{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+body{
+    background: url(../images/space.jpg) no-repeat center/cover;
+}
+
+.tit{
+    margin: 0;
+    padding: 0;
+    font-family: 'Big Shoulders Stencil Text', cursive;
+    color: #fff;
+    font-size: 80px;
+    text-align: center;
+    padding-top: 20px;
+}
+
+/* 공사중 */
+body *{
+    outline: 2px dashed yellow;
+}
+/* 태양계박스 */
+#solar{
+    /* 부모 보이는 화면 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+    width: 250px;
+    height: 250px; 
+}
+
+/* 태양박스 */
+#sun{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 250px;
+    height: 250px;
+
+    overflow: hidden;
+
+    border-radius: 50%;
+}
+#sun img{
+    width: 100%;
+    height: 100%;
+
+    /* 20초간 등속도로 영원히 왔다갔다함 */
+    animation: flame-ani 20s linear infinite alternate;
+}
+/* 태양이 이글거리는 애니메이션 키프레임 */
+@keyframes flame-ani {
+    to{
+        transform: scale(1.5);
+    }
+    
+}
+/* #sun:hover img{
+    transform: scale(1.5);
+} */
+
+
