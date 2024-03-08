@@ -41,6 +41,16 @@ html, body{
     width: 100vw;
     height: 100vh;
 }
+/* 공통 css */
+/* 배경이미지 설명 숨기기(Image replacement) : 배경이미지에 설명을 넣고 그 글자는 숨긴다.
+   (웹접근성) */
+.ir{
+    display: block;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    /* display: none;으로 숨기면 화면리더기가 못읽는다. */
+}
 
 body{
     background: url(../images/space.jpg) no-repeat center/cover;
@@ -103,4 +113,19 @@ body *{
     transform: scale(1.5);
 } */
 
+
+/* 지구 */
+#earth{
+    /* 부모 : #solar */
+    position: absolute;
+    /* 지구 중앙이동 : 50% - 크기 절반 */
+    top: calc(50% - var(--earth-size)/2);
+    left: calc(50% - var(--earth-size)/2);
+
+    width: var(--earth-size);
+    height: var(--earth-size);
+
+    background: url(../images/earth.png) no-repeat 0/100% 100%;
+
+}
 
