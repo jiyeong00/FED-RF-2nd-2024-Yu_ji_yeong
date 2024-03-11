@@ -75,15 +75,16 @@ justify-content: flex-end;
     /* smenu left값 - 부모자격 */
     position: relative;
     /* float: left; ->flex로 전환 */
-    padding: 0px 32px;
+    padding: 27px 32px;
     /* 글자관련 셋팅은 하위요소로 상속됨 */
-    line-height: 78px;
+    /* line-height: 78px; -> 블록 가상요소 밑줄이 아래로 밀림 */
     font-weight: bold;
 }
 
 /* 서브메뉴 */
 .smenu{
     position: absolute;
+    margin-top: 20px;
     left: 50%;
     /* X축 중앙이동 */
     transform: translateX(-50%);
@@ -179,18 +180,23 @@ justify-content: flex-end;
     transition-delay: 0.5s;
 }
 
-/* 가상요소를 위한 부모자격 */
-.gnb ul>li>a{
+/* 가상요소를 위한 부모자격 - 불필요 */
+/* .gnb ul>li>a{
     position: relative;
-}
+} */
 
-/* gnb상위메뉴 오버시 밑줄애니 */
-.gnb ul>li>a::after{
+/* 다른 같은 구조의 요소에도 모두 적용위해 클래스를 주고 세팅되도록 만든다. 
+-->uline이라는 클래스를 주면됨
+*/
+/* 상위메뉴 오버시 밑줄애니 */
+.uline ul>li>a::after{
     content: '';
-    position: absolute;
-    /* 마우스 나갈때 left값 밀기 */
-    left: 100%;
-    top: 53px;
+    display: block;
+    /* position: absolute; */
+    /* 마우스 나갈때 margin-left값 밀기 */
+    margin-left:100%;
+    /* top: 53px; */
+    margin-top: 2px;/* <<밑줄 글자에서 띄우기 */
 
     width: 0;
     height: 2px;
@@ -201,10 +207,10 @@ justify-content: flex-end;
 }
 
 /* 오버시 선나오게 */
-.gnb ul>li:hover>a::after{
-    left: 0;
+.uline ul>li:hover>a::after{
+    margin-left:0;
     width: 100%;
-    /* 오버시 트랜지션 ->> left는 트랜지션 적용XXX */
+    /* 오버시 트랜지션 ->> margin-left는 트랜지션 적용XXX */
     transition: width .3s;
 }
 
