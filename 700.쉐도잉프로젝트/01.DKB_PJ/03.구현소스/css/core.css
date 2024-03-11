@@ -16,6 +16,11 @@
     4. 전체 공통체(메뉴 등)
     font-family: 'Nanum Gothic', sans-serif;
 */
+/* 전체 글자크기 */
+html{
+    font-size: 10px;
+    /* rem단위 계산편의를 위해 */
+}
 
 /********* 공통 클래스 *********/
 /* 임시표시타이틀 */
