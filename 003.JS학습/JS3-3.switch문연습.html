@@ -24,6 +24,22 @@
         padding: 20px;
         margin-bottom: 50px;
       }
+      .photo img.off {
+        position: relative;
+        left: -100%;
+        opacity: 0;
+      }
+      .photo img {
+        position: relative;
+        left: 0;
+        opacity: 1;
+        transition: 0.5s ease-out;
+      }
+      .photo img.on {
+        position: relative;
+        left: 100%;
+        opacity: 0;
+      }
 
       /* 메인이미지 */
       #scene {
@@ -48,10 +64,8 @@
     <!-- defer키워드로 html코드 로딩후 실행가능 -->
     <script src="./JS/JS3-3.switch문연습.js" defer></script>
 
-
     <!-- JS코드구역 -->
     <script>
-
       //html요소를 수집하려면 html 요소 코드가 그려진 후 수집해야한다.
       /* 
       [ 로딩 후 수집방법 3가지]
@@ -60,7 +74,7 @@
       3. 외부JS로 만들때 defer 키워드를 쓴다.
       */
 
-/*     //   로드구역 예시
+      /*     //   로드구역 예시
       window.onload=function(){
         console.log('로딩완료');
 
@@ -68,7 +82,6 @@
         var btns = document.querySelectorAll(".btns");
         console.log("버튼들", btns);
       }; //로드구역 */
-
     </script>
   </head>
 
@@ -89,10 +102,6 @@
       <button class="btns">장면3</button>
     </div>
 
-    <script>
-      var btns = document.querySelectorAll(".btns");
-
-      console.log("버튼들", btns);
-    </script>
+    <script></script>
   </body>
 </html>

@@ -23,23 +23,53 @@ function changeImg() {
         case "장면1": isrc="./images/ala2.jpg"; break;
         case "장면2": isrc="./images/ala3.jpg"; break;
         case "장면3": isrc="./images/ala4.jpg"; break;
-    
-        default:
-            break;
     }//switch문
 
     // 3. 변경대상 : #scene ->scene변수
-    // 4. 변경내용 : src속성값 바꾸기
-    scene.src=isrc;
+
+    /************************************************************  
+      [ 클래스를 컨트롤하는 JS classList 객체 ]
+        1. 클래스 넣기 :add(클래스명)
+          예) document.querySelector('.my').classList.add('on);
+        2. 클래스 빼기 :remove(클래스명)
+          예) document.querySelector('.my').classList.remove('on);
+        3. 클래스 넣고빼기 :toggle(클래스명)
+          예) document.querySelector('.my').classList.toggle('on);
+
+        [ 타이밍 내장함수 : setTimeout(함수,시간)]
+        - 함수 호출 또는 코드 실행을 일정시간 후 할 수 있는 JS내장함수
+        - 사용법
+          setTimeout(함수/익명함수코드구역, 시간)
+          시간은 1/1000초를 사용한다.(예, 1000을 쓰면 1초임)
+          -> 시간에 s단위를 쓰지않음
+    ************************************************************/
+
+
+    // 4. 클래스 off를 넣어서 왼쪽으로 사라지기
+    scene.classList.add('off');
+  
+    // 5. 0.5초후 클래스 off를 지우고 on을 넣어서 들어올 준비
+    setTimeout(function(){
+      scene.classList.remove('off');
+      scene.classList.add('on');    
+    }, 500);
+  
+    // 6. 1초후 이미지변경하고 클래스 on 지우기
+    setTimeout(function(){
+      // 변경내용 : src속성값 바꾸기
+      scene.src = isrc;
+      scene.classList.remove('on');
+    }, 1000);
+    
+
+    // scene.src=isrc;
     
 } ///////changeImg함수
-
 // 1. 대상선정
 // 1-1. 이벤트 대상 : .btns
 var btns = document.querySelectorAll(".btns");
 // 1-2. 변경 대상 : #scene
 var scene = document.querySelector("#scene");
-
 console.log("대상", btns,scene);
 
 // 2. 이벤트 속성 세팅하기 : 이벤트와 함수 연결
