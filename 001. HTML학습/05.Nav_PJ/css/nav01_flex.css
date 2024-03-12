@@ -59,7 +59,7 @@ ol::after,
 /* gnb메뉴 */
 .gnb {
   /* ul이 플렉스 박스임으로 정렬은 ul에서 하기로함 */
-  /* margin-left: 63px; */
+  margin-left: 63px;
 }
 
 /* gnb메뉴 하위 a요소 */
