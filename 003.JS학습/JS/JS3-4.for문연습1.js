@@ -69,19 +69,30 @@ for(let i=0; i<mini.length; i++){
 
 }////////for문
 
+
+// 3. 기능구현 함수 만들기
 /******************************************************** 
  함수명 : insertMini
  기능 : 미니언즈 이미지를 박스 안에 추가한다.
 ********************************************************/
 function insertMini(){
-    console.log('미니언즈 두루와');
+    // 0. 이미지에 세팅된 'data-num' 속성값 가져오기
+    //getAttribute(속성명) -> 속성값 읽어오기 내장함수
+    //setAttribute(속성명, 값) -> 속성값 넣기 내장함수
+    let num=this.getAttribute('data-num');
+
+    // 1. 함수호출 확인
+    console.log('미니언즈 두루와',num);
 
     //2. 변경대상 설정 : .mini-space -> Bcase변수
     //3. 변경내용 적용하기 : html넣기
     //+= 대입연산자로 기존값에 더함
-    Bcase.innerHTML += 
-    `
-    <img src="./images/Minions.png" alt="미니언즈">
-    `;
+    //for문으로 전달될 개수 만큼 반복하여 이미지 넣는다.
+    for(let i=0; i<num; i++){
+        Bcase.innerHTML += 
+        `
+        <img src="./images/Minions.png" alt="미니언즈">
+        `;
+    }////for문
 }////////insertMini() 함수
 ///////////////////////////////////////////////////////
