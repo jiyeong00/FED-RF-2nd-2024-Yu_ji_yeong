@@ -48,6 +48,7 @@ const Bcase=document.querySelector('.mini-space');
 // 2) 개수출력박스
 const stxt=document.querySelector('.stxt span');
 
+
 // console.log('대상:',mini,rbtn,Bcase,stxt);
 
 //2. 이벤트 속성 세팅하기
@@ -69,8 +70,14 @@ for(let i=0; i<mini.length; i++){
 
 }////////for문
 
+// 2) 리셋버튼 이벤트함수와 연결하기
+rbtn.onclick= resetMini;
+
+
 
 // 3. 기능구현 함수 만들기
+//함수에서 전역변수로 사용할 미니언즈 개수저장 변수
+let count=0;
 /******************************************************** 
  함수명 : insertMini
  기능 : 미니언즈 이미지를 박스 안에 추가한다.
@@ -80,6 +87,7 @@ function insertMini(){
     //getAttribute(속성명) -> 속성값 읽어오기 내장함수
     //setAttribute(속성명, 값) -> 속성값 넣기 내장함수
     let num=this.getAttribute('data-num');
+
 
     // 1. 함수호출 확인
     console.log('미니언즈 두루와',num);
@@ -93,6 +101,26 @@ function insertMini(){
         `
         <img src="./images/Minions.png" alt="미니언즈">
         `;
+        //미니언즈 이미지 개수 증가하기
+        count++;
     }////for문
+    
+    //4. 미니언즈 개수 출력하기
+    //미니언즈 이미지에 3명의 미니언즈가 있으르모 3을 곱하여 출력
+    stxt.innerText=count*3;
+
 }////////insertMini() 함수
+///////////////////////////////////////////////////////
+
+
+/******************************************************** 
+ 함수명 : resetMini
+ 기능 : 파란박스의 미니언즈 이미지 모두 삭제 
+********************************************************/
+function resetMini(){
+    // console.log('리셋');
+    Bcase.innerHTML =" ";
+    stxt.innerText = 0;
+    count=0;
+}////////resetMini() 함수
 ///////////////////////////////////////////////////////

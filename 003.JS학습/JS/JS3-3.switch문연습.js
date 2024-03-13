@@ -30,11 +30,11 @@ function changeImg() {
     /************************************************************  
       [ 클래스를 컨트롤하는 JS classList 객체 ]
         1. 클래스 넣기 :add(클래스명)
-          예) document.querySelector('.my').classList.add('on);
+          예) document.querySelector('.my').classList.add('on');
         2. 클래스 빼기 :remove(클래스명)
-          예) document.querySelector('.my').classList.remove('on);
+          예) document.querySelector('.my').classList.remove('on');
         3. 클래스 넣고빼기 :toggle(클래스명)
-          예) document.querySelector('.my').classList.toggle('on);
+          예) document.querySelector('.my').classList.toggle('on');
 
         [ 타이밍 내장함수 : setTimeout(함수,시간)]
         - 함수 호출 또는 코드 실행을 일정시간 후 할 수 있는 JS내장함수

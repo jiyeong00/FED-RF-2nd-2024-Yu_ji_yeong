@@ -48,13 +48,30 @@ body *{
     background-color: #fff;
 }
 /*********************** 1-1. 로고파트 **********************/
-/* 로고이미지 */
+/* 로고박스 */
+.logo{
+    padding-top: 33px;
+}
 .logo img{
     width: 100%;
+    max-width: 145px;
+    min-width: 120px;
 }
-
-#top-area:hover .logo img{
-    background: url(../images/nav03/logo_b.png) no-repeat 100%/100% auto;
+/* 로고이미지 */
+.logo img:nth-child(1){
+    width: 100%;
+}
+/* 두번째 이미지 숨기기 */
+.logo img:nth-child(2){
+    width: 100%;
+    display: none;
+}
+/* 오버시 첫번째 숨기기 두번째 보이기 */
+#top-area:hover .logo img:nth-child(1){
+   display: none;
+}
+#top-area:hover .logo img:nth-child(2){
+   display:inline;
 }
 /*********************** 1-2. 네비파트 **********************/
 /* gnb박스 */
@@ -76,7 +93,7 @@ body *{
 
 /* 상단영역 오버시 하위메뉴 보이기 */
 #top-area:hover .gnb{
-    height: 360px;
+    height: 412px;
 }
 /* 상단영역 오버시 상위메뉴 dt>a 글자색 변경 */
 #top-area:hover .gnb dt a{
@@ -97,8 +114,44 @@ body *{
 .gnb dt{
     line-height: 110px;
 }
+/* 상위메뉴 이미지 */
+.gnb dt img{
+    margin-top: 10px;
+    /* 3개 이미지 모두 숨기기 */
+    display: none;
+}
+/* 처음 이미지 보이기 */
+.gnb dt img:nth-child(1){
+    display: inline;
+}
+/* 전체박스에 오버시 듈째 이미지 보이기 */
+#top-area:hover .gnb dt img:nth-child(2){
+    display: inline;
+}
+/* 첫째이미지 숨기기 */
+#top-area:hover .gnb dt img:nth-child(1){
+    display: none;
+}
+/* 전체박스에 오버시, dl오버시 둘째 이미지 숨기기 */
+#top-area:hover .gnb dl:hover dt img:nth-child(2){
+    display: none;
+}
+/* 전체박스에 오버시, dl오버시 셋째 이미지 보이기 */
+#top-area:hover .gnb dl:hover dt img:nth-child(3){
+    display: inline;
+}
+
+
 /* 상위메뉴 dd */
 .gnb dd{
     line-height: 45px;
+}
+
+/* 마우스 오버시 */
+/* 상위메뉴는 dl에 오버시 로 설정 */
+/* 하위메뉴는 a에 오버시로 설정 */
+#top-area .gnb dl:hover dt a,
+.gnb dd a:hover{
+    color: red; 
 }
 /*********************** 1-3. 기타파트 **********************/
