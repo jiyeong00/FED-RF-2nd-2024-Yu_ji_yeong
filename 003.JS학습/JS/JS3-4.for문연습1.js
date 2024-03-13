@@ -42,7 +42,7 @@ const mini=document.querySelectorAll('.mini');
 // 2) 리셋버튼
 const rbtn=document.querySelector('.rbtn');
 
-//1-2. 변경 대상
+//1-2.변경 대상
 // 1) 파란박스(미니언즈 내부박스)
 const Bcase=document.querySelector('.mini-space');
 // 2) 개수출력박스
