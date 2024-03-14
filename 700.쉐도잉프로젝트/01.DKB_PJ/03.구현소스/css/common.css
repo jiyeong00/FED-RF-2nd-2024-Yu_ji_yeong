@@ -75,14 +75,20 @@
     position: absolute;
     left: 0;
     width: 100%;
+
+    z-index: 1;
+    background-color: #fff;
+
     /* 서브메뉴 숨기기 */
     max-height: 0;
     overflow: hidden;
     /* 트랜지션 */
-    transition: .4s;
+    
+    transition: .3s;
 }
 .gnb>ul>li:hover .smenu{
     max-height: 50vh;
+    transition: .3s .3s;
 }
 
 .smenu h2{
@@ -115,4 +121,52 @@
 
 
 /************ 2. 메인영역 ************/
+/* 2-1. 배너영역 */
+
+/* 슬라이드 박스 */
+.slide-box{
+    width: 100%;
+    height: 100%;
+}
+/* 슬라이더 - 움직이는 박스 */
+.slider{
+    position: relative;
+    /* 슬라이드 위치이동 초기값 */
+    left: 0;
+    /* 하위 li를 옆으로 흐르게 */
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+}
+.slider li{
+    flex-basis: 100%; /* 플렉스에서 쓰는 width랑 같은거 */
+    /* 부모크기만큼 옆으로 나가게 하려면 flex-shrink 기본값 1을 0으로 변경
+        1의 의미는 자동으로 부모크기에 맞추어 줄어듬
+        0의 의미는 설정된 부모만큼 늘어남 */
+    flex-shrink: 0;
+
+    /* 공통배경설정 */
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+}
+
+/* 슬라이드 01 */
+.sum-01{
+    background-image: url(../images/bg_main_01.jpg);
+
+}
+.sum-02{
+    background-image: url(../images/bg_main_02.jpg);
+
+}
+.sum-03{
+    background-image: url(../images/bg_main_03.jpg);
+
+}
+
+
+
+
 /************* 3. 하단영역 *************/
