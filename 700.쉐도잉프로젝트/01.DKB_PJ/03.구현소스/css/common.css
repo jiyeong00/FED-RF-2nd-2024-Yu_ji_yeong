@@ -52,14 +52,14 @@
 }
 
 
-/* 서브가 있는 리스트 선택하기 (4~6까지) */
+/* 상위메뉴 서브가 있는 리스트 선택하기 (4~6까지) */
 /* a요소 오버시 커서 변경 */
 .gnb ul li:nth-child(3)~li:nth-child(-n+6) a{
     /* 손가락표시 defalt */
     cursor: default;
 }
 /* 가상요소로 아래쪽 화살표 넣기 */
-.gnb ul li:nth-child(3)~li:nth-child(-n+6) a::after{
+.gnb ul>li:nth-child(3)~li:nth-child(-n+6)>a::after{
     content: '∨';
     display: inline-block;
     /* transform은 inline에서는 적용안됨 */
@@ -68,23 +68,36 @@
     vertical-align: 2px;
     transform: scaleX(2);
 }
+
 /* 서브메뉴 */
 .smenu{
     /* 부모 : 보이는 화면 */
     position: absolute;
     left: 0;
     width: 100%;
+    /* 서브메뉴 숨기기 */
+    max-height: 0;
+    overflow: hidden;
+    /* 트랜지션 */
+    transition: .4s;
 }
+.gnb>ul>li:hover .smenu{
+    max-height: 50vh;
+}
+
 .smenu h2{
     font-size: 3rem;
 }
+
 /* 서브속박스 */
 .swrap{
     width: 60vw;
     margin: 0 auto;
     padding: 3rem;
     white-space: nowrap;
+    padding: 4.9rem 12.8rem 6rem;
 }
+
 /* ol리스트 */
 .smenu ol{
     /* 플렉스박스 */
@@ -92,6 +105,9 @@
     /* 플렉스 랩핑박스 */
     flex-wrap: wrap;
     /* justify-content: center; */
+    /* 플렉스박스 간격 속성 - gap: 위아래 양쪽 
+        -> 하나의 값만 쓰면 모두 세팅 */
+    gap: 1rem 2vw;
 }
 
 
