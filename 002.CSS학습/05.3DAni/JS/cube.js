@@ -26,18 +26,22 @@ btngo.onclick=function(){
     // 2. 변경대상:.cube
     // 3. 변경내용: 큐브에 클래스 on을 없으면 넣고 있으면 제거 -> 미리세팅된 애니작동/멈춤
     cube.classList.toggle('on');
+
+    // 큐브 거리변경 변수세팅은 html요소에 클래스 on을 넣기/빼기하면 적용됨
+    document.querySelector('html').classList.toggle('on');
+    
     // classList는 요소의 클래스만 전문적으로 다뤄주는 JS내장객체
     // 메서드로 add(), remove(), toggle()이 있다.
 
 
     //4. 버튼 글자 변경하기 -> 조건연산자 비?집:놀이동산
-        this.innerText=
-        this.innerText=="돌아!"?"멈춰!":"돌아!";
+        // this.innerText=
+        // this.innerText=="돌아!"?"멈춰!":"돌아!";
 
 
         // if문으로 만들면>
-        // if(this.innerText=="돌아!") this.innerText='멈춰';
-        // else this.innerText='돌아!';
+        if(this.innerText=="돌아!") this.innerText='멈춰';
+        else this.innerText='돌아!';
 
 
 };//click이벤트 함수
