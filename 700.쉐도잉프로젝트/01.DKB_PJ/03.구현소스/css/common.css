@@ -205,10 +205,14 @@
 .cat-inbox{
     /* 플랙스박스 */
     display: flex;
+    gap: 0 1vw;
+
     /* 가로최대크기 */
     max-width: 1360px;
     margin: 0 auto;
-    gap: 0 1vw;
+    padding: 0 1vw;
+
+
 }
 /* 캐릭터개별박스 등분할 */
 .cat-inbox article{
@@ -217,6 +221,30 @@
 /* 캐릭터이미지박스 */
 .imbx img{
     width: 100%;
+}
+
+/* 캐릭터 이름이미지 박스 */
+.iname{
+    display: block;
+    margin-top: -19px;
+    /* 앱솔루트 없이 마진으로 상단이미지와 겹치게 하기 */
+    text-align: center;
+}
+/* 캐릭터 이름 이미지 */
+.iname img{
+    width: 40%;
+}
+/* 두번째이미지 숨기기 */
+.iname img:nth-child(2){
+    display: none;
+}
+/* 오버시 두번재 이미지 보이기 */
+.cat-inbox article:hover .iname img:nth-child(2){
+    display: inline;
+}
+/* 오버시 첫번재 이미지 숨이기 */
+.cat-inbox article:hover .iname img:nth-child(1){
+    display: none;
 }
 
 
