@@ -35,4 +35,9 @@ btngo.onclick=function(){
         this.innerText=="돌아!"?"멈춰!":"돌아!";
 
 
+        // if문으로 만들면>
+        // if(this.innerText=="돌아!") this.innerText='멈춰';
+        // else this.innerText='돌아!';
+
+
 };//click이벤트 함수
