@@ -238,29 +238,30 @@
           대표작: "나의 해방일지,범죄도시2",
           소속사: "셋별당엔터",
           비밀번호: 7777,
-          팬레터: function (){
+          팬레터: function () {
             // 변경대상.style
-            let myscc=this.style;
+            let myscc = this.style;
             // 1. 메시지 찍기
-            alert('상남자 오빠!! 지금 뭐해?')
+            alert("상남자 오빠!! 지금 뭐해?");
             // 2.배경이미지
-            myscc.background="url(https://file.mk.co.kr/meet/neds/2022/05/image_readtop_2022_456627_16533579475052374.jpeg) repeat-x top/auto 100%";
+            myscc.background =
+              "url(https://file.mk.co.kr/meet/neds/2022/05/image_readtop_2022_456627_16533579475052374.jpeg) repeat-x top/auto 100%";
             // 글자색
-            myscc.color="white";
-            myscc.textshadow="0 0 5px #ccc";
+            myscc.color = "white";
+            myscc.textShadow = "0 0 5px #000";
             // 글자내용변경
-            this.innerText="손석구 최고 멋쟁이! 승승장구! 화이팅~";
-            myscc.lineHeight="84px";
-            myscc.transform="scale(1.2)";
-            myscc.transition="1s ease-out 1s";
+            this.innerText = "손석구 최고 멋쟁이! 승승장구! 화이팅~";
+            myscc.lineHeight = "84px";
+            myscc.transform = "scale(1.2)";
+            myscc.transition = "1s ease-out 1s";
           },
         });
 
-        console.log("석구객체:",SSG);
+        console.log("석구객체:", SSG);
 
         // 객체출력하기
         // 출력대상: target[3]
-        target[3].innerHTML=`
+        target[3].innerHTML = `
             당신이 좋아하는 남자배우는? ${SSG["너의 이름은?"]}
             / 몸무게를 아세요? ${SSG.몸무게} <br>
             생년월일은? ${SSG["생일"]}
@@ -271,12 +272,19 @@
         // 줄간격 조절
         target[3].style.lineHeight = "40px";
 
+        // 툴팁 띄우기
+        target[3].title = `여기를 클릭하여 ${SSG["너의 이름은?"]}팬레터를 확인하세요`;
+
+        // 손가락 모양 커서
+        target[3].style.cursor = "pointer";
+
+        // 배열의 함수를 클릭이벤트에 연결하기
+        target[3].onclick = SSG["팬레터"];
+
 
       } /////////loadFn함수////////////
       ////////////////////////////////
-
     </script>
-
 
     <style>
       /* 동영상 주변 암전효과 박스 */
