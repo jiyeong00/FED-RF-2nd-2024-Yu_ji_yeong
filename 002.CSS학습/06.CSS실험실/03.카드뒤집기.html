@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>03.카드뒤집기</title>
+    <style>
+      body {
+        margin: 0;
+        background-image: linear-gradient(45deg, lightgreen, lightcyan);
+      }
+      /* ★★ 카드가 튈 수 있어서 카드를 박스로 하나 싸서 해야함 ★★ */
+      /* 카드영역박스 */
+      .card-box {
+        position: fixed;
+        top: calc(50% - 450px / 2);
+        left: calc(50% - 300px / 2);
+        width: 300px;
+        height: 450px;
+
+        /* 입체 트랜스폰 구성 */
+        /* 하위의 .card가 입체구성 대상 */
+        transform-style: preserve-3d;
+      }
+      /* 카드 모델 */
+      .card {
+        /* 가상요소 부모 */
+        position: relative;
+
+        width: 300px;
+        height: 450px;
+        /* outline: 2px dashed gray; */
+        transform: rotateY(180deg) rotateX(0deg);
+        /* 처음에 뒷면보이게 Y축 회전 (원래0으로 했었음) */
+
+        /* 입체 트랜스폰 구성 */
+        /* .card 하위 가상요소가 입체 대상 */
+        transform-style: preserve-3d;
+
+        /* 트랜스폼 */
+        transition: 0.3s;
+      }
+      /* 카드 마우스 오버시 Y축회전 - 카드박스에 오버를 걸어야 안정적임*/
+      .card-box:hover .card {
+        transform: rotateY(0deg);
+        cursor: pointer;
+      }
+
+      /* 카드 앞뒷면 가상요소 */
+      /* 카드앞면 앱솔이니까 after가 앞면*/
+      .card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+
+        background: url(./images/card_front.png) no-repeat 0/100% 100%;
+
+        /* ★★★입체에서 앞면은 z축이동함★★★ */
+        transform: translateZ(1px);
+      }
+      /* 카드뒷면 */
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+
+        background: url(./images/card_back.jpg) no-repeat 0/100% 100%;
+        /* 뒷면이미지를 정상이미지로 보려면 사실 180deg Y축회전 필요 */
+      }
+
+      /* 카드를 더 입체적으로 보이도록 원근설정을 해준다. */
+      .wrapper {
+        perspective: 80vh;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="card-box">
+        <div class="card"></div>
+      </div>
+    </div>
+  </body>
+</html>
