@@ -14,7 +14,7 @@ mjObj.actor = "김민희,김태리";
 // 4. 장르
 mjObj.genre = "드라마";
 // 5. 관람가
-mjObj.rating = "19세";
+mjObj.ratings = "19세";
 // 6. 예고편
 mjObj.trailer = function () {
   console.log("예고편:영화아이디");
@@ -59,7 +59,7 @@ dyObj.actor = "안소니 곤잘레스, 가엘 가르시아 베르날";
 // 4. 장르
 dyObj.genre = "애니메이션, 모험, 코미디";
 //5. 관람가
-dyObj.rating = "전체관람가";
+dyObj.ratings = "전체관람가";
 // 6. 예고편
 dyObj.trailer = function () {
   console.log("예고편:영화아이디");
@@ -80,7 +80,7 @@ jaeObj.actor = "마동석,손석구";
 // 4. 장르
 jaeObj.genre = "범죄";
 // 5. 관람가
-jaeObj.rating = "19세";
+jaeObj.ratings = "19세";
 // 6. 예고편
 jaeObj.trailer = function () {
   console.log("예고편:영화아이디");
