@@ -19,7 +19,7 @@ mjObj.rating = "19세";
 mjObj.trailer = function () {
   console.log("예고편:영화아이디");
   // 예고편 플레이 함수 호출!
-  platMovie("whldChqCsYk");
+  playMovie("whldChqCsYk");
 }; /////////// trailer 메서드 ///////////
 
 //이지영의 오브젝트 -> 변경 가능하게 let으로
@@ -145,7 +145,7 @@ yjObj.director = "장재현";
 // 3. 배우
 yjObj.actor = "최민식,김고은,유해진,이도현";
 // 4. 장르
-(yjObj.genre = 미스터리), 스릴러, 오컬트;
+yjObj.genre = "미스터리, 스릴러, 오컬트";
 // 5. 관람가
 yjObj.ratings = "15세";
 // 6. 예고편
@@ -185,10 +185,10 @@ let jjob = {};
 //1. 영화제목
 jjob.title = "7광구";
 //2. 감독
-jjob.drector = "김지훈";
+jjob.director = "김지훈";
 //3. 배우
 jjob.actor = "하지원,안성기";
-jjob.ganre = "SF";
+jjob.genre = "SF";
 jjob.ratings = "15세";
 jjob.trailer = function () {
   console.log("예고편:영화아이디");

@@ -46,8 +46,8 @@
       }
     </style>
 
-<!-- 외부JS불러오기 -->
-  <script src="./JS/JS4-1.object.js"></script>
+    <!-- 외부JS불러오기 -->
+    <script src="./JS/JS4-1.object.js"></script>
 
     <script>
       // 로딩구역
@@ -490,6 +490,9 @@
           target[5].onclick = JYObj.trailer;
         }; /////showMovieInfo함수
 
+        // 내것에 넣을려고 만듦
+        let myObj = JYObj;
+
         // 출력박스 cSS조정하기
         target[5].style.lineHeight = "34px";
         target[5].style.cursor = "pointer";
@@ -503,38 +506,131 @@
         //////////////////////////////////////////////
 
         // 버튼에 사용할 이름 배열 만들기
-        const choiceName=["유지영","민지","지영","도연","재윤","노영","우진","영진","은경","지현","수진","윤철","정윤","탐쌤"];
+        const choiceName = [
+          "유지영",
+          "민지",
+          "지영",
+          "도연",
+          "재윤",
+          "노영",
+          "우진",
+          "영진",
+          "은경",
+          "지현",
+          "수진",
+          "윤철",
+          "정윤",
+          "탐쌤",
+        ];
 
         // 배열확인
-        console.log("버튼배열 : ",choiceName);
+        console.log("버튼배열 : ", choiceName);
 
         // 버튼을 넣을 대상 : target[6]
 
         // 버튼 넣기
         //  -> 버튼이름 배열의 수 만큼 버튼을 넣는다.
-
         //배열의 개수를 미리구하여 변수에 할당
-        let cnt =choiceName.length;
-        for(let i=0;i<cnt;i++){
-          target[6].innerHTML+=`
-          <button style="margin-left:5px" onclick="">${choiceName[i]}초이스</button>
+        let cnt = choiceName.length;
+
+        // 첫번째 버튼에 선택표시 클래스 on을 넣기위해 for문 순회 시 i값이 0이면 그 자리에 클래스on 설정 코드를 넣으려면 삼항연산자를 사용하면 된다.
+        // 식 : i==0?"class='on'":""
+        // -> 해석 i가 0인가? true면 앞에 거. false면 뒤에 거 출력
+        for (let i = 0; i < cnt; i++) {
+          target[6].innerHTML += `
+          <button ${i == 0 ? "class='on'" : ""}style="margin-left:5px">${
+            choiceName[i]
+          } 초이스</button>
           `;
           // 줄바꿈태그는 5번째,10번째 넣기
-          if(i==4||i==9){
-            target[6].innerHTML += '<br>'
-          }////if문
+          if (i == 4 || i == 9) {
+            target[6].innerHTML += "<br>";
+          } ////if문
+        } ///for문///
 
-        }///for문///
-
-        
         // 초이스 박스 줄간격조정
-        target[6].style.height="auto";
-        target[6].style.lineHeight="30px";
-        target[6].style.padding="10px 0";
-        
+        target[6].style.height = "auto";
+        target[6].style.lineHeight = "30px";
+        target[6].style.padding = "10px 0";
 
-      } /////////loadFn함수////////////
-      ////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
+        // 위에서 넣은 버튼을 순회하며 클릭이벤트함수를 설정해준다.
+        /////////////////////////////////////////////////////////////////////
+        // 이벤트 대상:target[6] 하위 button
+        let choiceBtn = target[6].querySelectorAll("button");
+
+        // 버튼 개수 구하기
+        let cntBtn = choiceBtn.length;
+
+        console.log("초이스버튼들 : ", choiceBtn, cntBtn, "개");
+
+        //버튼개수만큼 순회하며 onclick속성에 익명함수 할당하기(기능구현)
+        for (let i = 0; i < cntBtn; i++) {
+          // 대상 : choiceBtn 변수에 할당된 button요소
+          // console.log(choiceBtn[i]);
+          choiceBtn[i].onclick = function () {
+            // this는 이벤트 할당된 요소 자신
+            // 버튼 데이터 읽기
+            let btnTxt = this.innerText;
+
+            
+            console.log("내가 누구게 : ", btnTxt);
+            console.log("영화정보 변경 전 : ", JYObj);
+
+            switch (btnTxt) {
+              case "유지영 초이스":
+                JYObj=myObj;
+                break;
+              case "민지 초이스":
+                JYObj = mjObj;
+                break;
+              case "지영 초이스":
+                JYObj = jyObj;
+                break;
+              case "도연 초이스":
+                JYObj = dyObj;
+                break;
+              case "재윤 초이스":
+                JYObj = jaeObj;
+                break;
+              case "노영 초이스":
+                JYObj = nyObj;
+                break;
+              case "우진 초이스":
+                JYObj = wjObj;
+                break;
+              case "영진 초이스":
+                JYObj = yjObj;
+                break;
+              case "은경 초이스":
+                JYObj = lekObj;
+                break;
+              case "지현 초이스":
+                JYObj = jjob;
+                break;
+              case "수진 초이스":
+                JYObj = suObj;
+                break;
+              case "윤철 초이스":
+                JYObj = ironObj;
+                break;
+              case "정윤 초이스":
+                JYObj = jjyObj;
+                break;
+              case "탐쌤 초이스":
+                JYObj = tomObj;
+                break;
+              default:
+                break;
+            }
+            console.log("영화정보 변경 후 : ", JYObj);
+            showMovieInfo();
+
+            // 변경데이터 확인 후 바로 위 박스 영화정보 업데이트
+          }; //클릭이벤트 함수
+        } ////////for문
+      } /////////////////////loadFn함수////////////////////////
+      /////////////////////////////////////////////////////////////
 
       /********************************************************************** 
        함수명 : playMovie
@@ -615,8 +711,6 @@
         document.body.classList.add("on");
       } //////////playMovie함수
     </script>
-
-    
   </head>
 
   <body>
@@ -630,7 +724,7 @@
     <div class="cont"></div>
 
     <!-- 영화초이스박스 -->
-    <div class="cont"></div>
+    <div class="cont choice"></div>
 
     <!-- 영화예고편용 박스 -->
     <aside id="mvbox"></aside>
