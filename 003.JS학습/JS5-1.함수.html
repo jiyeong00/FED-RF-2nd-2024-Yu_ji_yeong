@@ -11,8 +11,8 @@
                 기본적으로 body가 보이는 화면을 유지하다가
                 컨텐츠가 많아져서 스크롤 생성시 body도 늘어남! */
 
-        background: url(https://images.adsttc.com/media/images/5f73/76e0/63c0/17bc/c900/04e8/large_jpg/HK_1_N3.jpg?1601402564)
-          no-repeat fixed center/cover;
+        /* background: url(https://images.adsttc.com/media/images/5f73/76e0/63c0/17bc/c900/04e8/large_jpg/HK_1_N3.jpg?1601402564)
+          no-repeat fixed center/cover; */
       }
       /* 배경박스 */
       .bgbox {
@@ -58,6 +58,26 @@
 
       button {
         font-size: 40px;
+      }
+
+      /* 불꽃놀이 박스 */
+      .fireworks {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 100;
+        background: url(./images/fireworks.gif) center;
+        display: none;
+
+        font-size: 6vw;
+        font-weight: bold;
+        color: aqua;
+        white-space: nowrap;
+        text-shadow: 0 0 5px #333;
+        text-align: center;
+        line-height: 100vh;
       }
     </style>
     <script>
@@ -231,11 +251,11 @@
         // 1.함수호출,전달값 확인
         alert(txt);
         // 2. 다른함수호출
-        let ri = Ri(txt+"리");
+        let ri = Ri(txt + "리");
         // 3. 리턴값 찍기
-        alert (ri);
+        alert(ri);
         // 4. 리턴값 보내기! -> 호출한 곳으로!
-        return ri+ '국 만세!!!';
+        return ri + "국 만세!!!";
         // '우리나라 대한민국 만세!!!' 리턴
       } ///// Korea함수 ////////////////
       //////////////////////////////////
@@ -248,11 +268,11 @@
         // 1.함수호출,전달값 확인
         alert(txt);
         // 2. 다른함수호출
-        let na=Na(txt+"나");
+        let na = Na(txt + "나");
         // 3. 리턴값 찍기
         alert(na);
         // 4. 리턴값 보내기! -> 호출한 곳으로!
-        return na+'민';
+        return na + "민";
         // '우리나라 대한민' 리턴
       } ///// Ri함수 ////////////////
       //////////////////////////////////
@@ -265,14 +285,13 @@
         // 1.함수호출,전달값 확인
         alert(txt);
         // 2. 다른함수호출
-        let ra = Ra(txt+"라");
+        let ra = Ra(txt + "라");
         // ->> 함수를 변수에 담으면 변수에는 함수가 리턴한 값이 할당된다.
-
 
         // 3. 리턴값 찍기
         alert(ra);
         // 4. 리턴값 보내기! -> 호출한 곳으로!
-        return ra+'한';
+        return ra + "한";
         // '우리나라 대한' 리턴
       } ///// Na함수 ////////////////
       //////////////////////////////////
@@ -285,18 +304,16 @@
         // 1.함수호출,전달값 확인
         alert(txt);
         // 2. 리턴값 보내기! -> 호출한 곳으로!
-        return txt +' 대';
+        return txt + " 대";
         // '우리나라 대' 리턴
 
         // 리턴키워드가 없거나 리턴키워드 뒤에 값이 없으면, 아무것도 리턴하지 않는다.
         // 변수에 할당 시 (undefined)
-
-
       } ///// Ra함수 ////////////////
       //////////////////////////////////
 
       // 선언적함수보다 위에서 이 함수를 호출! //
-      // callMe("함수위에서 호출!");
+      callMe("함수위에서 호출!");
       // 호출됨! 어떻게? -> 미리로딩되었다는 증거!
       // 코드위에서 호출되므로 이것을 함수호출 호이스팅(Hoisting)
       // 이라고 부른다!
@@ -310,17 +327,17 @@
       } ///////// callMe 함수 /////////////
 
       // 할당형 익명함수를 코드 위에서 호출!
-      // myHome("익명함수 위에서 호출!");
       // 위에서 호출불가! 왜? 변수에 할당하는 순간 생성되기때문!
-
+      
       ////////// 할당형 익명함수 ////////////
       // -> 변수에 익명함수를 할당하여 함수를 호출!
       const myHome = function (txt) {
-        // txt 전달변수
-        console.log("오!나의집!", txt);
-      }; /////// myHome 함수 ////////////////
-
-      // 할당형 익명함수를 코드 아래에서 호출!
+          // txt 전달변수
+          console.log("오!나의집!", txt);
+        }; /////// myHome 함수 ////////////////
+        
+        // 할당형 익명함수를 코드 아래에서 호출!
+        myHome("익명함수 위에서 호출!");
       // myHome("익명함수 아래에서 호출!");
       // 만약 함수를 처음부터 호출하는 경우라면 할당형 익명함수는
       // 반드시 생성후 아랫쪽에서 호출해야한다!
@@ -343,6 +360,10 @@
         예) setTimeout(function(){코드},800)
             -> 0.8초후 코드 한번만 실행!
 
+        (( 인터발함수 / 타임아웃함수 지우는 함수는 ))
+            1) 인터발함수 : clearInterval(인터발변수)
+            2) 타임아웃함수 : clearTimeout(타임아웃변수)
+
         ->>> 함수가 외부에 있을 경우 그 함수명만 써서
         함수를 등록하거나 외부함수가 전달값이 있을 경우
         익명함수 구역 안에서 코드를 작성한다!
@@ -351,7 +372,10 @@
             function hahaha(){코드}
             _________________________
 
-            setInterval(function(){hahaha("넌누구냐?");},2000);
+            setInterval(
+                function(){
+                    hahaha("넌누구냐?");
+                },2000);
             function hahaha(txt){코드}
 
 
@@ -372,6 +396,86 @@
             함수명: myFn
             기능: 파라미터 얼마든지 받아서 h2만들어 넣기
         *********************************************/
+
+      /*********************************************************** 
+         함수명 : showFireworks
+         기능 : 우리나라 대한민국 프로젝트 버튼 마지막 확인 시 전체 화면으로 불꽃놀이 보이기
+         ***********************************************************/
+
+      function showFireworks() {
+        console.log("파이어!");
+
+        // 대상 : .fireworks
+        let fireworks = document.querySelector(".fireworks");
+
+        // 변경적용하기 : 보이게하기
+        fireworks.style.display = "block";
+
+        // 3초후 다시 안보이게 처리하기
+        // setTimeout(함수,시간)
+        setTimeout(() => {
+          fireworks.style.display = "none";
+        }, 3000);
+      } ////////showFireworks함수
+      /////////////////////////////////////////////////////
+
+
+    //   로딩 시 호출설정
+    window.addEventListener("load",loadFn);
+      /******************************************************* 
+       함수명 : loadFn
+       기능 : 페이지 로딩 후 실행함수
+       *******************************************************/
+      function loadFn(){
+        // 함수호출확인
+        console.log("로딩완료");
+
+        // [ 배경박스에 ul>li를 넣고 백경이미지 세팅하기 ]
+        // 대상선정 : .bgbox
+        const bgbox = document.querySelector(".bgbox");
+
+        // html넣기 - 기준은 scene 배열변수 만큼 넣기
+        let cntScene = scene.length;
+        console.log('배열개수 : ',cntScene);
+
+        // 배열개수만큼 for문 돌려서 li만들기
+        // html 코드를 담을 변수
+        let hcode ='<ul>';
+        // 첫번째 li에만 클래스 on넣기
+        for(let i=0; i<cntScene; i++){
+            hcode += `<li ${i == 0 ? 'class="on"' : ""}style="background:url(${scene[i]}) no-repeat center/cover">
+                </li>`;
+        }//for문
+
+        // 닫는 ul넣기
+        hcode += '</ul>';
+
+        // 코드확인
+        console.log(hcode);
+
+        // 대상에 html 넣기
+        bgbox.innerHTML=hcode;
+
+        // 순차적으로 li에 클래스 on넣어서 장면넘기기
+        // -> setInterval() 타이밍 내장함수 사용
+        // 리스트 순번 변수
+        let listSeq=0;
+        // 배경 li변수에 할당
+        const bgList=bgbox.querySelectorAll('li');
+
+        setInterval(() => {
+            // 리스트 이전 순번 클래스 제거하기
+            bgList[listSeq].classList.remove('on');
+
+            listSeq++;
+            // 리스트 다음순번 클래스 넣기
+            bgList[listSeq].classList.add('on');
+
+        }, 3000);
+
+
+        
+      }////////loadFn함수
     </script>
   </head>
 
@@ -380,6 +484,15 @@
     <div class="bgbox"></div>
 
     <!-- 프로젝트 버튼 -->
-    <button onclick="alert(Korea('우'))">우리나라 대한민국 만세 프로젝트 시작!</button>
+    <button
+      onclick="alert(Korea('우'));
+    // alert실행하여 ' 확인버튼' 클릭 후 아래 코드 실행
+    showFireworks();"
+    >
+      우리나라 대한민국 만세 프로젝트 시작!
+    </button>
+
+    <!-- 불꽃놀이 박스 -->
+    <div class="fireworks">우리나라 대한민국 만세!!!</div>
   </body>
 </html>
