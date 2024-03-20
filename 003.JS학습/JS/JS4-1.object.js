@@ -1,4 +1,24 @@
 //나의 영화 초이스 객체 JS
+let myObj = {}; /* 객체리터널 */
+// 오브젝트 형만 만들고 객체내용은 아래에서
+
+// 1. 영화제목
+myObj.title = "팬";
+// 2. 감독
+myObj.director = "조 라이트";
+// 3. 배우
+myObj.actor = "리바이 밀런, 휴 잭맨 등";
+// 4. 장르
+myObj.genre = "어린이/모험";
+// 5. 관람가
+myObj.ratings = "전체관람가";
+// 6. 예고편
+myObj.trailer = function () {
+  console.log("예고편 : 영화아이디");
+  // 예고편 플레이 함수호출!
+  playMovie("UajkLLXF8x0");
+}; ///////trailer메서드
+
 
 // 민지의 오브젝트!
 // 자신만의 오브젝트! -> 변경가능하게 let으로 선언한다!
