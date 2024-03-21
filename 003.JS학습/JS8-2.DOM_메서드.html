@@ -52,56 +52,61 @@
       // querySelector 함수 짧게 만들기! ////
       const qs = (x) => document.querySelector(x);
       const qsa = (x) => document.querySelectorAll(x);
-      const qsEl = (ele,x) => ele.querySelector(x);
-      const qsaEl = (ele,x) => ele.querySelectorAll(x);
+      const qsEl = (ele, x) => ele.querySelector(x);
+      const qsaEl = (ele, x) => ele.querySelectorAll(x);
 
       // addEventListener 함수 짧게 만들기! ////
       const addEvt = (ele, evt, fn) => ele.addEventListener(evt, fn);
 
-    // 로그구역 이벤트 설정하기
-    ///////////// 로드함수 ////////////////
-    addEvt(window,'load',loadFn);
-    function loadFn() {
-      console.log("로딩완료!");
+      // 로그구역 이벤트 설정하기
+      ///////////// 로드함수 ////////////////
+      addEvt(window, "load", loadFn);
+      function loadFn() {
+        console.log("로딩완료!");
 
-      /************************************************ 
+        /************************************************ 
        * 마우스 오버시
         1. 서브메뉴 보이기
         2. 링크이동하기
        ************************************************/
-    // 1. 대상선정 : .smenu
-    const smenu = qsa('.smenu');
-    // 대상개수
-    let cntSmenu = smenu.length;
+        // 1. 대상선정 : .smenu
+        const smenu = qsa(".smenu");
+        // 대상개수
+        let cntSmenu = smenu.length;
 
-    console.log('메뉴 : ',smenu,cntSmenu);
+        console.log("메뉴 : ", smenu, cntSmenu);
 
-    // 2. 이벤트설정하기
-    for(let i=0; i<cntSmenu; i++) {
-        smenu[i].onmouseover=()=>{
-            // 변경대상 
-            let target = qsEl(smenu[i],'div');
+        // 2. 이벤트설정하기
+        for (let i = 0; i < cntSmenu; i++) {
+          smenu[i].onmouseover = () => {
+            // 변경대상
+            let target = qsEl(smenu[i], "div");
             // 높이값 대상 : .smenu ol
             // 높이값은 offsetHeight 속성으로 읽어옴
-            let htVal = qsEl(smenu[i],'ol').offsetHeight;
-            console.log('하위메뉴 높이',htVal);
+            let htVal = qsEl(smenu[i], "ol").offsetHeight;
+            console.log("하위메뉴 높이", htVal);
             // 변경내용 : 높이값, 트랜지션
-            target.style.height=htVal+'px';
-            target.style.transition='.3s';
-            
-        };//마우스오버 이벤트 함수
-        
-        smenu[i].onmouseout=()=>{
-            // 변경대상 
-            let target = qsEl(smenu[i],'div');
+            target.style.height = htVal + "px";
+            target.style.transition = ".3s";
+          }; //마우스오버 이벤트 함수
+
+          smenu[i].onmouseout = () => {
+            // 변경대상
+            let target = qsEl(smenu[i], "div");
             // 변경내용 : 높이값
-            target.style.height='0';
+            target.style.height = "0";
+          }; //마우스아웃 이벤트 함수
+        } ////FOR문
 
-        };//마우스아웃 이벤트 함수
+        /********************************************** 
+            [ 선택요소의 현재 크기, 위치값 알아오는 JS속성 ]
+            1. 선택요소.offsetWidth : 가로값
+            2. 선택요소.offsetHeight : 높이값
+            3. 선택요소.offsetTop : top 위치값
+            4. 선택요소.offsetLeft : left 위치값            
+        **********************************************/
 
-    }////FOR문
-
-    /***************************************** 
+        /***************************************** 
      [ 이벤트 비교 ]
      mouseover / mouseout 
      -> 요소위에 오버시 / 아웃시
@@ -112,13 +117,9 @@
      -> 버블링 발생안함
     
     *****************************************/
-
-
-    }/////////////////////loadFn함수///////////////////
-    //////////////////////////////////////////////////
-
+      } /////////////////////loadFn함수///////////////////
+      //////////////////////////////////////////////////
     </script>
-
   </head>
 
   <body>
