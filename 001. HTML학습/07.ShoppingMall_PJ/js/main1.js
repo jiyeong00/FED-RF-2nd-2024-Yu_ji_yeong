@@ -82,6 +82,9 @@ function loadFn() {
     // abtn[0].onclick = ()=>{
    
     // };
+    
+    // 광클 금지변수
+    let prot = 0;/* (1-true불허용) */
 
 
     /*********************************************** 
@@ -89,6 +92,13 @@ function loadFn() {
      * 기능 : 슬라이드 이동
      ***********************************************/
     function goSlide(){
+        // 광클 금지
+        if(prot) return;
+        prot=true;
+        setTimeout(() => {
+            prot=false;
+        }, 600);
+
         // 두번째 버튼인 .ab2인가?
         let isRbtn = this.classList.contains('ab2');
         // [classList객체의 contains) 메서드]
@@ -102,7 +112,6 @@ function loadFn() {
         // 오른쪽 버튼일 경우
         if(isRbtn){
             slide.style.left = '-100%';
-            slide.style.transition = '.6s ease-in-out';
             slide.style.transition = '.6s ease-in-out';
             // 이동하는 시간 0.6초 기다림
             setTimeout(() => {
@@ -122,6 +131,20 @@ function loadFn() {
             
 
         }//if문//
+        else{
+            // 하위 li 수집
+            let list = slide.querySelectorAll('li');
+            slide.inserBefore(list[list.lenght-1],list[0]);
+
+            slide.style.left='-100%';
+            // 같은 left값을 변경하기 때문에 코드 처리구역을 분리하여 준다.
+            // 이때 사용되는 메서드는 setTimeout()
+            setTimeout(() => {
+                slide.style.left='0';
+                slide.style.transition = ".6s ease-in-out";
+            }, 600);
+        }
+
 
 
 
