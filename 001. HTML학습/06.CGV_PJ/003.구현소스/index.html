@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CGV에 오신 것을 환영합니다!</title>
     <link rel="stylesheet" href="./css/main.css" />
+    <!-- 메인 JS 불러오기 -->
+    <script src="./js/main.js" defer></script>
     <!-- 자바스크립트 코드 구역 -->
     <script>
       //JS코드구역
@@ -13,11 +15,11 @@
       /* 
         JS함수 ->function 함수명(){ 코드 }
         */
-      function 멍멍이(먹이) {
-        alert(먹이);
-        document.getElementById("ifr").src =
-          "https://www.youtube.com/embed/"+먹이;
-      }
+      // function 멍멍이(먹이) {
+      //   alert(먹이);
+      //   document.getElementById("ifr").src =
+      //     "https://www.youtube.com/embed/"+먹이;
+      // }
     </script>
   </head>
   <body>
@@ -51,18 +53,22 @@
                 <img src="./images/m2.jpg" alt="서울의 봄" /></a>
           </li>
           <li>
-            <a href="#">
+            <a href="#" onclick="멍멍이('IQZwykwNQYo')">
               <img src="./images/m3.jpg" alt="짱구는 못말려 초능력 대결전"
             /></a>
           </li>
           <li>
-            <a href="#"> <img src="./images/m4.jpg" alt="웡카" /></a>
+            <a href="#" onclick="멍멍이('Bldf9SWRPFM')"> 
+              <img src="./images/m4.jpg" alt="웡카" />
+            </a>
           </li>
           <li>
-            <a href="#"> <img src="./images/m5.jpg" alt="스미코구라시" /></a>
+            <a href="#" onclick="멍멍이('quyIxaEvuVg')"> 
+              <img src="./images/m5.jpg" alt="스미코구라시" /></a>
           </li>
           <li>
-            <a href="#"> <img src="./images/m6.jpg" alt="추락의 해부" /></a>
+            <a href="#" onclick="멍멍이('VMBCqyg2qZ8')"> 
+              <img src="./images/m6.jpg" alt="추락의 해부" /></a>
           </li>
         </ul>
       </nav>
