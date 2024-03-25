@@ -73,27 +73,74 @@ body *{
     /* 한번에 메인영역 하단으로 위치이동 포지셔닝 */
     /* 부모는 .main-area */
     position: absolute;
-    bottom: 50px;
-    margin-left: 214px;
+    width: 65%;
+
+    bottom: 5%;
+    left: 50%;
+    /* 가로방향 중앙이동 */
+    transform: translateX(-50%);
+    /* margin-left: 215px; */
 }
 /* 포스터 ul */
-.poster-menu ul::after{
+/* .poster-menu ul::after{
     content: '';
     display: block;
     clear: both;
+} */
+
+/* 포스터 리스트 */
+.poster-menu ul{
+    /* float: left; */
+    display: flex;
+    gap : 0 15px;
 }
 /* 리스트 사이간격 */
-.poster-menu li+li{
-    margin-left: 15px;
+.poster-menu>ul>li{
+    /* 부모자격 - 영화정보박스 */
+    position: relative;
+    overflow: hidden;
 }
-/* 포스터 리스트 */
-.poster-menu li{
-    float: left;
-}
+
 /* 포스터이미지 */
 .poster-menu img{
-    /* width: 100px; */
-    height: 170px;
+    width: 100%;
+    /* height: 170px; */
+}
+
+/* 영화정보박스 : 오버시 올라올 박스 */
+.mv-info {
+    position: absolute;
+    /* 아래쪽에 나가있음 */
+    top: 100%;
+    width: 100%;
+    height: 100%;
+
+    color: white;
+    text-align: center;
+
+    transition: .3s ease-in-out;
+}
+/* 부모 li에 오버시 영화정보 박스 올라오기 */
+.poster-menu>ul>li:hover .mv-info{
+    top: 0;
+}
+/* 영화정보박스 하위 ol */
+.mv-info ol{
+    /* 플렉스박스
+    -> 옆으로 흘러가지 않아도 구성요소의 흐름을 제어할 목적으로 줌 */
+    display: flex;
+    /* 플렉스 진행방향 */
+    flex-direction: column;
+    justify-content: center;
+    /* 부모박스 채우기 */
+    height: 100%;
+
+    white-space: nowrap;
+    font-size: 12px;
+    line-height: 2.5;
+
+    background-color: #0000008f;
+
 }
 /********************************* 3.하단영역 *********************************/
 .footer-area{
