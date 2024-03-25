@@ -17,9 +17,9 @@ console.log('대상 ',pMenu,ifr);
 
 // 2. 영화아이디 정보 객체로 구성하기
 const movieId = {
-    "스파이더맨-어크로스더유니버스":"aa0WjdSYdCk",
+    "스파이더맨":"aa0WjdSYdCk",
     "서울의 봄":"-AZ7cnwn2YI",
-    "짱구는 못말려 초능력 대결전":"IQZwykwNQYo",
+    "짱구는 못말려":"IQZwykwNQYo",
     "웡카":"Bldf9SWRPFM",
     "스미코구라시":"quyIxaEvuVg",
     "추락의 해부":"VMBCqyg2qZ8",
