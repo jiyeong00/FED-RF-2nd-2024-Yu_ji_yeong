@@ -6,11 +6,10 @@ const qsa = (x) => document.querySelectorAll(x);
 
 // addEvent 함수
 // ele - 요소, evt - 이벤트, fn - 함수
-const addEvt = 
-(ele, evt, fn) => ele.addEventListener(evt, fn);
+const addEvt = (ele, evt, fn) => ele.addEventListener(evt, fn);
 
 // HTML태그 로딩후 loadFn함수 호출! ///
-addEvt(window,"DOMContentLoaded", loadFn);
+addEvt(window, "DOMContentLoaded", loadFn);
 
 /***************************************************** 
     [ 슬라이드 이동 기능정의 ]
@@ -40,80 +39,89 @@ addEvt(window,"DOMContentLoaded", loadFn);
     기능: 로딩 후 버튼 이벤트 및 기능구현
 ******************************************/
 function loadFn() {
-    console.log("로딩완료!");
-    
-    // 이동버튼 대상 : .abtn
-    const abtn = qsa('.abtn');
-    // 변경대상 : #slide
-    const slide = qs('#slide');
-    // console.log(abtn,slide);
+  console.log("로딩완료!");
 
-    // 왼쪾 버튼 처음에 숨기기
-    abtn[0].style.display = 'none';
-    
-    // 슬라이드 순번 전역변수
-    let snum=0;
+  // [대상선정]
+  // 이동버튼 대상 : .abtn
+  const abtn = qsa(".abtn");
+  // 변경대상 : #slide
+  const slide = qs("#slide");
+  // 불릿대상
+  const indic = document.querySelectorAll(".indic li");
 
-    // 버튼 모두 이벤트 설정하기
-    for(let x of abtn){
-        x.onclick=goSlide;
-    }///for of문///
+  // 왼쪾 버튼 처음에 숨기기
+  abtn[0].style.display = "none";
 
-    
-    // // 2. 오른쪽 버튼 클릭시 기능구현
-    // abtn[1].onclick = ()=>{
+  // 슬라이드 순번 전역변수
+  let snum = 0;
 
-    // };
-    // // 3. 왼쪽 버튼 클릭시 기능구현
-    // abtn[0].onclick = ()=>{
-   
-    // };
+  // 버튼 모두 이벤트 설정하기
+  for (let x of abtn) {
+    x.onclick = goSlide;
+  } ///for of문///
 
+  // // 2. 오른쪽 버튼 클릭시 기능구현
+  // abtn[1].onclick = ()=>{
 
-    /*********************************************** 
-     * 함수명 : goSlide
-     * 기능 : 슬라이드 이동
-     ***********************************************/
-    function goSlide(){
-        // 두번째 버튼인 .ab2인가?
-        let isRbtn = this.classList.contains('ab2');
-        // [classList객체의 contains) 메서드]
-        // -> 해당요소의 특정 클래스인지 여부를 리턴함 
-        // 해당클래스가 있으면 true, 없으면 false
+  // };
+  // // 3. 왼쪽 버튼 클릭시 기능구현
+  // abtn[0].onclick = ()=>{
 
-        // 함수호출 확인
-        console.log('슬라이드 호출', this,isRbtn);
+  // };
 
-        // 2. 오른쪽버튼이면 ++, 아니면 --
-        isRbtn? snum++ : snum--;
-        // 3. 한계값 설정하기
-        // 한계값일때 각 버튼 숨기기
-        // 3-1. 오른쪽 벝ㄴ일 경우 0보다 작으면 숨기기
-        if (snum<0){
-            snum=0;
-            this.style.display="none";
-        }///if문///
-        else if(snum>4){
-            snum=4;
-            this.style.display="none";
-        }
+  /***********************************************
+   * 함수명 : goSlide
+   * 기능 : 슬라이드 이동
+   ***********************************************/
+  function goSlide() {
+    // 두번째 버튼인 .ab2인가?
+    let isRbtn = this.classList.contains("ab2");
+    // [classList객체의 contains) 메서드]
+    // -> 해당요소의 특정 클래스인지 여부를 리턴함
+    // 해당클래스가 있으면 true, 없으면 false
 
-        // 마지막 구역에서 버튼 숨기기
-        if(snum ===0||snum===4){
-            this.style.display="none";
-        }else{
-            for(let x of abtn){
-                x.style.display="block";
-            }//
-        }
+    // 함수호출 확인
+    console.log("슬라이드 호출", this, isRbtn);
 
+    // 2. 오른쪽버튼이면 ++, 아니면 --
+    isRbtn ? snum++ : snum--;
+    // 3. 한계값 설정하기
+    // 한계값일때 각 버튼 숨기기
+    // 3-1. 오른쪽 벝ㄴ일 경우 0보다 작으면 숨기기
+    if (snum < 0) {
+      snum = 0;
+      this.style.display = "none";
+    } ///if문///
+    else if (snum > 4) {
+      snum = 4;
+      this.style.display = "none";
+    }
 
-        console.log('이동 : ',(-100*snum)+'%');
-        slide.style.left = (-100*snum)+'%';
-        slide.style.transition = '.6s ease-in-out';
+    // 마지막 구역에서 버튼 숨기기
+    if (snum === 0 || snum === 4) {
+      this.style.display = "none";
+    } else {
+      for (let x of abtn) {
+        x.style.display = "block";
+      } //
+    }
 
-    }//////////goSlide함수//////////
-    ///////////////////////////////
-    
+    console.log("이동 : ", -100 * snum + "%");
+    slide.style.left = -100 * snum + "%";
+    slide.style.transition = ".6s ease-in-out";
+
+    // 5. 블릿표시 구현하기
+    // 모든 클래스 on지우기 + 현재 순번 클래스 넣기
+    indic.forEach((ele, idx) => {
+      // ele - 각각의 li / idx - 각각의 순번
+      if (idx === snum) {
+        ele.classList.add("on");
+      } else {
+        //나머지는 on빼기
+        ele.classList.remove("on");
+      }
+    }); ///forEach문///
+  } //////////goSlide함수//////////
+  ///////////////////////////////
 } //////////////// loadFn 함수 ///////////////
 /////////////////////////////////////////////

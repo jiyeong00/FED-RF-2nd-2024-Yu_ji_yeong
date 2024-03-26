@@ -104,9 +104,6 @@ let pos=elePage[pgnum].offsetTop;
 // scrollTo(0,y츅이동값)
 window.scrollTo(0,pos);
 
-// 메뉴클릭시 이벤트 처리하기
-const gnb=document.querySelectorAll('.gnb a');
-
 // 전체 메뉴에 on빼기 
 for(let x of gnb){
     x.parentElement.classList.remove('on');
@@ -119,17 +116,27 @@ gnb[pgnum].parentElement.classList.add('on');
 } /////////// wheelFn 함수 ////////////////
 ///////////////////////////////////////////
 
+/******************************* 
+    메뉴 클릭시 이벤트 처리하기 
+*******************************/
+// 이벤트 대상: .gnb a
+const gnb = document.querySelectorAll(".gnb a");
+console.log("gnb:", gnb);
+// 이벤트 설정하기 + 기능구현하기
+gnb.forEach((ele, idx) => {
+  ele.onclick = () => {
+    // 클릭시 자신의 순번찍기
+    console.log("순번:", idx);
+    // 1.전역페이지변수에 순번 업데이트
+    pgNum = idx;
 
+    // 2.전체 메뉴에 on빼기
+    for (let x of gnb) {
+      x.parentElement.classList.remove("on");
+    } /// for of ///
 
-
-
-
-// // DOM함수 객체
-// const domFn={
-//     // 요소 선택함수
-//     // qs : function(x){return document.querySelector(x)},
-//     // :은 오른쪽에 있는걸 왼쪽에 할당
-//     qs:x=>document.querySelector(X),
-//     qsa:x=>document.querySelectorAll(X),
-
-// };//domFn객체//
+    // 3.해당순번에 on넣기
+    ele.parentElement.classList.add("on");
+    // parentElement는 선택요소의 부모요소다!
+  }; /// click함수 ///
+}); //// forEach ///
