@@ -13,6 +13,14 @@
       }
       /* 배경색은 겉박스에서! */
       .w1 {
+        position: relative;
+        /* 만약 클립패스된 박스에 그림자효과를 주려면 부모박스에 filter를 주면됨
+        단 배경색을 넣으면 외곽선을 찾아서 주는 효과이므로 그림자 효과가 상쇄된다 */
+        filter: drop-shadow(5px 5px 5px #000);
+        /* background-color: lightseagreen; */
+      }
+      /* 그림자는 아래쪽 다른 박스에 주면된다 */
+      body {
         background-color: lightseagreen;
       }
       .w2 {
@@ -90,10 +98,23 @@
 
       }
       .pg2 {
+        /* 다각형 클립패스 */
+        clip-path: polygon(47.6% 29%, 89% 1.8%, 99% 61%, 72% 95%, 28% 95%, 1% 61%, 9.2% 3.4%);
         background-image: url(https://images.unsplash.com/photo-1503424886307-b090341d25d1?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
       }
+      .pg2.on {
+        /* 다각형 클립패스 */
+        clip-path: polygon(45% 0%, 100.8% 0%, 100.4% 61%, 100.2% 100.2%, 20% 100.2%, 0% 100.2%, 0% 61%, 0% 0%);
+      }
+
       .pg3 {
+        /* 한쪽끝에서 커지는 원클래스 */
+        clip-path: circle(10% at 100% 0 );
         background-image: url(https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2919&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+      }
+      .pg3.on {
+        /* 한쪽끝에서 커지는 원클래스 */
+        clip-path: circle(200% at 100% 0 );
       }
       
       /* 
