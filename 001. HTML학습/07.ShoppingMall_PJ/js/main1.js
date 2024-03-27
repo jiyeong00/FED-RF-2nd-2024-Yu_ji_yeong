@@ -87,8 +87,6 @@ function loadFn() {
   // 블릿의 li까지 수집! indic 변수
   indic = document.querySelectorAll('.indic li');
 
-  // 슬라이드 순번 전역변수
-  let snum = 0;
 
   // 2. 버튼을 모두 이벤트 설정하기
   for (let x of abtn) {
