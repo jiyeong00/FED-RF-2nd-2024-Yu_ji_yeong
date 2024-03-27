@@ -242,6 +242,8 @@
   overflow: auto;
   background: url(../images/eachBG.jpg) no-repeat bottom/cover;
 
+  border-radius: 10px 5px 5px 10px;
+
   transition: .4s ease-in-out;
 }
 /* 상위 캐릭터 개별박스에 오버시 설명박스 보이기 */
@@ -255,6 +257,7 @@
 /* 상위 캐릭터 개별박스에 오버시 이미지박스 트랜지션
 설명박스와 동일하게 설정하기 */
 .cat-inbox article .imbx {
+  margin-top: 3%;
   transition: .4s ease-in-out;
 }
 /* 상위 캐릭터 개별박스에 오버시 이미지박스 마이너스
