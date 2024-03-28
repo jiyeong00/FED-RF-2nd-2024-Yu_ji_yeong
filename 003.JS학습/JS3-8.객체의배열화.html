@@ -215,8 +215,19 @@
 
         console.log(wrap);
 
-        // 2. 이벤트설정 : 로딩후 바로 실행
+        // 2. 객체 배열화하기
+        // 객체값의 배열화로 변수에 할당하기
+        const newMvi = Object.values(mvi);
+
+        console.log("mvi객체 속성배열화", Object.keys(mvi));
+        console.log("mvi객체 값배열화", Object.values(mvi));
+
+        // 3. 이벤트설정 : 로딩후 바로 실행
         makeList();
+
+        // 객체를 forEach 메서드로 사용하면 에러!!!
+        //   -> 에러메시지:mvi.forEach is not a function
+        // mvi.forEach(v=>console.log(v));
 
         /********************************************* 
         * 함수명 : makeList
@@ -228,45 +239,34 @@
           console.log("리스트만들어!");
 
           // 1. 문구처리 함수
-          const wrapping = (x)=>{
+          const wrapping = (x) => {
             //전달받은 문자(x)를 for of문으로 잘라서 span태그로 싼 후 리턴한다.
             //결과값 변수 res;
-            let res='';
-            for(let y of x){
-                // 스페이스바일 경우 공백특수문자넣기
-                if(y===' '){
-                    res+='&nbsp;&nbsp;';
-                }else{
-                    res+=`<span>
+            let res = "";
+            for (let y of x) {
+              // 스페이스바일 경우 공백특수문자넣기
+              if (y === " ") {
+                res += "&nbsp;&nbsp;";
+              } else {
+                res += `<span>
                         ${y}
                         </span>`;
-                }//if문//
-            }///for of문///
+              } //if문//
+            } ///for of문///
             // &nbsp; -> 줄바꿈없는 공백 특수 문자처리
             //   -> no break space의 줄임말
 
-
             //결과값 호출한 곳으로 리턴하기
             return res;
-          };////////////wrapping함수//////////////////////
+          }; ////////////wrapping함수//////////////////////
 
-          // 2. 객체 데이터 순회하기
-          // for in문 사용!!!
-          // for(변수 in 객체){코드}
-          // -> for of 문이나 forEach메서드는
-          // 배열/유사배열만 사용가능하기 때문에
-          // 객체의 순회는 for in 문을 사용한다!
-          // -> 대상객체 : mvi
-
+          // 2. 배열화한 객체 데이터 순회하기
           //   -> 코드를 담을 변수 hcode
           let hcode = ""; //스트링 초기화(리터럴)
 
-          for (let x in mvi) {
-            // x는 객체의 속성명
-            // 객체의 값은 객체[속성명]으로 가져온다
-
-            //   선택객체값 변수에 담기
-            let data = mvi[x];
+          // 배열이 되었으므로 forEach 사용가능
+          newMvi.forEach((data) => {
+            //data : 배열값
 
             // 변수에 데이터 대입연산자로 템플릿리터럴을 사용하여 코드를 구성한다
             hcode += `
@@ -297,19 +297,15 @@
             <!-- 6. 문구 -->
             <div class="show">
                 ${
-                    //인터플레이션 구역에는 표현식만 쓸 수 있다.
-                    // 표현식은 그 자리에 값이 출력되는 식을 말한다.
-                    //  -->> 따라서 제어문은 쓸 수 없음.
-                    wrapping(data.문구)
+                  //인터플레이션 구역에는 표현식만 쓸 수 있다.
+                  // 표현식은 그 자리에 값이 출력되는 식을 말한다.
+                  //  -->> 따라서 제어문은 쓸 수 없음.
+                  wrapping(data.문구)
                 }
             </div>
         </section>
         `;
-
-            // console.log('for in 변수',x);
-            // console.log('객체의 값 : ',mvi[x]);
-            // console.log('출연값 : ',mvi[x].출연);
-          } //////for in문////
+          }); ///forEach문///
 
           // 데이터 확인
           // console.log(hcode);
