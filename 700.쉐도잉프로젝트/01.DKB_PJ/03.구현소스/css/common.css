@@ -157,7 +157,10 @@
 }
 /* 양분박스 aside */
 .evt-cover aside{
+  /* 등분할 */
   flex: 1;
+  /* 커서모양 */
+  cursor: pointer;
 }
 /* 버튼요소 */
 .abtn{
@@ -170,6 +173,10 @@
   text-shadow: 0 0 5px #000;
   z-index: 99;
   display: none; /* 처음에 숨기기 */
+  /* 따라다니는 버튼 요소 오버시 무시 */
+  pointer-events: none;
+  transition: .3s ease-out;
+  transform: translate(-50% ,-100%);
 }
 /* 슬라이더 - 움직이는 박스 */
 .slider {

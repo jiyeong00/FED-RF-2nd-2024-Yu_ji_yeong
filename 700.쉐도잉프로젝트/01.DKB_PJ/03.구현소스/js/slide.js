@@ -298,12 +298,17 @@ export default function slideFn() {
       ele.onmouseout =()=>{
         abtn[idx].style.display="none";
       };//.onmouseout
-      
+
       // 3. 이벤트 세팅하기 - mousemove - 버튼 따라오기
       ele.onmousemove =(e)=>{
         abtn[idx].style.top=e.pageY+'px';
         abtn[idx].style.left=e.pageX+'px';
       };//onmousemove
+
+      // 4. 이벤트 세팅하기 - click - 이동함수 호출
+      ele.onclick=goSlide;
+
+
       
     });///forEach문///
   } //////////////// loadFn 함수 ///////////////
