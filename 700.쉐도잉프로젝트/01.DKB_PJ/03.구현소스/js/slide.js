@@ -280,7 +280,36 @@ export default function slideFn() {
         autoSlide();
       }, 5000);
     } ///////clearAuto함수///////////////
+
+    // 이동버튼 이벤트 설정하기
+    // 대상 : 이동버튼 영역 - .evt-cover aside
+    // 이벤트 대상 .evt-cover aside
+    const evtCover=qsa('.evt-cover aside');
+    // 변경대상 .abtn << 이미 abtn변수에 할당됨
+
+    evtCover.forEach((ele,idx) => {
+      // console.log(ele);
+      // 1. 이벤트 세팅하기 - mouseover - 버튼 보이기
+      ele.onmouseover =()=>{
+        abtn[idx].style.display="block";
+      };//onmouseover
+      
+      // 2. 이벤트 세팅하기 - mouseout - 버튼 숨기기
+      ele.onmouseout =()=>{
+        abtn[idx].style.display="none";
+      };//.onmouseout
+      
+      // 3. 이벤트 세팅하기 - mousemove - 버튼 따라오기
+      ele.onmousemove =(e)=>{
+        abtn[idx].style.top=e.pageY+'px';
+        abtn[idx].style.left=e.pageX+'px';
+      };//onmousemove
+      
+    });///forEach문///
   } //////////////// loadFn 함수 ///////////////
   /////////////////////////////////////////////
 } ///////////slideFn함수///////////////
 /////////////////////////////////////////
+
+
+
