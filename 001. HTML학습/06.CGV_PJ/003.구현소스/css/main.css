@@ -23,7 +23,8 @@ body *{
 /* 공통클래스 */
 /* 파트공통 */
 .part{
-    width: 1200px;
+    /* 최대크기 이하면 auto전환 */
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -164,7 +165,7 @@ body *{
 }
 /* 오버시 빔박스 보이기 + 떨리기 */
 .gnb:hover .beam {
-    width: 300px;
+    width: 200px;
 
     /* 오버시 지연있음 */
     transition: width .3s .3s;
@@ -185,30 +186,51 @@ body *{
     width: 0px;
     height: 70px;
     /* outline: 2px dashed yellow; */
-    background: url(../images/bim.png) no-repeat right/auto 100%,
-    url(../images/screen.gif) no-repeat -10% center/auto 80%;
+    background: url(../images/bim.png) no-repeat right/auto 100%;
 
     /* 메뉴,카메라 보다 아래 */
     z-index: -1;
 
     /* 돌아올때 지연없음 */
-    transition: .3s;
+    transition: width .3s;
+}
+
+/* 가상요소로 스크린 만들기 */
+.cam::after{
+    content: '';
+    position: absolute;
+    top: -15px;
+    right: 120px;
+
+    width: 129px;
+    height: 66px;
+    background:url(../images/screen.gif) no-repeat -10% center/auto 80%;
+    z-index: -2;
+    opacity: 0;
+    transition: opacity .3s;
+}
+/* 오버시 스크린 보이기 */
+.gnb:hover .cam::after{
+    opacity: 1;
+    transition: opacity .3s .6s;
 }
 /********************************* 2.메인영역 *********************************/
 .main-area{
     /* 스크린 부모자격줌 */
     position: relative;
-    height: 788px;
-    background: url(../images/bg.jpg) no-repeat;
+    /* height: 788px; */
+    /* 높이값주지말고 비율박스 만들기 */
+    aspect-ratio: 1200/788;
+    background: url(../images/bg.jpg) no-repeat center/cover;
 }
 .screen{
     /* 부모는 .main-area */
     position: absolute;
-    width: 701px;
-    height: 398px;
+    top: 17.2%;
+    left: 21.3%;
+    width: 58.6%;
+    height: 50.5%;
     background-color: #000;
-    top: 135px;
-    left: 256px;
 }
 /* 유튜브 아이프레임 */
 .screen iframe#ifr{
@@ -284,13 +306,47 @@ body *{
     height: 100%;
 
     white-space: nowrap;
-    font-size: 12px;
+
+    font-family: 'Cute Font', cursive;
+    font-size: min(14px,1.3vw);
     line-height: 2.5;
 
     background-color: #0000008f;
 
 }
+.mv-info ol li:first-child{
+    color: aqua;
+
+    font-size: min(17px,1.5vw);
+}
 /********************************* 3.하단영역 *********************************/
 .footer-area{
-    height: 100px;
+    display: flex;
+    /* 진행방향 수직정렬(한줄) */
+    align-items: center;
+    gap: 0 20px;
+    /* height: 100px; */
+    padding: 30px;
+}
+/* 3-1.하단로고 */
+/* 3-2.회사 정보 */
+.co-info address{
+    color: white;
+    /* 이탤릭해제 */
+    font-style: normal;
+    font-family: 'cute font';
+    font-size: 1.6rem;
+}
+/* 3-3.SNS */
+.sns-box{
+    /* 플렉스 자식에서 왼쪽마진 auto로 주면 맨끝으로 감 */
+    margin-left: auto;
+}
+.sns-box ol{
+    display: flex;
+    gap: 0 10px;
+}
+.sns-box a{
+    color: white;
+    font-size: 4rem;
 }
