@@ -40,6 +40,17 @@ body *{
     color: aquamarine;
     line-height: 80px;
     text-align: center;
+
+    /* 글자글로우효과 */
+    text-shadow: 0 0 4px aquamarine;
+
+    animation: tit-ani .5s ease-in infinite alternate;
+}
+/* 타이틀 애니 키프레임 */
+@keyframes tit-ani {
+    to{
+        text-shadow: 0 0 12px aquamarine;
+    }
 }
 
 /* 1-2. gnb메뉴 */
@@ -56,24 +67,132 @@ body *{
     font-size: 2rem;
 }
 /* 상위li */
-.gnb li{
+.gnb>ul>li{
     position: relative;
+    padding-bottom: 10px;
+    /* 하위메뉴와 연결되게 함 오버이벤트와 끊어지지않게함 */
 }
 /* 서브메뉴 */
 .smenu{
     position: absolute;
     /* gnb가 부모 */
+    top: 35px;
     left: 50%;
     transform: translateX(-50%);
 
-    width: 140px;
-    outline: 2px solid yellow;
+    width: 147px;
+    /* outline: 2px solid yellow; */
+    /* box-shadow: 0 0 5px #fff; 
+    box-shadow로 하면 가상요소에는 적용이안됨 filter로 하면 적용됨*/
+    filter: drop-shadow(0 0 5px #fff) ;
+
     border-radius: 5px;
     font-size: 1.7rem;
     line-height: 1.6;
     padding: 3px;
     background: url(../images/bg_smenu.png) no-repeat center/cover;
 
+    /* 처음에 안보이게 */
+    display: none;
+
+}
+/* 상위메뉴 오버시 서브보이기 */
+.gnb ul>li:hover .smenu{
+    display: block;
+}
+/* 가상요소 삼각형 만들기 */
+.smenu::before{
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 20px;
+    height: 15px;
+    background-color: #303030;
+
+    /* 클립패스로 자르기 */
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
+}
+/* 서브메뉴 ol */
+.smenu ol{
+    border: 1px solid #ccc;
+    padding: 10px;
+    white-space: nowrap;
+}
+/* 사이구분선 클래스 */
+.bd-top{
+    border-top: 1px solid #ccc;
+}
+/* 서브메뉴 오버시 글자색변경 */
+.smenu li:hover a{
+    color: red;
+}
+/* 서브메뉴 오버시 아이콘 */
+.smenu li:hover a::after{
+    content: '💨';
+    float: right;
+}
+.gnb ul>li:nth-child(1) .smenu li:hover a::after{
+    content: '🎥';
+}
+.gnb ul>li:nth-child(2) .smenu li:hover a::after{
+    content: '🎫';
+}
+.gnb ul>li:nth-child(3) .smenu li:hover a::after{
+    content: '🎞';
+}
+.gnb ul>li:nth-child(4) .smenu li:hover a::after{
+    content: '🎭';
+}
+
+.cam{
+    position: absolute;
+    top: -10px;
+    left: 100%;
+}
+.cam img{
+    width: 50px;
+    transform: rotate(30deg);
+    transition: .3s .3s;
+}
+/* 오버시 영사기 이미지 회전 */
+.gnb:hover .cam img {
+    transform: rotate(0deg); 
+    transition: .3s;
+}
+/* 오버시 빔박스 보이기 + 떨리기 */
+.gnb:hover .beam {
+    width: 300px;
+
+    /* 오버시 지연있음 */
+    transition: width .3s .3s;
+
+    animation: beam-ani .1s linear infinite alternate;
+}
+/* 빔 떨림 애니 */
+@keyframes beam-ani {
+    to{opacity: 0.5;}
+    
+}
+
+/* 빔박스 */
+.beam{
+    position: absolute;
+    top: -16px;
+    right: 13px;
+    width: 0px;
+    height: 70px;
+    /* outline: 2px dashed yellow; */
+    background: url(../images/bim.png) no-repeat right/auto 100%,
+    url(../images/screen.gif) no-repeat -10% center/auto 80%;
+
+    /* 메뉴,카메라 보다 아래 */
+    z-index: -1;
+
+    /* 돌아올때 지연없음 */
+    transition: .3s;
 }
 /********************************* 2.메인영역 *********************************/
 .main-area{
