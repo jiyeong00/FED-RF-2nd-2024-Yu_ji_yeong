@@ -263,12 +263,26 @@ body *{
     /* float: left; */
     display: flex;
     gap : 0 15px;
+    /* 원근설정 : 하위 li에 적용 */
+    perspective: 100vh;
 }
 /* 리스트 사이간격 */
 .poster-menu>ul>li{
     /* 부모자격 - 영화정보박스 */
     position: relative;
     overflow: hidden;
+    /* x축 회전  */
+    transform: rotateX(40deg);
+    /* 기본회전축 하단변경 */
+    transform-origin: bottom;
+    transition: transform .3s ease-in-out;
+}
+/* li에 오버시 포스터 일어나기 */
+.poster-menu>ul>li.on,
+.poster-menu>ul>li:hover{
+    transform: rotateX(0deg);
+    outline: 1px solid aqua;
+    z-index: 1;
 }
 
 /* 포스터이미지 */
