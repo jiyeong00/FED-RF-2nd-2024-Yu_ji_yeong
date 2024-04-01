@@ -256,7 +256,7 @@ body *{
 .poster-menu ul{
     /* float: left; */
     display: flex;
-    gap : 0 15px;
+    gap : 0 2%;
     /* 원근설정 : 하위 li에 적용 */
     perspective: 100vh;
 }

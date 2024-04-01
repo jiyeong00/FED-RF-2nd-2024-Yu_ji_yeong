@@ -67,7 +67,7 @@
   .poster-menu > ul > li {
 
     /* 100%를 3등분에 사이값 15px 2개를 빼줌 */
-    flex-basis: calc(100% / 3 - 15px * 2);
+    flex-basis: calc(100% / 3 - 1.4%);
   }
 }
 /******* 810px 이하 미디어쿼리 종료 *******/
