@@ -42,7 +42,8 @@
   .cam {
     top: -62px;
     right: -12px;
-    padding-bottom: 20px;
+    /* 하단 gnb와 오버시 연결필요! */
+    padding-bottom: 10px;
   }
 }
 /******* 1024px 이하 미디어쿼리 종료 *******/
