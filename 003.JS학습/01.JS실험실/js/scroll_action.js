@@ -48,7 +48,7 @@ const myFn = {
     Bounding 경계선(>> 바운딩박스 - 경계선을 가지는 직사각형박스)
     Client 보이는화면
     Rect 사각형
-    >> BoundingClientRect >> 보이는 화면 사각형 경계선으로 부터의 거리를 리턴해주는 메서드
+    >> BoundingClientRect - 보이는 화면 사각형 경계선으로 부터의 거리를 리턴해주는 메서드
      >> 상단으로부터의 거리는 top 속성
      >> 왼쪽으로부터의 거리는 left 속성
     공통적으로 경계선 아래쪽은 양수 / 윗쪽은 음수
@@ -70,12 +70,43 @@ myFn.addEvt(window,'scroll',showIt);
 // 3.함수만들기///////////////////
 // 3-1. 스크롤 등장액션 함수
 function showIt(){
-    let temp = myFn.getBCR(scAct[0]);
-    // 함수호출확인
-    console.log('첫번째 대상 위치 : ',temp);
+
+    // 클래스 on넣기 함수 호출하기
+    // for of문 호출
+    for(let x of scAct) addOn(x);
+
+    // -----------테스트----------------
+    // let pos = myFn.getBCR(scAct[0]);
+    // let pos2 = myFn.getBCR(scAct[1]);
+    // let pos3 = myFn.getBCR(scAct[2]);
+    // // 함수호출확인
+    // console.log('첫번째 대상 위치 : ',pos);
+    
+    // if(pos<500) scAct[0].classList.add('on');
+    // if(pos<500) scAct[1].classList.add('on');
+    // if(pos<500) scAct[2].classList.add('on');
+    // -----------테스트----------------
 
 }////////////////showIt함수/////////////////
 ///////////////////////////////////////////
+
+// 스크롤 등장 기준설정 : 화면의 2/3
+const CRITERIA = window.innerHeight/3*2;
+console.log('기준값',CRITERIA);
+
+// [ 클래스 on 넣기 함수 ]
+function addOn(ele){///ele - 대상요소
+    // 바운딩값 구하기
+    let bcrVal = myFn.getBCR(ele);
+
+    // 기준값보다 작을때 등장
+    if(bcrVal < CRITERIA) ele.classList.add('on');
+    // 기준값보다 크면 원상복귀(숨김 - on빼기)
+    else ele.classList.remove('on');
+
+
+}////////////addOn함수////////////////
+
 
 // [글자등장 세팅하기]
 // 글자등장함수
