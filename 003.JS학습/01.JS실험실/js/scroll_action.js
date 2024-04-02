@@ -12,6 +12,8 @@ const myFn = {
     addEvt: (ele, evt, fn) => ele.addEventListener(evt, fn),
     // 바운딩 함수
     getBCR: ele=> ele.getBoundingClientRect().top,
+    // 옵셋탑값 반환함수
+    getOT : ele => ele.offsetTop,
   }; /////// domFn 객체 /////////////
 
 
@@ -148,6 +150,61 @@ function showLetters(){
     setTimeout(() => {
         stage.classList.add('on');
     }, 2000);
+
+
+    // 글자 스크롤 이벤트 세팅하기
+    // 대상 : window
+    myFn.addEvt(window,'scroll',moveTit);
+
+    // 기준이 되는 포스터박스 위치 구하기
+    const posTop =[]; //배열 리터널
+
+    scAct.forEach((ele,idx)=>{
+        posTop[idx] = myFn.getOT(ele);
+    });////forEach//////
+
+    //  -> 특정요소의 offsetTop값은 최상위 라인으로부터 떨어진 위치를 의미함
+    // -> 이것은 스크롤바 이동위치가 해당요소가 화면 맨 위에 걸린 상태와 같음!
+    // >>>> 그러므로 화면 중간에 위치할때의 값은 화면 높이값의 절반을 빼주면 된다.
+    // posTop[순번] - window.innerHeight/2
+
+    // 화면 절반크기 변수(포스터 위치에서 뺄 값)
+    const gap = window.innerHeight/2;
+
+    console.log('포스터 위치 : ', posTop);
+
+    // 글자 이동함수
+    function moveTit(){
+        // 스크롤 위치값
+        let scTop=window.scrollY;
+        console.log('타이틀!!!');
+
+        // 1. 맨위 원위치하기 : 첫번째 기준보다 작을때
+        if(scTop<posTop[0]-gap ) {
+            stage.style.top='0%'
+            stage.style.left='50%'
+            stage.style.transition='1s'
+        }//if문
+        // 2.첫번째 포스터 옆으로 이동
+        if(scTop>posTop[0]-gap && scTop<posTop[0]) {
+            stage.style.top='50%'
+            stage.style.left='25%'
+            stage.style.transition='2s'
+        }//if문
+        // 3.두번째 포스터 옆으로 이동
+        if(scTop>posTop[1]-gap && scTop<posTop[1]) {
+            stage.style.top='70%'
+            stage.style.left='65%'
+            stage.style.transition='1s'
+        }//if문
+        // 4.세번째 포스터 옆으로 이동
+        if(scTop>posTop[2]-gap && scTop<posTop[2]) {
+            stage.style.top='50%'
+            stage.style.left='25%'
+            stage.style.transition='.5s'
+        }//if문
+
+    }//////////////moveTit함수/////////////////
 
 }///////////////////showLetters 함수////////////////
 //////////////////////////////////////////////
