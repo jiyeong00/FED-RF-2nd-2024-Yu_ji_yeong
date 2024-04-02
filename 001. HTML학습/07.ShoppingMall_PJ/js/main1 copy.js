@@ -1,0 +1,251 @@
+// 쇼핑몰 배너 JS - 01.가로방향 배너 슬라이드 //
+
+// DOM 선택함수
+const qs = (x) => document.querySelector(x);
+const qsa = (x) => document.querySelectorAll(x);
+
+// addEvent 함수
+// ele - 요소, evt - 이벤트, fn - 함수
+const addEvt = (ele, evt, fn) => ele.addEventListener(evt, fn);
+
+// HTML태그 로딩후 loadFn함수 호출! ///
+addEvt(window, "DOMContentLoaded", loadFn);
+
+/***************************************************** 
+    [ 슬라이드 이동 기능정의 ]
+    1. 이벤트 종류: click
+    2. 이벤트 대상: 이동버튼(.abtn)
+    3. 변경 대상: 슬라이드 박스(#slide)
+    4. 기능 설계:
+
+        (1) 오른쪽 버튼 클릭시 다음 슬라이드가
+            나타나도록 슬라이드 박스의 left값을
+            -100%로 변경시킨다.
+            -> 슬라이드 이동후!!! 
+            바깥에 나가있는 첫번째 슬라이드
+            li를 잘라서 맨뒤로 보낸다!
+            동시에 left값을 0으로 변경한다!
+
+        (2) 왼쪽버튼 클릭시 이전 슬라이드가
+            나타나도록 하기위해 우선 맨뒤 li를
+            맨앞으로 이동하고 동시에 left값을
+            -100%로 변경한다.
+            그 후 left값을 0으로 애니메이션하여
+            슬라이드가 왼쪽에서 들어온다.
+
+        (3) 공통기능: 슬라이드 위치표시 블릿
+            - 블릿 대상: .indic li
+            - 변경 내용: 슬라이드 순번과 같은 순번의
+            li에 클래스 "on"주기(나머진 빼기->초기화!)
+
+*****************************************************/
+
+// 전역변수구역 //////////
+/* 
+    (참고: JS에서 이름짓는 일반규칙)
+    1. 변수/함수 : 캐믈케이스(첫단어소문자 뒷단어 대문자시작)
+    2. 생성자함수/클래스 : 파스칼케이스(모든첫글자 대문자)
+    3. 상수 : 모든글자 대문자(연결은 언더스코어-스네이크 케이스)
+*/
+
+/****************************************** 
+    함수명: loadFn
+    기능: 로딩 후 버튼 이벤트 및 기능구현
+******************************************/
+function loadFn() {
+  console.log("로딩완료!");
+
+  // 이동버튼 대상:  .abtn
+  const abtn = qsa(".abtn");
+  // 변경대상 : #slide
+  const slide = qs("#slide");
+  // 블릿버튼 : .indic
+  let indic = document.querySelector(".indic");
+  // console.log(abtn,slide);
+
+  //////////// 초기셋팅하기 ////////
+  // 5개의 슬라이드와 블릿을 만들어준다!
+  for (let i = 0; i < 5; i++) {
+    // 슬라이드 넣기
+    slide.innerHTML += `
+    <li data-seq="${i}">
+        <img 
+        src="images/slide0${i + 1}.jpg"         
+        alt="slide">
+    </li>    
+    `;
+    // 블릿 넣기
+    indic.innerHTML += `
+    <li ${i === 0 ? 'class="on"' : ""}>
+        <img src="images/dot1.png" alt="흰색">
+        <img src="images/dot2.png" alt="회색">
+    </li>
+    `;
+  } ////// for ////////
+
+  // li를 생성한 후 그 li다시 수집한다!
+  // 블릿의 li까지 수집! indic 변수
+  indic = document.querySelectorAll('.indic li');
+
+
+  // 2. 버튼을 모두 이벤트 설정하기
+  for (let x of abtn) {
+    x.onclick = goSlide;
+  } /// for of ///
+
+  // 2. 오른쪽 버튼 클릭시 기능구현
+  // abtn[1].onclick = ()=>{
+  // };
+
+  // 3. 왼쪽 버튼 클릭시 기능구현
+  // abtn[0].onclick = ()=>{
+  // };
+
+  // 광클 금지변수
+  let prot = false;
+
+  /****************************************** 
+     함수명: goSlide
+     기능: 슬라이드 이동
+     ******************************************/
+  function goSlide(evt,sts=true){
+    // 함수를 호출 시에 아무값도 보내지 않으면 함수의 전달변수 하나를 쓸 경우,
+    // 또는 여러 전달변수 중 첫번째 변수는 이벤트객체가 전달된다.
+
+    console.log('전달변수 : ',evt,sts);
+
+    if(sts){
+      clearAuto();
+    }///if문
+
+    if (prot) return; // 돌아가!(함수나감!)
+    prot = true; // 잠금! (뒤의호출막기!)
+    setTimeout(() => {
+      prot = false; // 0.6초후 해제!
+    }, 600);
+    /////////////////////////////////////
+
+    // 1.오른쪽 버튼인 .ab2인가?
+    let isRbtn = sts?this.classList.contains("ab2"):true;
+
+
+    // 함수호출확인
+    console.log("나 슬라이드야~!", this, isRbtn);
+    // this는 호출한 버튼 자신
+
+    // 2. 버튼별 분기하기 //////
+    // 2-1.오른쪽 버튼일 경우 ////
+    if (isRbtn) {
+      // (1)먼저 왼쪽으로 이동하기
+      slide.style.left = "-100%";
+      slide.style.transition = ".6s ease-in-out";
+
+      // (2)이동하는 시간 0.6초간 기다림!
+      setTimeout(() => {
+        // (2-1) 맨앞 li 맨뒤로 이동
+        slide.appendChild(slide.querySelectorAll("li")[0]);
+        // 슬라이드 left 값이 -100% 이므로
+        // (2-2) left값을 0으로 변경
+        slide.style.left = "0";
+        // (2-3) left 트랜지션 없애기
+        slide.style.transition = "none";
+      }, 600);
+
+    } //// if ////
+
+    // 2-2.왼쪽 버튼일 경우 ////
+    else {
+      // 하위 li수집
+      let list = slide.querySelectorAll("li");
+
+      slide.insertBefore(list[list.length - 1], list[0]);
+      slide.style.left = "-100%";
+      // 트랜지션이 한번 버튼클릭후 생기므로 없애줌
+      slide.style.transition = "none";
+
+      //////////////////////////////////
+
+      setTimeout(() => {
+        // (3) left 값을 0으로 트랜지션하여 들어옴
+        slide.style.left = "0";
+        slide.style.transition = ".6s ease-in-out";
+      }, 0);
+    } /// else ///
+
+    let seq = 
+    slide.querySelectorAll('li')[isRbtn?1:0]
+    .getAttribute('data-seq');
+    console.log('블릿이 읽어올 슬순번:',seq,
+    '/데이터형:',typeof seq);
+    // string - 문자형, number - 숫자형
+
+    // 4. 블릿변경하기 ///////////
+    // 모든 클래스 on지우기+현재 순번 클래스 넣기
+    indic.forEach((ele,idx)=>{
+        // ele - 각각의 li, idx - 각각의 순번
+        if(idx==seq){ // 현재순번 on넣기
+
+            ele.classList.add('on');
+        } /// if ///
+        else{ // 나머지는 on빼기
+            ele.classList.remove('on');
+        } /// else ///
+
+       }); ///// forEach /////
+
+
+  } ///////////// goSlide 함수 ////////////////
+  /////////////////////////////////////////////
+
+
+  //-----------------------자동넘김-----------------//
+
+  // 인터발용 변수(지울목적)
+  let autoI;
+  // 타임아웃용 변수 (지울목적)
+  let autoT;
+  
+  // 자동넘김호출함수 최초호출하기
+  autoSlide();
+
+  // [자동넘김호출]
+  function autoSlide(){
+    // setInterval(함수,시간)
+    // - 일정시간간격으로 함수를 호출
+    // clearInterval(인터발변수)
+    // - 변수에 담긴 인터발을 지움(멈춤)
+  
+    // setInterval(() => {
+    //   abtn[1].onclick();
+    // }, 3000);
+    // >> 뜻 : 오른쪽버튼을 온 클릭해라
+  
+    autoI= setInterval(() => {
+      // abtn[1].onclick();
+      // 값을 2개 보내야함.
+      // 첫번째 전달값은 이밴트 객체가 들어가는 변수임으로 false값을 쓰고
+      // 두번째 전달값은 자동호출임을 알리는 변수임으로 false값을 전달한다.
+      goSlide(false,false);
+    }, 3000);
+
+  }////////autoslide함수///////////////
+
+  // [인터발지우기 함수]
+  function clearAuto(){
+    // 지우기 확인
+    console.log('인터발지워!');
+    clearInterval(autoI);
+
+    // 타임아웃지우기 : 실행쓰나미 방지
+    clearTimeout(autoT);
+
+    // 5초후 아무작동도 안하면 다시 인터발호출
+    autoT=setTimeout(() => {
+      autoSlide();
+    }, 5000);
+  }///////clearAuto함수///////////////
+  
+
+
+} //////////////// loadFn 함수 ///////////////
+/////////////////////////////////////////////
