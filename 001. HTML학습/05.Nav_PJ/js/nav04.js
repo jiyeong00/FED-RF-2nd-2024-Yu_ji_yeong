@@ -34,8 +34,24 @@ gnbList.forEach(ele=>{
 
 // 4. 함수 만들기
 function showMenu(){
-    let temp = myFn.qsEl(this,'.smenu');
+    // 1. 허위의 서브메뉴 가져오기 : 서브메뉴없으면null
+    let smenu = myFn.qsEl(this,'.smenu');
+    // html 컬렉션 수집시 요소가 없으면 null처리함!
+    // null도 데이터형, if문에서 false처리됨
+    // null = 빈값
     // 호출확인
-    console.log('호출확인',temp);
+    console.log('호출확인',smenu);
+    
+    // 2. 조건분기하기 : 서브가 있는 경우 높이값 만들기
+    // 높이값은 하위의 ol요소의 높이값을 읽어와서 .smenu의 height값으로 넣어준다.
+    
+    if(smenu){
+        // .smenu가 null이 아닌 경우만 들어옴
+        // 2. 서브메뉴 ol요소 높이값 읽어오기
+        let hval = myFn.qsEl(smenu,'ol').clientHeight;
+        // clientHeight는 요소의 높이값
+        console.log('높이값',hval);
+    }
+
 }//////////////showMenu함수/////////////////////
 
