@@ -59,6 +59,14 @@ function showMenu() {
     // 대상 : smenu
     smenu.style.height = (smenu.clientHeight === 0 ? hval : 0) + "px";
     // smnu의 높이값이 0이냐? 맞으면 hval적용 / 아니면 0값 적용
+
+    // 4. 기타 다른 서브메뉴가 열렸다면 모두 닫아준다.
+    // gnb 상위 li를 모둔 순회한다
+    gnbList.forEach(ele=>{
+        // isSameNode()메서드 : 순회중 같은 노드(요소)인지 판별해주는 기능을 가짐(같으면 true)
+        let isSame = ele.isSameNode(this);
+        console.log('서브닫기 체크',ele,isSame);
+    });///forEach///
   } ///if///
 } //////////////showMenu함수/////////////////////
 
