@@ -33,6 +33,7 @@ gnbList.forEach(ele=>{
 });////foreach////
 
 // 4. 함수 만들기
+// 4-1. 서브메뉴 보이기 함수
 function showMenu(){
     // 1. 허위의 서브메뉴 가져오기 : 서브메뉴없으면null
     let smenu = myFn.qsEl(this,'.smenu');
@@ -51,7 +52,17 @@ function showMenu(){
         let hval = myFn.qsEl(smenu,'ol').clientHeight;
         // clientHeight는 요소의 높이값
         console.log('높이값',hval);
-    }
+
+        // 3. 높이값 적용하기
+        // 대상 : smenu
+        smenu.style.height=(smenu.clientHeight===0?hval:0)+'px';
+        // smnu의 높이값이 0이냐? 맞으면 hval적용 / 아니면 0값 적용
+    }///if///
 
 }//////////////showMenu함수/////////////////////
+
+// 4-2. 서브메뉴 숨기기 함수
+function hideMenu(){
+    console.log('메뉴 숨기기');
+}/////////////hideMenu////////////////////
 
