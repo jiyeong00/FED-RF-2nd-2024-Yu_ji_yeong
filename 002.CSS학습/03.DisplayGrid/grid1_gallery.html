@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Grid1 - Gallery</title>
     <style>
-        /**************************************************** 
+      /**************************************************** 
                     [ 그리드 디스플레이 ]
 
         - 가로,세로 양방향 레이아웃을 위한 디스플레이 속성
@@ -52,13 +52,13 @@
         https://www.matchroomboxing.com/
 
     ****************************************************/
-    /* 타이틀 */
-    .tit{
+      /* 타이틀 */
+      .tit {
         text-align: center;
-        font-size: max(3vw,25px);
-    }
-    /* 그리드박스 */
-    .grid{
+        font-size: max(3vw, 25px);
+      }
+      /* 그리드박스 */
+      .grid {
         display: grid;
 
         /* 박스중앙 최대크기 지정 */
@@ -116,22 +116,20 @@
         /* grid-row-gap: 30px; */
 
         /* [그리드 전체 간격] : grid-gap: 세로 가로 */
-        grid-gap: min(1.5vw,15px) min(1vw, 10px);
+        grid-gap: min(1.5vw, 15px) min(1vw, 10px);
         /* 세로는 최대크기는 15px 그 이하는 1.5vw / 가로는 최대 10px 그 이하는 1vw  */
         /* [flex gap속성도 OK] : gap :세로 가로 */
         /* gap: 30px 10px; */
+      }
 
-        }
-
-
-    /* 그리드 각 박스 공통 */
-    .grid>div{
+      /* 그리드 각 박스 공통 */
+      .grid > div {
         position: relative;
         /* 부모자격 */
         aspect-ratio: 7 / 10;
-    }
-    /* 설명박스 */
-    .grid>div aside{
+      }
+      /* 설명박스 */
+      .grid > div aside {
         position: absolute;
         bottom: 0;
         width: 100%;
@@ -139,10 +137,10 @@
         color: white;
         background-color: #00000076;
         font-size: 12px;
-    }
+      }
 
-    /* 이미지셋팅 */
-    .grid img{
+      /* 이미지셋팅 */
+      .grid img {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -150,9 +148,9 @@
 
         /* 블록박스 이미지 하단공백제거 */
         vertical-align: middle;
-    }
+      }
 
-    /************************************* 
+      /************************************* 
         
             [ 그리드 위치 영역 속성 ]
 
@@ -161,6 +159,9 @@
 
             2. 세로방향 위치속성
                 grid-row : 시작위치번호 / 끝위치번호;
+            
+            3. 가로/세로 방향 위치 속성 한번에 쓰기
+                grid-area : 로우시작 / 컬럼시작 / 로우끝 / 컬럼끝 
 
             -> 각 위치값은 그리드 기준선 번호를 참고함
             (브라우저에서 그리드 소스 버튼을 클릭하여
@@ -175,7 +176,7 @@
         
         *************************************/
 
-    /* 
+      /* 
         [ 개별적 변경하기 - 그리드 위치와 크기 변경 ]
         방법) 개별요소에 column과 row의 시작/끝번호를 지정함
 
@@ -183,72 +184,88 @@
         grid-row: 시작번호/끝번호
     */
 
-    /* 1200px 이하 미디어쿼리 시작 */
-    @media screen and (max-width:1200px) {
+      /* 그리드 구성박스 변경주기 */
+      .first {
+        /* grid-column: 1/3;
+        grid-row: 1/3; */
+        /* 한번에 쓰기 */
+        grid-area: 1/1/3/3;
+      }
+      .second {
+        /* grid-column: 3/5;
+        grid-row: 10 / 12; */
+        grid-area: 10/3/12/5;
+      }
+      /* 1200px 이하 미디어쿼리 시작 */
+      @media screen and (max-width: 1200px) {
         /* 그리드 컬럼수를 4개로 변경 */
-        .grid{
-            grid-template-columns: repeat(4,1fr);
-
+        .grid {
+          grid-template-columns: repeat(4, 1fr);
         }
-        
-    }
-    /* 1200px 이하 미디어쿼리 종료 */
+        .second {
+          grid-area: 10/2/12/4;
+        }
+      }
+      /* 1200px 이하 미디어쿼리 종료 */
 
-    /* 1000px 이하 미디어쿼리 시작 */
-    @media screen and (max-width:1000px) {
+      /* 1000px 이하 미디어쿼리 시작 */
+      @media screen and (max-width: 1000px) {
         /* 그리드 컬럼수를 3개로 변경 */
-        .grid{
-            grid-template-columns: repeat(3,1fr);
-
+        .grid {
+          grid-template-columns: repeat(3, 1fr);
         }
-        
-    }
-    /* 1000px 이하 미디어쿼리 종료 */
+      }
+      /* 1000px 이하 미디어쿼리 종료 */
 
-    /* 800px 이하 미디어쿼리 시작 */
-    @media screen and (max-width:800px) {
+      /* 800px 이하 미디어쿼리 시작 */
+      @media screen and (max-width: 800px) {
         /* 그리드 컬럼수를 3개로 변경 */
-        .grid{
-            grid-template-columns: repeat(2,1fr);
-
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
         }
-        
+        .second{
+        grid-area: 10/1/12/3;
     }
-    /* 800px 이하 미디어쿼리 종료 */
+      }
+      /* 800px 이하 미디어쿼리 종료 */
 
-    /* 500px 이하 미디어쿼리 시작 */
-    @media screen and (max-width:500px) {
+      /* 500px 이하 미디어쿼리 시작 */
+      @media screen and (max-width: 500px) {
+        .body{
+            margin: 0;
+        }
         /* 그리드 컬럼수를 3개로 변경 */
-        .grid{
-            grid-template-columns: repeat(1,1fr);
+        .grid {
+          grid-template-columns: repeat(1, 1fr);
+          grid-gap: 0;
+        }
+        .grid > div aside {
+          font-size: 4vw;
+        }
+        /* 변경박스 초기화 하기 */
+        .first,.second{
+            grid-area: auto;
 
         }
-        .grid>div aside{
-        font-size: 4vw;
-    }
-        
-    }
-    /* 500px 이하 미디어쿼리 종료 */
-
+      }
+      /* 500px 이하 미디어쿼리 종료 */
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- 타이틀 -->
     <h1 class="tit">그리드1 - 이미지갤러리</h1>
     <!-- 그리드 레이아웃박스 -->
-    <div class="grid">
-
-    </div>
+    <div class="grid"></div>
 
     <script>
-        // 그리드 요소
-        const grid = document.querySelector('.grid');
+      // 그리드 요소
+      const grid = document.querySelector(".grid");
 
-        // 50개 이미지 넣기
-        for(let i=1; i<=50; i++) {
-            // 중첩조건연산자(비?집:해?산:해변)
-            grid.innerHTML+=`
-            <div ${i==1?'class="first"':i==33?'class="second"':''}>
+      // 50개 이미지 넣기
+      for (let i = 1; i <= 50; i++) {
+        // 중첩조건연산자(비?집:해?산:해변)
+        grid.innerHTML += `
+            <div ${i == 1 ? 'class="first"' : i == 33 ? 'class="second"' : ""}>
             <img src="./images/${i}.jpg" alt="dress">
             <aside>
                 <h2>상품명${i}</h2>
@@ -256,8 +273,7 @@
             </aside>
         </div>
             `;
-        }//for문//
+      } //for문//
     </script>
-    
-</body>
+  </body>
 </html>
