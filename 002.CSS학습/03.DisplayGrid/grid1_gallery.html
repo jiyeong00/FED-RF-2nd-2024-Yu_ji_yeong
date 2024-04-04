@@ -182,6 +182,28 @@
         grid-row: 시작번호/끝번호
     */
 
+    /* 1200px 이하 미디어쿼리 시작 */
+    @media screen and (max-width:1200px) {
+        /* 그리드 컬럼수를 4개로 변경 */
+        .grid{
+            grid-template-columns: repeat(4,1fr);
+
+        }
+        
+    }
+    /* 1200px 이하 미디어쿼리 종료 */
+
+    /* 1200px 이하 미디어쿼리 시작 */
+    @media screen and (max-width:1000px) {
+        /* 그리드 컬럼수를 3개로 변경 */
+        .grid{
+            grid-template-columns: repeat(3,1fr);
+
+        }
+        
+    }
+    /* 1200px 이하 미디어쿼리 종료 */
+
     </style>
 </head>
 <body>
