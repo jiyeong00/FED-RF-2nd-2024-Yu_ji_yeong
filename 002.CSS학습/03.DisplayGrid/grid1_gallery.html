@@ -110,13 +110,26 @@
                예) grid-auto-rows: 300px;
         ******************************************************/
 
+        
         }
 
 
     /* 그리드 각 박스 공통 */
-    .grid>div{}
+    .grid>div{
+        position: relative;
+        /* 부모자격 */
+        aspect-ratio: 7 / 10;
+    }
     /* 설명박스 */
-    .grid>div aside{}
+    .grid>div aside{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        color: white;
+        background-color: #00000076;
+        font-size: 12px;
+    }
 
     /* 이미지셋팅 */
     .grid img{
