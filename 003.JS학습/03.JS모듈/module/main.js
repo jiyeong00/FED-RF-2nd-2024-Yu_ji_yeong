@@ -26,6 +26,11 @@ import * as txtData from "./text-data.js";
 console.log(txtData,txtData.mTitle);
 
 
+// [ 4. export default로 내보낸 단일 함수 불러오기 ]
+import makeMessage from "./msg_format.js";
+
+console.log(makeMessage);
+
 /*************************************************** 
     
     [ import 형식 ]
