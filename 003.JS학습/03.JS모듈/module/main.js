@@ -27,9 +27,11 @@ console.log(txtData,txtData.mTitle);
 
 
 // [ 4. export default로 내보낸 단일 함수 불러오기 ]
-import makeMessage from "./msg_format.js";
+// 가져올때는 다른 이름이여도 됨
+// import makeMessage from "./msg_format.js";
+import 헐 from "./msg_format.js";
 
-console.log(makeMessage);
+console.log(헐);
 
 /*************************************************** 
     
