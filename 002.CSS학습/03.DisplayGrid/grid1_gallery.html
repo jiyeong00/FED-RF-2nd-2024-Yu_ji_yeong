@@ -116,7 +116,8 @@
         /* grid-row-gap: 30px; */
 
         /* [그리드 전체 간격] : grid-gap: 세로 가로 */
-        grid-gap: 15px 10px;
+        grid-gap: min(1.5vw,15px) min(1vw, 10px);
+        /* 세로는 최대크기는 15px 그 이하는 1.5vw / 가로는 최대 10px 그 이하는 1vw  */
         /* [flex gap속성도 OK] : gap :세로 가로 */
         /* gap: 30px 10px; */
 
@@ -193,7 +194,7 @@
     }
     /* 1200px 이하 미디어쿼리 종료 */
 
-    /* 1200px 이하 미디어쿼리 시작 */
+    /* 1000px 이하 미디어쿼리 시작 */
     @media screen and (max-width:1000px) {
         /* 그리드 컬럼수를 3개로 변경 */
         .grid{
@@ -202,7 +203,32 @@
         }
         
     }
-    /* 1200px 이하 미디어쿼리 종료 */
+    /* 1000px 이하 미디어쿼리 종료 */
+
+    /* 800px 이하 미디어쿼리 시작 */
+    @media screen and (max-width:800px) {
+        /* 그리드 컬럼수를 3개로 변경 */
+        .grid{
+            grid-template-columns: repeat(2,1fr);
+
+        }
+        
+    }
+    /* 800px 이하 미디어쿼리 종료 */
+
+    /* 500px 이하 미디어쿼리 시작 */
+    @media screen and (max-width:500px) {
+        /* 그리드 컬럼수를 3개로 변경 */
+        .grid{
+            grid-template-columns: repeat(1,1fr);
+
+        }
+        .grid>div aside{
+        font-size: 4vw;
+    }
+        
+    }
+    /* 500px 이하 미디어쿼리 종료 */
 
     </style>
 </head>
@@ -221,7 +247,7 @@
         // 50개 이미지 넣기
         for(let i=1; i<=50; i++) {
             grid.innerHTML+=`
-            <div>
+            <div ${i==1?'class="first"':i==33?'class="second"':''}>
             <img src="./images/${i}.jpg" alt="dress">
             <aside>
                 <h2>상품명${i}</h2>
