@@ -3,19 +3,29 @@
 // 공통함수 불러오기
 import myFn from "./my_function.js";
 
-// 텍스트 데이터 불러오기 방법1 - 보내준 이름 그대로 쓰기
+// {1. 텍스트 데이터 불러오기 방법1 - 보내준 이름 그대로 쓰기 }
 // import { mTitle,sTitle,personInfo,mvData } from './text-data.js';
-// 텍스트 데이터 불러오기 방법2 - 별칭 사용하기
+
+// [2. 텍스트 데이터 불러오기 방법2 - 별칭 사용하기 ]
 // ->> 별칭을 지었으면 반드시 별칭으로 사용해야한
-import {
-  mTitle as mTit,
-  sTitle as sTit,
-  personInfo as pInfo,
-  mvData as mDt,
-} from "./text-data.js";
+// import {
+//   mTitle as mTit,
+//   sTitle as sTit,
+//   personInfo as pInfo,
+//   mvData as mDt,
+// } from "./text-data.js";
+
+// [3. 한꺼번에 불러오기 - *사용 ]
+// ->> import * as 별칭 from '경로';
+// ->> 별칭이름으로 한꺼번에 불러온 값을 객체에 담음
+// ->> 모듈용 전용객체에 저장하여 객체.변수명으로 사용한다.
+//      예) console.log(txtData,txtData.mTitle);
+import * as txtData from "./text-data.js";
 
 // 불러온 객체확인
-console.log(myFn, mTit, sTit, pInfo, mDt);
+console.log(txtData,txtData.mTitle);
+
+
 /*************************************************** 
     
     [ import 형식 ]
