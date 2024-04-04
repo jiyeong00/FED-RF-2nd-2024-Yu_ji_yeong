@@ -29,9 +29,9 @@ console.log(txtData,txtData.mTitle);
 // [ 4. export default로 내보낸 단일 함수 불러오기 ]
 // 가져올때는 다른 이름이여도 됨
 // import makeMessage from "./msg_format.js";
-import 헐 from "./msg_format.js";
+import makeMsg from "./msg_format.js";
 
-console.log(헐);
+console.log(makeMsg);
 
 /*************************************************** 
     
@@ -66,3 +66,21 @@ ____________________________________________________
 ***************************************************/
 
 // DOM선택함수 객체 불러오기
+
+// 요구사항 : 각 출력박스에 불러온 메시지 출력하기
+// 1. 대상선정 : 출력박스
+// (1) 타이틀 출력박스 : .tpart
+const titBox=myFn.qs('.tpart');
+// (2) 내용출력박스 : #demo
+const contBox=myFn.qs('#demo');
+// (3) 영화정보 출력박스 : .mvpart
+const mvBox=myFn.qs('.mvpart');
+
+console.log('대상 : ',titBox,contBox,mvBox);
+
+// 2. 변경적용하기
+// 1. 타이틀 출력하기 : 큰제목 + 작은 제목
+titBox.innerHTML=`
+<h2>${txtData.mTitle}</h2>
+<h3>${txtData.sTitle}</h3>
+`;
