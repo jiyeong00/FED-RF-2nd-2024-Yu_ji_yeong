@@ -3,6 +3,8 @@
 // 공통함수 불러오기
 import myFn from './my_function.js';
 
+// 텍스트 데이터 불러오기
+import 
 // 불러온 객체확인
 console.log(myFn);
 /*************************************************** 
@@ -15,6 +17,13 @@ console.log(myFn);
       (4) 모듈구성은 반드시 서버형식으로 열어야 작동한다!
         > (http://...) Live Server로 열기때문에 볼 수 있음!
     -> 로컬파일로 열면 작동안됨!
+
+    [ import의 사용방법 ]
+    1. export default인 경우
+        - import 변수 from '경로';
+        -> 변수는 변경가능
+    2. export {}인 경우 <<<중괄호로 내보내는 경우
+        - import {보내준 변수명,....} from '경로'
 
     [ import 시 변수명 변경하기 : 별칭사용하기 ]
     import {전달변수 as 별칭} from 파일경로;
