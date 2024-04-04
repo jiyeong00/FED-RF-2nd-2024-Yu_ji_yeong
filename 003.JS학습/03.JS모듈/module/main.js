@@ -4,7 +4,7 @@
 import myFn from './my_function.js';
 
 // 텍스트 데이터 불러오기
-import { mTitle } from './text-data.js';
+import { mTitle,sTitle,personInfo,mvData } from './text-data.js';
 // 불러온 객체확인
 console.log(myFn);
 /*************************************************** 
