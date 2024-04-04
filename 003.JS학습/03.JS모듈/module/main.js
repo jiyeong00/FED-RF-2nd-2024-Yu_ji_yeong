@@ -3,10 +3,14 @@
 // 공통함수 불러오기
 import myFn from './my_function.js';
 
-// 텍스트 데이터 불러오기
-import { mTitle,sTitle,personInfo,mvData } from './text-data.js';
+// 텍스트 데이터 불러오기 방법1 - 보내준 이름 그대로 쓰기
+// import { mTitle,sTitle,personInfo,mvData } from './text-data.js';
+// 텍스트 데이터 불러오기 방법2 - 별칭 사용하기
+// ->> 별칭을 지었으면 반드시 별칭으로 사용해야한
+import { mTitle as mTit,sTitle,personInfo,mvData } from './text-data.js';
+
 // 불러온 객체확인
-console.log(myFn , mTitle , sTitle , personInfo , mvData);
+console.log(myFn , mTit , sTitle , personInfo , mvData);
 /*************************************************** 
     
     [ import 형식 ]
