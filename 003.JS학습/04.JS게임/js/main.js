@@ -52,11 +52,17 @@ const level=myFn.qs('#level');
 const msg=myFn.qs('#msg');
 
 // (6) 토끼, 거북 위치값 변수
-let rlpos=0, t1pos =0;
+let r1pos=0, t1pos =0;
 // 토끼위치 : r1pos / 거북위치 : t1pos
 
 // (7) 거북이동값 상수
 const T1_NUM=16;
+
+// (8) 결승선 워치 상수
+const FINAL_NUM=650;
+
+// (9) 거북작동멈춤상태변수
+let t1Stop=false;
 
 // console.log('대상:',t1,r1,btns,level,msg);
 
@@ -77,6 +83,10 @@ function goGame(){
     if(btxt==='토끼출발'){
         goR1();//인터발호출 함수
     }else if(btxt==='거북출발'){
+        // 거북멈춤 상태값이 true이면 함수나가기 (return)
+        // return은 함수를 나감
+        if(t1Stop) return;
+
         // 거북의 설정된 값만큼 이동하기
         t1pos+=T1_NUM;
         t1.style.left = t1pos +'px';
@@ -102,10 +112,14 @@ function goR1(){
     if(!autoI){//false일때만 들어감
         console.log('토끼 인터발',level.value);
         autoI=setInterval(() => {
-            r1.style.left = ++rlpos +'px';
+            // 토끼 위치 이동(1px씩)
+            r1.style.left = ++r1pos +'px';
+            // 승자 판별함수 호출
+            whoWinner();
         }, level.value);
         // level.value는 선택박스의 선택된 값이다.
         // 원래 Option요소의 value값은 문자형이므로 숫자여도 숫자형으로 형변환해야하지만 요즘 브라우저는 자동형변환 해준다.
+
 
     }///if문///
 } ///////// goR1함수 //////////////////
@@ -115,5 +129,15 @@ function goR1(){
     기능: 기준값 보다 레이서위치값이 큰경우
         승자를 판별하여 메시지를 보여준다!
 *****************************************/
+function whoWinner() {
+    // console.log('토끼위치: ',r1pos,'거북위치',t1pos);
 
- ///////// whoWinner 함수 ////////////////
+    // 1. 토끼/거북 위치값이 기준값이상일때 토끼 인터발함수 멈추기 + 거북클릭작동 막기
+    if(r1pos>=FINAL_NUM || t1pos>=FINAL_NUM){
+        // (1) 토끼 멈춤
+        clearInterval(autoI);
+        // (2) 거북 멈춤
+        t1Stop=true;
+
+    }/////if문////
+} ///////// whoWinner 함수 ////////////////
