@@ -25,7 +25,7 @@
     
     [ 가로크기 ]
     - clientWidth : 패딩점퍼를 입고 있는 클라이언트님!
-        padding을 포함한 폭
+        padding을 포함한 폭 (패딩만 포함)
     - scrollWidth :  가로스크롤내용이 들어가니까 scroll!
         padding을 포함한 화면 상에 표시되지 않은 콘텐츠를 포함한 폭
     - offsetWidth : 보더,패딩,세로스크롤바 트랙이 다 들어가니 옵셋!
