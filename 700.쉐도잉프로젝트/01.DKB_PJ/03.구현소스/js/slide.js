@@ -58,7 +58,7 @@ export default function slideFn() {
     기능: 로딩 후 버튼 이벤트 및 기능구현
 ******************************************/
   function loadFn() {
-    console.log("로딩완료!");
+    //console.log("로딩완료!");
 
     // 이동버튼 대상:  .abtn
     const abtn = qsa(".abtn");
@@ -66,7 +66,7 @@ export default function slideFn() {
     const slide = qs(".slider");
     // 블릿버튼 : .indic
     let indic = document.querySelector(".indic");
-    // console.log(abtn,slide);
+    //console.log(abtn,slide);
 
     //////////// 초기셋팅하기 ////////
     // 5개의 슬라이드와 블릿을 만들어준다!
@@ -109,7 +109,7 @@ export default function slideFn() {
       // 함수를 호출 시에 아무값도 보내지 않으면 함수의 전달변수 하나를 쓸 경우,
       // 또는 여러 전달변수 중 첫번째 변수는 이벤트객체가 전달된다.
 
-      console.log("전달변수 : ", evt, sts);
+      // console.log("전달변수 : ", evt, sts);
       // evt - 이벤트변수 (PointerEvent)
       // sts - 버튼클릭인지 자동호출인지 구분하는 전달변수
       //  -> true면 버튼 클릭 / flase면 자동호출
@@ -143,7 +143,7 @@ export default function slideFn() {
       // 해당클래스가 있으면 true, 없으면 false
 
       // 함수호출확인
-      console.log("나 슬라이드야~!", this, isRbtn);
+      // console.log("나 슬라이드야~!", this, isRbtn);
       // this는 호출한 버튼 자신
 
       // 2. 버튼별 분기하기 //////
@@ -213,7 +213,7 @@ export default function slideFn() {
       let seq = slide
         .querySelectorAll("li")
         [isRbtn ? 1 : 0].getAttribute("data-seq");
-      console.log("블릿이 읽어올 슬순번:", seq, "/데이터형:", typeof seq);
+      //console.log("블릿이 읽어올 슬순번:", seq, "/데이터형:", typeof seq);
       // string - 문자형, number - 숫자형
 
       // 4. 블릿변경하기 ///////////
@@ -269,7 +269,7 @@ export default function slideFn() {
     // [인터발지우기 함수]
     function clearAuto() {
       // 지우기 확인
-      console.log("인터발지워!");
+      //console.log("인터발지워!");
       clearInterval(autoI);
 
       // 타임아웃지우기 : 실행쓰나미 방지
@@ -288,7 +288,7 @@ export default function slideFn() {
     // 변경대상 .abtn << 이미 abtn변수에 할당됨
 
     evtCover.forEach((ele,idx) => {
-      // console.log(ele);
+      //console.log(ele);
       // 1. 이벤트 세팅하기 - mouseover - 버튼 보이기
       ele.onmouseover =()=>{
         abtn[idx].style.display="block";

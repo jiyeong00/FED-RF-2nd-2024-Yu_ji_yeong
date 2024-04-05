@@ -1,5 +1,8 @@
 // 도꺠비 PJ 메인 JS - main.js
 
+// 나의 함수 불러오기
+import myFn from "./my_function.js";
+
 // 부드러운 스크롤 불러오기
 import { startSS,setScrollPos } from "./smoothScroll23.js";
 
@@ -7,14 +10,27 @@ import { startSS,setScrollPos } from "./smoothScroll23.js";
 // import하려는 파일에서 반드시 함수,변수 등을 export해야함.
 import slideFn from "./slide.js";
 
-
 ///////////////////////////////////////////////////////////////////
 // 구현코드 파트/////////
 
 // 1. 부드러운 스크롤 호출
 startSS();
 
-console.log('모듈로 메인JS 호출',document.querySelector('.top-menu'));
+// console.log('모듈로 메인JS 호출',document.querySelector('.top-menu'));
 
 // 2. slideFn 슬라이드 기능함수 호출
 slideFn();
+
+// 3. Intro동영상 파트 클릭 시 동영상태그 넣기
+// 이벤트 대상 = 변경 대상 : .intro-mv-img
+const introMv=myFn.qs('.intro-mv-img');
+
+introMv.onclick = ()=>{
+    console.log('인트로 영상');
+    // 1. 동영상 넣기
+    introMv.innerHTML = `
+    <video src="./images/intro_mv.mp4" autoplay="" controls=""></video>
+    `;
+    // 2. 클래스 off 지우기 (플레이 버튼 안나오게)
+    introMv.classList.remove('off');
+};////////////click이벤트

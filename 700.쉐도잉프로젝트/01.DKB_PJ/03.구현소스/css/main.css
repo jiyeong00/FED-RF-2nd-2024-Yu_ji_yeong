@@ -69,7 +69,10 @@ body * {
     /* 부모자격 */
     aspect-ratio: 2/1.1;
 }
-/* 가상요소로 플레이버튼 만들기 */
+/* 가상요소로 플레이버튼 만들기 
+-> .off를 준 경우에만 가상요소 버튼 보임 
+따라서 비디오 태그를 넣을 경우 .off를 지울 것
+*/
 .intro-mv-img.off::after{
     content: '';
     position: absolute;
