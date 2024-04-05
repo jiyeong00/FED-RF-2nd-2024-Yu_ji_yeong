@@ -58,7 +58,7 @@ let rlpos=0, t1pos =0;
 // (7) 거북이동값 상수
 const T1_NUM=16;
 
-console.log('대상:',t1,r1,btns,level,msg);
+// console.log('대상:',t1,r1,btns,level,msg);
 
 // 2. 이벤트 설정하기 ////////////
 btns.forEach(ele=>{
@@ -75,11 +75,14 @@ function goGame(){
 
     // 2. 버튼별 기능분기하기
     if(btxt==='토끼출발'){
-        goR1;
+        goR1();//인터발호출 함수
     }else if(btxt==='거북출발'){
         // 거북의 설정된 값만큼 이동하기
         t1pos+=T1_NUM;
         t1.style.left = t1pos +'px';
+
+        // 토끼 자동호출
+        goR1();
 
     }else if(btxt==='처음으로'){
         // 페이지 리로드하기
@@ -95,9 +98,16 @@ function goGame(){
 // 인터발지우기용 변수
 let autoI;
 function goR1(){
-    setInterval(() => {
-        r1.style.left = ++rlpos +'px';
-    }, 10);
+    // 호출이 한번만 되도록 AutoI가 할당전에는 undefined임으로 if문에서 false처리됨
+    if(!autoI){//false일때만 들어감
+        console.log('토끼 인터발',level.value);
+        autoI=setInterval(() => {
+            r1.style.left = ++rlpos +'px';
+        }, level.value);
+        // level.value는 선택박스의 선택된 값이다.
+        // 원래 Option요소의 value값은 문자형이므로 숫자여도 숫자형으로 형변환해야하지만 요즘 브라우저는 자동형변환 해준다.
+
+    }///if문///
 } ///////// goR1함수 //////////////////
 
 /***************************************** 
