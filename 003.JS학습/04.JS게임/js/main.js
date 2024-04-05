@@ -87,6 +87,12 @@ function goGame(){
         // return은 함수를 나감
         if(t1Stop) return;
 
+        // 거북버튼 클릭 후 포커스로 인하여 엔터버튼을 사용할 수 있으므로 이를 막기위해포커스 해제
+        // (즉, blur 메서드로 처리함)
+        this.blur();
+        // 초점이 들어가게 하는 메서드 -> focus()
+        // 초점이 빠지게 하는 메서드 -> blur()
+
         // 거북의 설정된 값만큼 이동하기
         t1pos+=T1_NUM;
         t1.style.left = t1pos +'px';
@@ -139,5 +145,60 @@ function whoWinner() {
         // (2) 거북 멈춤
         t1Stop=true;
 
+        // 승자변수 (메시지때문에 사용)
+        let winner;
+        // (3) 승자판변하기
+        if(r1pos> t1pos) winner='토끼';
+        else if(r1pos < t1pos) winner='거북';
+        else winner='비김';
+
+        // (4) 랜덤수 만들기
+        // Math.floor(Math.random()*배열개수)
+        // 배열개수는 배열변수.length
+        let rdmNum=Math.floor(Math.random()*msgTxt[winner].length);
+        console.log('랜덤수 : ',rdmNum);
+
+
+        // (5) 메시지 랜덤으로 커버박스에 넣기
+        // 메시지 할당
+        msg.innerText=msgTxt[winner][rdmNum];
+        // 메시지 보이기
+        msg.style.display='block';
+        msg.style.zIndex='100';
+
+        // (6) 전체 반투명 커버 암전주기
+        myFn.qs('.cover').style.cssText=`
+        position:fixed;
+        top:0;
+        left:0;
+        width:100vw;
+        height:100vh;
+        background-color:#000;
+        opacity:0.5;
+        z-index:99;
+        `;
+
+        // (7) 버튼박스 위로 올리기
+
+        myFn.qs('#btns').style.zIndex=200;
     }/////if문////
 } ///////// whoWinner 함수 ////////////////
+
+
+/********************************************************** 
+ * [ 내가 원하는 랜덤 수 만들기 ]
+  1. Math.random()
+    -> 0~1사이 소수점 17자리 랜덤수 생성
+  2. 내가 원하는 1~몇까지의 랜덤수 만들기
+    (1) Math.random()*원하는 최대수
+      -> 0~원하는 수보다 1작은 수까지 랜덤수 발생 
+    (2) 올림처리하여 1~원하는 수를 만들어준다!
+      -> Math.ceil(Math.random()*원하는 최대수)
+      -> 만약 0~1작은 최대수를 만들고 싶으면 내림처리하면 됨.
+        Math.floor()
+    (3) 중간법위의 랜덤수를 만들고자 할때는 1~최대수를 구하고 특정 시작수를 더해주면 된다.
+      예) 4~12의 랜덤수는 Math.ceil(Math.random()*8)+3
+ **********************************************************/
+// console.log('Math.random():',Math.random());
+// console.log('Math.random()*8:',Math.random()*8);
+// console.log('Math.ceil(Math.random()*8):',Math.ceil(Math.random()*8));
