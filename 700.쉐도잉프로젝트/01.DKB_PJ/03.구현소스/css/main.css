@@ -130,6 +130,15 @@ body * {
     margin-top: 1.4rem;
     color: #00000099;
     line-height: 1.7;
+
+    /* 여러줄 말줄임표하기 */
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* 보여줄 라인 수 세팅 속성 */
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+
 }
 /* 리스트 박스 오버스 내용 글자색 */
 .preview-box li p{
