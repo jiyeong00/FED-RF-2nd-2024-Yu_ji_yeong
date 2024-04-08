@@ -52,7 +52,6 @@ introMv.onclick = () => {
   *****************************************/
 
 //  2. 미리보기 파트 내용 넣기
-
 // 미리보기 구현 코드 랩핑구역
 (() => {
   // 대상 : preview-box
@@ -82,8 +81,8 @@ introMv.onclick = () => {
   previewBox.innerHTML = hcode;
 })(); ////////코드 랩핑구역
 
-//  3. 현장포토 파트 내용 넣기
 
+//  3. 현장포토 파트 내용 넣기
 // 현장포토 구현 코드 랩핑구역
 (() => {
   // 대상 : live-box
@@ -111,8 +110,45 @@ introMv.onclick = () => {
 
   // 데이터 확인하기
   console.log(hcode);
-  console.log('미리보기 data',lvData);
+//   console.log('미리보기 data',lvData);
 
   // 2. 화면출력하기
   liveBox.innerHTML = hcode;
+})(); ////////코드 랩핑구역
+
+
+
+//  4. 대표이미지 파트 내용 넣기
+
+// 대표이미지 구현 코드 랩핑구역
+(() => {
+  // 대상 : live-box
+  const posterBox = myFn.qs(".poster-box");
+  // 데이터 : dkb_data.js 의 prewviewData배열
+  const pData = dkbData.posterData;
+  // 구조 : ul>li>figure>img+figcaption
+  // 8개만 데이터를 구성하여 넣는다.
+  // html코드 변수
+  let hcode = `<ul>`;
+  // li구성을 hcode변수에 대입연산자로 할당
+  //posterData 배열은 총 5개임, 모두 돌기를 세팅하자
+  pData.forEach(v=>{
+      hcode += `
+      <li>
+          <figure>
+              <img src="./images/poster_img/${v.imgName}.jpg" alt="${v.title}">
+              <figcaption>${v.title}</figcaption>
+          </figure>
+      </li>
+      `;
+  });
+
+  hcode += `</ul>`;
+
+  // 데이터 확인하기
+  console.log(hcode);
+  console.log('미리보기 data',pData);
+
+  // 2. 화면출력하기
+  posterBox.innerHTML = hcode;
 })(); ////////코드 랩핑구역
