@@ -10,6 +10,10 @@ import { startSS,setScrollPos } from "./smoothScroll23.js";
 // import하려는 파일에서 반드시 함수,변수 등을 export해야함.
 import slideFn from "./slide.js";
 
+// 데이터 세팅 불러오기
+// import { previewData } from "../data/dkb_data.js";
+import * as dkbData from "../data/dkb_data.js";
+
 ///////////////////////////////////////////////////////////////////
 // 구현코드 파트/////////
 
@@ -34,3 +38,30 @@ introMv.onclick = ()=>{
     // 2. 클래스 off 지우기 (플레이 버튼 안나오게)
     introMv.classList.remove('off');
 };////////////click이벤트
+
+// 2. 미리보기 파트 내용 넣기
+// 대상 : preview-box
+const previewBox=myFn.qs('.preview-box');
+// 데이터 : dkb_data.js 의 prewviewData배열
+const pData=dkbData.previewData
+// 구조 : ul>li>h3+p
+// 8개만 데이터를 구성하여 넣는다.
+// html코드 변수
+let hcode=`<ul class="fx-box">`;
+// li구성을 hcode변수에 대입연산자로 할당
+for(let i=0; i<8; i++) {
+    hcode+=`
+    <li>
+        <h3>${pData[i].title}</h3>
+        <p>${pData[i].story}</p>
+    </li>
+    `;
+}///for문///
+hcode+=`</ul>`;
+
+// 데이터 확인하기
+console.log(hcode);
+// console.log('미리보기 data',pData);
+
+// 2. 화면출력하기
+previewBox.innerHTML=hcode;
