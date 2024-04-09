@@ -55,7 +55,11 @@ showit.innerText=fruit.join('★');
 // -> Object.values(객체) : 객체의 값(value)로 이루어진 배열
 
 const newFruits=Object.keys(frObj);
-console.log('변환전 객체 : ',frObj);
-console.log('변환후 키배열 : ',newFruits);
-console.log('변환후 값배열 : ',Object.values(frObj));
+// console.log('변환전 객체 : ',frObj);
+// console.log('변환후 키배열 : ',newFruits);
+// console.log('변환후 값배열 : ',Object.values(frObj));
 
+// 기존배열값을 태그로 변환하여 다시 배열로 할당하기
+// -> 배열,map(()=>리턴값) 메서드
+// ->> 기본배열값을 순회하면 변환된 값을 다시 넣어줌
+newFruits.map(v=>`<option>${v}</option>`);
