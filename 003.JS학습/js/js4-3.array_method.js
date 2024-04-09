@@ -49,7 +49,7 @@ const delnum=mFn.qs('#delnum');
 showit.innerText=fruit.join('★');
 // 배열.join(구분자) : 배열값 사이에 구분자를 넣은 문자열값 변환
 
-// 3-2. 전체과일 콤보박스 바인딩
+// 3-2. 전체과일 콤보박스 바인딩///////////////////////
 // 대상 : #sel << sel변수 / 데이터 : frObj 객체 << 객체의 키를 배열로 변환
 // -> Object.keys(객체) : 객체의 키(속성명)로 이루어진 배열
 // -> Object.values(객체) : 객체의 값(value)로 이루어진 배열
@@ -64,4 +64,61 @@ const newFruits=Object.keys(frObj);
 // -> 기존 forEach()메서드와 전달값이 같음
 // -> v - 배열값 / i - 순번 / arr - 전체배열 
 // ->> 기본배열값을 순회하면 변환된 값을 다시 넣어줌
-newFruits.map(v=>`<option>${v}</option>`);
+// ->> 새로운 배열은 새로운 변수에 할당한다.
+// ->> map에 사용한 원본배열은 보존된다.
+let newArr = newFruits.map(v=>`<option>${v}</option>`);
+
+// console.log('map변환 후 배열값 : ',newArr);
+
+// 배열값을 문자화하며 콤보박스에 태그 넣기
+// 그냥 배열을 할당하면 콤마가 사이에 들어감!
+// 그러므로 join()메서드로 콤마를 없애서 넣는다.
+// 빈 문자값 ''을 넣으면 배열값으로만 구성된 태그 문자열이 완성된다!
+
+sel.innerHTML=newArr.join('');
+// // 한번에 쓸 수 도 있다.
+// sel.innerHTML=Object.keys(frObj).map(v=>`<option>${v}</option>`).join('');
+// ->오브젝트 keys 맵쪼잉
+
+// 3-3. 선택과일 콤보박스 데이터 바인딩
+// 대상 : #anum < anum변수
+// 데이터 : fruit 배열
+// 갱신시 계속 재바인딩 되어야 함! (함수화 필요!)
+anum.innerHTML=fruit.map((v,i)=>`
+    <option value="${i}">${v}</option>
+`).join('');
+
+// 4. 이벤트 설정하기
+mbtn.forEach(ele=>{
+    mFn.addEvt(ele,'click',showFruit);
+});/////////forEach///////////
+
+// 5. 함수 만들기
+// 기능 : 배열을 조작하여 과일을 화면에 출력
+function showFruit(){
+    // 1. 버튼 텍스트 읽기
+    let btxt=this.innerText;
+    // 호출확인
+    console.log('보여줘',btxt);
+
+    // 2. 버튼별 기능분기하기
+    // (1) '과일주세요'버튼 : 하단과일 이미지 출력
+    if(btxt==='과일주세요~!'){
+        // 출력박스에 배열정보로 태그넣기
+        // 구조 : ul>li
+        // 과일배열만큼 돌면서 만들기
+        let hcode=`<ul>`;
+        fruit.forEach(v=>{
+            hcode+=`
+                <li style="background:url(./addimg/
+                ${frObj[v]}.png) no-repeat center/cover">
+                    ${v}
+                </li>
+            `;
+        });////////////forEach//////////
+        hcode+='</ul>';
+
+        // 출력박스에 태그넣기
+        cont.innerHTML=hcode;
+    }
+}//////////////showFruit함수///////////////
