@@ -60,6 +60,8 @@ const newFruits=Object.keys(frObj);
 // console.log('변환후 값배열 : ',Object.values(frObj));
 
 // 기존배열값을 태그로 변환하여 다시 배열로 할당하기
-// -> 배열,map(()=>리턴값) 메서드
+// -> 배열,map((v,i,arr)=>리턴값) 메서드
+// -> 기존 forEach()메서드와 전달값이 같음
+// -> v - 배열값 / i - 순번 / arr - 전체배열 
 // ->> 기본배열값을 순회하면 변환된 값을 다시 넣어줌
 newFruits.map(v=>`<option>${v}</option>`);
