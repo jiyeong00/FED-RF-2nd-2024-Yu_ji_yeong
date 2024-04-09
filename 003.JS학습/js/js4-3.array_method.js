@@ -52,8 +52,10 @@ showit.innerText=fruit.join('★');
 // 3-2. 전체과일 콤보박스 바인딩
 // 대상 : #sel << sel변수 / 데이터 : frObj 객체 << 객체의 키를 배열로 변환
 // -> Object.keys(객체) : 객체의 키(속성명)로 이루어진 배열
+// -> Object.values(객체) : 객체의 값(value)로 이루어진 배열
 
 const newFruits=Object.keys(frObj);
 console.log('변환전 객체 : ',frObj);
 console.log('변환후 키배열 : ',newFruits);
+console.log('변환후 값배열 : ',Object.values(frObj));
 
