@@ -110,8 +110,7 @@ function showFruit(){
         let hcode=`<ul>`;
         fruit.forEach(v=>{
             hcode+=`
-                <li style="background:url(./addimg/
-                ${frObj[v]}.png) no-repeat center/cover">
+                <li style="background:url(./addimg/${frObj[v]}.png) no-repeat center/cover">
                     ${v}
                 </li>
             `;
