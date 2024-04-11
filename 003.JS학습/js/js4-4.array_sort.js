@@ -198,7 +198,7 @@ function changeSort(e,arrObj){
         // 해석
         // 앞값 뒷값 같으면 0, 뒷값이 크면 -1, 앞값이 크면 1
         // 즉 앞값이 크면 자리를 바꿔서 유지하므로 오름차순 정렬
-        
+
         // (( 공통 정렬 처리하기 ))
         // 문자든 순자든 sort()메서드의 내부적 처리에서 앞뒤 문자가 같으면 0, 뒷문자 크면 -1,
         // 뒷문자가 작으면 1로 리턴값 처리
@@ -215,7 +215,8 @@ function changeSort(e,arrObj){
     }
     // 2-2.내림차순 : 값 2
     else if(optVal==2){
-        arrNumber.sort((a,b)=>b-a);
+        arrObj.sort((a,b)=>a==b?0:a<b?1:-1);
+        // arrNumber.sort((a,b)=>b-a);
     }////////if문///////////
 
     // 주의!!!!!!!!!! 
