@@ -139,8 +139,8 @@ const returnTag=(x)=>{ //x는 배열 전달변수
 };/////returnTag함수/////////
 
 // (3) 배열 숫자데이터만큼 이미지로 변환하여 화면출력
-const showImgNum=()=>{
-    showNum.innerHTML=arrNumber.map(v=>`
+const showImgNum=(arrObj)=>{
+    showNum.innerHTML=arrObj.map(v=>`
     <img src="./images/num/num_0${v}.png" alt="숫자${v}이미지">`).join('');
 
 };///////////showImgNum함수////////////
@@ -173,7 +173,7 @@ console.log('원본 배열:',arrNumber2);
 // console.log('원본 배열:',arrNumber2);
 
 // 함수호출
-showImgNum();
+showImgNum(arrNumber);
 
 // (5) 정렬 기준에 선택박스 변경 이벤트 발생 시 정렬 변경하기(오름차순/내림차순)
 // (5-1) 대상 : #sel 선택박스
@@ -185,7 +185,7 @@ mFn.addEvt(selBox, 'change',(e)=>changeSort(e,arrNumber));
 function changeSort(e,arrObj){ 
     // e - 이벤트 발생 요소의 전달된 이벤트 함수
     //arrObj - 배열전달변수
-    
+
     // 1. 선택옵션값 읽어오기
     let optVal=e.currentTarget.value;
     console.log('선택함수',optVal);
@@ -202,9 +202,11 @@ function changeSort(e,arrObj){
     // 주의!!!!!!!!!! 원본배열을 정렬후엔 원본배열은 없어진다!
 
     // 3. 정렬변경된 배열 화면에 출력하기
-    showImgNum();
+    showImgNum(arrObj);
 
-    // 원본배열확인하기
+    // 전달변수에 할단된 배열확인하기
+    console.log('정렬후 원본배열:',arrObj);
+    // 원본 배열확인하기
     console.log('정렬후 원본배열:',arrNumber);
 
 }/////////////changeSort함수////////////////
