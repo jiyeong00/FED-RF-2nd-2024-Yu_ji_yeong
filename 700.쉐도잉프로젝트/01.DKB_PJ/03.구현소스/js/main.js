@@ -58,6 +58,13 @@ introMv.onclick = () => {
   const previewBox = myFn.qs(".preview-box");
   // 데이터 : dkb_data.js 의 prewviewData배열
   const pData = dkbData.previewData;
+  // 데이터원본의 정렬을 내림차순으로 변경!
+  console.log(
+    pData.sort((a,b)=>
+    (Number(a.idx)==Number(b.idx)?
+      0:Number(a.idx)<Number(b.idx)?1:-1))
+  );
+
   // 구조 : ul>li>h3+p
   // 8개만 데이터를 구성하여 넣는다.
   // html코드 변수
