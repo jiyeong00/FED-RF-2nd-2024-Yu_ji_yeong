@@ -1,6 +1,7 @@
 // 공통요소 데이터 객체 - common JS
 
 const comData={
+    
     // 1. 상단영역 코드
     topArea:`
     
