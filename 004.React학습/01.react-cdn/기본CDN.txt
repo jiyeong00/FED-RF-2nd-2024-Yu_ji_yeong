@@ -1,4 +1,6 @@
 [ 리엑트 CDN방식 호출코드! ]
+cdn 설명페이지?
+https://legacy.reactjs.org/docs/cdn-links.html#gatsby-focus-wrapper
 
 <!-- 1.리액트 기본 라이브러리 -->
 <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
