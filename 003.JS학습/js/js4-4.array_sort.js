@@ -184,7 +184,11 @@ mFn.addEvt(selBox, 'change',(e)=>changeSort(e,arrNumber));
 // (5-3) 정렬변경함수 만들기
 function changeSort(e,arrObj){ 
     // e - 이벤트 발생 요소의 전달된 이벤트 함수
-    //arrObj - 배열전달변수
+    //arrObj - 배열전달변수 -> 원본배열을 담음(주소복사)
+    // 원본배열을 보존키위해 깊은복사를 함
+    // 배열값이 일반배열값이므로 스프레드 연산자사용
+    arrObj=[...arrObj];
+    // -> 다시 새로운 배열로 값이 복사됨
 
     // 1. 선택옵션값 읽어오기
     let optVal=e.currentTarget.value;
