@@ -1,5 +1,9 @@
 // 도꺠비 PJ 메인 JS - main.js
 
+// 공통 처리함수 불러오기 : 가장 먼저 처리한다.
+import setElement from "./common.js";
+setElement(); ///함수호출
+
 // 나의 함수 불러오기
 import myFn from "./my_function.js";
 
@@ -19,58 +23,12 @@ import gnbData from "../data/gnb_data.js";
 console.log(gnbData);
 
 ///////////////////////////////////////////////////////////////////
-// 구현코드 파트/////////
-
-// GNB메뉴 코드 넣기
-// 대상 .gnb
-// 데이터 : gnbData는 객체니까 배열용 map()메서드 못씀!
-// 그래서 gnbData를 키배열로 변환해서 사용함!
-// 그리고 이 객체의 key는 상위메뉴 이기도 함!
-// Object.keys(객체) -> 해당객체의 속성명(키) 배열생성!
-
-myFn.qs(".gnb").innerHTML = `
-<ul>
-${
-  Object.keys(gnbData).map(v=>`
-  <li>
-    <a href="#">${v}</a>
-    ${
-      // 서브메뉴 :"없음"이면 빈값
-      // 아니면 서브메뉴 출력!
-      // gnbData[키] -> 값을 가져옴
-      gnbData[v]=="없음"?"":`
-      <!-- 서브메뉴 -->
-      <div class="smenu">
-        <div class="swrap">
-          <h2>${v}</h2>
-          <ol>
-          ${
-            gnbData[v].map(vSub=>`
-            <li>
-            <a href="#"></a>
-          </li>
-            `).join('')
-          }
-
-          </ol>
-        </div>
-      </div>
-      `
-    }
-  </li>
-  `).join('')
-}
-</ul>
-
-`;
 
 // 1. 부드러운 스크롤 호출
 startSS();
 
 // console.log('모듈로 메인JS 호출',document.querySelector('.top-menu'));
 
-// 2. slideFn 슬라이드 기능함수 호출
-slideFn();
 
 // 3. Intro동영상 파트 클릭 시 동영상태그 넣기
 // 이벤트 대상 = 변경 대상 : .intro-mv-img
@@ -205,3 +163,34 @@ introMv.onclick = () => {
   // 2. 화면출력하기
   posterBox.innerHTML = hcode;
 })(); ////////코드 랩핑구역
+
+// 5. 최신동영상파트 데이터 태그 구성하여 화면 출력하기
+// 바로 시작하지만 지역함수가되는
+(() => {
+  // 5-1. 변경대상 : .clip-box
+  const clipBox = myFn.qs(".clip-box");
+
+  // 5-2. 생성코드 변수
+  let hcode = `<ul>`;
+  // 데이터만큼 순회하여 li코드 만들기
+  // 데이타 : dkbData.clipData
+  dkbData.clipData.forEach((v) => {
+    hcode += `
+    <li>
+    <div class="clip-mv-box">
+      <img
+        src="./images/clip_img/${v.idx}.jpg"
+        alt="${v.subtit}"
+      />
+    </div>
+    <h4>
+      ${v.subtit}
+    </h4>
+    <h3>${v.title}</h3>
+  </li>
+    `;
+  }); /////////forEach//////////
+  hcode += `</ul>`;
+  // 5-3. 화면 출력하기
+  clipBox.innerHTML = hcode;
+})(); /////////코드랩핑구역

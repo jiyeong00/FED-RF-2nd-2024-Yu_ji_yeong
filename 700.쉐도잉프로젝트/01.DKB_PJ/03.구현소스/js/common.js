@@ -1,0 +1,82 @@
+//공통처리 JS
+
+// 나의 함수 불러오기
+import mFn from "./my_function.js";
+
+// 공통처리 데이터 불러오기
+import comData from "../data/common_data.js";
+
+export default function setElement() {
+  // 1. 대상선정 : #top-area, #ban-area, #spart-menu, #footer-area
+  const topArea = mFn.qs("#top-area");
+  const banArea = mFn.qs("#ban-area");
+  const spartMenu = mFn.qs("#spart-menu");
+  const footerArea = mFn.qs("#footer-area");
+
+  //   2. 코드넣기
+  topArea.innerHTML = comData.topArea;
+  banArea.innerHTML = comData.banArea;
+  spartMenu.innerHTML = comData.spartMenu;
+  footerArea.innerHTML = comData.footerArea;
+
+  //   3. 기능처리함수 호출
+  // 구현코드 파트/////////
+
+  //   3-1. gnb메뉴만들기 호출
+  makeMenu();
+  
+  // 2. slideFn 슬라이드 기능함수 호출
+  slideFn();
+} ////////////////////setElement함수
+
+// GNB메뉴코드 만들기 함수
+function makeMenu() {
+  // GNB메뉴 코드 넣기
+  // 대상 .gnb
+  // 데이터 : gnbData는 객체니까 배열용 map()메서드 못씀!
+  // 그래서 gnbData를 키배열로 변환해서 사용함!
+  // 그리고 이 객체의 key는 상위메뉴 이기도 함!
+  // Object.keys(객체) -> 해당객체의 속성명(키) 배열생성!
+
+  mFn.qs(".gnb").innerHTML = `
+<ul>
+${Object.keys(gnbData)
+  .map(
+    (v) => `
+  <li>
+    <a href="#">${v}</a>
+    ${
+      // 서브메뉴 :"없음"이면 빈값
+      // 아니면 서브메뉴 출력!
+      // gnbData[키] -> 값을 가져옴
+      gnbData[v] == "없음"
+        ? ""
+        : `
+      <!-- 서브메뉴 -->
+      <div class="smenu">
+        <div class="swrap">
+          <h2>${v}</h2>
+          <ol>
+          ${gnbData[v]
+            .map(
+              (vSub) => `
+            <li>
+            <a href="#"></a>
+          </li>
+            `
+            )
+            .join("")}
+
+          </ol>
+        </div>
+      </div>
+      `
+    }
+  </li>
+  `
+  )
+  .join("")}
+</ul>
+
+`;
+} //////////makeMenu///////////////
