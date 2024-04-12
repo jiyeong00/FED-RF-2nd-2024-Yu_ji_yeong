@@ -6,6 +6,12 @@ import mFn from "./my_function.js";
 // 공통처리 데이터 불러오기
 import comData from "../data/common_data.js";
 
+import slideFn from "./slide.js";
+
+// GNB 메뉴 데이터 불러오기 /////
+import gnbData from "../data/gnb_data.js";
+console.log(gnbData);
+
 export default function setElement() {
   // 1. 대상선정 : #top-area, #ban-area, #spart-menu, #footer-area
   const topArea = mFn.qs("#top-area");
@@ -24,7 +30,7 @@ export default function setElement() {
 
   //   3-1. gnb메뉴만들기 호출
   makeMenu();
-  
+
   // 2. slideFn 슬라이드 기능함수 호출
   slideFn();
 } ////////////////////setElement함수
