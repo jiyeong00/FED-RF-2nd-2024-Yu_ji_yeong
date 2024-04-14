@@ -245,7 +245,7 @@ function moveWoman() {
   let wTop = (winH * scTop) / scLimit;
   // 이미지 이동값 = 윈도우높이* 스크롤 이동값/스크롤한계값
   // 이미지 이동값 = winH* scTop/scLimit
-  console.log("스크롤 위치 : ", scTop, wTop);
+  console.log("스크롤 위치 : ", scTop);
 
   //   3. 떨녀에게 적용하기
   woman.style.top = wTop + "px";
