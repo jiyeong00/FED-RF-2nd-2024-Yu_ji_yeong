@@ -9,7 +9,6 @@ import mFn from "./my_function.js";
 
 // 2. 작용대상을 추상화함수에 보내서 처리한다
 
-
 /*************************************** 
     [ 드래그 기능 구현을 위한 이벤트 ]
     1. 딸 -> 마우스 포인터 누름 -> mousedown
@@ -50,12 +49,13 @@ function setDrag(clsName) {
   // ele - 드래그 대상요소 클래스 이름 받는 변수
   console.log(clsName);
   //   1. 받은 클래스이름으로 요소를 수집한다
-  let ele = mFn.qsa("."+clsName);
+  let ele = mFn.qsa("." + clsName);
 
   //   2. 드래그함수 호출한다
   // HTMl컬렉션이므로 forEach메서드로 호출
-  ele.forEach((x) => goDrag(x));
-
+  //   forEach((요서,순번,전체)=>{})
+  ele.forEach((x, y, z) => goDrag(x, z));
+  //  z는 전체 요소잡합 컬렉션임
 } //////////setDrag////////////////////////
 
 /**************************************************************** 
@@ -63,10 +63,13 @@ function setDrag(clsName) {
  함수명 : goDrag
  기능 : 다중 드래그 기능 적용
  ****************************************************************/
-function goDrag(ele) {
+function goDrag(ele, coll) {
   // ele - 호출시 보내준 대상을 받는 변수
   // -> 하나씩 전달된 드래그 요소
-  console.log(ele);
+  //   coll - 드래그 요소 전체컬렉션을 받는 변수
+  // -> 마우스 다우니 z-index 대상 1로 만들때 다른요소는 0 변경 시 사용
+
+  console.log(ele, coll);
 
   // 드래그 적용대상 및 이벤트 설정하기///
   // 1.대상선정 : .dtg2 ->> 변경 ) 보내준 대상 HTML컬렉션
@@ -156,6 +159,12 @@ function goDrag(ele) {
     firstPoint(e);
     // 단독할당되지 않고 내부함수호출로 연결되어있으므로 이벤트(e) 전달을 토스해주어야 한다.
 
+    dtg.style.cursor = "grabbing";
+    // zindex0초기화
+    coll.forEach(x=>x.style.zIndex=0);
+    // zindex 1로 높이기
+    dtg.style.zIndex = 1;
+
     console.log("마우스 다운,", dragSts);
   }); ////////////////mousedown////////////
 
@@ -164,6 +173,9 @@ function goDrag(ele) {
     dFalse();
     // 마지막 위치포인트 세팅
     lastPoint(e);
+
+    dtg.style.cursor = "grab";
+
     console.log("마우스 업", dragSts);
   }); ////////////////mouseup////////////
 
