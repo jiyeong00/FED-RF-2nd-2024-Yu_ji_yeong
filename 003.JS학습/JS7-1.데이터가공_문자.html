@@ -68,14 +68,20 @@
         *************************************************************/
             let sub1 = "쓸쓸하고 찬란하신 도깨비, 공유씨!";
             console.log(sub1);
-
+            
             // "도깨비"만 추출
+            console.log(sub1.substr(10,3));
+            console.log(sub1.substring(10,13));
             
-
+            
             // "공유"만 추출
+            console.log(sub1.substr(15,2));
+            console.log(sub1.substring(15,17));
             
-
+            
             // "도깨비, 공유씨!" 중간부터 끝까지 추출
+            console.log(sub1.substr(10,));
+            console.log(sub1.substring(10,));
             
 
         /*********************************************************** 
@@ -84,11 +90,13 @@
         ***********************************************************/
             let sp1 = "동해물^백두산^우리나라^한반도^태극기";
             console.log(sp1);
-
-            // 특수문자(^)잘라서 변수에 할당!
             
-
+            // 특수문자(^)잘라서 변수에 할당!
+            let arr=sp1.split('^');
+            console.log(arr);
+            
             // "한반도"만 출력
+            console.log(arr[3]);
             
             
 
@@ -100,8 +108,10 @@
        let str2 = 11;
        // 결과출력
        let res1 = str1 + str2; 
+       let res2 = String(str1) + String(str2); 
        // 숫자+숫자=숫자
        console.log(res1);
+       console.log(res2);
 
        
        
