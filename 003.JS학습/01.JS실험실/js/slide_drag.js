@@ -59,7 +59,7 @@ function setDrag(clsName) {
 } /////////// setDrag 함수 ////////////////
 
 // z-index 공통관리 변수(전역변수)
-let zNum = 0;
+// let zNum = 0;
 
 /**************************************************************** 
  [ 드래그 다중적용 함수 만들기 ]
@@ -82,8 +82,15 @@ function goDrag(ele) {
     // 드래그할 대상의 CSS 기본값을 셋팅한다!
   // 필수 셋팅요소는 position:relative / top:0 / left:0
   dtg.style.position = "relative";
-  dtg.style.top = "0";
-  dtg.style.left = "0";
+  // dtg.style.top = "0";
+  // 배너가 legt: -220% 기준박스에서 이동함
+  // .banbx의 width값 *2.2
+
+  // 기준위치값 변수에 할당
+  let leftVal=mFn.qs('.banbx').offsetWidth*-2.2;
+  console.log('leftVal값 : ',leftVal);
+  // left위치값 최초셋업 -> px단위 꼭 쓸 것
+  dtg.style.left = leftVal+'px';
 
 
   // 2. 변수만들기///
@@ -91,17 +98,17 @@ function goDrag(ele) {
   let dragSts = false;
   // false 는 드래그 아님, true는 드래그 상태
   // (2) 첫번째 위치 포인트 : first x, first y
-  let firstX, firstY;
+  let firstX;
   // (3) 마지막위치 포인트 : last x, last y
-  let lastX = 0,
-    lastY = 0;
+  // ->최초위치 세팅값으로 프리세팅
+  let lastX = leftVal;
   // -> 중첩된 최종위치가 처음에는 계산되지 않았으므로 출발위치인 0값으로 초기값 넣어줌
   // 초기값을 안넣으면 최초에 값을 더할때 에러가 발생한다.
 
   // (4) 움직일때 위치 포인드 : move x, move y
-  let moveX, moveY;
+  let moveX;
   // (5) 위치이동 차이 계산 결과변수 : result x, result y
-  let resultX, resultY;
+  let resultX;
 
   /////////////////////////////////////////////////////////////////////////////////////
   // 3. 함수만들기///
@@ -124,7 +131,6 @@ function goDrag(ele) {
       // ->>> 두 할당문중 값이 유효한(true)값이 할당됨!
       // DT용 코드와 Mobile코드를 동시에 셋팅할 수 있다!
       moveX = e.pageX || e.touches[0].screenX;
-      moveY = e.pageY || e.touches[0].screenY;
       // console.log(e.touches[0]);
       // moveX = e.pageX;
       // moveY = e.pageY;
@@ -134,7 +140,6 @@ function goDrag(ele) {
       // moveX-firstX
       // moveY-firstY
       resultX = moveX - firstX;
-      resultY = moveY - firstY;
       // -> 순수하게 움직인 거리를 계산함
       // 움직인위치 - 첫번째 위치 순으로 빼준이유
       // ->> top, left위치이동 양수 음수차를 고려한 순서
@@ -142,12 +147,10 @@ function goDrag(ele) {
       // 3. 이동차를 구한 resultX, resultY값을 대상 위치값 적용
       // 대상 : 드래그 요소 dtg
       dtg.style.left = resultX + lastX + "px";
-      dtg.style.top = resultY + lastY + "px";
       //처음엔 lastX, lastY값이 0으로 들어오고 2번째부터는 mouseup이벤트 발생부터 저장된 최종이동 위치값이 더해진다.
 
       // 값확인
-      console.log(`moveX : ${moveX},moveY : ${moveY}`);
-      console.log(`resultX : ${resultX},resultY : ${resultY}`);
+      console.log(`moveX : ${moveX}`);
     } ////if문//////////
 
     // 드레그 중일때만 주먹손, 드레그 아닐때 편손
@@ -158,10 +161,9 @@ function goDrag(ele) {
   const firstPoint = (e) => {
         // DT용값과 Mobile값을 동시에 OR문으로 할당함!
     firstX = e.pageX || e.touches[0].screenX;
-    firstY = e.pageY || e.touches[0].screenY;
         // firstX = e.pageX;
     // firstY = e.pageY;
-    console.log("첫포인트:", firstX, "|", firstY);
+    console.log("첫포인트:", firstX);
   }; ////////firstPoint////////////
 
   // (5) 마지막 위치포인트 세팅함수 : lastX,lastY 값세팅
@@ -169,8 +171,7 @@ function goDrag(ele) {
   const lastPoint = (e) => {
     // 이동결과 계산된 최종값을 기존값에 더함
     lastX += resultX;
-    lastY += resultY;
-    console.log("끝포인트:", lastX, "|", lastY);
+    console.log("끝포인트:", lastX);
   }; ////////lastPoint////////////
 
   ///////////////////////////////////////////////////////
@@ -186,7 +187,7 @@ function goDrag(ele) {
     dtg.style.cursor = "grabbing";
 
     // z-index 전역변수(zNum) 숫자를 1씩 높이기
-    dtg.style.zIndex = ++zNum;
+    // dtg.style.zIndex = ++zNum;
 
     console.log("마우스 다운,", dragSts);
   }); ////////////////mousedown////////////
@@ -213,7 +214,6 @@ function goDrag(ele) {
     // 이것을 기존요소의 위치값으로 보정함
     // 단 style위치값 코드는 px단위가 있으르모 parseInt처리함
     lastX=parseInt(dtg.style.left);
-    lastY=parseInt(dtg.style.top);
     
     console.log("드래그 종료", dragSts);
   }); /////////////mouseleave////////////
@@ -231,7 +231,7 @@ function goDrag(ele) {
     // 이벤트 전달을 토스해줘야 한다!(전달변수 e)
 
     // z-index 전역변수(zNum) 숫자를 1씩 높이기
-    dtg.style.zIndex = ++zNum;
+    // dtg.style.zIndex = ++zNum;
 
     console.log("터치스타트!", dragSts);
   }); ///////// touchstart //////////
