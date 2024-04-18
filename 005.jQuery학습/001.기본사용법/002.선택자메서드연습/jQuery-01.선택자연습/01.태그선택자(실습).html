@@ -59,11 +59,31 @@
           document.querySelector(".my").click() -> X
           $(".my").click() -> O
 
-
-
-    
+    >> .함수()
+    .$(변수명).함수 <<<약간 요런식인듯
     *************************************************/
-
+   
+    // 제이쿼리 코드구역
+    $(()=>{
+      // 대상 : h2
+      // 이벤트 : click
+      $('h2').click(()=>{
+        console.log("나야나");
+        // 변경대상:.list
+        $('.list').css({
+          position:'relative',
+          left:'0',
+          fontSize: '50px',
+          color:'hotpink',
+          transition:'1.5s ease-in-out',
+        })
+        ///딜레이 1.5초
+        .delay(1500) 
+        // 0.5초간 left값 변경 애니
+        .animate({left:'300px'},500)
+        // .animate({},시간(1/1000),이징,함수)
+      });/////////////click////////////////
+    });
 			
 	
 	</script>
