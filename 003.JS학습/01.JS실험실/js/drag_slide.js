@@ -423,7 +423,8 @@ function slideFn(selEl) {
     lastX = originalValue;
     // .>>> 이거 해야 오작동없음
 
-    // 중잉 li에 클래스 on넣기 
+    // 중앙 li에 클래스 on넣기 
+    // slideSeq값은 오른쪽버튼2,왼쪽버튼 3
     mFn.qsaEl(slide,"li").forEach((ele,idx)=>{
       if(idx==slideSeq)ele.classList.add("on");
       else ele.classList.remove("on");
