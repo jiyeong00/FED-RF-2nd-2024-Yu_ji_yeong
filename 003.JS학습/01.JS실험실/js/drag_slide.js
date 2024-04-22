@@ -20,7 +20,6 @@ export default function setSlide(clsName) {
     // let subSlide = mFn.qsEl(ele, ".slide");
     // >>>> slideFn함수에서 하위 .slide를 수집하고있음 ><>>>> 따로 보낼필요없음!
 
-
     // 슬라이드 함수 호출하기
     slideFn(ele);
     // 실제 DOM요소를 보낸다!
@@ -40,6 +39,8 @@ function slideFn(selEl) {
   let clickSts = 0;
   // 0-2. 슬라이드 이동시간 : 상수로 설정
   const TIME_SLIDE = 400;
+  // 0-3. 슬라이드 기준 위치값 : 슬라이드 가로크기의 2.2배 음수값
+  let originalValue = selEl.offsetWidth * -2.2;
 
   // 1. 대상선정
   // 1-1. 슬라이드 부모요소 : 전달된 선택요소 -> selEl
@@ -153,7 +154,7 @@ function slideFn(selEl) {
       // 3.맨앞li 맨뒤로 이동
       slide.appendChild(slide.querySelectorAll("li")[0]);
       // 4.slide left값 -220% >>최종 left 값을 px로
-      slide.style.left = selEl.offsetWidth * -2.2 + "px";
+      slide.style.left = originalValue + "px";
       // 5.트랜지션 없애기
       slide.style.transition = "none";
     }, TIME_SLIDE);
@@ -185,7 +186,7 @@ function slideFn(selEl) {
 
     setTimeout(() => {
       // 5. left값 -220%으로 들어오기
-      slide.style.left = selEl.offsetWidth * -2.2 + "px";
+      slide.style.left = originalValue + "px";
 
       // 6. 트랜지션주기
       slide.style.transition = TIME_SLIDE + "ms ease-out";
@@ -265,8 +266,9 @@ function slideFn(selEl) {
   // 배너가 legt: -220% 기준박스에서 이동함
   // .banbx의 width값 *2.2
 
-  // 기준위치값 변수에 할당
-  let leftVal = mFn.qs(".banbx").offsetWidth * -2.2;
+  // .banbx의 width *-2.2 기준위치값 변수에 할당
+  //  originalValue변수값 할당
+  let leftVal = originalValue;
   // 왼쪽으로 이동할 기준값(기준위치값*1.1)
   let valFirst = leftVal * 1.1;
   // 오른쪽으로 이동할 기준값(기준위치값*0.9)
@@ -408,7 +410,7 @@ function slideFn(selEl) {
     } /// else ////
 
     // 드래그 시 더해지는 마지막 위치값 lastX를 -220%의 left px값으로 초기화해준다.(숫자만)
-    lastX=selEl.offsetWidth * -2.2;
+    lastX = originalValue;
     // .>>> 이거 해야 오작동없음
 
     console.log("마우스 업", lastX);
@@ -459,5 +461,20 @@ function slideFn(selEl) {
   // (3) 터치무브 이벤트 함수연결하기
   mFn.addEvt(dtg, "touchmove", dMove);
   //////////// touchmove /////////////
+
+  //////////// 브라우저 크기 리사이즈 시 동적 변경값 업데이트하기//////////////////////////////
+  mFn.addEvt(window, "resize", () => {
+    // 1. 기준위치값 left업데이트
+    originalValue = selEl.offsetWidth * -2.2;
+    // 2. 기준위치값으로 실제 슬라이드 CSS left값 변경하기
+    slide.style.left = originalValue + "px";
+
+    // 3. 
+    leftVal = originalValue;
+    // 왼쪽으로 이동할 기준값(기준위치값*1.1)
+    valFirst = leftVal * 1.1;
+    // 오른쪽으로 이동할 기준값(기준위치값*0.9)
+    valSecond = leftVal * 0.9;
+  }); ////////////////resize함수///////////////////////
 } /////////////// slideFn 함수 ///////////////
 /////////////////////////////////////////////
