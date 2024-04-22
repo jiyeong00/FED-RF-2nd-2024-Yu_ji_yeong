@@ -103,7 +103,7 @@ function slideFn(selEl) {
     // 1. 오른쪽 버튼 여부 알아내기
     let isRight = this.classList.contains("ab2");
 
-    // 3. 버튼분기하기 '.ab2' 이면 오른쪽버튼
+    // 2. 버튼분기하기 '.ab2' 이면 오른쪽버튼
     if (isRight) {
       // 오른쪽버튼
       // 오른쪽에서 들어오는 슬라이드함수 호출!
@@ -113,11 +113,20 @@ function slideFn(selEl) {
       leftSlide();
     } /////// else //////////////
 
-    // 4. 블릿순번 변경 함수 호출
+    // 3. 블릿순번 변경 함수 호출
     chgIndic(isRight); // 방향값을 보냄!
 
-    // 5. 자동넘김 멈춤함수 호출하기
+    // 4. 자동넘김 멈춤함수 호출하기
     clearAuto();
+
+    // 5. 중앙 li에 클래스 on넣기
+    // slideSeq값은 오른쪽버튼2,왼쪽버튼 3
+    let slideSeq=isRight?3:2;
+    
+    mFn.qsaEl(slide, "li").forEach((ele, idx) => {
+      if (idx == slideSeq) ele.classList.add("on");
+      else ele.classList.remove("on");
+    });
   } ////////// goSlide 함수 /////////
 
   // 블릿순번 변경 함수 /////////////
@@ -387,23 +396,21 @@ function slideFn(selEl) {
     dtg.style.cursor = "grab";
 
     // 중앙 li순번 방향별 세팅
-    let slideSeq=2; //왼쪽 버튼(오른쪽이동)
+    let slideSeq = 2; //왼쪽 버튼(오른쪽이동)
     // 만약 오른쪽버튼일 경우 순번은 3이 된다.
     // 업데이트는 오른쪽일 경우에만 해준다.
     // 기타일 경우 세번째 순번인 2를 유지한다
 
-
     // 대상의 left값 찍기(px단위를 parseInt()로 없애기!)
     let currentLeft = parseInt(dtg.style.left);
     console.log("슬라이드left:", currentLeft, "x축 순수이동값", resultX);
-
 
     // 대상 슬라이드 이동기준 분기하기
     if (currentLeft < valFirst) {
       console.log("왼쪽으로 이동!!!");
       // 오른쪽버튼 클릭 시 왼쪽이동과 동일 = rightSlide() 함수호출
       rightSlide();
-      slideSeq=3;
+      slideSeq = 3;
     } /// if ///
     else if (currentLeft > valSecond) {
       console.log("오른쪽으로 이동!!!");
@@ -423,13 +430,15 @@ function slideFn(selEl) {
     lastX = originalValue;
     // .>>> 이거 해야 오작동없음
 
-    // 중앙 li에 클래스 on넣기 
+    // 중앙 li에 클래스 on넣기
     // slideSeq값은 오른쪽버튼2,왼쪽버튼 3
-    mFn.qsaEl(slide,"li").forEach((ele,idx)=>{
-      if(idx==slideSeq)ele.classList.add("on");
+    mFn.qsaEl(slide, "li").forEach((ele, idx) => {
+      if (idx == slideSeq) ele.classList.add("on");
       else ele.classList.remove("on");
-
     });
+
+    // 불릿변경 함수 호출 :오른쪽이 3일 때 true
+    chgIndic(slideSeq === 3 ? true : false);
 
     console.log("마우스 업", lastX);
   }); ////////////////mouseup////////////
@@ -487,7 +496,7 @@ function slideFn(selEl) {
     // 2. 기준위치값으로 실제 슬라이드 CSS left값 변경하기
     slide.style.left = originalValue + "px";
 
-    // 3. 
+    // 3.
     leftVal = originalValue;
     // 왼쪽으로 이동할 기준값(기준위치값*1.1)
     valFirst = leftVal * 1.1;
@@ -495,7 +504,7 @@ function slideFn(selEl) {
     valSecond = leftVal * 0.9;
 
     // 호출작동확인
-    console.log('리사이즈 작동',originalValue,leftVal,valFirst,valSecond);
+    console.log("리사이즈 작동", originalValue, leftVal, valFirst, valSecond);
   }); ////////////////resize함수///////////////////////
 } /////////////// slideFn 함수 ///////////////
 /////////////////////////////////////////////
