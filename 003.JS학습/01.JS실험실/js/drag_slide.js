@@ -145,7 +145,7 @@ function slideFn(selEl, silder) {
     //1.대상이동하기 : -330%
     slide.style.left = "-330%";
     //2.트랜지션주기
-    slide.style.transition = TIME_SLIDE + "ms ease-in-out";
+    slide.style.transition = TIME_SLIDE + "ms ease-out";
     // 이동시간 후 맨앞li 잘라서 맨뒤로 이동하기
     // appendChild(요소)
     setTimeout(() => {
@@ -159,7 +159,12 @@ function slideFn(selEl, silder) {
   } //////////// rightSlide 함수 ////////////
 
   // 슬라이드 왼쪽방향 함수 ////////////
-  function leftSlide() {
+  // 드래그 이동시엔 left값을 -330%가 아닌 드래그가 이동된 값을 적용한 left값을 적용한다
+  // 함수전달변수를 leftVal="330%"로 기본 입력값 처리하면 함수호출 시 전달값이 없는 경우 기본값으로 처리하고
+  // 함수 호출 시 전달값이 있으면 그 전달된 값으로 처리한다.
+  // >>> [ 함수 전달변수 기본입력값 처리 ] 라고 한다
+  function leftSlide(leftVal="-330%") {
+    // leftVal - li 앞에 이동시 left값 설정 변수
     // 1. 슬라이드 li 새로 읽기
     let eachOne = slide.querySelectorAll("li");
 
@@ -168,7 +173,7 @@ function slideFn(selEl, silder) {
     slide.insertBefore(eachOne[eachOne.length - 1], eachOne[0]);
     // 놈.놈.놈 -> insertBefore(넣을놈,넣을놈전놈)
     // 3. left값 -330% 만들기 : 들어올 준비 위치!
-    slide.style.left = "-330%";
+    slide.style.left = leftVal;
     // 4. 트랜지션 없애기
     slide.style.transition = "none";
 
@@ -182,7 +187,7 @@ function slideFn(selEl, silder) {
       slide.style.left = "-220%";
 
       // 6. 트랜지션주기
-      slide.style.transition = TIME_SLIDE + "ms ease-in-out";
+      slide.style.transition = TIME_SLIDE + "ms ease-out";
     }, 0);
   } //////////// leftSlide 함수 ////////////
 
@@ -219,7 +224,7 @@ function slideFn(selEl, silder) {
   } ///////// slideAuto 함수 //////////////
 
   // 인터발함수 최초호출!
-  slideAuto();
+  // slideAuto();
 
   // 버튼을 클릭할 경우를 구분하여 자동넘김을 멈춰준다!
   function clearAuto() {
@@ -380,19 +385,25 @@ function slideFn(selEl, silder) {
 
     // 대상의 left값 찍기(px단위를 parseInt()로 없애기!)
     let currentLeft = parseInt(dtg.style.left);
-    console.log("슬라이드left:", currentLeft);
+    console.log("슬라이드left:", currentLeft,'x축 순수이동값',resultX);
     // 대상 슬라이드 이동기준 분기하기
     if (currentLeft < valFirst) {
       console.log("왼쪽으로 이동!!!");
-      // 오른쪽버튼 클릭 시 왼쪽이동과 동일 = rightSlide() gkatnghcnf
+      // 오른쪽버튼 클릭 시 왼쪽이동과 동일 = rightSlide() 함수호출
       rightSlide();
     } /// if ///
     else if (currentLeft > valSecond) {
       console.log("오른쪽으로 이동!!!");
+      // 왼쪽버튼 클릭 시 오른쪽이동과 동일 = leftSlide() 함수호출
+      // 슬라이드 이동함수 호출, 드래그 시 이동된 값이 계산된 -330%값을 보내준다
+      let resVal=(selEl.offsetWidth*-3.3)+resultX;
+      leftSlide(resVal+'px');
     } /// else if ///
     else {
       // valFirst와 valSecond의 사이범위
       console.log("제자리!!!");
+      slide.style.left='-220%';
+      slide.style.transition='.3s ease-in-out';
     } /// else ////
 
     // console.log("마우스 업", dragSts);
