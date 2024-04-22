@@ -121,13 +121,17 @@ function slideFn(selEl) {
 
     // 5. 중앙 li에 클래스 on넣기
     // slideSeq값은 오른쪽버튼2,왼쪽버튼 3
-    let slideSeq=isRight?3:2;
-    
+    let slideSeq = isRight ? 3 : 2;
+    addOnSlide(slideSeq);
+  } ////////// goSlide 함수 /////////
+
+  // 중앙슬라이드 클래스on처리 함수
+  function addOnSlide(slideSeq) {
     mFn.qsaEl(slide, "li").forEach((ele, idx) => {
       if (idx == slideSeq) ele.classList.add("on");
       else ele.classList.remove("on");
     });
-  } ////////// goSlide 함수 /////////
+  } //////////////addOnSlide함수//////////////////////////
 
   // 블릿순번 변경 함수 /////////////
   function chgIndic(isRight) {
@@ -226,6 +230,8 @@ function slideFn(selEl) {
       rightSlide();
       // 블릿변경함수호출(오른쪽은 1)
       chgIndic(1);
+      // 중앙슬라이드 클래스 on넣기 함수 호출
+      addOnSlide(3);
 
       // // console.log('실행!');
       // 오른쪽버튼 클릭이벤트 강제발생!
@@ -235,7 +241,7 @@ function slideFn(selEl) {
   } ///////// slideAuto 함수 //////////////
 
   // 인터발함수 최초호출!
-  // slideAuto();
+  slideAuto();
 
   // 버튼을 클릭할 경우를 구분하여 자동넘김을 멈춰준다!
   function clearAuto() {
@@ -312,9 +318,13 @@ function slideFn(selEl) {
   const dTrue = () => (dragSts = true);
   // (2) 드래그 상태 false로 변경하는 함수
   const dFalse = () => (dragSts = false);
+
   // (3) 드래그 상태시 처리함수
   const dMove = (e) => {
     if (dragSts) {
+      // 4. 자동넘김 멈춤함수 호출하기
+      clearAuto();
+
       // // console.log('드래그 중');
 
       // 1. 드래그 상태에서 움질일대 포인터 위치값
@@ -369,32 +379,9 @@ function slideFn(selEl) {
     //// console .log("끝포인트:", lastX);
   }; ////////lastPoint////////////
 
-  ///////////////////////////////////////////////////////
-  // 4.드래그 이벤트 설정하기///
-  // (1) 마우스 다운 이벤트 함수연결하기
-  mFn.addEvt(dtg, "mousedown", (e) => {
-    // 드래그 상태값 변환
-    dTrue();
-    // 첫번째 위치포인트 세팅
-    firstPoint(e);
-    // 단독할당되지 않고 내부함수호출로 연결되어있으므로 이벤트(e) 전달을 토스해주어야 한다.
-
-    dtg.style.cursor = "grabbing";
-
-    // z-index 전역변수(zNum) 숫자를 1씩 높이기
-    // dtg.style.zIndex = ++zNum;
-
-    // console.log("마우스 다운,", dragSts);
-  }); ////////////////mousedown////////////
-
-  // (2) 마우스 업 이벤트 함수 연결하기
-  mFn.addEvt(dtg, "mouseup", (e) => {
-    dFalse();
-    // 마지막 위치포인트 세팅
-    lastPoint(e);
-
-    dtg.style.cursor = "grab";
-
+  // (6) 슬라이드 드래그 이동구현
+  // >>>>>>>> mouseup / touchend 이벤트 발생 시 호출
+  const moveDragSlide = () => {
     // 중앙 li순번 방향별 세팅
     let slideSeq = 2; //왼쪽 버튼(오른쪽이동)
     // 만약 오른쪽버튼일 경우 순번은 3이 된다.
@@ -432,15 +419,49 @@ function slideFn(selEl) {
 
     // 중앙 li에 클래스 on넣기
     // slideSeq값은 오른쪽버튼2,왼쪽버튼 3
-    mFn.qsaEl(slide, "li").forEach((ele, idx) => {
-      if (idx == slideSeq) ele.classList.add("on");
-      else ele.classList.remove("on");
-    });
+    addOnSlide(slideSeq);
 
     // 불릿변경 함수 호출 :오른쪽이 3일 때 true
     chgIndic(slideSeq === 3 ? true : false);
+  }; ////////////moveDragSlide///////////////////////
+  // 바로 호출해야할 경우 위에처럼 함수를 할당하면서 선언하고 아래에 바로 호출한다.
 
-    console.log("마우스 업", lastX);
+  ///////////////////////////////////////////////////////
+  // 4.드래그 이벤트 설정하기///
+  // (1) 마우스 다운 이벤트 함수연결하기
+  mFn.addEvt(dtg, "mousedown", (e) => {
+    // 4. 자동넘김 멈춤함수 호출하기
+    clearAuto();
+
+    // 드래그 상태값 변환
+    dTrue();
+    // 첫번째 위치포인트 세팅
+    firstPoint(e);
+    // 단독할당되지 않고 내부함수호출로 연결되어있으므로 이벤트(e) 전달을 토스해주어야 한다.
+
+    dtg.style.cursor = "grabbing";
+
+    // z-index 전역변수(zNum) 숫자를 1씩 높이기
+    // dtg.style.zIndex = ++zNum;
+
+    // console.log("마우스 다운,", dragSts);
+  }); ////////////////mousedown////////////
+
+  // (2) 마우스 업 이벤트 함수 연결하기
+  mFn.addEvt(dtg, "mouseup", (e) => {
+    // 4. 자동넘김 멈춤함수 호출하기
+    clearAuto();
+
+    dFalse();
+    // 마지막 위치포인트 세팅
+    lastPoint(e);
+
+    dtg.style.cursor = "grab";
+
+    // 드래그슬라이드 이동함수 호출
+    moveDragSlide();
+
+    // console.log("마우스 업", lastX);
   }); ////////////////mouseup////////////
 
   // (3) 마우스 무브이벤트 함수 연결하기
@@ -462,6 +483,8 @@ function slideFn(selEl) {
 
   // (1) 터치스타트 이벤트 함수연결하기
   mFn.addEvt(dtg, "touchstart", (e) => {
+    // 4. 자동넘김 멈춤함수 호출하기
+    clearAuto();
     // 드래그 상태값 true로 변경!
     dTrue();
     // 첫번째 위치포인트 셋팅!
@@ -477,10 +500,16 @@ function slideFn(selEl) {
 
   // (2) 터치엔드 이벤트 함수연결하기
   mFn.addEvt(dtg, "touchend", () => {
+    // 4. 자동넘김 멈춤함수 호출하기
+    clearAuto();
+
     // 드래그 상태값 false로 변경!
     dFalse();
     // 마지막 위치포인트 셋팅!
     lastPoint();
+
+    // 드래그 슬라이드 이동함수 호출
+    moveDragSlide();
 
     // console.log("터치엔드!", dragSts);
   }); ///////// touchend //////////
