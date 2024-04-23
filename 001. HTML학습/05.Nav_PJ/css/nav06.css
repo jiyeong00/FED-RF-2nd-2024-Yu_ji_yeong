@@ -177,7 +177,7 @@ body {
 /* 파티션박스 */
 .sub-cont > div {
   flex: 1;
-  outline: 2px dashed lightblue;
+  /* outline: 2px dashed lightblue; */
 }
 /* 서브 컨텐츠 오른쪽 박스 */
 .cont-right-box {
