@@ -505,13 +505,13 @@ function slideFn(selEl) {
   }); ////////////////mousedown////////////
 
   // (2) 마우스 업 이벤트 함수 연결하기
-  mFn.addEvt(dtg, "mouseup", (e) => {
+  mFn.addEvt(dtg, "mouseup", () => {
     // 4. 자동넘김 멈춤함수 호출하기
     clearAuto();
-
+// 드래그값 false로 변경
     dFalse();
     // 마지막 위치포인트 세팅
-    lastPoint(e);
+    lastPoint();
 
     dtg.style.cursor = "grab";
 
@@ -578,6 +578,14 @@ function slideFn(selEl) {
   // (3) 터치무브 이벤트 함수연결하기
   mFn.addEvt(dtg, "touchmove", dMove);
   //////////// touchmove /////////////
+
+  // (4) 버튼,블릿에 오버시 자동처리호출셋팅 ///
+  mFn.qsaEl(selEl,'.controls').forEach(ele=>ele.addEventListener(
+    'mouseenter',()=>{
+      moveDragSlide();
+      clearAuto();
+    }));
+
 
   //////////// 브라우저 크기 리사이즈 시 동적 변경값 업데이트하기//////////////////////////////
   mFn.addEvt(window, "resize", () => {
