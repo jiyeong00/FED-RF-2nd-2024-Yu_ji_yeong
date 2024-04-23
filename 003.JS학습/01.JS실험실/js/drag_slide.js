@@ -376,7 +376,7 @@ function slideFn(selEl) {
   const dMove = (e) => {
     if (dragSts) {
       // 4. 자동넘김 멈춤함수 호출하기
-      clearAuto();
+      // clearAuto();
 
       // // console.log('드래그 중');
 
@@ -484,7 +484,11 @@ function slideFn(selEl) {
   // (1) 마우스 다운 이벤트 함수연결하기
   mFn.addEvt(dtg, "mousedown", (e) => {
     // 4. 자동넘김 멈춤함수 호출하기
-    clearAuto();
+    // clearAuto();
+
+    // 자동호출 지우기만 해서 자동시작안함
+    clearInterval(autoI);
+    clearTimeout(autoT);
 
     // 드래그 상태값 변환
     dTrue();
@@ -537,7 +541,11 @@ function slideFn(selEl) {
   // (1) 터치스타트 이벤트 함수연결하기
   mFn.addEvt(dtg, "touchstart", (e) => {
     // 4. 자동넘김 멈춤함수 호출하기
-    clearAuto();
+    // clearAuto();
+        // 자동호출 지우기만 해서 자동시작안함
+        clearInterval(autoI);
+        clearTimeout(autoT);
+        
     // 드래그 상태값 true로 변경!
     dTrue();
     // 첫번째 위치포인트 셋팅!

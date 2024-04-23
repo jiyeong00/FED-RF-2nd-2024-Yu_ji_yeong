@@ -90,9 +90,9 @@ ol {
     width: 200%;
     height: 100%;
     z-index: 99;
-    background-color: rgba(0, 0, 255, 0.274);
+    /* background-color: rgba(0, 0, 255, 0.274); */
 
-    transform: scale(1.1);
+    transform: scaleY(1.1);
 
 }
 
