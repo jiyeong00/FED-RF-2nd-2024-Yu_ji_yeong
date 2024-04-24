@@ -49,7 +49,7 @@ function moveGallery(){
 
     // 하나 크기만큼 나가면 처리 Math.floor <<소수점아래 내림
     // 기준값을 마이너스로 하고 소수점 아래는 버림
-    if(currVal==Math.floor(-criteria)){
+    if(currVal<=Math.floor(-criteria)){
         // 1. 맨앞 li 맨뒤로 이동 > appendChild(맨앞요소)
         target.appendChild(mFn.qsaEl(target,"li")[0]);
         // 2. translate값 초기화
