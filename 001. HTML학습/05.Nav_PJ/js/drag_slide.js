@@ -277,7 +277,7 @@ function slideFn(selEl) {
   } ///////// slideAuto 함수 //////////////
 
   // 인터발함수 최초호출!
-  // slideAuto();
+  slideAuto();
 
    /***************************************************************************** 
    함수명 : clearAuto
@@ -527,7 +527,10 @@ function slideFn(selEl) {
 
   // (4) 마우스가 대상을 벗어나면 드래그상태값 false 처리하기
   mFn.addEvt(dtg, "mouseleave", () => {
-    dFalse();
+    // 하단 컨트롤 mouseenter에서 처리하는 dragSts값 처리시 mouseleave에서 처리하는 코드가 가장 나중에 처리하게 하려면 
+    // 해당코드를 setTimeout()함수에 넣는다.
+     setTimeout(dFalse, 0);
+    // dFalse();
     // 과도한 드래그로 갑자기 아웃되면 lastX,lastY값이 세팅되지 못함
     // 이것을 기존요소의 위치값으로 보정함
     // 단 style위치값 코드는 px단위가 있으르모 parseInt처리함
@@ -580,10 +583,15 @@ function slideFn(selEl) {
   //////////// touchmove /////////////
 
   // (4) 버튼,블릿에 오버시 자동처리호출셋팅 ///
+  // (조건 : 드래그상태 변수인 dragSts값이 true일때)
+
   mFn.qsaEl(selEl,'.controls').forEach(ele=>ele.addEventListener(
     'mouseenter',()=>{
-      moveDragSlide();
-      clearAuto();
+      console.log("드래그상태",dragSts);
+      if(dragSts){
+        moveDragSlide();
+        clearAuto();
+      }
     }));
 
 
