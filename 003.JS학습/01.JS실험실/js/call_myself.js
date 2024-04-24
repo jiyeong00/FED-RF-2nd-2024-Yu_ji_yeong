@@ -26,8 +26,9 @@ gbox.innerHTML = hcode;
 // 움직일 대상 : .gbox ul
 let target=mFn.qsEl(gbox,'ul');
 // 기준값 업데이트 함수
-const updateCriteria=()=> window.innerWidth/4;
-// 기준값 (윈도우 가로폭의 1/4 >> 이유는 li 하나 크기)
+const updateCriteria=()=> mFn.qsaEl(target,"li")[0].offsetWidth;
+// 기준값 (대상 li의 가로크기값)
+// 맨앞 li는 새로 구해와야함(계속 변경됨)
 let criteria=updateCriteria();
 // 리사이즈시 업데이트
 mFn.addEvt(window,"resize",()=>{
@@ -58,7 +59,27 @@ function moveGallery(){
     }
 
     // 재귀호출(타임아웃으로 호출함)
-    setTimeout(moveGallery, 10);
+    // stopSts변수값이 false일때만 실행하기
+    if(!stopSts) {
+        setTimeout(moveGallery, 10);
+    }
 }////////moveGallery///////////////
+
+// 대상에 마우스 오버시 멈추고 아웃시 다시 흘러가게 하기
+// 대상 : gbox -> gbox변수
+// 멈춤 상태변수
+let stopSts=false;
+
+// 1.멈추기
+mFn.addEvt(gbox,"mouseenter",()=>{
+    stopSts=true;
+});/////////////////////////mouseenter
+// 2. 다시흘러가기
+mFn.addEvt(gbox,"mouseleave",()=>{
+    stopSts=false;
+    // 재귀함수호출
+    moveGallery();
+
+});/////////////////////////mouseleave
 
 setTimeout(moveGallery, 2000);
