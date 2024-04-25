@@ -1,5 +1,11 @@
 // 04.리액트 컴포넌트 JSX
 
+// 내 함수 불러오기
+// html에서 data-plugins="transform-es2015-modules-umd" type="text/babel"<<<<쓰지 않으면 불러오지 못함
+import mFn from './my_function.js';
+console.log(mFn);
+
+// 외부컴포넌트 불러오기
 import Avengers from "./avengers.jsx";
 // 리액트에서는 from 뒤 파일명에 jsx,js를 생략해도 됨. 파일 이름만 적어도 ok
 
@@ -58,7 +64,7 @@ class GoghWork extends React.Component {
 } ///////////////GoghWork클래스 컴포넌트
 
 // 전체출력요소 선택하기
-const target = document.querySelectorAll(".root");
+const target = mFn.qsa(".root");
 
 // 첫번째 .root에 고흐 출력하기
 ReactDOM.render(<GoghWork />, target[0]);
