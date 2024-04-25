@@ -102,7 +102,7 @@ increasePercent();
 // 재귀호출함수 만들기
 function increasePercent(){
     // 1.pNum에 숫자 출력
-    pNum.innerText=++percent;
+    pNum.innerText=++percent+"%";
 
     // 2. 페센트바 width값 동시에 증가하기
     bar.style.width=percent+"%";
@@ -115,7 +115,7 @@ function increasePercent(){
         txt.innerText="출발";
         txt.style.color="red";
         // 5. 슬라이드 이동함수 호출하기 (타임아웃호출은 주석)
-        setTimeout(moveGallery, 2000);
+        setTimeout(moveGallery, 1000);
     }
     
 
