@@ -1,4 +1,9 @@
 // 04.리액트 컴포넌트 JSX
+
+import Avengers from "./avengers.jsx";
+// 리액트에서는 from 뒤 파일명에 jsx,js를 생략해도 됨. 파일 이름만 적어도 ok
+
+
 /************************************************* 
     [ 리액트 컴포넌트 ]
     - 컴포넌트는 HTML요소를 반환하는 함수다!
@@ -115,6 +120,7 @@ function FavoriteThings(좋아) {
 // 개별적으로 속성을 구분할 수 있다.
 // 출력 : 세번째 .root
  ReactDOM.render(<FavoriteThings color="노랑" food="치킨" hobby="잠자기"/>,target[2]);
+ ReactDOM.render(<FavoriteThings color="빨강" food="피자" hobby="뒹굴거리기"/>,target[3]);
 
  /******************************************************** 
     컴포넌트 내부에서 다른 컴포넌트를 호출 할 수 있다!
@@ -134,7 +140,12 @@ function Answer(){
     return <h2>김씨가 똑하고 팔이 부러졌대</h2>
 }//////////////////Answer 컴포넌트//////////////////
 
-ReactDOM.render(<Who/>,target[3]);
+ReactDOM.render(<Who/>,target[4]);
+
+
+// 출력
+ReactDOM.render(<Avengers/>,target[5]);
+
 
 /*************************************************** 
     [ 컴포넌트의 파일분리 ]
