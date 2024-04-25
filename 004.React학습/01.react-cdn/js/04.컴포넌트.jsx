@@ -73,8 +73,17 @@ function IronMan(){
 }///////////////IronMan컴포넌트//////////////////////////
 
 // [ 이미지 생성 공통 컴포넌트 ]
-function MakeImage(props){
-    return <img src={"./images/"+props.isrc} alt={props.ialt}/>;
+// function MakeImage(props){
+// function MakeImage({ialt,isrc}){
+function MakeImage({ialt:gg,isrc:zz}){
+    
+    // 하나의 변수에는 전달된 값이 보낼때 설정된 객체로 전달된다!
+    // {속성:값,속성:값,.....}
+    // console.log("프롭스",props);
+
+    // return <img src={"./images/"+props.isrc} alt={props.ialt}/>;
+    // return <img src={"./images/"+isrc} alt={ialt}/>;
+    return <img src={"./images/"+zz} alt={gg}/>;
 }////////////MakeImage 컴포넌트 ////////////
 
 
