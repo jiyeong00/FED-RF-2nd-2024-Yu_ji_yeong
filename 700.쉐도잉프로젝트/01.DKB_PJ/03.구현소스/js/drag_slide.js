@@ -489,6 +489,26 @@ function slideFn(selEl) {
     // chgIndic(slideSeq === 3 ? true : false);
   }; ////////// moveDragSlide 함수 /////////////
 
+  // (7) 슬라이드 확정위치 이동함수////////////////////////////////////
+  const fixedPosition = () => {
+    // 중간위치일때 배너 위치 수정하기
+    // (1) 리스트 수집
+    let currList = mFn.qsaEl(dtg, "li");
+    // (2)리스트 한개당 크기
+    let oneSize = currList[0].offsetWidth;
+
+    // (3) 한계 li 크기로 현재 left위치크기를 나누어서 소수점은 반올림 -> 특정위치로 이동
+    let divideNum = parseInt(dtg.style.left) / oneSize;
+    console.log("나눈수 : ", divideNum);
+    divideNum = Math.round(divideNum);
+    console.log("나눈수 반올림 : ", Math.round(divideNum));
+    divideNum = Math.abs(divideNum);
+    console.log("나눈수 반올림 절대값 : ", Math.abs(divideNum));
+
+    // 특정위치로 이동하기 : 한계당크기 * 개수
+    dtg.style.left = -(oneSize * divideNum) + "px";
+  }; //////////fixedPosition////////////////////////
+
   //////////////////////////////////////
   // 4. 드래그 이벤트 설정하기 //////////
 
@@ -521,22 +541,7 @@ function slideFn(selEl) {
     // 드래그 슬라이드 이동함수 호출!
     // moveDragSlide();
 
-    // 중간위치일때 배너 위치 수정하기
-    // (1) 리스트 수집
-    let currList = mFn.qsaEl(dtg, "li");
-    // (2)리스트 한개당 크기
-    let oneSize = currList[0].offsetWidth;
-
-    // (3) 한계 li 크기로 현재 left위치크기를 나누어서 소수점은 반올림 -> 특정위치로 이동
-    let divideNum = parseInt(dtg.style.left) / oneSize;
-    console.log("나눈수 : ", divideNum);
-    divideNum = Math.round(divideNum);
-    console.log("나눈수 반올림 : ", Math.round(divideNum));
-    divideNum = Math.abs(divideNum);
-    console.log("나눈수 반올림 절대값 : ", Math.abs(divideNum));
-
-    // 특정위치로 이동하기 : 한계당크기 * 개수
-    dtg.style.left = -(oneSize * divideNum) + "px";
+    fixedPosition();
 
     // // console.log("마우스 업!", lastX);
   }); ///////// mouseup //////////
@@ -548,9 +553,9 @@ function slideFn(selEl) {
   // (4) 마우스가 대상을 벗어나면 드래그상태값 false처리하기
   mFn.addEvt(dtg, "mouseleave", () => {
     setTimeout(dFalse, 0);
-
     // 마우스가 벗어나면 이동판별함수 호출!
     // if(dragSts) moveDragSlide();
+    fixedPosition();
   }); ///////// mouseleave //////////
 
   //////////// 모바일 이벤트 처리 구역 //////////
