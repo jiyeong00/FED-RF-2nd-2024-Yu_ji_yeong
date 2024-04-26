@@ -141,7 +141,6 @@ function slideFn(selEl) {
     });
   } //////////////addOnSlide함수//////////////////////////
 
-
   /***************************************************************************** 
    함수명 : chgIndic
    기능 : 블릿순번 변경
@@ -167,8 +166,7 @@ function slideFn(selEl) {
     }); ///////// forEach ///////////
   } /////////// chgIndic함수 ////////////
 
-
-    /***************************************************************************** 
+  /***************************************************************************** 
    함수명 : rightSlide
    기능 : 왼쪽방향이동(오른쪽버튼)
    *****************************************************************************/
@@ -188,11 +186,9 @@ function slideFn(selEl) {
       slide.style.transition = "none";
     }, TIME_SLIDE);
 
-    // 슬라이드 커버 만들기 함수 호출 
+    // 슬라이드 커버 만들기 함수 호출
     coverDrag();
   } //////////// rightSlide 함수 ////////////
-
-
 
   /***************************************************************************** 
    함수명 : leftSlide
@@ -204,7 +200,6 @@ function slideFn(selEl) {
     // 함수전달변수를 leftVal="330%"로 기본 입력값 처리하면 함수호출 시 전달값이 없는 경우 기본값으로 처리하고
     // 함수 호출 시 전달값이 있으면 그 전달된 값으로 처리한다.
     // >>> [ 함수 전달변수 기본입력값 처리 ] 라고 한다
-
 
     // leftVal - li 앞에 이동시 left값 설정 변수
     // 1. 슬라이드 li 새로 읽기
@@ -232,9 +227,8 @@ function slideFn(selEl) {
       slide.style.transition = TIME_SLIDE + "ms ease-out";
     }, 0);
 
-    // 슬라이드 커버 만들기 함수 호출 
+    // 슬라이드 커버 만들기 함수 호출
     coverDrag();
-
   } //////////// leftSlide 함수 ////////////
 
   /********************************** 
@@ -254,8 +248,7 @@ function slideFn(selEl) {
   // 타임아웃함수도 마찬가지임!
   // clearTimeout(할당변수) 해야 실행 쓰나미를 막을 수 있다!
 
-
- /***************************************************************************** 
+  /***************************************************************************** 
    함수명 : slideAuto
    기능 : 인터발호출
    *****************************************************************************/
@@ -273,13 +266,12 @@ function slideFn(selEl) {
       // 선택요소.click()
       //  abtn[1].click();
     }, 3000);
-
   } ///////// slideAuto 함수 //////////////
 
   // 인터발함수 최초호출!
   slideAuto();
 
-   /***************************************************************************** 
+  /***************************************************************************** 
    함수명 : clearAuto
    기능 : 자동넘김 멈추기 (인터발 삭제)
    // 버튼을 클릭할 경우를 구분하여 자동넘김을 멈춰준다!
@@ -302,14 +294,14 @@ function slideFn(selEl) {
    함수명 : coverDrag
    기능 : 슬라이드 이동 시 드래드 막기
    *****************************************************************************/
-  function coverDrag(){
+  function coverDrag() {
     // selEl로 전달된 대상에 클래스 on을 줘서 가상요소로 세팅된 슬라이드 커버가 나오게 함
     selEl.classList.add("on");
     // 슬라이드 기본 이동시간(TIME_SLIDE)후 on제거
     setTimeout(() => {
       selEl.classList.remove("on");
     }, TIME_SLIDE);
-  }///////////////////////coverDrag//////////////////////////
+  } ///////////////////////coverDrag//////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////
   /////////////////////드래그기능 구현구역
@@ -374,6 +366,11 @@ function slideFn(selEl) {
 
   // (3) 드래그 상태시 처리함수
   const dMove = (e) => {
+    // 이동버튼 + 불릿 이벤트 없앰설정하기
+    // 상위 selEl클래스에 클래스 .no를 주면됨
+    if (dragSts) selEl.classList.add("no");
+    else selEl.classList.remove("no");
+
     if (dragSts) {
       // 4. 자동넘김 멈춤함수 호출하기
       // clearAuto();
@@ -508,7 +505,7 @@ function slideFn(selEl) {
   mFn.addEvt(dtg, "mouseup", () => {
     // 4. 자동넘김 멈춤함수 호출하기
     clearAuto();
-// 드래그값 false로 변경
+    // 드래그값 false로 변경
     dFalse();
     // 마지막 위치포인트 세팅
     lastPoint();
@@ -527,9 +524,12 @@ function slideFn(selEl) {
 
   // (4) 마우스가 대상을 벗어나면 드래그상태값 false 처리하기
   mFn.addEvt(dtg, "mouseleave", () => {
-    // 하단 컨트롤 mouseenter에서 처리하는 dragSts값 처리시 mouseleave에서 처리하는 코드가 가장 나중에 처리하게 하려면 
+    // 하단 컨트롤 mouseenter에서 처리하는 dragSts값 처리시 mouseleave에서 처리하는 코드가 가장 나중에 처리하게 하려면
     // 해당코드를 setTimeout()함수에 넣는다.
-     setTimeout(dFalse, 0);
+    setTimeout(dFalse, 0);
+
+    if(dragSts) moveDragSlide();
+
     // dFalse();
     // 과도한 드래그로 갑자기 아웃되면 lastX,lastY값이 세팅되지 못함
     // 이것을 기존요소의 위치값으로 보정함
@@ -545,10 +545,10 @@ function slideFn(selEl) {
   mFn.addEvt(dtg, "touchstart", (e) => {
     // 4. 자동넘김 멈춤함수 호출하기
     // clearAuto();
-        // 자동호출 지우기만 해서 자동시작안함
-        clearInterval(autoI);
-        clearTimeout(autoT);
-        
+    // 자동호출 지우기만 해서 자동시작안함
+    clearInterval(autoI);
+    clearTimeout(autoT);
+
     // 드래그 상태값 true로 변경!
     dTrue();
     // 첫번째 위치포인트 셋팅!
@@ -581,19 +581,6 @@ function slideFn(selEl) {
   // (3) 터치무브 이벤트 함수연결하기
   mFn.addEvt(dtg, "touchmove", dMove);
   //////////// touchmove /////////////
-
-  // (4) 버튼,블릿에 오버시 자동처리호출셋팅 ///
-  // (조건 : 드래그상태 변수인 dragSts값이 true일때)
-
-  mFn.qsaEl(selEl,'.controls').forEach(ele=>ele.addEventListener(
-    'mouseenter',()=>{
-      console.log("드래그상태",dragSts);
-      if(dragSts){
-        moveDragSlide();
-        clearAuto();
-      }
-    }));
-
 
   //////////// 브라우저 크기 리사이즈 시 동적 변경값 업데이트하기//////////////////////////////
   mFn.addEvt(window, "resize", () => {
