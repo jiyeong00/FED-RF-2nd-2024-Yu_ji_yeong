@@ -50,7 +50,7 @@ function slideFn(selEl) {
   // 1-3.이벤트 대상: 선택요소 하위 .abtn
   const abtn = mFn.qsaEl(sldWrap, ".abtn");
   // 1-4.블릿박스 대상: 선택요소 하위 .indic li
-  let indic = mFn.qsEl(sldWrap, ".indic");
+  // let indic = mFn.qsEl(sldWrap, ".indic");
 
   // 대상확인
   // console.log("대상", abtn, slide, indic);
@@ -58,19 +58,19 @@ function slideFn(selEl) {
   // 1.4. 슬라이드 개수와 동일한 블릿동적생성
   // 대상: .indic -> indic변수
   // 슬라이드개수
-  let sldCnt = mFn.qsaEl(slide, "li").length;
-  // for문으로 블릿li생성(0번만 클래스 on넣기)
-  for (let i = 0; i < sldCnt; i++) {
-    indic.innerHTML += `
-            <li ${i == 0 ? 'class="on"' : ""}>
-                <img src="images/img_nav06/dot1.png" alt="흰색">
-                <img src="images/img_nav06/dot2.png" alt="회색">
-            </li>
-        `;
-  } /////// for문 ////////////
+  // let sldCnt = mFn.qsaEl(slide, "li").length;
+  // // for문으로 블릿li생성(0번만 클래스 on넣기)
+  // for (let i = 0; i < sldCnt; i++) {
+  //   indic.innerHTML += `
+  //           <li ${i == 0 ? 'class="on"' : ""}>
+  //               <img src="images/img_nav06/dot1.png" alt="흰색">
+  //               <img src="images/img_nav06/dot2.png" alt="회색">
+  //           </li>
+  //       `;
+  // } /////// for문 ////////////
 
   // 블릿li 재선택할당하기 /////
-  indic = mFn.qsaEl(sldWrap, ".indic li");
+  // indic = mFn.qsaEl(sldWrap, ".indic li");
 
   // 1.5. li리스트에 순번속성 만들어 넣기
   // 만드는이유: 블릿변경 등에 현재 슬라이드 순번 필요!
@@ -118,7 +118,7 @@ function slideFn(selEl) {
     } /////// else //////////////
 
     // 3. 블릿순번 변경 함수 호출
-    chgIndic(isRight); // 방향값을 보냄!
+    // chgIndic(isRight); // 방향값을 보냄!
 
     // 4. 자동넘김 멈춤함수 호출하기
     clearAuto();
@@ -264,7 +264,7 @@ function slideFn(selEl) {
       // 오른쪽이동 슬라이드 함수호출
       rightSlide();
       // 블릿변경함수호출(오른쪽은 1)
-      chgIndic(1);
+      // chgIndic(1);
       // 중앙슬라이드 클래스 on넣기 함수 호출
       addOnSlide(3);
 
@@ -371,14 +371,9 @@ function slideFn(selEl) {
   const dTrue = () => (dragSts = true);
   // (2) 드래그 상태 false로 변경하는 함수
   const dFalse = () => (dragSts = false);
-  
+
   // (3) 드래그 상태시 처리함수
   const dMove = (e) => {
-    // 이동버튼 + 불릿 이벤트 없앰설정하기
-    // 상위 selEl클래스에 클래스 .no를 주면됨
-    if (dragSts) selEl.classList.add('no');
-    else selEl.classList.remove('no');
-
     if (dragSts) {
       // 4. 자동넘김 멈춤함수 호출하기
       // clearAuto();
@@ -415,7 +410,6 @@ function slideFn(selEl) {
       // 값확인
       // console.log(`moveX : ${moveX}`);
     } ////if문//////////
-
 
     // 드레그 중일때만 주먹손, 드레그 아닐때 편손
     dtg.style.cursor = dragSts ? "grabbing" : "grab";
@@ -481,7 +475,7 @@ function slideFn(selEl) {
     addOnSlide(slideSeq);
 
     // 불릿변경 함수 호출 :오른쪽이 3일 때 true
-    chgIndic(slideSeq === 3 ? true : false);
+    // chgIndic(slideSeq === 3 ? true : false);
   }; ////////////moveDragSlide///////////////////////
   // 바로 호출해야할 경우 위에처럼 함수를 할당하면서 선언하고 아래에 바로 호출한다.
 
@@ -536,9 +530,6 @@ function slideFn(selEl) {
     // 하단 컨트롤 mouseenter에서 처리하는 dragSts값 처리시 mouseleave에서 처리하는 코드가 가장 나중에 처리하게 하려면 
     // 해당코드를 setTimeout()함수에 넣는다.
      setTimeout(dFalse, 0);
-
-     if(dragSts) moveDragSlide();
-
     // dFalse();
     // 과도한 드래그로 갑자기 아웃되면 lastX,lastY값이 세팅되지 못함
     // 이것을 기존요소의 위치값으로 보정함
@@ -547,18 +538,6 @@ function slideFn(selEl) {
 
     // console.log("드래그 종료", dragSts);
   }); /////////////mouseleave////////////
-
-    // (5) 버튼,블릿에 오버시 자동처리호출셋팅 ///
-  // (조건 : 드래그상태 변수인 dragSts값이 true일때)
-
-  // mFn.qsaEl(selEl,'.controls').forEach(ele=>ele.addEventListener(
-  //   'mouseenter',()=>{
-  //     console.log("드래그상태",dragSts);
-  //     if(dragSts){
-  //       moveDragSlide();
-  //       clearAuto();
-  //     }
-  //   }));
 
   //////////// 모바일 이벤트 처리 구역 //////////
 
@@ -602,6 +581,19 @@ function slideFn(selEl) {
   // (3) 터치무브 이벤트 함수연결하기
   mFn.addEvt(dtg, "touchmove", dMove);
   //////////// touchmove /////////////
+
+  // (4) 버튼,블릿에 오버시 자동처리호출셋팅 ///
+  // (조건 : 드래그상태 변수인 dragSts값이 true일때)
+
+  mFn.qsaEl(selEl,'.controls').forEach(ele=>ele.addEventListener(
+    'mouseenter',()=>{
+      console.log("드래그상태",dragSts);
+      if(dragSts){
+        moveDragSlide();
+        clearAuto();
+      }
+    }));
+
 
   //////////// 브라우저 크기 리사이즈 시 동적 변경값 업데이트하기//////////////////////////////
   mFn.addEvt(window, "resize", () => {
