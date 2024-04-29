@@ -16,5 +16,7 @@ for(let i=1; i<=7;i++){
     `;
 }////for문//////
 
+hcode += "</ul>";
+
 // 3. 코드 출력하기
 slidePg.innerHTML = hcode;
