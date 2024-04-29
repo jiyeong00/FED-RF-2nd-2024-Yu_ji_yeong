@@ -71,8 +71,8 @@ function upDownFn(ele, idx) {
 
   //스티키박스 하위 li가 기준화면 left선에 대한 위치값 바운딩left값을 이용하여 자기 위치에서 위/아래로 이동하는 수치변경하기
   let mVal = mFn.getBCR2(ele);
-  // 위치값을 양수로 만들고 윈도우 크기로 나눈 후 백분율 (수치가 크므로 4로 나누어줌)
-  mVal = (Math.abs(mVal / window.innerWidth) * 100) / 4;
+  // 위치값을 양수로 만들고 윈도우 크기로 나눈 후 백분율 (수치가 크므로 5로 나누어줌)
+  mVal = (Math.abs(mVal / window.innerWidth) * 100) / 5;
   console.log(mVal);
 
   //   3. 들어온 li순번이 짝수일 경우 마이너스 처리
