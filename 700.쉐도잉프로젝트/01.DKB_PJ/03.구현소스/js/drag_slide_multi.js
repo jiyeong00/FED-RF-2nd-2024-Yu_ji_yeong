@@ -1,4 +1,4 @@
-// 드래그 기능 + 슬라이드 기능 합친 JS - drag_slide.js
+// 드래그 기능 + 슬라이드 기능 합친 JS - drag_slide_multi.js
 
 // DOM 모듈함수
 import mFn from "./my_function.js";
@@ -49,13 +49,18 @@ function slideFn(selEl) {
   const sldWrap = selEl; // DOM요소를 직접 받음!!!
   // 1-2.변경 대상: 선택요소 하위 .slide
   const slide = mFn.qsEl(sldWrap, ".slide");
-  // 1-3.이벤트 대상: 선택요소 하위 .abtn
+  // 1-3.슬라이드 하위 li 요소들
+  const sList = mFn.qsaEl(slide,"li");
+  // 1-4.슬라이드 li개수
+  const SLIDE_LENGTH = sList.length;
+  // console.log('슬추가:',sList,SLIDE_LENGTH);
+  // 1-5.이벤트 대상: 선택요소 하위 .abtn
   const abtn = mFn.qsaEl(sldWrap, ".abtn");
-  // 1-4.블릿박스 대상: 선택요소 하위 .indic li
+  // 1-6.블릿박스 대상: 선택요소 하위 .indic li
   // let indic = mFn.qsEl(sldWrap, ".indic");
 
   // 대상확인
-  // // console.log("대상", abtn, slide, indic);
+  console.log("대상:", abtn);
 
   // 1.4. 슬라이드 개수와 동일한 블릿동적생성
   // 대상: .indic -> indic변수
@@ -109,7 +114,7 @@ function slideFn(selEl) {
     // 선택요소에 해당클래스가 있으면 true
 
     // 1. 오른쪽 버튼 여부 알아내기
-    let isRight = this.classList.contains("ab2");
+    let isRight = this.classList.contains("fa-chevron-right");
 
     // 2. 버튼분기하기 '.ab2' 이면 오른쪽버튼
     if (isRight) {
@@ -170,71 +175,37 @@ function slideFn(selEl) {
     }); ///////// forEach ///////////
   } /////////// chgIndic함수 ////////////
 
+  // 슬라이드 처음에 left 기본값 넣기
+  slide.style.left = "0px"; 
+
   /********************************** 
     함수명: rightSlide
     기능: 왼쪽방향 이동(오른쪽버튼)
   **********************************/
   function rightSlide() {
-    //1.대상이동하기 : -330%
-    slide.style.left = "-330%";
-    //2.트랜지션주기
-    slide.style.transition = TIME_SLIDE + "ms ease-out";
-    // 이동시간 후 맨앞li 잘라서 맨뒤로 이동하기
-    // appendChild(요소)
-    setTimeout(() => {
-      // 3.맨앞li 맨뒤로 이동
-      slide.appendChild(slide.querySelectorAll("li")[0]);
-      // 4.slide left값 -220% -> 최종 left값은 px로!
-      slide.style.left = originalValue + "px";
-      // 5.트랜지션 없애기
-      slide.style.transition = "none";
-    }, TIME_SLIDE);
+    console.log('슬left:',slide.style.left);
+    console.log('한개당크기:',sList[0].offsetWidth);
+    // 슬라이드가 몇개 나가있는지 알아내기
+    // left값 / 한개당 개수
+    let outCnt = 
+    parseInt(slide.style.left) / sList[0].offsetWidth;
+    outCnt = Math.abs(outCnt);
+    console.log('바깥에 나간개수:',outCnt);
 
-    // 슬라이드 커버 만들기 함수 호출
-    coverDrag();
+    outCnt++;
+
+    // 이동적용하기
+    slide.style.left = 
+    -(sList[0].offsetWidth * outCnt) + "px";
+
   } //////////// rightSlide 함수 ////////////
 
   /********************************** 
     함수명: leftSlide
     기능: 오른쪽방향 이동(왼쪽버튼)
   **********************************/
-  function leftSlide(leftVal = "-330%") {
-    // 드래그 이동시엔 left값을 -330%가 아닌
-    // 드래그가 이동된 값을 적용한 left값을 적용한다!
-    // 함수전달변수를 leftVal="330%" 로 기본입력값 처리하면
-    // 함수호출시 전달값이 없는 경우엔 기본값으로 처리하고
-    // 함수호출시 전달값이 있으면 그 전달될 값으로 처리한다!
-    // 이것을 함수 전달변수 기본입력값 처리라고 한다!
-    // console.log("왼쪽버튼이동left값:", leftVal);
-    // leftVal - li앞에 이동시 left값 설정변수
-    // 1. 슬라이드 li 새로 읽기
-    let eachOne = slide.querySelectorAll("li");
-
-    // 2. 맨뒤li 맨앞으로 이동
-    // 놈.놈.놈 -> insertBefore(넣을놈,넣을놈전놈)
-    slide.insertBefore(eachOne[eachOne.length - 1], eachOne[0]);
-
-    // 3. left값 -330% 만들기 : 들어올 준비 위치!
-    slide.style.left = leftVal;
-
-    // 4. 트랜지션 없애기
-    slide.style.transition = "none";
-
-    // 같은 left값을 동시에 변경하면 효과가 없음!
-    // 비동기적으로 처리해야함!
-    // -> setTimeout으로 싸주기!
-    // 시간은 0이어도 비동기 처리므로 효과있음!
-
-    setTimeout(() => {
-      // 4. left값 -220%으로 들어오기 -> px값으로 변환!
-      slide.style.left = originalValue + "px";
-
-      // 5. 트랜지션주기
-      slide.style.transition = TIME_SLIDE + "ms ease-out";
-    }, 0);
-
-    // 슬라이드 커버 만들기 함수 호출
-    coverDrag();
+  function leftSlide() {
+    console.log('슬left:',slide.style.left);
   } //////////// leftSlide 함수 ////////////
 
   /********************************** 
@@ -373,9 +344,10 @@ function slideFn(selEl) {
 
   // (3) 드래그 상태시 처리함수
   const dMove = (e) => {
-    if (dragSts) {
-      // 1. 드래그 상태에서 움질일대 포인터 위치값
+    if (dragSts) {      
 
+      // 1. 드래그 상태에서 움질일대 포인터 위치값
+      
       // DT용 코드와 Mobile코드를 동시에 셋팅할 수 있다!
       moveX = e.pageX || e.touches[0].screenX;
 
@@ -387,33 +359,45 @@ function slideFn(selEl) {
       // 대상 : 드래그 요소 dtg
       dtg.style.left = resultX + lastX + "px";
 
-      // 4. 양쪽 끝에서 튕겨서 제자리 보내기
+      // 4. 양쪽끝에서 튕겨서 제자리 보내기
       // (1) 현재 리스트 li 수집하기
-      let currList = mFn.qsaEl(dtg, "li");
+      let currList = mFn.qsaEl(dtg,"li");
       // (2) 리스트 길이(개수)
       let listLength = currList.length;
-      // (3) 리스트 한 개당 크기(li 가로크기)
+      // (3) 리스트 한개당 크기(li가로크기)
       let oneSize = currList[0].offsetWidth;
-      // (4) 마지막 위치 한계값
-      // 전체 슬라이드 width - li 한개당width * 슬라이드개수
-      let limitSize = selEl.offsetWidth - oneSize * listLength;
-      console.log("마지막한계 left :", limitSize);
+      // (4) 마지막위치 한계값 left
+      // -> 히든박스width - 전체 슬라이드 width
+      // 전체 슬라이드 width = li한개당width * 슬라이드개수
+      let limitSize = 
+      selEl.offsetWidth - (oneSize * listLength);
+      console.log('마지막한계left:',limitSize);
 
-      // 4-1. 맨 앞에서 튕기기
-      if (parseInt(dtg.style.left) > 0) {
+      // 4-1. 맨앞에서 튕기기 ////////////
+      if(parseInt(dtg.style.left)>0){
+        // 약간의 시간간격으로 조금 간후 튕겨서 돌아오는 효과
         setTimeout(() => {
+          // left 값 0
           dtg.style.left = "0";
+          // 마지막 위치값 0
           lastX = 0;
         }, 200);
-      } ////////if
-      // 4-2. 맨 뒤에서 튕기기
-      if (parseInt(dtg.style.left) < limitSize) {
+      } ////// if /////////
+
+      // 4-2. 맨뒤에서 튕기기 ////////////
+      if(parseInt(dtg.style.left)<limitSize){
+        // 약간의 시간간격으로 조금 간후 튕겨서 돌아오는 효과
         setTimeout(() => {
+          // left 값 0
           dtg.style.left = limitSize + "px";
+          // 마지막 위치값 0
           lastX = limitSize;
         }, 200);
-      } ////////if
-    } //// if ////////
+      } ////// if /////////
+
+
+
+    } /////// if ////////
 
     // 드래그 중(dragSts===true)일때는 주먹손(grabbing),
     // 드래그아닐때(dragSts===false) 편손(grab)
@@ -489,31 +473,35 @@ function slideFn(selEl) {
     // chgIndic(slideSeq === 3 ? true : false);
   }; ////////// moveDragSlide 함수 /////////////
 
-  // (7) 슬라이드 확정위치 이동함수////////////////////////////////////
+  // (7) 슬라이드 확정위치 이동함수 ////////
   const fixedPosition = () => {
-    // 중간위치일때 배너 위치 수정하기
-    // (1) 리스트 수집
-    let currList = mFn.qsaEl(dtg, "li");
-    // (2)리스트 한개당 크기
+    // 중간위치일때 배너 위치 수정하기 /////
+    // (1) 현재 리스트 li 수집하기
+    let currList = mFn.qsaEl(dtg,"li");
+    // (2) 리스트 한개당 크기(li가로크기)
     let oneSize = currList[0].offsetWidth;
-
-    // (3) 한계 li 크기로 현재 left위치크기를 나누어서 소수점은 반올림 -> 특정위치로 이동
+    // (3) 한개li크기로 현재 left위치크기를 나누어서
+    // 소수점 아래결과는 반올림해준다! -> 특정위치로 이동함!
     let divideNum = parseInt(dtg.style.left) / oneSize;
-    console.log("나눈수 : ", divideNum);
+    console.log('나눈수:',divideNum);
     divideNum = Math.round(divideNum);
-    console.log("나눈수 반올림 : ", Math.round(divideNum));
+    console.log('나눈수 반올림:',divideNum);
     divideNum = Math.abs(divideNum);
-    console.log("나눈수 반올림 절대값 : ", Math.abs(divideNum));
+    console.log('나눈수 반올림후 절대값:',divideNum);
 
-    // 특정위치로 이동하기 : 한계당크기 * 개수
+    // 특정위치로 이동하기 : 한개당크기 * 개수
     dtg.style.left = -(oneSize * divideNum) + "px";
-  }; //////////fixedPosition////////////////////////
+    // -> 위치값은 마이너스임!
+
+  }; // fixedPosition 함수 ////////////////
+
 
   //////////////////////////////////////
   // 4. 드래그 이벤트 설정하기 //////////
 
   // (1) 마우스 다운 이벤트 함수연결하기
   mFn.addEvt(dtg, "mousedown", (e) => {
+
     // 드래그 상태값 true로 변경!
     dTrue();
     // 첫번째 위치포인트 셋팅!
@@ -523,6 +511,7 @@ function slideFn(selEl) {
 
     // 마우스 다운시 주먹손!
     dtg.style.cursor = "grabbing";
+
   }); ///////// mousedown //////////
 
   // (2) 마우스 업 이벤트 함수연결하기
@@ -541,6 +530,7 @@ function slideFn(selEl) {
     // 드래그 슬라이드 이동함수 호출!
     // moveDragSlide();
 
+    // 슬라이드 위치확정 이동함수 호출!
     fixedPosition();
 
     // // console.log("마우스 업!", lastX);
@@ -552,20 +542,26 @@ function slideFn(selEl) {
 
   // (4) 마우스가 대상을 벗어나면 드래그상태값 false처리하기
   mFn.addEvt(dtg, "mouseleave", () => {
+    
     setTimeout(dFalse, 0);
+    
+    // 슬라이드 위치확정 이동함수 호출!
+    fixedPosition();
+    
     // 마우스가 벗어나면 이동판별함수 호출!
     // if(dragSts) moveDragSlide();
-    fixedPosition();
   }); ///////// mouseleave //////////
 
   //////////// 모바일 이벤트 처리 구역 //////////
 
   // (1) 터치스타트 이벤트 함수연결하기
   mFn.addEvt(dtg, "touchstart", (e) => {
+
     // 드래그 상태값 true로 변경!
     dTrue();
     // 첫번째 위치포인트 셋팅!
     firstPoint(e);
+
   }); ///////// touchstart //////////
 
   // (2) 터치엔드 이벤트 함수연결하기
@@ -587,7 +583,7 @@ function slideFn(selEl) {
   // (3) 터치무브 이벤트 함수연결하기
   mFn.addEvt(dtg, "touchmove", dMove);
   //////////// touchmove /////////////
-
+  
   // (4) 컨트롤 마우스 엔터처리 삭제함!
 
   // (5) 브라우저 크기 리사이즈시 동적 변경값 업데이트함수

@@ -4,27 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>쓸쓸하고 찬란하神 도깨비 드라마 소개</title>
-
+    <link rel="shortcut icon" href="./images/pavicon_tvN.png" />
     <!-- 폰트어썸 아이콘CSS -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     />
-
-    <link rel="shortcut icon" href="./images/tvnlogo2.png" />
     <!-- 메인 CSS -->
     <link rel="stylesheet" href="./css/main.css" />
     <!-- 미디어쿼리 CSS -->
     <link rel="stylesheet" href="./css/media.css" />
-    <!-- 메인JS불러오기 : 모듈로 불러오기 -->
+    <!-- 메인JS 불러오기 : 모듈로 불러오기 -->
     <script type="module" src="./js/main.js"></script>
     <!-- 
-      type="module" 로 JS를 호출하면 모듈 문법이 적용된다.
-        - 다른 JS외부파일을 모듈로 호출한 파일에서 부를 수 있다.
-        - 기본적으로 모듈을 사용하는 호출은 defer처리됨
-        - 주의!!! 반드시 서버형 호출을 해야 본 문법 사용가능
-          ->> 로컬에서 바로 열기하면 JS는 호출되지 않는다.
-          그래서 서버에 올리거나 가상서버로 열어야함.
+      type="module"로 JS를 호출하면 모듈 문법이 적용된다!
+      다른 JS외부파일을 모듈로 호출한 파일에서 부를수 있다!
+      기본적으로 모듈을 사용하는 호출은 defer처리된다!
+      즉, html요소 로딩후 호출하게 된다!
+      주의사항: 반드시 서버형 호출을 해야 본 문법을 사용가능
+      로컬에서 바로 열기하면 JS는 호출되지 않는다!
+      그래서 서버에 올리거나 가상서버로 열어야함!
      -->
   </head>
   <body class="scbar">
@@ -32,10 +31,10 @@
     <div id="top-area"></div>
     <!-- 2. 배너영역 -->
     <div id="ban-area"></div>
-    <!-- 서브파트메뉴 -->
+    <!-- 2.5. 도깨비 드라마 메뉴 : 스티키메뉴 -->
     <div id="spart-menu"></div>
 
-    <!-- 메인영역 -->
+    <!-- 메인 영역 -->
     <main class="main-area">
       <!-- 3. 인트로영역 -->
       <div id="intro-area">
@@ -86,7 +85,7 @@
               <!-- 인트로 버튼 -->
               <button class="intro-btn">방송편성보기</button>
             </div>
-            <!-- 인트로 동영상 -->
+            <!-- 인트로 동영상 파트 -->
             <div class="col-6 col-2nd-12">
               <figure class="intro-mv-box">
                 <div class="intro-mv-img off">
@@ -135,16 +134,12 @@
       <div id="clip-video-area">
         <section class="clip-video-area inbox">
           <h2 class="stit">최신동영상</h2>
-          <div class="cont-box">
-            <div class="clip-box banbx col-12">
-              <ul>
-                
-              </ul>
-            </div>
+          <div class="cont-box banbx">
+            <div class="clip-box col-12"></div>
             <!-- 이동버튼박스 -->
             <div class="btn-box">
-              <button class="fa-solid fa-chevron-left"></button>
-              <button class="fa-solid fa-chevron-right"></button>
+              <button class="abtn fa-solid fa-chevron-left"></button>
+              <button class="abtn fa-solid fa-chevron-right"></button>
             </div>
           </div>
         </section>

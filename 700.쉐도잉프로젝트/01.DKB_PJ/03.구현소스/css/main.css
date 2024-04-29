@@ -316,12 +316,14 @@ body * {
 }
 /* 왼쪽버튼 */
 .btn-box button:first-child{
-    left: -35px;
+    left: 0px;
     /* 처음에 안보임 */
     display: none;
 }
 /* 오른쪽버튼 */
 .btn-box button:last-child{
-    right: -35px;
-    display: none;
+    right: 0px;
+    /* display: none; */
 }
+
+/* 클래스를 추가하여 한쪽버튼만 안보이게 처리 */
