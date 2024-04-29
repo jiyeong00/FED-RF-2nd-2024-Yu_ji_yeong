@@ -318,7 +318,6 @@ body * {
 .btn-box button:first-child{
     left: 0px;
     /* 처음에 안보임 */
-    display: none;
 }
 /* 오른쪽버튼 */
 .btn-box button:last-child{
@@ -327,3 +326,17 @@ body * {
 }
 
 /* 클래스를 추가하여 한쪽버튼만 안보이게 처리 */
+/* 왼쪽 버튼만 보이기 */
+.btn-box.left button:first-child{
+    display: inline-block;
+}
+.btn-box.left button:last-child{
+    display: none;
+}
+/* 오른쪽버튼만 보이기 */
+.btn-box.right button:last-child{
+    display: inline-block;
+}
+.btn-box.right button:first-child{
+    display: none;
+}
