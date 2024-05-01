@@ -104,7 +104,10 @@ function addOn(ele) {
   let bcrVal = myFn.getBCR(ele);
 
   // 기준값보다 작을때 등장
-  if (bcrVal < CRITERIA) ele.classList.add("on");
+  if (bcrVal < CRITERIA) {
+    ele.classList.add("on");
+    console.log("ele :",ele)
+  }
   // 기준값보다 크면 원상복귀(숨김 - on빼기)
   else ele.classList.remove("on");
 } ////////////addOn함수////////////////
