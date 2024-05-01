@@ -62,6 +62,29 @@
 @import "./common/reset.scss";
 
 // @mixin 세팅하기
+// (1)타이틀 디자인 믹스인
+// [1]전달해서 변경할 값이 없다면 전달변수없는 믹스인 만들기
+// @mixin title-text {
+    
+// [2]글자색을 전달해서 변경해야 하므로 전달변수를 만들어준다.
+// 변수는 $변수명으로 만들고 지역변수로 사용된다
+// @mixin title-text($selColor) {
+
+// [3]전달값을 보내지 않아도 에러나지 않도록 기본값 지정하기
+@mixin title-text($selColor: red) {
+  // $selColor - 글자색 전달변수
+  color: $selColor;
+  font: {
+    size: 40px;
+    family: "Times New Roman";
+  }
+  text: {
+    align: center;
+    decoration: underline;
+    underline-offset: 10px;
+    shadow: 5px 5px 4px #00000076;
+  }
+}
 
 // 전체페이지 요소
 .wrapper {
@@ -74,26 +97,42 @@
   color: $mainColor1;
   // 네스팅 기법
   h1 {
-    color: $fontColor1;
+    // 타이틀 텍스트 믹스인 호출하기
+    @include title-text($fontColor1);
 
+    // font와 text를 믹스인으로 만든다.(재사용
+    // color: $fontColor1;
     // 속성접두어 묶음기법
-    font: {
-      size: 40px;
-      family: "Times New Roman";
-    }
-    text: {
-      align: center;
-      decoration: underline;
-      underline-offset: 10px;
-      shadow: 5px 5px 4px #00000076;
-    }
+    // font: {
+    //     size: 40px;
+    //     family: "Times New Roman";
+    //   }
+    //   text: {
+    //     align: center;
+    //     decoration: underline;
+    //     underline-offset: 10px;
+    //     shadow: 5px 5px 4px #00000076;
+    //   }
     background: {
-        color: $mainColor1-2;
-        image:url(../images/flower.png);
-        size: 70px;
-        position: center;
-        repeat:repeat-x;
+      color: $mainColor1-2;
+      image: url(../images/flower.png);
+      size: 70px;
+      position: center;
+      repeat: repeat-x;
     }
     padding: 20px;
   }
+} /////top-area
+
+/* 메인영역 */
+.main-area {
+  // 메인 영역 타이틀 믹스인 호출
+  h3 {
+    @include title-text(darkblue);
+  }
+} ///////////////main-area
+
+/* 하단 타이틀 */
+.bottom-title {
+  @include title-text();
 }

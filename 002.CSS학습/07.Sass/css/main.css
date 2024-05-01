@@ -124,4 +124,26 @@ img {
   background-position: center;
   background-repeat: repeat-x;
   padding: 20px;
+}
+
+/* 메인영역 */
+.main-area h3 {
+  color: darkblue;
+  font-size: 40px;
+  font-family: "Times New Roman";
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 10px;
+  text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.462745098);
+}
+
+/* 하단 타이틀 */
+.bottom-title {
+  color: red;
+  font-size: 40px;
+  font-family: "Times New Roman";
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 10px;
+  text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.462745098);
 }/*# sourceMappingURL=main.css.map */
