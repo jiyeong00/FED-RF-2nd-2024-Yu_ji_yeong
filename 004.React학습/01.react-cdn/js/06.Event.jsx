@@ -13,6 +13,10 @@ import mFn from "./my_function";
     예) onclick="getIt()" => onClick={getIt}
 
     5. 리액트에 속성형태로 등록하는 이벤트는 html 요소에 등록된 이벤트 속성과 달리 JS이벤트 리스너를 통한 이벤트 객체에 등록되므로 html태그상 이벤트 등록속성이보이지 않는다.
+
+    [ 컴포넌트 호출시 중요한 특징하나!! ]
+    >>>> 설정된 전달변수와 세팅속성은 전달된 속성값만 세팅된다. 
+         ( 보내주지 않은 속성은 스킵된다는 말 )
 *************************************************************/
 
 ////////////// 전체 이벤트 적용할 컴포넌트 구성하기
@@ -105,9 +109,34 @@ function EventShow() {
       lampImg.right="calc(50% - 100px)";
       lampImg.rotate="720deg";
 
+      // 소원빌기 버튼 3초후 보이기
+      setTimeout(() => {
+        mFn.qsa("button")[1].style.display="inline-block";
+      }, 3000);
+
     }, 500);
   }; /////////////getLamp/////////////////////
 
+
+  // (3) 페라리 가져오기 함스
+  const getFerrari=()=>{
+    console.log("페라리 줄게");
+    // 페라리 이미지 넣기
+    // 대상 : #ferrari
+    // ReactDOM.render(어쩌구,저쩌구);
+    // 어쩌구를 저쩌구에 넣음
+    ReactDOM.render(
+    <MakeImg
+    isrc="./images/ferrari.png"
+    ialt="페라리레드"
+    itit="클릭하면 시운전 가능"
+    idName="fcar"
+    clickFn={()=>moveCar("#fcar")}
+    />,
+    
+    mFn.qs("#ferrari"));
+
+  };//////////////////getFerrari////////////////
   return (
     <React.Fragment>
       <div id="tbox" style={{ textAlign: "center" }}>
@@ -123,8 +152,8 @@ function EventShow() {
         <div className="lamp"></div>
 
         {/* 버튼들 */}
-        <button onClick={getLamp}>램프가져오기!</button>
-        <button>소원빌기! 페라리 주세요</button>
+        <button onClick={getLamp}>램프가져오기!</button> <br/>
+        <button onClick={getFerrari}>소원빌기! 페라리 주세요</button>
         {/* 소원이 무엇이냐 말풍선 박스 */}
         <div className="tit"></div>
       </div>
@@ -135,7 +164,7 @@ function EventShow() {
 /******************************************* 
     이미지 생성 컴포넌트 : MakeImg
 *******************************************/
-function MakeImg({ isrc, ialt , icss, overFn }) {
+function MakeImg({ isrc, ialt , icss, overFn, clickFn, itit, idName }) {
   // 리턴코드 : return키워드 바로 뒤에 JSX태를 바로 이어쓰거나
   // 소괄호 시작부분을 같은 라인에 써야 에러가 나지 않는다!
   return (
@@ -143,7 +172,10 @@ function MakeImg({ isrc, ialt , icss, overFn }) {
     src={isrc} 
     alt={ialt} 
     style={icss} 
+    title={itit}
+    id={idName}
     onMouseOver={overFn}
+    onClick={clickFn}
     />
   );
 } ///////////// MakeImg 컴포넌트 ////////////////
@@ -151,4 +183,19 @@ function MakeImg({ isrc, ialt , icss, overFn }) {
 // 화면출력하기 ////////////
 // ReactDOM.render(넣을코드,대상)
 ReactDOM.render(<EventShow />, mFn.qs("#root"));
+
+// 일반함수로 페라리 움직이기 구현
+function moveCar(eleName){
+  console.log("움직이기",eleName);
+
+  // 1. 대상요소 세팅하기
+  const target=mFn.qs(eleName);
+
+  console.log(target);
+
+  target.style.translate= target.style.translate=="150%"?"0":"150%";
+  target.style.scale=target.style.scale=="2"?"1":"2";
+  target.style.transition="2s ease-in-out";
+
+}//////////////moveCar/////////////
 
