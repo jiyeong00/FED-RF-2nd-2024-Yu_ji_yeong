@@ -104,16 +104,16 @@ function bindCombo() {
   // 데이터 대상 : comboData.brand
 
   // 대상요소 내부데이터 초기화
-  brandBox.innerHTML = 
-  `<option value="init">브랜드 바로가기</option>`+
-  comboData.brand
-    .map(
-      (v, i) => `
-  <option value="brand${i+1}">${v}</option>
+  brandBox.innerHTML =
+    `<option value="init">브랜드 바로가기</option>` +
+    comboData.brand
+      .map(
+        (v, i) => `
+  <option value="brand${i + 1}">${v}</option>
 
   `
-    )
-    .join("");
+      )
+      .join("");
 
   // 2-2. 계열사 바로가기 콤보박스
   // -> 복합 바인딩 : optgroup > option
@@ -125,28 +125,57 @@ function bindCombo() {
   console.log(corpData);
 
   // 데이터 만들어서 넣기
-  corpBox.innerHTML=corpData.map((v,i)=>`
+  corpBox.innerHTML = 
+  `<option value="init">계열사 바로가기</option>` +
+  corpData
+    .map(
+      (v, i) => `
   <optgroup label="${v}">
   ${
     // 해당 객체의 값은 키배열값과 매칭함
     // ov변수는 객체가 가지는 배열값임
-    comboData.corp[v].map((ov,oi)=>`
-    <option value="${i+1}-${ov+1}">${ov}</option>
-    `).join('')
+    comboData.corp[v]
+      .map(
+        (ov, oi) => `
+    <option value="corp${i + 1}-${oi + 1}">${ov}</option>
+    `
+      )
+      .join("")
   }
   </optgroup>
-  `).join('');
-
+  `
+    )
+    .join("");
 
   // 3. 선택박스 선택변경 시 링크 이동하기
   // 3-1. 브랜드 바로가기 링크 이동하기
-  brandBox.addEventListener("change",function(){
-    console.log("브랜드 어디?",this.value);
-
-    // 1. 이동할 주소
-    let url = comboData.brandLink[this.value];
-    // 2. 선택 option값의 주소로 이동하기
-    // 새창열기 : window.open(새창주소)
-    window.open(url);
-  }); //////////////브랜드 change이벤트 함수
+  brandBox.addEventListener("change", openWindow);
+  // 3-2. 계열사 바로가기 링크 이동하기
+  corpBox.addEventListener("change", openWindow);
 } //////////////////bindCombo함수///////////////
+
+// 링크이동함수
+function openWindow() {
+  ///url 받아서 처리
+
+  // 1. 현재 나 자신의 아이디는?
+  // console.log(this.id);
+
+
+  // 0.옵션값이 "init"일 경우 돌아가
+  // if (this.value == "init") return;
+
+  // 1. 이동할 주소 : comboData.brandLink / comboData.corpLink
+  let url = comboData[this.id + "Link"][this.value];
+  // console.log("다단",comData.corp[this.value]);
+
+  // > 만약 데이터가 없으면 url 변수의 값은 세팅되지 못하여 undefined로 처리된다.
+  //   이것을 if문으로 처리하여 아래 새창띄우기 코드를 감싸준다.
+  //   url값이 세팅되지 않으면 새창띄우기 실행안됨
+
+
+  // 2. 선택 option값의 주소로 이동하기
+  // 새창열기 : window.open(새창주소)
+  if(url) window.open(url);
+  else alert("선택을 변경해주세요");
+} /////////openWindow함수
