@@ -104,10 +104,12 @@ function bindCombo() {
   // 데이터 대상 : comboData.brand
 
   // 대상요소 내부데이터 초기화
-  brandBox.innerHTML = comboData.brand
+  brandBox.innerHTML = 
+  `<option value="init">브랜드 바로가기</option>`+
+  comboData.brand
     .map(
       (v, i) => `
-  <option value="brand${i}">${v}</option>
+  <option value="brand${i+1}">${v}</option>
 
   `
     )
@@ -134,4 +136,17 @@ function bindCombo() {
   }
   </optgroup>
   `).join('');
+
+
+  // 3. 선택박스 선택변경 시 링크 이동하기
+  // 3-1. 브랜드 바로가기 링크 이동하기
+  brandBox.addEventListener("change",function(){
+    console.log("브랜드 어디?",this.value);
+
+    // 1. 이동할 주소
+    let url = comboData.brandLink[this.value];
+    // 2. 선택 option값의 주소로 이동하기
+    // 새창열기 : window.open(새창주소)
+    window.open(url);
+  }); //////////////브랜드 change이벤트 함수
 } //////////////////bindCombo함수///////////////
