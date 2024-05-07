@@ -72,8 +72,8 @@ ReactDOM.render(
   <Developer
     isNormal={true}
     isrc={devImg[1]}
-    ialt="개발자 공유"
-    itit="프론트앤드 개발자입니다"
+    ialt="일반인 동석"
+    itit="개발자가 뭔데"
   />,
   root[1]
 );
