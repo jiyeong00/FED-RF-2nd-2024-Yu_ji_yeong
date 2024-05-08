@@ -213,3 +213,50 @@ introMv.onclick = () => {
 
 // 드래그 슬라이드 태그 구성후 호출하기!
 setSlide('banbx');
+
+
+/************************************************* 
+  메인 페이지용 도깨비 메뉴 스크롤이동 제이쿼리 구현
+ *************************************************/
+// 메뉴 클릭 대상 : .spart-menu a
+$(".spart-menu a").click(e=>{
+  // a요소 클릭 시 기본이동 막기
+  e.preventDefault();
+
+  // 1. 클릭한 a요소의 글자읽어오기
+  let txt=$(e.target).text();
+  console.log(txt);
+
+  // 2. 이동할 위치값 알아내기
+  let pos;
+  // 이동할 위치에 박스 아이디 매칭하기
+  switch(txt){
+    case "프로그램 소개":pos="#intro-area";break;
+    case "미리보기":pos="#preview-area";break;
+    case "동영상":pos="#clip-video-area";break;
+    case "현장 포토":pos="#real-photo-area";break;
+    case "대표 포스터":pos="#main-photo-area";break;
+  }///////switch
+
+  // 만약 해당된 요소가 없으면 돌아가기
+  // 위에서 할당안되면 undefined이면 if문에서 false처리됨
+  // !(NOT)연산자로 반대로 뒤집으면 false일때 처리함
+  if(!pos) return;
+
+  // 해당박스 아이디의 위치값 알아내기
+  // offset().top - 제이쿼리 top 위치값정보
+  pos=$(pos).offset().top;
+  console.log("위치값: ",pos);
+
+  // 스크롤 애니메이션 이동하기
+  // $("html,body").animate({scrollTop:몇 px},시간, 이징, 함수)
+  $("html,body")
+  .animate({scrollTop:pos+"px"},800,"easeInOutQuint",
+  // 이동후 부드러운 스크롤 위치값 업데이트 필수
+  ()=>{
+    // 이거 안하면 스크롤 시 튐
+    setScrollPos(pos);
+  }
+  );
+
+});/////////도꺠비 파트 메뉴 클릭 함수
