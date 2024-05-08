@@ -8,7 +8,7 @@ setElement(); // 함수호출!!!
 import myFn from "./my_function.js";
 
 // 부드러운 스크롤 불러오기
-import { startSS, setScrollPos } from "./smoothScroll23.js";
+import SmoothScroll from "./smoothScroll23.js";
 
 // 데이터 셋팅 불러오기 //////
 import * as dkbData from "../data/dkb_data.js";
@@ -24,7 +24,8 @@ import setSlide from "./drag_slide_multi.js";
 
 
 // 1. 부드러운 스크롤 호출
-startSS();
+const mySmooth = new SmoothScroll(document,30,20);
+
 
 // console.log('모듈로 메인JS호출!!!',
 // document.querySelector('.top-menu'));
@@ -252,10 +253,12 @@ $(".spart-menu a").click(e=>{
   // $("html,body").animate({scrollTop:몇 px},시간, 이징, 함수)
   $("html,body")
   .animate({scrollTop:pos+"px"},800,"easeInOutQuint",
-  // 이동후 부드러운 스크롤 위치값 업데이트 필수
+  // 콜백함수
   ()=>{
+    // 이동후 부드러운 스크롤 위치값 업데이트 필수
     // 이거 안하면 스크롤 시 튐
-    setScrollPos(pos);
+    // 생성자함수 하위 객체 변수로 등록된 함수를 호출함
+    mySmooth.setScrollPos(pos);
   }
   );
 
