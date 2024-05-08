@@ -264,13 +264,15 @@ $(".spart-menu a").click(e=>{
 
 });/////////도꺠비 파트 메뉴 클릭 함수
 
-$(".preview-box").css({
-  height: "200px",
-  overflow: "auto"
-})
-.on("wheel",e=>{
-  e.stopPropagation();
-})
+///////////////////////////////////////////////////////////////////
+// 개별박스에 부드러운 스크롤 생성자 함수 적용하기 연습
+// $(".preview-box").css({
+//   height: "200px",
+//   overflow: "auto"
+// })
+// .on("wheel",e=>{
+//   e.stopPropagation();
+// })
 
-// 부드러운 스크롤 개별박스 적용
-const smallSmooth=new SmoothScroll(myFn.qs(".preview-box"),20,30);
+// // 부드러운 스크롤 개별박스 적용
+// const smallSmooth=new SmoothScroll(myFn.qs(".preview-box"),20,30);
