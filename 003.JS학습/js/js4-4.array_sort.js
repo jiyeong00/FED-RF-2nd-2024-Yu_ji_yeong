@@ -1,9 +1,9 @@
 // JS4-4. 배열정렬및검색 JS
 
 // 나의 함수 불러오기
-import mFn from './my_function.js';
+import mFn from "./my_function.js";
 
-console.log('나의 함수',mFn);
+// console.log('나의 함수',mFn);
 
 /****************************************************** 
     [ JS 배열의 정렬 ]
@@ -100,7 +100,7 @@ console.log('나의 함수',mFn);
 // 숫자값 배열
 const arrNumber = [4, 5, 8, 10, 2, 1, 9, 3, 7, 6];
 // 예
-const arrNumber2 = [380,1000,245,2278,];
+const arrNumber2 = [380, 1000, 245, 2278];
 // 문자값 배열
 const arrString = ["파", "타", "하", "가", "바", "사", "다", "라", "차"];
 
@@ -120,30 +120,33 @@ const arrString = ["파", "타", "하", "가", "바", "사", "다", "라", "차"
 // map() 메서드로 배열값을 태그로 감싸서 출력하기
 
 // (1)출력대상 :.showNum
-const showNum=mFn.qs('.showNum');
+const showNum = mFn.qs(".showNum");
 // (2) map()메서드 없이 배열값을 이미지태그로 변환하여 코드만들기 함수
-const returnTag=(x)=>{ //x는 배열 전달변수
-    let hcode='';
-    // 배열만큼 순회하여 태그만들기
-    // x.forEach(v => {
-    //     // console.log('나야나',v);
-    //     hcode+=`
-    //     <img src="./images/num/num_0${v}.png" alt="숫자${v}이미지">
-    //     `;
-        
-    // });////forEach//////
+const returnTag = (x) => {
+  //x는 배열 전달변수
+  let hcode = "";
+  // 배열만큼 순회하여 태그만들기
+  // x.forEach(v => {
+  //     // console.log('나야나',v);
+  //     hcode+=`
+  //     <img src="./images/num/num_0${v}.png" alt="숫자${v}이미지">
+  //     `;
 
-    // 3.코드리턴하기
-    return hcode;
+  // });////forEach//////
 
-};/////returnTag함수/////////
+  // 3.코드리턴하기
+  return hcode;
+}; /////returnTag함수/////////
 
 // (3) 배열 숫자데이터만큼 이미지로 변환하여 화면출력
-const showImgNum=(arrObj)=>{
-    showNum.innerHTML=arrObj.map(v=>`
-    <img src="./images/num/num_0${v}.png" alt="숫자${v}이미지">`).join('');
-
-};///////////showImgNum함수////////////
+const showImgNum = (arrObj) => {
+  showNum.innerHTML = arrObj
+    .map(
+      (v) => `
+    <img src="./images/num/num_0${v}.png" alt="숫자${v}이미지">`
+    )
+    .join("");
+}; ///////////showImgNum함수////////////
 /**********************************************************************************
   [map() 메서드의 특징 ]
 map((배열값, 순번,전체배열)=>{})
@@ -158,7 +161,7 @@ map((배열값, 순번,전체배열)=>{})
       join해야함
 
  **********************************************************************************/
-console.log('원본 배열:',arrNumber2);
+// console.log('원본 배열:',arrNumber2);
 
 // console.log('원본 배열로 태그작성:',
 // arrNumber2.map(v=>`<숫자>${v}</숫자>`));
@@ -177,89 +180,153 @@ showImgNum(arrNumber);
 
 // (5) 정렬 기준에 선택박스 변경 이벤트 발생 시 정렬 변경하기(오름차순/내림차순)
 // (5-1) 대상 : #sel 선택박스
-const selBox = mFn.qs('#sel');
+const selBox = mFn.qs("#sel");
 // (5-2) 이벤트 연결하기 : change
-mFn.addEvt(selBox, 'change',(e)=>changeSort(e,arrNumber));
+mFn.addEvt(selBox, "change", (e) => changeSort(e, arrNumber));
 
 // (5-3) 정렬변경함수 만들기
-function changeSort(e,arrObj){ 
-    // e - 이벤트 발생 요소의 전달된 이벤트 함수
-    //arrObj - 배열전달변수 -> 원본배열을 담음(주소복사)
-    // 원본배열을 보존키위해 깊은복사를 함
-    // 배열값이 일반배열값이므로 스프레드 연산자사용
-    arrObj=[...arrObj];
-    // -> 다시 새로운 배열로 값이 복사됨
+function changeSort(e, arrObj) {
+  // e - 이벤트 발생 요소의 전달된 이벤트 함수
+  //arrObj - 배열전달변수 -> 원본배열을 담음(주소복사)
+  // 원본배열을 보존키위해 깊은복사를 함
+  // 배열값이 일반배열값이므로 스프레드 연산자사용
+  arrObj = [...arrObj];
+  // -> 다시 새로운 배열로 값이 복사됨
 
-    // 1. 선택옵션값 읽어오기
-    let optVal=e.currentTarget.value;
-    // 추가 : 이벤트발생요소(선택박스)의 아이디 읽어오기
-    let selId=e.currentTarget.id;
-    console.log('선택함수',optVal,'\n아이디',selId);
-    // 2. 정렬변경 분기하기
-    // 2-1.오름차순 : 값 1
-    if(optVal==1){
-        arrObj.sort((a,b)=>a==b?0:a<b?-1:1);
-        // 해석
-        // 앞값 뒷값 같으면 0, 뒷값이 크면 -1, 앞값이 크면 1
-        // 즉 앞값이 크면 자리를 바꿔서 유지하므로 오름차순 정렬
+  // 1. 선택옵션값 읽어오기
+  let optVal = e.currentTarget.value;
+  // 추가 : 이벤트발생요소(선택박스)의 아이디 읽어오기
+  let selId = e.currentTarget.id;
+  // console.log('선택함수',optVal,'\n아이디',selId);
+  // 2. 정렬변경 분기하기
+  // 2-1.오름차순 : 값 1
+  if (optVal == 1) {
+    arrObj.sort((a, b) => (a == b ? 0 : a < b ? -1 : 1));
+    // 해석
+    // 앞값 뒷값 같으면 0, 뒷값이 크면 -1, 앞값이 크면 1
+    // 즉 앞값이 크면 자리를 바꿔서 유지하므로 오름차순 정렬
 
-        // (( 공통 정렬 처리하기 ))
-        // 문자든 순자든 sort()메서드의 내부적 처리에서 앞뒤 문자가 같으면 0, 뒷문자 크면 -1,
-        // 뒷문자가 작으면 1로 리턴값 처리
-        // -> 숫자 시그널 : 0 아무것도 안함 / 1 순서바꿔서 유지 / -1 순서 유지
-        
-        // -> [내부적 처리란?] 
-        // 문자일 경우 '가'>'나' 1로 처리 할 경우
-        // '나','가'로 순서를 바꿔서 처리함(내림차순)
-        // 즉, 문자역도 순서대로 글자 알파벳,가나다라  순등 특정문서기준이 브라우저에 저장되어있음
+    // (( 공통 정렬 처리하기 ))
+    // 문자든 순자든 sort()메서드의 내부적 처리에서 앞뒤 문자가 같으면 0, 뒷문자 크면 -1,
+    // 뒷문자가 작으면 1로 리턴값 처리
+    // -> 숫자 시그널 : 0 아무것도 안함 / 1 순서바꿔서 유지 / -1 순서 유지
 
-        // 빼기처리는 문자 등 기차 데이터는 처리불가함
-        // sort() 빼기연산처리 : 앞수-뒷수
-        // arrNumber.sort((a,b)=>a-b);
-    }
-    // 2-2.내림차순 : 값 2
-    else if(optVal==2){
-        arrObj.sort((a,b)=>a==b?0:a<b?1:-1);
-        // arrNumber.sort((a,b)=>b-a);
-    }////////if문///////////
+    // -> [내부적 처리란?]
+    // 문자일 경우 '가'>'나' 1로 처리 할 경우
+    // '나','가'로 순서를 바꿔서 처리함(내림차순)
+    // 즉, 문자역도 순서대로 글자 알파벳,가나다라  순등 특정문서기준이 브라우저에 저장되어있음
 
-    // 주의!!!!!!!!!! 
-    // 원본배열을 정렬후엔 원본배열은 없어진다!
-    // 배열을 다른변수에 할당 후 다른변수를 정렬해도 원본배열은 없어진다!
-    
+    // 빼기처리는 문자 등 기차 데이터는 처리불가함
+    // sort() 빼기연산처리 : 앞수-뒷수
+    // arrNumber.sort((a,b)=>a-b);
+  }
+  // 2-2.내림차순 : 값 2
+  else if (optVal == 2) {
+    arrObj.sort((a, b) => (a == b ? 0 : a < b ? 1 : -1));
+    // arrNumber.sort((a,b)=>b-a);
+  } ////////if문///////////
 
-    
-    // 3. 정렬변경된 배열 화면에 출력하기
-    if(selId=='sel') showImgNum(arrObj);
-    else if(selId=='sel2') showSpanText(arrObj);
+  // 주의!!!!!!!!!!
+  // 원본배열을 정렬후엔 원본배열은 없어진다!
+  // 배열을 다른변수에 할당 후 다른변수를 정렬해도 원본배열은 없어진다!
 
-    // 전달변수에 할단된 배열확인하기
-    console.log('정렬후 원본배열:',arrObj);
-    // 원본 배열확인하기
-    console.log('정렬후 원본배열:',arrNumber);
+  // 3. 정렬변경된 배열 화면에 출력하기
+  if (selId == "sel") showImgNum(arrObj);
+  else if (selId == "sel2") showSpanText(arrObj);
 
-}/////////////changeSort함수////////////////
+  // 전달변수에 할단된 배열확인하기
+  // console.log('정렬후 원본배열:',arrObj);
+  // 원본 배열확인하기
+  // console.log('정렬후 원본배열:',arrNumber);
+} /////////////changeSort함수////////////////
 
 ////////////////////////////////////////
 // 2. 문자로만 된 배열의 화면 뿌리기
 // MAP()메서드로 배열값을 태그로 감싸 출력하기
 // (1) 출력대상 : .showNum2
-const showText=mFn.qs('.showNum2');
+const showText = mFn.qs(".showNum2");
 // (2) 배열만큼 태그넣고 문자 출력하기
-const showSpanText=(arrObj)=>{
-    //arrObj - 전달된 배열
-    showText.innerHTML=
-    arrObj.map(v=>`<span>${v}</span>`).join('');
-};///////////////showSpanText함수////////////////
+const showSpanText = (arrObj) => {
+  //arrObj - 전달된 배열
+  showText.innerHTML = arrObj.map((v) => `<span>${v}</span>`).join("");
+}; ///////////////showSpanText함수////////////////
 
 // (3) 텍스트 출력함수 호출
 showSpanText(arrString);
 
 // (4) 텍스트 정렬선택박스 변경시 정렬함수 호출
 // (4-1) 대상 : #sel2
-const selBox2=mFn.qs('#sel2');
+const selBox2 = mFn.qs("#sel2");
 // (4-2) 이벤트 연결하기 - change
 // 연결된 함수는 위의 숫자정렬한 정렬함수를 사용한다
 
-mFn.addEvt(selBox2,'change',e=>changeSort(e,arrString));
+mFn.addEvt(selBox2, "change", (e) => changeSort(e, arrString));
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// 3. 객체데이터 배열의 정렬
+
+// 3-1. 데이터 : 객체데이터 배열
+// 데이터구조 : (1) 순번 - idx / (2) 제목 - tit / (3) - cont
+const list1 = [
+  {
+    idx: 8,
+    tit: "나는 누구?",
+    cont: "공동구매) 슬로건 공구 (계좌와 네이버폼)",
+  },
+  {
+    idx: 4,
+    tit: "여기는 어디?",
+    cont: "총공 공지] 오늘부터 일 2회, 총공 진행합니다",
+  },
+  {
+    idx: 1,
+    tit: "나야나",
+    cont: "연합 갈라 서포트 계좌오픈",
+  },
+  {
+    idx: 15,
+    tit: "이제 얼마나 남은거니?",
+    cont: "음악프로그램에 출연 요청글도 써볼까요?",
+  },
+]; /////////////// list1 /////////////
+
+//   console.log(list1);
+
+// 3-2. 출력대상 : .showList3
+const showList3 = mFn.qs(".showList3");
+
+// 3-3. 배열데이터로 코드 만들기 함수
+const updateCode = (arrData, exBox) => {
+  // arrData = 배열 데이터
+  // exBox = 출력할 박스
+
+  // 태그 출력하기
+  showList3.innerHTML = `
+    <table>
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        ${list1
+          .map(
+            (v) => `
+        <tr>
+            <td>${v.idx}</td>
+            <td>${v.tit}</td>
+            <td>${v.cont}</td>
+        </tr>
+        `
+          )
+          .join("")}
+    </tbody>
+    </table>
+`;
+}; //////////////////updateCode함수////////
+
+// 3-4. zhem aksemfdj cnffurgksms gkatn ghcnfgkrl
+updateCode(list1,showList3);
 
