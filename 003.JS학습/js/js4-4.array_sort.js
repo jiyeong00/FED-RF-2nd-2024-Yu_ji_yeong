@@ -344,6 +344,10 @@ mFn.addEvt(sel3,"change",(e)=>sortingFn(e,cta3.value,list1,showList3));
 
 // (4) 정렬기준 대상 선택 변경시
 // -> 정렬종류 대상 선택 초기화하기 ("정렬 선택"으로 변경)
+mFn.addEvt(cta3,"change",()=>{
+    // 정렬종류 첫번째 값은 value=0이므로 이것을 value에 할당하면 선택박스값이 첫번째로 변경된다
+    sel3.value="0";
+});///////////////////change 이벤트함수
 
 // 3-6. 정렬함수 만들기
 function sortingFn(evt,cta,arrData,exBox){
