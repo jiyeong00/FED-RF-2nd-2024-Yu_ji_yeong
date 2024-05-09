@@ -500,7 +500,9 @@ function searchingfn(){
 
 
     // 만약 찾는 문자가 전체문자열에 있으면 -1이 아님
-    if(v[cta].indexOf(kword)!=-1) return true;
+    // -> 숫자이면 에러남 >>>> indexOf는 문자열만 취급하기 때문에
+    // -> 무조건 문자형으로 변환시키기 위해 String()사용
+    if(String(v[cta]).indexOf(kword)!=-1) return true;
     // 이 조건에 리턴값을 true로 하면 해당 데이터를 배열로 만들어서 순서대로 변수에 할당한다.
     // 여기서는 result가 결과 배열 변수가 된다.
 
