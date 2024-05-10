@@ -356,17 +356,25 @@ const updateCode = (arrData, exBox) => {
     </tr>
     </thead>
     <tbody>
-        ${arrData
-          .map(
-            (v) => `
+        ${
+          arrData.length == 0
+            ? `<tr>
+            <td colspan="3">
+             데이터가 없어요
+            </td>
+          </tr>`
+            : arrData
+                .map(
+                  (v) => `
         <tr>
             <td>${v.idx}</td>
             <td>${v.tit}</td>
             <td>${v.cont}</td>
         </tr>
         `
-          )
-          .join("")}
+                )
+                .join("")
+        }
     </tbody>
     </table>
 `;
@@ -421,7 +429,6 @@ function sortingFn(evt, cta, arrData, exBox) {
   updateCode(arrData, exBox);
 } //////////////sortingFn함수///////////////////
 
-
 //////////////////////////////////////////////
 ////////////// 배열의 검색 !!! ////////////////
 //////////////////////////////////////////////
@@ -429,37 +436,37 @@ function sortingFn(evt, cta, arrData, exBox) {
 // 4. 객체데이터 검색후 배열의 정렬 ////////////
 
 // 4-1. 출력대상선정: showList4
-const showList4 = mFn.qs('.showList4');
+const showList4 = mFn.qs(".showList4");
 // console.log(showList4);
 
 // 4-2. 데이터셋팅 : 객체 데이터 배열
 const list2 = [
   {
-      idx: 58,
-      tit: "당근마켓에 가자",
-      cont: "당근마켓이 항상 좋은건 아니야~!!ㅠ.ㅠ",
+    idx: 58,
+    tit: "당근마켓에 가자",
+    cont: "당근마켓이 항상 좋은건 아니야~!!ㅠ.ㅠ",
   },
   {
-      idx: 15,
-      tit: "당근마켓에 가자",
-      cont: "당근마켓이 정말로 싸고 좋다구~!",
+    idx: 15,
+    tit: "당근마켓에 가자",
+    cont: "당근마켓이 정말로 싸고 좋다구~!",
   },
   {
-      idx: 74,
-      tit: "점심에 뭐먹지? 당근이지!",
-      cont: "오스틴님 생일 서포트 안내",
+    idx: 74,
+    tit: "점심에 뭐먹지? 당근이지!",
+    cont: "오스틴님 생일 서포트 안내",
   },
   {
-      idx: 18,
-      tit: "직돌이는 쉬고싶다~!",
-      cont: "활동정지에 대한 파생글 무통보 삭제 및 경고",
+    idx: 18,
+    tit: "직돌이는 쉬고싶다~!",
+    cont: "활동정지에 대한 파생글 무통보 삭제 및 경고",
   },
   {
-      idx: 104,
-      tit: "올해는 다른 회사로 이직한다!",
-      cont: "⚜️갈라콘 서포트에 많은 참여 부탁드립니다!",
+    idx: 104,
+    tit: "올해는 다른 회사로 이직한다!",
+    cont: "⚜️갈라콘 서포트에 많은 참여 부탁드립니다!",
   },
-]; /////////////// list2 /////////////   
+]; /////////////// list2 /////////////
 
 // 4-3. 코드 만들어 출력하는 함수 호출하기
 updateCode(list2, showList4);
@@ -467,24 +474,34 @@ updateCode(list2, showList4);
 // 4-5. 검색 이벤트 설정하기
 // 대상선정:
 // (1) 검색기준 선택박스
-const searchCta4=mFn.qs('.search-cta4');
+const searchCta4 = mFn.qs(".search-cta4");
 // (2) 검색버튼
-const btnSearch=mFn.qs('.sbtn');
+const btnSearch = mFn.qs(".sbtn");
 // (3) 검색어 입력창
-const keyWord=mFn.qs('#stxt');
+const keyWord = mFn.qs("#stxt");
+// (4) 전체 버튼
+const btnTotal = mFn.qs(".fbtn");
 
 // 4-5-2. 이벤트 설정하기
-mFn.addEvt(btnSearch,"click",searchingfn);
+// 검색버튼
+mFn.addEvt(btnSearch, "click", searchingfn);
+// 전체버튼
+mFn.addEvt(btnTotal, "click", () => {
+  // 처음리스트로 돌아감
+  updateCode(list2, showList4);
+  // 검색어 지우기
+  keyWord.value = "";
+});
 
 // 4-6. 검색 함수 만들기
-function searchingfn(){
+function searchingfn() {
   // 1. 검색기준값 읽어오기
-  let cta=searchCta4.value;
+  let cta = searchCta4.value;
   // 2. 검색어 읽어오기
-  let kword=keyWord.value;
+  let kword = keyWord.value;
 
   // 3. 검색어가 없으면 돌아가기
-  if(kword==""){
+  if (kword == "") {
     alert("검색어를 입력해주세요");
     keyWord.focus();
     return;
@@ -494,26 +511,22 @@ function searchingfn(){
   // 4. 검색기준으로 검색어를 사용하여 검색하기
   // 검색대상 데이터 배열: list2
   // 사용 배열 메서드 :filter()
-  let result = list2.filter(v=>{
+  let result = list2.filter((v) => {
     // v=배열값
     // console.log(v["tit"].indexOf(kword));
-
 
     // 만약 찾는 문자가 전체문자열에 있으면 -1이 아님
     // -> 숫자이면 에러남 >>>> indexOf는 문자열만 취급하기 때문에
     // -> 무조건 문자형으로 변환시키기 위해 String()사용
-    if(String(v[cta]).indexOf(kword)!=-1) return true;
+    if (String(v[cta]).indexOf(kword) != -1) return true;
     // 이 조건에 리턴값을 true로 하면 해당 데이터를 배열로 만들어서 순서대로 변수에 할당한다.
     // 여기서는 result가 결과 배열 변수가 된다.
-
-
   });
-  // 전체문제열.indexOf(문자열) -> 해당 문자열이 전체문제열에서 몇번째에 있는지 그 순번을 리턴해줌 
+  // 전체문제열.indexOf(문자열) -> 해당 문자열이 전체문제열에서 몇번째에 있는지 그 순번을 리턴해줌
   // 만약 없으면 -1값을 리턴한다.
 
   console.log(result);
 
   // 5. 결과를 화면에 보여주기 : updateCode함수 호출
-  updateCode(result,showList4);
-
-}/////////////searchinFn 함수/////////////////
+  updateCode(result, showList4);
+} /////////////searchinFn 함수/////////////////
