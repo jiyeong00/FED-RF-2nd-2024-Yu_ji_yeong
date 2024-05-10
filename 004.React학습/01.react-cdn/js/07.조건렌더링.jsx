@@ -288,32 +288,39 @@ function MakePainting({ painter, wname }) {
 // 구성 : 전체타이틀(SetTitle 컴포넌트) + 변경버튼 + 작가타이틀과 그림 출력(MakePainting 컴포넌트)
 // 특이사항 : 변경버튼 클릭 시 MakePainting 컴포넌트의 데이트를 변경하여 다시 출력하도록 함
 
-function ShowLikePainter({isChange}) {
+function ShowLikePainter({ isChange }) {
   // isChange - 기존작가를 변경하는 여부 전달변수
   // true면 변경 / false는 아님
 
   // [ 후크 상태관리 변수 만들기 ]
   // const [변수명,set변수명] = useState(초기값)
-  cosnt [result,setResult]=React.useState(isChange);
+  const [result,setResult] = React.useState(isChange);
 
   return (
     <React.Fragment>
       {/* 1. 큰 제목 */}
       <SetTitle title="명화" />
       {/* 2. 변경버튼 */}
-      <button>작가변경!</button>
+      <button
+      onClick={()=>{setResult(!result)}} 
+      style={{ 
+        fontSize: "30px", 
+        padding: "10px",fontWeight:"bold",
+        backgroundColor:result?"red":"blue",
+        color:result?"yellow":"aqua" }}>작가변경!</button>
       {
         // isChange가 아닌 상태관리 변수를 사용한다
-        result?
-        <MakePainting painter="피카소" wname="우는 여인" />:
-        <MakePainting painter="모네" wname="양산을 쓴 여인" />
+        result ? (
+          <MakePainting painter="피카소" wname="우는 여인" />
+        ) : (
+          <MakePainting painter="모네" wname="양산을 쓴 여인" />
+        )
       }
     </React.Fragment>
   );
 } //////////////ShowLikePainter 컴포넌트////////////////
 
-ReactDOM.render(<ShowLikePainter isChange={true}/>, root[6]);
-
+ReactDOM.render(<ShowLikePainter isChange={false} />, root[6]);
 
 /********************************************************* 
     [ 리액트 훅크 : React Hook ]
