@@ -106,6 +106,103 @@
             4. 선택요소.offsetLeft : left 위치값            
         **********************************************/
 
+        // [ 추가기능 : 링크 클릭시 페이지 새창 이동하기 ]
+        // 대상선정 : .smenu ol a
+        const link = qsa(".smenu ol a");
+
+        // 2. forEach로 순회하며 링크이동함수 호출하기
+        link.forEach((ele) => addEvt(ele, "click", linkFn));
+
+        function linkFn(e) {
+          // 1. 기본이동막기
+          e.preventDefault();
+          // 2. 클릭된 a요소의 글자 데이터 읽어오기
+          let txt = this.innerText;
+          // 3. 이동할 주소 분기하여 할당하기
+          let url;
+          switch (txt) {
+            case "Google":
+              url = "https://www.google.com/";
+              break;
+            case "Naver":
+              url = "http://www.naver.com";
+              break;
+            case "Daum":
+              url = "http://www.daum.net";
+              break;
+            case "Nate":
+              url = "http://www.nate.com";
+              break;
+            case "SK":
+              url = "http://www.sktelecom.com";
+              break;
+            case "KT":
+              url = "http://www.kt.com";
+              break;
+            case "Uplus":
+              url = "http://www.uplus.co.kr";
+              break;
+            case "CGV":
+              url = "http://www.cgv.co.kr";
+              break;
+            case "MEGABOX":
+              url = "http://www.megabox.co.kr";
+              break;
+            case "LOTTE CINEMA":
+              url = "https://www.lottecinema.co.kr/NLCHS";
+              break;
+            case "GMARKET":
+              url = "http://www.gmarket.co.kr";
+              break;
+            case "11번가":
+              url = "http://www.11st.co.kr";
+              break;
+            case "Auction":
+              url = "http://www.auction.co.kr";
+              break;
+            case "스토어팜":
+              url = "https://shopping.naver.com/";
+              break;
+            case "인터파크":
+              url = "http://www.interpark.co.kr";
+              break;
+            case "쿠팡":
+              url = "http://www.coopang.co.kr";
+              break;
+            case "Apple":
+              url = "http://www.apple.com";
+              break;
+            case "Samsung":
+              url = "http://www.samsung.com";
+              break;
+            case "넷마블":
+              url = "http://www.netmarble.net";
+              break;
+            case "넥슨":
+              url = "https://www.nexon.com";
+              break;
+            case "IMC":
+              url = "http://www.imc.co.kr";
+              break;
+            default:
+              break;
+          } /////////switch
+
+          // 4. 페이지 이동
+          // (1) 현재창 이동(히스토리가 남음)
+          // location.href = 이동주소
+          // 참고 : 히스토리가 남지 않는 창이동은
+          // >>> location.replace(이동주소) <<< 현재 창에 덮어쓰기 (회원가입 혹은 로그인 등에 사용)
+          // (2) 새창 이동하기
+          // window.open(이동주소)
+          if (url) {
+            // url이 할당된 경우에만 이동
+            window.open(url);
+            // location.href=url; > 현재창 이동 (히스토리 있음)
+            // location.replace(url); > 현재창 이동 (히스토리 없음)
+          } //////if
+        } ///////////////////linkFn 함수////////////////////
+
         /***************************************** 
      [ 이벤트 비교 ]
      mouseover / mouseout 
