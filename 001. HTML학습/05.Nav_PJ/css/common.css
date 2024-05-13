@@ -54,7 +54,7 @@ body{
     left: 0;
     width: 100%;
     /* 숨김박스 */ 
-    /* height: 0; */
+    height: 0;
     overflow: hidden;
     background-color: #fff;
 
@@ -95,6 +95,7 @@ body{
 /* 서브 dl */
 .swrap dl{
     width: 180px;
+    padding-bottom: 30px;
 }
 /* 2차메뉴 : dt */
 .swrap dt{

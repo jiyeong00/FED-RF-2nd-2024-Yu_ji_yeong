@@ -1,3 +1,5 @@
+import mFn from "./my_function.js";
+
 import mdata from "./mdata.js";
 console.log(mdata);
 
@@ -34,10 +36,14 @@ export default function makeMenu(target) {
             <dt>${v2}</dt>
             <!-- 3차메뉴 dd생성 -->
             ${
-                // mdata[v][v2]
-                mdata[v][v2].map(v3=>`
+              // mdata[v][v2]
+              mdata[v][v2]
+                .map(
+                  (v3) => `
                 <dd><a href="#">${v3}</a></dd>
-                `).join('')
+                `
+                )
+                .join("")
             }
         </dl>
             `
@@ -56,4 +62,38 @@ export default function makeMenu(target) {
 
     </ul>
     `;
+
+  /**************************************************** 
+     [ 상위메뉴 li에 오버시 하위메뉴 보이기 ]
+        이벤트 대상 : .gnb ul li
+        변경 대상 : .gnb ul li > .smenu
+        읽어올 높이값 대상 : .smenu > .smbx
+     ****************************************************/
+
+  // 1. 이벤트 대상
+  const gnb = mFn.qsa(".gnb ul li");
+
+  // 2. 이벤트 설정 및 함수 구현
+  gnb.forEach((ele) => {
+    // (1) 마우스 오버시
+    mFn.addEvt(ele, "mouseenter", (e) => {
+      // 이벤트 대상
+      let tg = e.currentTarget;
+      console.log("오버시", tg);
+
+      // 하위 중 .smbx의 높이값을 읽어서 .smenu의 높이값을 변경한다
+      mFn.qsEl(tg,".smenu").style.height=
+      mFn.qsEl(tg,".smbx").offsetHeight+"px"; 
+    
+    }); //////mouseenter
+
+    // (2) 마우스 아웃시
+    mFn.addEvt(ele, "mouseleave", (e) => {
+      // 이벤트 대상
+      let tg = e.currentTarget;
+      console.log("아웃시", tg);
+      mFn.qsEl(tg,".smenu").style.height=0
+
+    }); ///////////////mouseleave
+  }); ///////////////forEach
 } ///////makeMenu 함수///////////////
