@@ -105,9 +105,18 @@ gnbList.forEach((ele)=>{
 });///////////////forEach
 
 function overFn(){
-  console.log("오버FN",this)
+  // 1. 오버된 li의 left위치값 읽기
+  let posLeft=this.offsetLeft;
+  let boxwidth=this.offsetWidth;
+
+  console.log("오버FN",posLeft,boxwidth);
+  // 2. 매뉴 배경 보이기 + 위치값 주기
+  mbg.style.opacity=1;
+  mbg.style.left=posLeft+"px";
+  mbg.style.width=boxwidth+"px";
 }/////////overFn 함수/////////////////
 
 function outFn(){
   console.log("아웃FN",this)
+  mbg.style.opacity=0;
 }/////////overFn 함수/////////////////
