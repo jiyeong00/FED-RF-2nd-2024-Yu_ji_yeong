@@ -265,11 +265,26 @@
                   // 1. 새로운 li요소 생성하여 변수에 할당
                   const newEle=document.createElement('li');
 
+                  // 이미지 랜덤수 만들기 - 1~5사이 수
+                  // Math.ceil(Math.random()*최대수) <<<1~최대수
+                  let rdmNum=Math.ceil(Math.random()*5);
+
+                  // 이미지 alt설명 배열
+                  const avenName=["아이언맨","딱딱이","토르","닥스","스타로드"];
+
+
+
+                  // 메모리상에 생성된 li에 이미지 요소를 innerHTML에 넣기
+                  // innerHtml로 넣기 > DOM에 직접넣기가 아닌 메모리상 태그 넣기도 가능한가?
+                  newEle.innerHTML=`
+                  <img src="images/ab${rdmNum}.jpg" alt="${avenName[rdmNum-1]}" title="${avenName[rdmNum-1]}">
+                  `;
+
                   // 변경대상에 새로운 li 넣기
                   // appendChild(요소)
                   // >>>>> 기존 요소면 맨 뒤로 이동, 새 요소면 맨 뒤에 추가
                   box2.appendChild(newEle);
-                  
+
                 }//////////MakeEle 함수//////////////////
                 
                 // [맨뒤이동 버튼 클릭시] /////////
