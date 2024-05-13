@@ -97,7 +97,7 @@ function bindCombo() {
   // 1. 대상 선정
   const brandBox = document.querySelector("#brand");
   const corpBox = document.querySelector("#corp");
-  console.log("콤보바인딩", brandBox, corpBox);
+  // console.log("콤보바인딩", brandBox, corpBox);
 
   // 2. 데이터 바인딩하기
   // 2-1 브랜드 바로가기 콤보박스 : 단순바인딩(option만)
@@ -122,7 +122,7 @@ function bindCombo() {
   // 객체의 값을 사용할 경우 - 원본객체[키]
   //  데이터 대상: comboData.corps
   const corpData = Object.keys(comboData.corp);
-  console.log(corpData);
+  // console.log(corpData);
 
   // 데이터 만들어서 넣기
   corpBox.innerHTML = 

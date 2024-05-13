@@ -17,6 +17,12 @@ import * as dkbData from "../data/dkb_data.js";
 // 드래그 슬라이드 불러오기 ///////
 import setSlide from "./drag_slide_multi.js";
 
+// 서브박스 세팅 코드 불러오기
+import showSubBox from "./sub_cont.js";
+// 박스 생성 후 호출 (큐로 보내면 스택 실행 후 호출<< 맨 끝에 코드 쓸 필요 없음)
+setTimeout(showSubBox,0);
+// 시간을 0으로 쓰거나 시간을 안써도 setTimeout로 함수를 호출하면 큐에 가지고 있다가 스택이 다 끝난후 호출하여 실행
+
 ///////////////////////////////////////////////
 
 /// 구현코드 파트 //////////////
@@ -36,7 +42,7 @@ const mySmooth = new SmoothScroll(document,30,20);
 // 이벤트 대상 === 변경대상 : .intro-mv-img
 const introMv = myFn.qs(".intro-mv-img");
 introMv.onclick = () => {
-  console.log("인트로영상!!!");
+  // console.log("인트로영상!!!");
   // 1. 동영상 넣기
   introMv.innerHTML = `<video src="./images/intro_mv.mp4" 
     autoplay controls></video>`;
@@ -226,7 +232,7 @@ $(".spart-menu a").click(e=>{
 
   // 1. 클릭한 a요소의 글자읽어오기
   let txt=$(e.target).text();
-  console.log(txt);
+  // console.log(txt);
 
   // 2. 이동할 위치값 알아내기
   let pos;
@@ -247,7 +253,7 @@ $(".spart-menu a").click(e=>{
   // 해당박스 아이디의 위치값 알아내기
   // offset().top - 제이쿼리 top 위치값정보
   pos=$(pos).offset().top;
-  console.log("위치값: ",pos);
+  // console.log("위치값: ",pos);
 
   // 스크롤 애니메이션 이동하기
   // $("html,body").animate({scrollTop:몇 px},시간, 이징, 함수)
