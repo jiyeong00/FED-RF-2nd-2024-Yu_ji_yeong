@@ -83,3 +83,31 @@ function upDownFn(ele, idx) {
   //   실제 위치이동 CSS적용하기
   ele.style.translate = `0 ${mVal}%`;
 } //////////////upDownFn///////////////////
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+// 메뉴 오버시 배경박스 따라다니기 구현/////
+/////////////////////////////////////////
+
+// 1. 대상 선정
+// 이벤트 대상 : .gnb li
+const gnbList = mFn.qsa('.gnb li');
+// 변경대상 : .mbg
+const mbg=mFn.qs('.mbg');
+
+// 2. 이벤트 설정하기
+// 이벤트 종류 : mouseenter / mouseleave
+
+gnbList.forEach((ele)=>{
+  mFn.addEvt(ele,"mouseenter",overFn);
+  mFn.addEvt(ele,"mouseleave",outFn);
+});///////////////forEach
+
+function overFn(){
+  console.log("오버FN",this)
+}/////////overFn 함수/////////////////
+
+function outFn(){
+  console.log("아웃FN",this)
+}/////////overFn 함수/////////////////
