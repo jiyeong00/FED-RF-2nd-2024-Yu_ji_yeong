@@ -245,101 +245,98 @@
 
                 **************************************************/
 
-                //////// 새리스트 요소 생성하기 ///////
-                // 이벤트 종류: click
-                // 이벤트 대상: .nbt
-                // 변경대상: #div02 ul
-                /////////////////////////////////////
-                // 1. 대상선정 : 
-                // 1-1. 새로 생성버튼
-                const btnNew=qs('.nbt');
-                // 1-2. 변경대상 :
-                const box2=qs('#div02 ul');
+        //////// 새리스트 요소 생성하기 ///////
+        // 이벤트 종류: click
+        // 이벤트 대상: .nbt
+        // 변경대상: #div02 ul
+        /////////////////////////////////////
+        // 1. 대상선정 :
+        // 1-1. 새로 생성버튼
+        const btnNew = qs(".nbt");
+        // 1-2. 변경대상 :
+        const box2 = qs("#div02 ul");
 
-                // 2. 이벤트 걸기
-                addEvt(btnNew,'click',makeEle);
+        // 2. 이벤트 걸기
+        addEvt(btnNew, "click", makeEle);
 
-                // 3. 이벤트 함수 만들기
-                function makeEle(){
-                  // 새로운 li요소를 만들어서 넣기
-                  // 변경 대상 : ul
-                  // 메모리상 li를 DOM메서드를 이용해 먼저 요소 생성
+        // 3. 이벤트 함수 만들기
+        function makeEle() {
+          // 새로운 li요소를 만들어서 넣기
+          // 변경 대상 : ul
+          // 메모리상 li를 DOM메서드를 이용해 먼저 요소 생성
 
-                  // 1. 새로운 li요소 생성하여 변수에 할당
-                  const newEle=document.createElement('li');
+          // 1. 새로운 li요소 생성하여 변수에 할당
+          const newEle = document.createElement("li");
 
-                  // 이미지 랜덤수 만들기 - 1~5사이 수
-                  // Math.ceil(Math.random()*최대수) <<<1~최대수
-                  let rdmNum=Math.ceil(Math.random()*5);
+          // 2. 이미지 랜덤수 만들기 - 1~5사이 수
+          // Math.ceil(Math.random()*최대수) <<<1~최대수
+          let rdmNum = Math.ceil(Math.random() * 5);
 
-                  // 이미지 alt설명 배열
-                  const avenName=["아이언맨","딱딱이","토르","닥스","스타로드"];
+          // 3. 이미지 alt설명 배열
+          const avenName = ["아이언맨", "딱딱이", "토르", "닥스", "스타로드"];
 
+          // [ 내부 태그넣기 방법 1 ]
+          // 메모리상에 생성된 li에 이미지 요소를 innerHTML에 넣기
+          // innerHtml로 넣기 > DOM에 직접넣기가 아닌 메모리상 태그 넣기도 가능한가?
+          // >>>> 가능함
+          // newEle.innerHTML=`
+          // <img src="images/ab${rdmNum}.jpg" alt="${avenName[rdmNum-1]}" title="${avenName[rdmNum-1]}">
+          // `;
 
+          // 4. [ 내부 태그넣기 방법 2 ] : 메모리상 이미지 생성
+          let imgEle = document.createElement("img");
+          // (( 이미지 속성 세팅하기 방법 1 ))
+          // imgEle.src = `images/ab${rdmNum}.jpg`;
+          // imgEle.alt = avenName[rdmNum-1];
+          // imgEle.title = avenName[rdmNum-1];
 
-                  // [ 내부 태그넣기 방법 1 ]
-                  // 메모리상에 생성된 li에 이미지 요소를 innerHTML에 넣기
-                  // innerHtml로 넣기 > DOM에 직접넣기가 아닌 메모리상 태그 넣기도 가능한가?
-                  // >>>> 가능함
-                  // newEle.innerHTML=`
-                  // <img src="images/ab${rdmNum}.jpg" alt="${avenName[rdmNum-1]}" title="${avenName[rdmNum-1]}">
-                  // `;
+          // (( 이미지 속성 세팅하기 방법 2 ))
+          // imgEle.setAttribute("src", `images/ab${rdmNum}.jpg`);
+          // imgEle.setAttribute("alt", avenName[rdmNum-1]);
+          // imgEle.setAttribute("title", avenName[rdmNum-1]);
 
-                  // [ 내부 태그넣기 방법 2 ] : 메모리상 이미지 생성
-                  let imgEle =document.createElement('img');
-                  // (( 이미지 속성 세팅하기 방법 1 ))
-                  // imgEle.src = `images/ab${rdmNum}.jpg`;
-                  // imgEle.alt = avenName[rdmNum-1];
-                  // imgEle.title = avenName[rdmNum-1];
+          // (( 이미지 속성 세팅하기 방법 3 )) ->> 메모리상 속성 세팅
+          // (1) 속성객체 변수에 할당하기
+          let isrc = document.createAttribute("src");
+          let ialt = document.createAttribute("alt");
+          let itit = document.createAttribute("title");
 
-                  // (( 이미지 속성 세팅하기 방법 2 ))
-                  // imgEle.setAttribute("src", `images/ab${rdmNum}.jpg`);
-                  // imgEle.setAttribute("alt", avenName[rdmNum-1]);
-                  // imgEle.setAttribute("title", avenName[rdmNum-1]);
-                  
-                  // (( 이미지 속성 세팅하기 방법 3 )) ->> 메모리상 속성 세팅
-                  // (1) 속성객체 변수에 할당하기
-                  let isrc = document.createAttribute("src");
-                  let ialt = document.createAttribute("alt");
-                  let itit = document.createAttribute("title");
+          // (2) 메모리상 속성에 값 세팅하기 : value로 세팅하기
+          isrc.value = `images/ab${rdmNum}.jpg`;
+          ialt.value = avenName[rdmNum - 1];
+          itit.value = "클릭하시면 지워집니다.";
 
-                  // (2) 메모리상 속성에 값 세팅하기 : value로 세팅하기
-                  isrc.value =`images/ab${rdmNum}.jpg`;
-                  ialt.value =avenName[rdmNum-1];
-                  itit.value =avenName[rdmNum-1];
+          // (3) 메모리상 생성된 이미지에 메모리상 세팅된 속성 매칭하기
+          // setAttributeNode(속성객체)
+          imgEle.setAttributeNode(isrc);
+          imgEle.setAttributeNode(ialt);
+          imgEle.setAttributeNode(itit);
 
-                  // (3) 메모리상 생성된 이미지에 메모리상 세팅된 속성 매칭하기
-                  // setAttributeNode(속성객체)
-                  imgEle.setAttributeNode(isrc);
-                  imgEle.setAttributeNode(ialt);
-                  imgEle.setAttributeNode(itit);
+          // 5. 메모리상 생성된 li에 메모리상 생성된 img 넣기
+          newEle.appendChild(imgEle);
 
+          // 6. 클릭 시 li 지우기 세팅하기 : 클릭된 요소 지우기
+          newEle.onclick=()=>newEle.remove();
 
-                  // (2) 메모리상 생성된 li에 메모리상 생성된 img 넣기
-                  newEle.appendChild(imgEle);
+          // 7. 변경대상에 새로운 li 넣기
+          // appendChild(요소)
+          // >>>>> 기존 요소면 맨 뒤로 이동, 새 요소면 맨 뒤에 추가
+          box2.appendChild(newEle);
+        } //////////MakeEle 함수//////////////////
 
-                  // 변경대상에 새로운 li 넣기
-                  // appendChild(요소)
-                  // >>>>> 기존 요소면 맨 뒤로 이동, 새 요소면 맨 뒤에 추가
-                  box2.appendChild(newEle);
+        // [맨뒤이동 버튼 클릭시] /////////
+        // 맨앞요소를 맨뒤로 이동하기 ///
+        // 이벤트 대상: .mvl
+        // 변경대상: #div02 ul -> box2변수
 
-                }//////////MakeEle 함수//////////////////
-                
-                // [맨뒤이동 버튼 클릭시] /////////
-                // 맨앞요소를 맨뒤로 이동하기 ///
-                // 이벤트 대상: .mvl
-                // 변경대상: #div02 ul -> box2변수
-
-                /// [맨앞이동버튼 클릭시] ////////////
-                // 맨뒤li가 맨 앞으로 이동됨
-                // 이벤트 대상: .mvf
-                // 변경대상: #div02 ul -> box2변수
+        /// [맨앞이동버튼 클릭시] ////////////
+        // 맨뒤li가 맨 앞으로 이동됨
+        // 이벤트 대상: .mvf
+        // 변경대상: #div02 ul -> box2변수
         /************************************************** 
             ※ appendChild() 와 insertBefore()는 
             대상을 정하는 것에 따라 중간에 적용할 수 있다!
         ************************************************/
-
-
       } /////////////////////loadFn함수///////////////////
       //////////////////////////////////////////////////
     </script>
