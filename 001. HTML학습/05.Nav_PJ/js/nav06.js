@@ -4,9 +4,15 @@
 // 내 함수 불러오기
 import mFn from "./my_function.js";
 
+// gnb메뉴 생성함수 불러오기
+import makeMenu from "./gnb_menu.js";
+
 import setSlide from "./drag_slide.js";
 
 /////////////////[2] 기능구현 파트///////////////////////////
+
+// 메뉴 구현함수 호출
+makeMenu(mFn.qs('.gnb'));
 
 // 바로실행 구역함수1///////////////////////////
 (()=>{

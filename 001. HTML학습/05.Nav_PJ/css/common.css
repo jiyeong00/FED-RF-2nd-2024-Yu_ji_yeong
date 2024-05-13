@@ -42,6 +42,11 @@ body{
     gap: 0 20px;
     line-height: 60px;
 }
+.gnb ul {
+    display: flex;
+    gap: 0 20px;
+    line-height: 60px;
+}
 
 /* gnb공통 a */
 .gnb>ul>li:first-child>a{
@@ -54,7 +59,7 @@ body{
     left: 0;
     width: 100%;
     /* 숨김박스 */ 
-    height: 0;
+    /* height: 0; */
     overflow: hidden;
     background-color: #fff;
 
