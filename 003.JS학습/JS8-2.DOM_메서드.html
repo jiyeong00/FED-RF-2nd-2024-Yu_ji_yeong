@@ -324,18 +324,37 @@
           box2.appendChild(newEle);
         } //////////MakeEle 함수//////////////////
 
+        // 기존에 있는 li에 지우기 기능넣기
+        // box2 아래 있는 li 대상
+        qsaEl(box2,"li").forEach(ele=>{
+          // 지움설정
+          ele.onclick=()=>ele.remove();
+          // 툴팁넣기
+          qsEl(ele,"img"),title="클릭하시면 지워집니다.";
+
+        });///////forEach
+
         // [맨뒤이동 버튼 클릭시] /////////
         // 맨앞요소를 맨뒤로 이동하기 ///
         // 이벤트 대상: .mvl
         // 변경대상: #div02 ul -> box2변수
-
+        qs(".mvl").onclick=()=>{
+          box2.appendChild(qsaEl(box2,"li")[0]);
+        };
+        
         /// [맨앞이동버튼 클릭시] ////////////
         // 맨뒤li가 맨 앞으로 이동됨
         // 이벤트 대상: .mvf
         // 변경대상: #div02 ul -> box2변수
+        qs(".mvf").onclick=()=>{
+          let tg=qsaEl(box2,"li");
+          box2.insertBefore(tg[tg.length-1],tg[0]);
+        };
+        
+
         /************************************************** 
-            ※ appendChild() 와 insertBefore()는 
-            대상을 정하는 것에 따라 중간에 적용할 수 있다!
+         ※ appendChild() 와 insertBefore()는 
+         대상을 정하는 것에 따라 중간에 적용할 수 있다!
         ************************************************/
       } /////////////////////loadFn함수///////////////////
       //////////////////////////////////////////////////
