@@ -60,7 +60,7 @@ function slideFn(selEl) {
   // let indic = mFn.qsEl(sldWrap, ".indic");
 
   // 대상확인
-  console.log("대상:", abtn);
+  // console.log("대상:", abtn);
 
   // 1.4. 슬라이드 개수와 동일한 블릿동적생성
   // 대상: .indic -> indic변수

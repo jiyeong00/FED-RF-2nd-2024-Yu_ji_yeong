@@ -16,7 +16,7 @@
   하위 박스중 sticky박스가 작동하지 않음!
   따라서 body>* 박스에 이것을 준다! */
   body>* {
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
   }
   /* 스티키 박스 메뉴 아래쪽에 걸리게 top값 조정 */
   #dokebi-menu{
