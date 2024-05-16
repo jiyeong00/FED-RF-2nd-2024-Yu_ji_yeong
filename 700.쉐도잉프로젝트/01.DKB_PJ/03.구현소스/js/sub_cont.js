@@ -25,55 +25,86 @@ export default function showSubBox() {
   // 2. 이벤트 설정 및 함수 구현하기
   subViewBox.click(function () {
     let confPrt = $(this).parent().parent().is(".preview-box");
-    // 사용하고자 하는 데이터 이름을 ul태그의 data-db속성에 담아 놓고 이것을 읽어온다
-    let db = $(this).parent().attr('data-db');
 
+    //  [ 데이터명을 data-db에 넣고 읽어오기 ]
+    // 사용하고자 하는 데이터 이름을 ul태그의 data-db속성에 담아 놓고 이것을 읽어온다
+    let db = $(this).parent().attr("data-db");
 
     // 위를 JS문법에서 사용하면 아래와 같음
     // this.parentElement.parentElement.classList.contains(클래스명)
-
 
     console.log("나야나", db);
     // parent()는 바로 위 상위요소로 이동
 
     // if(confPrt){
-        // 1. 키속성값 읽어오기
-        let idx = $(this).attr("data-idx");
-        // attr(속성명) - 속성값 읽어오기 메서드
-        // attr(속성명,속성값) - 속성값 넣기 메서드
-        // console.log("속성값 읽어오기",idx,dkbData.previewData);
+    // 1. 키속성값 읽어오기
+    let idx = $(this).attr("data-idx");
+    // attr(속성명) - 속성값 읽어오기 메서드
+    // attr(속성명,속성값) - 속성값 넣기 메서드
+    // console.log("속성값 읽어오기",idx,dkbData.previewData);
 
-        // [ 배열순회 메서드 비교 ]
-        // forEach()는 모두 순회한다
-        // find()는 조건에 맞을때 return true하면 해당 배열값이 변수에 할당된다.
-        //  만약 일치하는 데이터가 없으면 undefined된다.
-        // dkbData.previewData.forEach(v=>{
-          // dkbData[db] <<< 해당데이터 매칭하기
-        let selData=dkbData[db].find(v=>{
-            if(v.idx==idx){
-                // console.log("찾았다",v);
-                return true;
-            }
-            console.log("돌아");
-        });
+    // [ 배열순회 메서드 비교 ]
+    // forEach()는 모두 순회한다
+    // find()는 조건에 맞을때 return true하면 해당 배열값이 변수에 할당된다.
+    //  만약 일치하는 데이터가 없으면 undefined된다.
+    // dkbData.previewData.forEach(v=>{
+    // dkbData[db] <<< 해당데이터 매칭하기
+    let selData = dkbData[db].find((v) => {
+      if (v.idx == idx) {
+        // console.log("찾았다",v);
+        return true;
+      }
+      console.log("돌아");
+    });
 
-        console.log("검색결과 : ",selData);
+    console.log("검색결과 : ", selData);
 
-        // 서브박스에 내용 넣기
-        subContBox.html(`
+    // 서브박스에 내용 넣기
+    subContBox
+      .html(
+        // 1. 미리보기 출력
+        db == "previewData"
+          ? `
         <button class="cbtn">×</button>
         <div class="sub-inbox inbox">
             <h1>${selData.title}</h1>
             <div class="sub-item">${selData.story}</div>
         </div>
-        `).show();
-        // .show()는 diplay를 보여주는 메서드
-        // .hide()는 display를 숨기는 메서드
-        // .toggle()는 display를 토글하는 메서드
+        `
+          : // 2. 현장포토 출력
+          db == "liveData"
+          ? `
+        <button class="cbtn">×</button>
+        <div class="sub-inbox inbox">
+            <h1> 현장포토 : ${selData.title}</h1>
+            <div class="sub-item">
+              <img src="./images/live_photo/${selData.imgName}.jpg" alt="${selData.title}" />
+            </div>
+        </div>
+        `
+          : // 3. 대표이미지 출력
+          db == "posterData"
+          ? `
+        <button class="cbtn">×</button>
+        <div class="sub-inbox inbox">
+            <h1> 대표 이미지 : ${selData.title}</h1>
+            <div class="sub-item">
+              <img src="./images/poster_img/${selData.imgName}.jpg" alt="${selData.title}" />
+            </div>
+        </div>
+        `
+        : //최신동영상
+        `
+        
+        `
+      )
+      .show();
+    // .show()는 diplay를 보여주는 메서드
+    // .hide()는 display를 숨기는 메서드
+    // .toggle()는 display를 토글하는 메서드
     // }//////////if
 
     // 닫기버튼 이벤트 설정하기
-    $(".cbtn").click(()=>subContBox.hide());
-
+    $(".cbtn").click(() => subContBox.hide());
   }); /////////click
 } ///////////////////showSubBox
