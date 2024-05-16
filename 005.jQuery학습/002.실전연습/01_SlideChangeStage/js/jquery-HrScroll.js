@@ -50,5 +50,5 @@ scTarget.on("wheel",(e)=>{
     // scTarget.animate({CSS설정},시간,이징,함수);
     // stop()메서드 : 큐에 쌓인 애니메이션을 지운다.
     // 중간에 쌓인 애니를 지우고 최종애니만 실행한다!
-    scTarget.stop().animate({scrollLeft: scPos+"px"},500);
+    scTarget.stop().animate({scrollLeft: scPos+"px"},2000,"easeOutQuad");
 });/////////////////////////wheel 이벤트 구역////////////////
