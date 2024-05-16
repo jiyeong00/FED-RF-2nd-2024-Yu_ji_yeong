@@ -93,9 +93,9 @@ export default function showSubBox() {
             </div>
         </div>
         `
-        : // 4. 최신동영상 출력
-        db == "clipData"
-        ? `
+          : // 4. 최신동영상 출력
+          db == "clipData"
+          ? `
       <button class="cbtn">×</button>
       <div class="sub-inbox inbox">
           <h1> 클립영상 : ${selData.title}</h1>
@@ -105,10 +105,11 @@ export default function showSubBox() {
           </div>
       </div>
       `
-      : `
+          : `
       <button class="cbtn">×</button>
       <div class="sub-inbox inbox">
         <h1>DB정보확인필요!</h1>
+          </div>
       </div>
       `
       )
