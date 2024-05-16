@@ -25,12 +25,18 @@ export default function showSubBox() {
   // 2. 이벤트 설정 및 함수 구현하기
   subViewBox.click(function () {
     let confPrt = $(this).parent().parent().is(".preview-box");
+    // 사용하고자 하는 데이터 이름을 ul태그의 data-db속성에 담아 놓고 이것을 읽어온다
+    let db = $(this).parent().attr('data-db');
+
+
     // 위를 JS문법에서 사용하면 아래와 같음
     // this.parentElement.parentElement.classList.contains(클래스명)
-    console.log("나야나", this,confPrt);
+
+
+    console.log("나야나", db);
     // parent()는 바로 위 상위요소로 이동
 
-    if(confPrt){
+    // if(confPrt){
         // 1. 키속성값 읽어오기
         let idx = $(this).attr("data-idx");
         // attr(속성명) - 속성값 읽어오기 메서드
@@ -42,7 +48,8 @@ export default function showSubBox() {
         // find()는 조건에 맞을때 return true하면 해당 배열값이 변수에 할당된다.
         //  만약 일치하는 데이터가 없으면 undefined된다.
         // dkbData.previewData.forEach(v=>{
-        let selData=dkbData.previewData.find(v=>{
+          // dkbData[db] <<< 해당데이터 매칭하기
+        let selData=dkbData[db].find(v=>{
             if(v.idx==idx){
                 // console.log("찾았다",v);
                 return true;
@@ -63,7 +70,7 @@ export default function showSubBox() {
         // .show()는 diplay를 보여주는 메서드
         // .hide()는 display를 숨기는 메서드
         // .toggle()는 display를 토글하는 메서드
-    }//////////if
+    // }//////////if
 
     // 닫기버튼 이벤트 설정하기
     $(".cbtn").click(()=>subContBox.hide());
