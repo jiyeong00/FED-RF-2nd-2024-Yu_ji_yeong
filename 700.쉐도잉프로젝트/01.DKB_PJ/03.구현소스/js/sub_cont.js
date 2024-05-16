@@ -93,10 +93,19 @@ export default function showSubBox() {
             </div>
         </div>
         `
-        : //최신동영상
-        `
-        
-        `
+        : // 4. 최신동영상 출력
+        db == "clipData"
+        ? `
+      <button class="cbtn">×</button>
+      <div class="sub-inbox inbox">
+          <h1> 클립영상 : ${selData.title}</h1>
+          <div class="sub-item">
+          <iframe src="https://www.youtube.com/embed/${selData.mvid}" allow="autoplay"></iframe>
+          <h2>${selData.subtit}</h2>
+          </div>
+      </div>
+      `
+      : ``
       )
       .show();
     // .show()는 diplay를 보여주는 메서드
