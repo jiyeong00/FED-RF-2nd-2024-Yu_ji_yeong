@@ -13,11 +13,20 @@ const scTarget=$("html, body");
 // 스크롤 위치값변수
 let scPos=0;
 
-let winW=$(window).width();
+let winW,maxLimit;
 let pgCnt=$(".page").length;
-console.log(winW,pgCnt)
-// 최대한계값 계산
-let maxLimit=winW*pgCnt - winW; 
+
+const chgLimit=()=>{
+    winW=$(window).width();
+    // 최대한계값 계산
+    maxLimit=winW*pgCnt - winW; 
+    console.log(winW,pgCnt);
+};/////////chgLimit함수
+
+chgLimit();
+
+// 윈도우 사이즈 변경시 가로 업데이트
+$(window).resize(chgLimit);
 
 
 scTarget.on("wheel",(e)=>{
