@@ -15,6 +15,10 @@ const scTarget=$("html, body");
 let scPos=0;
 
 let winW,maxLimit;
+// 한번에 움직일 스크롤 이동크기
+// 상수는 모두 대문자로 쓰고 중간은 언더바로 구분
+const MOVE_NUM=100;
+
 let pgCnt=$(".page").length;
 
 const chgLimit=()=>{
@@ -46,8 +50,8 @@ scTarget.on("wheel",(e)=>{
     // -> wheelDelta보다 나중에 나옴. 실질적인 표시객체
     let delta=event.deltaY;
 
-    if(delta>0) scPos+=200;
-    else scPos-=200;
+    if(delta>0) scPos+=MOVE_NUM;
+    else scPos-=MOVE_NUM;
 
     // 한계값 체크
     // (1) 최소한계 : 0
