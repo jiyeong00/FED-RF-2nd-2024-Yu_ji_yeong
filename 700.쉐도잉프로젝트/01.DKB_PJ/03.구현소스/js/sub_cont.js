@@ -22,6 +22,10 @@ export default function showSubBox() {
   // 1-2. 변경대상 .sub-cont
   const subContBox = $(".sub-cont");
 
+  // 전체 휠 이벤트 막기때문에 서브컨텐츠박스도 휠이 안먹힘
+  // 따라서 휠 이벤트 버블링 막기를 해야함
+  subContBox.on("wheel",(e=>e.stopPropagation()));
+
   // 2. 이벤트 설정 및 함수 구현하기
   subViewBox.click(function () {
     let confPrt = $(this).parent().parent().is(".preview-box");
@@ -81,7 +85,7 @@ export default function showSubBox() {
         <button class="cbtn">×</button>
         <div class="sub-inbox inbox">
             <h1>${selData.title}</h1>
-            <div class="sub-item">${selData.story}</div>
+            <div class="sub-item scbar">${selData.story}</div>
         </div>
         `
           : // 2. 현장포토 출력
@@ -90,7 +94,7 @@ export default function showSubBox() {
         <button class="cbtn">×</button>
         <div class="sub-inbox inbox">
             <h1> 현장포토 : ${selData.title}</h1>
-            <div class="sub-item">
+            <div class="sub-item scbar">
             ${iarr.map((v,i)=>`
             <img src="./images/live_photo/${selData.imgName[0]}/${i+1}.jpg" alt="${selData.title}" />
             `).join("")}
@@ -103,8 +107,8 @@ export default function showSubBox() {
         <button class="cbtn">×</button>
         <div class="sub-inbox inbox">
             <h1> 대표 이미지 : ${selData.title}</h1>
-            <div class="sub-item">
-              <img src="./images/poster_img/${selData.imgName}.jpg" alt="${selData.title}" />
+            <div class="sub-item scbar">
+              <img src="./images/poster_img/${selData.imgName}_big.jpg" alt="${selData.title}" />
             </div>
         </div>
         `
@@ -114,7 +118,7 @@ export default function showSubBox() {
       <button class="cbtn">×</button>
       <div class="sub-inbox inbox">
           <h1> 클립영상 : ${selData.title}</h1>
-          <div class="sub-item">
+          <div class="sub-item scbar">
           <iframe src="https://www.youtube.com/embed/${selData.mvid}" allow="autoplay"></iframe>
           <h2>${selData.subtit}</h2>
           </div>

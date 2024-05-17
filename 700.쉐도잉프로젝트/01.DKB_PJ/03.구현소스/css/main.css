@@ -371,7 +371,7 @@ body * {
 }
 /* 서브 내부박스 */
 .sub-inbox{
-    outline: 2px dashed yellow;
+    /* outline: 2px dashed yellow; */
     min-height: 100vh;
 }
 /* 제목박스 */
@@ -384,4 +384,8 @@ body * {
 .sub-item{
     font-size: 3rem;
     padding: 7vw;
+    text-align: center;
+    height: calc();
+    /* outline: 1px solid yellow; */
+    overflow: auto;
 }
