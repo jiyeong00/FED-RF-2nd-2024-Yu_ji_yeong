@@ -16,6 +16,8 @@ function MainComponent() {
   // [ 후크 상태관리 변수 세팅 ]
   // 1. 리스트 / 상세보기 전환용 상태관리변수
   const [viewList,setViewList] = React.useState(true);
+
+
   /************************************** 
         [ 코드구성 ]
         1. 타이틀 : h1.tit
