@@ -139,6 +139,8 @@ export default function showSubBox() {
     // }//////////if
 
     // 닫기버튼 이벤트 설정하기
-    $(".cbtn").click(() => subContBox.hide());
+    $(".cbtn").click(() => {
+      subContBox.hide().html('');
+    });
   }); /////////click
 } ///////////////////showSubBox

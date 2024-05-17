@@ -158,6 +158,9 @@ body * {
     /* height: 1043px; */
     
 }
+#spart-menu{
+    top: 50px;
+}
 /* 현장포토 그리드박스 */
 .live-box ul {
     display: grid;
@@ -385,7 +388,7 @@ body * {
     font-size: 3rem;
     padding: 7vw;
     text-align: center;
-    height: calc();
+    height: calc(100vh - 200px);
     /* outline: 1px solid yellow; */
     overflow: auto;
 }

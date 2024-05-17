@@ -133,6 +133,23 @@
         -> 하나의 값만 쓰면 모두 세팅 */
   gap: 1rem 2vw;
 }
+.ham {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border: none;
+  font-size: 40px;
+  color: #555;
+  transform: scaleX(1.5);
+  display: none;
+}
+
+.ham::before {
+  content: "≡";
+}
 
 /************ 2. 메인영역 ************/
 /* 2-1. 배너영역 */
@@ -145,7 +162,7 @@
   overflow: hidden;
 }
 /* 이벤트 커버박스 */
-.evt-cover{
+.evt-cover {
   position: absolute;
   /* 사방 땡기기 - 전부 끝에 닿게 함 */
   top: 0;
@@ -156,14 +173,14 @@
   display: flex;
 }
 /* 양분박스 aside */
-.evt-cover aside{
+.evt-cover aside {
   /* 등분할 */
   flex: 1;
   /* 커서모양 */
   cursor: pointer;
 }
 /* 버튼요소 */
-.ban-area .abtn{
+.ban-area .abtn {
   position: fixed;
   top: 0;
   left: 0;
@@ -175,8 +192,8 @@
   display: none; /* 처음에 숨기기 */
   /* 따라다니는 버튼 요소 오버시 무시 */
   pointer-events: none;
-  transition: .3s ease-out;
-  transform: translate(-50% ,-100%);
+  transition: 0.3s ease-out;
+  transform: translate(-50%, -100%);
 }
 /* 슬라이더 - 움직이는 박스 */
 .slider {
@@ -214,7 +231,7 @@
 }
 
 /* 블릿박스 */
-.indic-box{
+.indic-box {
   position: absolute;
   top: 20px;
   left: 30px;
@@ -222,18 +239,18 @@
   height: 5px;
   z-index: 9;
 }
-.indic{
+.indic {
   display: flex;
   gap: 0 15px;
 }
-.indic li{
+.indic li {
   width: 150px;
   height: 5px;
   background-color: #ffffff77;
 }
 /* 가상요소 바 */
-.indic li::before{
-  content: '';
+.indic li::before {
+  content: "";
   display: block;
   width: 0%;
   height: 5px;
@@ -242,9 +259,8 @@
 }
 
 /* li.on일 경우 가상요소 width 변경 */
-.indic li.on::before{
+.indic li.on::before {
   width: 100%;
-
 }
 
 /* 캐릭터박스 */
@@ -314,13 +330,12 @@
 
   border-radius: 10px 5px 5px 10px;
 
-  transition: .4s ease-in-out;
+  transition: 0.4s ease-in-out;
 }
 /* 상위 캐릭터 개별박스에 오버시 설명박스 보이기 */
 .cat-inbox article:hover .descbx {
   padding-top: 55%;
 }
-
 
 /***************** 비율 유지하게 박스 하나씩만 올라가게함 *****************/
 
@@ -328,26 +343,25 @@
 설명박스와 동일하게 설정하기 */
 .cat-inbox article .imbx {
   margin-top: 3%;
-  transition: .4s ease-in-out;
+  transition: 0.4s ease-in-out;
 }
 /* 상위 캐릭터 개별박스에 오버시 이미지박스 마이너스
 마진으로 위로 올리기 + 캐릭터 타이틀 마진탑도 */
 .cat-inbox article:hover .imbx,
-.cat-inbox article:hover .descbx h3{
+.cat-inbox article:hover .descbx h3 {
   margin-top: -55%;
 }
 /* 캐릭터 타이틀 */
-.descbx h3{
+.descbx h3 {
   margin-top: 0;
-  font-family: 'Gugi';
+  font-family: "Gugi";
   /* 글자크기 최대 2.4rem 기타는 2vw */
-  font-size: min(2.4rem,2vw);
+  font-size: min(2.4rem, 2vw);
   font-weight: normal;
   padding: 15px 10px 5px;
   letter-spacing: -1px;
-  transition: margin-top .4s ease-in-out;
+  transition: margin-top 0.4s ease-in-out;
 }
-
 
 .descbx p {
   font-family: "Single Day", "ZCOOL KuaiLe";
@@ -358,21 +372,21 @@
 }
 
 /********************** 2.5 도깨비 드라마 메뉴 : 스티키메뉴  **********************/
-#spart-menu{
+#spart-menu {
   /* 스티키 포지션 - 상단스크롤 걸림! */
   position: sticky;
   top: 0;
   background-color: #fff;
   z-index: 999;
 }
-.spart-menu ul{
+.spart-menu ul {
   /* 플렉스박스 */
   display: flex;
   padding: 12px 0;
-  transition: .4s ease-out;
+  transition: 0.4s ease-out;
 }
 /* 도깨비메뉴 상위메뉴a */
-.spart-menu ul>li>a{
+.spart-menu ul > li > a {
   color: #999;
   font-size: 1.8rem;
   display: block;
@@ -381,25 +395,25 @@
   white-space: nowrap;
 }
 /* 도깨비메뉴 상위li 오버시 a */
-.spart-menu ul>li:hover>a{
+.spart-menu ul > li:hover > a {
   color: #222;
 }
 /* 하위메뉴가 있는 li만 하위 표시하기 */
-.spart-menu ul>li.be-sub>a::after{
-  content: '∨';
+.spart-menu ul > li.be-sub > a::after {
+  content: "∨";
   display: inline-block;
-  transform: scale(.5,.3);
+  transform: scale(0.5, 0.3);
   margin-left: 3px;
 }
 /* 현재 선택된 메뉴 li.on 클래스 */
-.spart-menu ul>li.on>a{    
+.spart-menu ul > li.on > a {
   background-color: red;
   color: #fff;
   border-radius: 30px;
 }
 
 /* 도깨비 서브메뉴 */
-.spart-sub-menu{
+.spart-sub-menu {
   position: absolute;
   border: 1px solid red;
   border-radius: 20px;
@@ -410,17 +424,15 @@
   display: none;
 }
 /* 상위li에 마우스 오버시 서브 보이기 */
-.spart-menu ul>li:hover .spart-sub-menu{
+.spart-menu ul > li:hover .spart-sub-menu {
   display: block;
 }
 /* 도깨비 서브메뉴 a */
-.spart-sub-menu a{
+.spart-sub-menu a {
   display: block;
   padding: 10px 15px;
   font-size: 1.8rem;
 }
-
-
 
 /************* 3. 하단영역 *************/
 #footer-area {
@@ -431,21 +443,21 @@
 }
 
 /* 하단링크박스 */
-.info-link ul{
+.info-link ul {
   display: flex;
   flex-wrap: wrap;
   gap: 0 15px;
 }
-.info-link a{
+.info-link a {
   font-size: 1.4rem;
   line-height: 2.5;
   white-space: nowrap;
 }
 /* 바로가기 콤보박스 영역 */
-.combo-area{
+.combo-area {
   text-align: right;
 }
-.combo-area select{
+.combo-area select {
   width: 170px;
   height: 35px;
   border-radius: 5px;
@@ -455,21 +467,21 @@
   margin: 5px;
 }
 /* 하단로고박스 */
-.footer__logo{
+.footer__logo {
   padding: 20px 0;
 }
 /* 회사주소박스 */
-.corp-info{
+.corp-info {
   font-style: normal;
   font-size: 1.5rem;
   line-height: 1.8;
 }
 /* SNS박스 */
-.sns-box ul{
+.sns-box ul {
   display: flex;
   gap: 0 5px;
 }
-.sns-box li{
+.sns-box li {
   width: 35px;
   height: 35px;
   /* 플렉스 강제줄이기 해제 */

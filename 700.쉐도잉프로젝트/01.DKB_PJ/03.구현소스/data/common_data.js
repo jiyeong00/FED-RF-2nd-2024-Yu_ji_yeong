@@ -36,6 +36,7 @@ const comData={
         <nav class="gnb"></nav>
       </div>
     </div>
+    <button class="ham"></button>
   </header>
 
     `,
