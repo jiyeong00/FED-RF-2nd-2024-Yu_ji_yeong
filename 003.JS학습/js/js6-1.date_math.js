@@ -52,7 +52,10 @@ function showTime() {
   let S = 5; //today.getSeconds();
   tt[4].innerText = H >= 12 ? "오후" : "오전";
   H=H >= 12 ? H - 12 : H;
-  tt[5].innerText = H < 10 ? "0" + H : H;
-  tt[6].innerText = M < 10 ? "0" + M : M;
-  tt[7].innerText = S < 10 ? "0" + S : S;
+//   0붙이기 리턴함수
+const addZero=x=>x<10?"0"+x:x;
+
+  tt[5].innerText = addZero(H);
+  tt[6].innerText = addZero(M);
+  tt[7].innerText = addZero(S);
 } /////////////showTime함수///////////
