@@ -182,11 +182,12 @@ imbx.innerHTML = rimg
 const target =mFn.qsa('.imbx div');
 console.log("랜덤대상 타겟",target);
 
+let beNum=9;
+
 randomAddOn();
 setInterval(randomAddOn,1000);
 
 // 전에 발생한 난수 저장변수
-let beNum=9;
 
 // 5. 랜덤 처리함수 만들기
 function randomAddOn(){
@@ -203,7 +204,7 @@ function randomAddOn(){
 
     // while문 통과후 결정된 난수를 직전난수 변수에 할당
     beNum=rdm;
-    
+
     // 3. 랜덤으로 발생한 난수에 해당하는 div에 on클래스를 추가한다
     // (나머지 on제거)
     target.forEach((v,i)=>{
