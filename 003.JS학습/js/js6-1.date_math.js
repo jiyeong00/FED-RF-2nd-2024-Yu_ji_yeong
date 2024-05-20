@@ -11,6 +11,9 @@ const tt = mFn.qsa(".tt");
 
 // 4. 시간날짜 함수 함수 최소 호출
 showTime();
+// 시간날짜함수 인터발호출
+setInterval(showTime, 1000);
+
 // 시간날짜 함수/////
 function showTime() {
   // 1. 날짜 내장객체로 날짜객체인스턴스 생성하기
@@ -47,9 +50,9 @@ function showTime() {
   // >>>> 만약 월을 숫자로 출력하려면 1만 더하면 된다
 
   // 3. 시간/분/초 찍기
-  let H = 15; //today.getHours();
-  let M = 2; //today.getMinutes();
-  let S = 5; //today.getSeconds();
+  let H = today.getHours();
+  let M =today.getMinutes();
+  let S =today.getSeconds();
   tt[4].innerText = H >= 12 ? "오후" : "오전";
   H=H >= 12 ? H - 12 : H;
 //   0붙이기 리턴함수
@@ -58,4 +61,5 @@ const addZero=x=>x<10?"0"+x:x;
   tt[5].innerText = addZero(H);
   tt[6].innerText = addZero(M);
   tt[7].innerText = addZero(S);
+
 } /////////////showTime함수///////////
