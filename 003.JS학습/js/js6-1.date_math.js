@@ -185,13 +185,26 @@ console.log("랜덤대상 타겟",target);
 randomAddOn();
 setInterval(randomAddOn,1000);
 
+// 전에 발생한 난수 저장변수
+let beNum=9;
+
 // 5. 랜덤 처리함수 만들기
 function randomAddOn(){
     // 1. 먼저 난수를 발생시킨다.
     let rdm=Math.floor(Math.random()*4);
     console.log("난수: ",rdm);
 
-    // 2. 랜덤으로 발생한 난수에 해당하는 div에 on클래스를 추가한다
+    // 2. 전에 발생한 난수와 같으면 다시한번 난수발생
+    // 직전 난수는 beNum에 저장함
+    while(rdm==beNum){
+        rdm=Math.floor(Math.random()*4);
+        console.log("다시난수: ",rdm);
+    }////////while////////////
+
+    // while문 통과후 결정된 난수를 직전난수 변수에 할당
+    beNum=rdm;
+    
+    // 3. 랜덤으로 발생한 난수에 해당하는 div에 on클래스를 추가한다
     // (나머지 on제거)
     target.forEach((v,i)=>{
         if(i==rdm) target[i].classList.add('on');
