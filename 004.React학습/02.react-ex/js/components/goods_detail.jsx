@@ -12,6 +12,11 @@ export default function GoodsDetail({ backList, gNo, selItem }) {
   // 선택코드에 따른 데이터 선택하기
   const selData = selItem == "공유" ? guData : selItem == "효진" ? hjData : [];
 
+  // useEffect구역 : 화면 업데이트후 실행구역
+  React.useEffect(()=>{
+    console.log("나는 디테일 컴포넌트다");
+  });/////////useEffect////////////
+
   return (
     <ol
       style={{ display: "flex", listStyle: "none", justifyContent: "center" }}

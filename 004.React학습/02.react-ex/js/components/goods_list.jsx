@@ -14,6 +14,16 @@ export default function GoodsList({ viewDetail, updateIdx, selItem }) {
   // 선택코드에 따른 데이터 선택하기
   const selData = selItem == "공유" ? guData : selItem == "효진" ? hjData : [];
 
+  // useEffect구역 : 화면 업데이트후 실행구역
+  React.useEffect(() => {
+    console.log("나는 리스트 컴포넌트다");
+
+    // useEffect 함수구역에 return함수코드를 쓰면 컴포넌츠 소멸 시 실행된다.
+    return(()=>{
+        console.log("리스트 컴포넌트 소멸");
+    });
+  }); /////////useEffect////////////
+
   return (
     <ul>
       {
@@ -35,9 +45,11 @@ export default function GoodsList({ viewDetail, updateIdx, selItem }) {
                 <li>
                   {selItem == "공유" ? (
                     <img src={`./images/vans/vans_${v.idx}.jpg`} alt="신발" />
-                  ) : selItem == "효진" ?(
-                    <img src={`./images/gallery/${v.idx}.jpg`} alt="드레스" />):"없음"
-                  }
+                  ) : selItem == "효진" ? (
+                    <img src={`./images/gallery/${v.idx}.jpg`} alt="드레스" />
+                  ) : (
+                    "없음"
+                  )}
                 </li>
                 <li>{v.gname}</li>
                 <li>가격 : {v.gprice}원</li>

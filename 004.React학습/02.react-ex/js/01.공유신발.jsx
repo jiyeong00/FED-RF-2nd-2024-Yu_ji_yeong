@@ -2,6 +2,8 @@
 import GoodsList from "./components/goods_list";
 import GoodsDetail from "./components/goods_detail";
 
+import * as comFn from "./common/com_fn";
+
 // 주의사항 CDN에서 여기 import대상은 모두 html페이지에서 불러와야 사용할 수 있다.
 
 // [ 메인 컴포넌트 ] ////////
@@ -53,15 +55,8 @@ function MainComponent() {
   // [ 2. useEffect : 의존성이 있는 경우 ]
   React.useEffect(() => {
     console.log("의존성 useEffect실행 : selItem");
-    // 글자커지기 테스트
-    $(".tit span")
-      .css({ display: "inline-block" })
-      .animate({ scale: "200%" }, 1000)
-      .animate({ scale: "100%" }, 1000);
-
-    // 초이스 메인이미지 애니
-    $(".img-box img").delay(700).fadeTo(1000,1);
-    // fadeTo(시간,투명도) -> opacity만 조절하는 애니메서드
+    // 초이스 인트로 애니 함수 호출
+    comFn.choiceIntroAni();
 
   }, [selItem, test]);
   // React.useEffect(함수,[의존성변수])
@@ -76,9 +71,7 @@ function MainComponent() {
   React.useEffect(() => {
     console.log("의존성비어서 한번만 실행");
     // 로고 최초한번만 애니
-    $("#logo")
-      .animate({ scale: "200%", rotate: "360deg" }, 1000)
-      .animate({ scale: "100%", rotate: "0deg" }, 1000);
+    comFn.logoAni();
   }, []);
   //  -> React.useEffect(함수,[])
   // -> 최초 로딩시 한번만 실행
@@ -87,9 +80,10 @@ function MainComponent() {
   // 매번화면 업데이트시 사용할 경우 의존성을 새팅하지 않는다
   // 별도로 화면 업데이트시 특정한 경우에만 사용하기 위해 의존성 세팅을 통하여 useEffect와 같은 방법을 사용한다.
     React.useLayoutEffect(()=>{
-    $(".img-box img").css({ opacity: 0 });
-    window.scrollTo(0,0);
-  });
+    console.log("화면업데이트 전 실행구역");
+      // 초기화함수 호출
+      comFn.initFn();
+  },[selItem]);
 
   ////////////////////////////////////////////////////////////////////////
   // 코드리턴구역 ////////////////
@@ -118,7 +112,7 @@ function MainComponent() {
 
       {/* 2. 내용박스 */}
       <section>
-        <h2>
+        <h2 className="stit">
           {selItem == "공유"
             ? "공유는 오늘도 멋찝니다!"
             : selItem == "효진"
