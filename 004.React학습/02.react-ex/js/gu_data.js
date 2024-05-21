@@ -266,7 +266,7 @@ const guData= [
         "A/S 책임자와 전화번호": "(유)브이에프코리아 / 온라인 스토어 고객센터 1522-1882",
         "Model": "VN000CYU1149"
     }
-]
+];
 
 // 내보내기
 export default guData;

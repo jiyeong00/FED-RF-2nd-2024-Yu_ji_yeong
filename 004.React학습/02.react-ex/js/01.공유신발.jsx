@@ -38,7 +38,14 @@ function MainComponent() {
   return (
     <React.Fragment>
       {/* 1. 타이틀 */}
-      <h1 className="tit">공유가 신고 다닌다는!</h1>
+      <h1 className="tit">
+        {selItem == "공유"
+          ? "공유가 신고 다닌다는!"
+          : selItem == "효진"
+          ? "효진이 입고 다닌다는!"
+          : "없음"}
+      </h1>
+
       {/* 2. 내용박스 */}
       <section>
         <h2>
@@ -69,7 +76,7 @@ function MainComponent() {
         {
           // 상태관리변수 viewList값이 true이면 리스트보기
           viewList ? (
-            <GoodsList viewDetail={setViewList} updateIdx={setIdx} />
+            <GoodsList viewDetail={setViewList} updateIdx={setIdx} selItem={selItem} />
           ) : (
             <GoodsDetail backList={setViewList} gNo={idx} />
           )
