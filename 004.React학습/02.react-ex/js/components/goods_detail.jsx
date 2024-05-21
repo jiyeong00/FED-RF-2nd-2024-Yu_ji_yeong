@@ -18,7 +18,15 @@ export default function GoodsDetail({ backList, gNo, selItem }) {
     >
       <li>
         <img
-          src={(selItem=="공유"?"./images/vans/vans_":selItem=="효진"?"./images/gallery/":"") + selData[gNo].idx + ".jpg"}
+          src={
+            (selItem == "공유"
+              ? "./images/vans/vans_"
+              : selItem == "효진"
+              ? "./images/gallery/"
+              : "") +
+            selData[gNo].idx +
+            ".jpg"
+          }
           alt="반스신발"
           style={{ width: "100%" }}
         />
@@ -27,18 +35,23 @@ export default function GoodsDetail({ backList, gNo, selItem }) {
         상품명 : {selData[gNo].gname}
         <br />
         가격 : {selData[gNo].gprice} <br />
-        소재 : {selData[gNo].소재} <br />
-        색상 : {selData[gNo].색상} <br />
-        치수 : {selData[gNo].치수} <br />
-        재조자/수입자 : {selData[gNo]["제조자/수입자"]}
-        <br />
-        제조국 : {selData[gNo].제조국}
-        <br />
-        제조연월 : {selData[gNo].제조연월}
-        <br />
-        A/S 책임자와 전화번호 :{selData[gNo]["A/S 책임자와 전화번호"]} <br />
-        Model : {selData[gNo].Model}
-        <br />
+        {selItem == "공유" && (
+          <div>
+            소재 : {selData[gNo].소재} <br />
+            색상 : {selData[gNo].색상} <br />
+            치수 : {selData[gNo].치수} <br />
+            재조자/수입자 : {selData[gNo]["제조자/수입자"]}
+            <br />
+            제조국 : {selData[gNo].제조국}
+            <br />
+            제조연월 : {selData[gNo].제조연월}
+            <br />
+            A/S 책임자와 전화번호 :{selData[gNo]["A/S 책임자와 전화번호"]}{" "}
+            <br />
+            Model : {selData[gNo].Model}
+            <br />
+          </div>
+        )}
         <div className="btnbx" style={{ textAlign: "right", padding: "15px" }}>
           <button
             onClick={() => backList(true)}
