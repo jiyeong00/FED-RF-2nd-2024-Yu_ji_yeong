@@ -78,7 +78,7 @@ function MainComponent() {
           viewList ? (
             <GoodsList viewDetail={setViewList} updateIdx={setIdx} selItem={selItem} />
           ) : (
-            <GoodsDetail backList={setViewList} gNo={idx} />
+            <GoodsDetail backList={setViewList} gNo={idx} selItem={selItem} />
           )
           // false이면 상품 상세리스트 보기
         }
