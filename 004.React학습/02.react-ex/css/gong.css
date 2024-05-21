@@ -37,6 +37,7 @@ body {
   max-width: 100%;
   max-height: 70vh;
   border-radius: 20px;
+  height: 60vmin;
 }
 /* 버튼박스 */
 .btn-box {

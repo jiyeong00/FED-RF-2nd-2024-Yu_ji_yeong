@@ -36,6 +36,7 @@ export default function GoodsDetail({ backList, gNo, selItem }) {
         <br />
         가격 : {selData[gNo].gprice} <br />
         {selItem == "공유" && (
+          // 코드를 가져올때 최상위를 만들어서 가져오면 쉽게 세팅할 수 있다
           <div>
             소재 : {selData[gNo].소재} <br />
             색상 : {selData[gNo].색상} <br />
