@@ -17,6 +17,8 @@ function MainComponent() {
   const [viewList, setViewList] = React.useState(true);
   // 2. 상품데이터 인덱스값 상태관리변수
   const [idx, setIdx] = React.useState(0);
+  // 3. 선택 아이템 고유이름 상태관리변수
+  const [selItem, setSelItem] = React.useState("공유");
 
   /************************************** 
         [ 코드구성 ]
@@ -39,14 +41,28 @@ function MainComponent() {
       <h1 className="tit">공유가 신고 다닌다는!</h1>
       {/* 2. 내용박스 */}
       <section>
-        <h2>공유는 오늘도 멋찝니다!</h2>
+        <h2>
+          {selItem == "공유"
+            ? "공유는 오늘도 멋찝니다!"
+            : selItem == "효진"
+            ? "효진은 오늘도 쨍~합니다!"
+            : "없음"}
+        </h2>
         <div className="img-box">
-          <img src="./images/vans/gongyoo.jpg" alt="멋진공유" />
+          {selItem == "공유" ? (
+            <img src="./images/vans/gongyoo.jpg" alt="멋진공유" />
+          ) : selItem == "효진" ? (
+            <img src="./images/gallery/hyo.jpg" alt="엘레강스한 효진" />
+          ) : (
+            "없음"
+          )}
         </div>
       </section>
       {/* 3. 기능버튼박스 */}
       <div className="btn-box">
-        <button>효진초이스 바로가기</button>
+        <button onClick={() => setSelItem(selItem == "공유" ? "효진" : "공유")}>
+          {selItem == "공유" ? "효진" : "공유"}초이스 바로가기
+        </button>
       </div>
       {/* 4. 상품리스트박스 */}
       <div className="gwrap">
@@ -63,10 +79,6 @@ function MainComponent() {
     </React.Fragment>
   );
 } ////////// MainComponent 컴포넌트 /////////////
-
-
-
-
 
 // 메인 컴포넌트 출력하기 ////////////
 ReactDOM.render(<MainComponent />, document.querySelector("#root"));
