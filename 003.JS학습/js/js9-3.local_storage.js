@@ -89,8 +89,8 @@ function localsFn() {
     // false일때 처리해야하므로 !을 붙여줌
     // 또는 빈 배열값일 경우도 생성함수호출 처리
     if (
-      !localStorage.getItem("mInfo") ||
-      localStorage.getItem("mInfo") == "[]"
+      !localStorage.getItem("minfo") ||
+      localStorage.getItem("minfo") == "[]"
     ) {
       // 최초 객체 데이터 만들기 함수 호출
       makeObj();
@@ -103,7 +103,7 @@ function localsFn() {
 
 // mInfo 로컬쓰 키가 없으면 객체를 만들어 넣기 함수
 function makeObj() {
-  console.log("mInfo 배열객체 만듬!");
+  console.log("minfo 배열객체 만듬!");
 
   let obj = [
     {
@@ -160,3 +160,27 @@ function bindData() {
 </table>
     `;
 } //////////////bindData//////////////
+
+///////게시판 입력버튼 클릭시 구현하기
+mFn.qs("#sbtn").onclick=()=>{
+    console.log("입력!");
+    // 로컬쓰에 제목,내용 입력하낟
+
+    // 1. 로컬쓰 데이터 읽어와서 배열로 변환하기
+    const localData=JSON.parse(localStorage.getItem("minfo"));
+
+    // 2. 입력할 데이터 객체 형식으로 배열에 넣기
+    // 배열.push({객체})
+    localData.push({
+        idx:localData.length+1,
+        tit:mFn.qs("#tit").value,
+        cont:mFn.qs("#cont").value
+    });
+
+    // 3. 배열데이터를 문자화하여 로컬쓰에 입력
+    localStorage.setItem("minfo",JSON.stringify(localData));
+
+    // 4. 회면출력 함수호출
+    bindData();
+};////////////click이벤트///////////////
+
