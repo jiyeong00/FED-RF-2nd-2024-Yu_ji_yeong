@@ -60,6 +60,7 @@ export default function TopArea() {
             </ul>
           </div>
         </div>
+        
         {/* <!-- 1-2.로고박스 --> */}
         <h1 className="logo">
           <a href="#">
