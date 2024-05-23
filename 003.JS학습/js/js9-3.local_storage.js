@@ -163,31 +163,32 @@ function bindData() {
   // 4. 지우기 버튼 세팅하기
   mFn.qsa(".del-link a").forEach((ele) => {
     ele.onclick = (e) => {
-        // 1. 기본이동막기
-        e.preventDefault();
-        // 2. 지울 순번속성(data-idx)읽어오기
-        let idx = ele.getAttribute("data-idx");
-        
-        // 3. 로컬스토리지 읽어와서 파싱하기
-        let localData = JSON.parse(localStorage.getItem("minfo"));
+      // 1. 기본이동막기
+      e.preventDefault();
+      // 2. 지울 순번속성(data-idx)읽어오기
+      let idx = ele.getAttribute("data-idx");
 
-        // 4. 메모리에 있는 배열값 지우기
-        //배열.splice(순번,개수);
-        //한 개 삭제이므로 splice(순번,1)
-        localData.splice(idx, 1);
+      // 3. 로컬스토리지 읽어와서 파싱하기
+      let localData = JSON.parse(localStorage.getItem("minfo"));
 
-        // 5. 배열값 로컬스토리지에 반영하기
-        localStorage.setItem("minfo",JSON.stringify(localData));
+      // 4. 메모리에 있는 배열값 지우기
+      //배열.splice(순번,개수);
+      //한 개 삭제이므로 splice(순번,1)
+      localData.splice(idx, 1);
 
-        // 6. 화면출력함수 호출
-        bindData();
-  
+      // 5. 배열값 로컬스토리지에 반영하기
+      localStorage.setItem("minfo", JSON.stringify(localData));
+
+      // 6. 화면출력함수 호출
+      bindData();
     };
-  });/////////forEach////////////////
+  }); /////////forEach////////////////
 } //////////////bindData//////////////
 
 // 게시판 최초호출
-bindData();
+if (localStorage.getItem("minfo")) {
+  bindData();
+} else makeObj();
 
 ///////게시판 입력버튼 클릭시 구현하기
 mFn.qs("#sbtn").onclick = () => {
@@ -197,10 +198,17 @@ mFn.qs("#sbtn").onclick = () => {
   // 1. 로컬쓰 데이터 읽어와서 배열로 변환하기
   const localData = JSON.parse(localStorage.getItem("minfo"));
 
+  // 입력값이 비었으면 돌려보내기
+  if (mFn.qs("#tit").value.trim() == "" || mFn.qs("#cont").value.trim() == "") {
+    alert("제목과 내용입력은 필수입니다");
+    return;
+  }
+
   // 2. 입력할 데이터 객체 형식으로 배열에 넣기
   // 배열.push({객체})
   localData.push({
-    idx: localData.length + 1,
+    // 순번은 배열 객체 idx값 중 최대값을 구하여 1 더한다.
+    idx: Math.max.apply(null,localData.map(v=>v.idx)) + 1,
     tit: mFn.qs("#tit").value,
     cont: mFn.qs("#cont").value,
   });
@@ -211,3 +219,29 @@ mFn.qs("#sbtn").onclick = () => {
   // 4. 회면출력 함수호출
   bindData();
 }; ////////////click이벤트///////////////
+
+
+// CRUD 크루드!
+// >>Create/ Read / Update/ Delete 
+//////////////////수정기능 구현하기///////////////////
+
+// 수정항목선택박스 업데이트함수 호출
+updateItemList();
+
+// 수정할 항목 업데이트 함수
+function updateItemList(){
+  // 대상 : 수정선택박스 - #sel
+  const selBox=mFn.qs("#sel");
+
+  // 데이터의 idx를 순회하며 option만들기
+  const localData=JSON.parse(localStorage.getItem("minfo"));
+
+
+  // >>map안에 {}가 있다면 return필수 뺐으면 return XXXX!!!
+  selBox.innerHTML=localData.map(v=>`
+    <option value="${v.idx}">
+      ${v.idx}
+    </option>
+  `).join("");
+};//////////////updateItemList////////////
+
