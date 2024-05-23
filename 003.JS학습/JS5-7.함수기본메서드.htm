@@ -189,18 +189,63 @@
         // >>>> null을 적은 이유는 this로 보낼 값이 없어서
 
         // * 객체배열
-        exBox[5].innerText=`내가받았던 연봉 중 최대값은 ${Math.max.apply(null,myObj.map(v=>v.pay))}만원이다
+        exBox[6].innerText=`내가받았던 연봉 중 최대값은 ${Math.max.apply(null,myObj.map(v=>v.pay))}만원이다
         
         내가 받았던 최소연봉은 ${Math.min.apply(null,myObj.map(v=>v.pay))}만원이었다.
         `;
         // >>>>> map()으로 배열의 각 주소에 있는 특정 속성값을 배열값으로 리턴받아 출력하면 특정값으로 이루어진 일반 배열이 되어 값을 비교할 수 있다.
-        
-        
-        // 테스트배열
-        let arrTest =[21,56,12,8,99,2];
-        console.log("중 최대값은?",Math.max(21,56,12,8,99,2));
-        // 배열을 직접쓰면 적용되지 않는다.
-        console.log("중 최대값은?",Math.max(arrTest));
+            
+        // // 테스트배열
+        // let arrTest =[21,56,12,8,99,2];
+        // console.log("중 최대값은?",Math.max(21,56,12,8,99,2));
+        // // 배열을 직접쓰면 적용되지 않는다.
+        // console.log("중 최대값은?",Math.max(arrTest));
+
+
+////////////////////////////bind()메서드/////////////////////////////////////
+        // 객체에 기존 속성이 있어서 this가 확정되어 있는 경우
+        // 이를 변경하여 메서드를 사용할 때 bind()를 쓴다!
+        const 합격자들 = {
+          성: "김",
+          명: "재원",
+          이름다: function () {
+            return this.성 + " " + this.명;
+          },
+          시간차: function () {
+            setTimeout(
+              function () {
+                exBox[9].innerText = this.성 + " " + this.명;
+                // 비동기호출 실행일 경우 큐로 코드가 이동되므로 this의 의미가 상실하여 이를 bind(this)로 묶어서 보내면 원하는 대로 this를 읽어서 실행한다.
+             }.bind(this),
+              2000
+            );
+          },
+          화살표: function () {
+            setTimeout(() => {
+              exBox[10].innerText = this.성 + " " + this.명;
+            }, 3000);
+          },
+        };
+
+        const 개인1 = {
+          성: "최",
+          명: "수연",
+        };
+        const 개인2 = {
+          성: "정",
+          명: "성호",
+        };
+        const 개인3 = {
+          성: "이",
+          명: "나영",
+        };
+
+        // this가 확정된 객체의 메서드를 그냥 호출하기
+        exBox[7].innerText=합격자들.이름다();
+        // this의 의미가 bind()로 묶어서 보낸 객체로 변경되어 호출된다.
+        exBox[8].innerText=합격자들.이름다.bind(개인1)();
+        // setTimeout으로 시간차 실행함수 호출하기
+        합격자들.시간차.bind(개인2)();
 
       }); //////////////////load////////////////////////////
     </script>
