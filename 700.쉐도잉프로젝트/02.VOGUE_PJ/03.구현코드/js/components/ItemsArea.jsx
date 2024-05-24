@@ -1,17 +1,34 @@
 // 아이템 페이지영역 컴포넌트
 
+import catData from "./data/category.js";
+
 // [3] 아이템 페이지영역 서브 컴포넌트 /////
-export default function ItemsArea() {
+export default function ItemsArea({ catName }) {
+  // catName - 카테고리 분류이름(데이터 객체명과 동일)
+
+  const selData = catData[catName];
+  console.log(selData);
+
   // 코드 리턴구역 /////
   return (
-<div id="main-area">
-      <main className="main-area ibx fashion">
+    <div id="main-area">
+      <main className={"main-area ibx " + selData.경로}>
         {/* <!-- 2-1. 카테고리 페이지 상단영역 --> */}
         <header className="cat-top-area">
           {/* <!-- 2-1-1. 서브타이틀 --> */}
-          <h2 className="cat-tit">Fashion</h2>
+          <h2 className="cat-tit">{selData.제목}</h2>
           {/* <!-- 2-1-2. 서브메뉴(LNB:Local Navigation Bar) --> */}
-          <nav className="lnb"></nav>
+          <nav className="lnb">
+            {
+              <ul>
+                {selData.메뉴.map((v)=>(
+                  <li>
+                    <a href="#">{v}</a>
+                  </li>
+                ))}
+              </ul>
+            }
+          </nav>
         </header>
         {/* <!-- 2-2. 카테고리 페이지 컨텐츠영역 --> */}
         <div className="cat-cont-area">
@@ -37,7 +54,6 @@ export default function ItemsArea() {
               <h2></h2>
             </div>
           </section>
-
         </div>
       </main>
     </div>
