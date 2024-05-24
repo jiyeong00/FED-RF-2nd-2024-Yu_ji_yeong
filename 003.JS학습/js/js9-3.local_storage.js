@@ -288,6 +288,12 @@ mFn.addEvt(selBox, "change", (e) => {
 
 // 수정버튼 클릭시 이벤트설정학
 mFn.qs("#mobtn").onclick = () => {
+  // 0. 입력값이 비었으면 돌려보내기
+  if (mFn.qs("#tit2").value.trim() == "" || mFn.qs("#cont2").value.trim() == "") {
+    alert("제목과 내용입력은 필수입니다");
+    return;
+  }
+
   // 1. 선택박스 선택값 읽어오기
   let optVal = selBox.value;
   console.log("수정해라", optVal);
@@ -300,6 +306,7 @@ mFn.qs("#mobtn").onclick = () => {
     mFn.qs("#cont2").value = "";
     return; // 여기서나감!
   } /// if ///
+
 
   // 3. 로컬쓰 데이터 읽어와서 배열로 변환
   const localData = JSON.parse(localStorage.getItem("minfo"));
@@ -322,6 +329,12 @@ mFn.qs("#mobtn").onclick = () => {
 
   // 6. 데이터바인딩 함수호출
   bindData();
+
+  // 7. 선택값 초기화
+  selBox.value = "opt";
+  // 8. 입력창 초기화
+  mFn.qs("#tit2").value = "";
+  mFn.qs("#cont2").value = "";
 }; ////////click//////////////
 
 ///////////////////////////////////
