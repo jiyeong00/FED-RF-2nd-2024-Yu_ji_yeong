@@ -165,6 +165,11 @@ function bindData() {
     ele.onclick = (e) => {
       // 1. 기본이동막기
       e.preventDefault();
+
+      // 지울지 여부 확인하기(confirm대화창 사용)
+      // confirm(메시지) -> 확인(true)/취소(false)
+      if (!confirm("정말 지우시겠습니까?")) return;
+
       // 2. 지울 순번속성(data-idx)읽어오기
       let idx = ele.getAttribute("data-idx");
 
@@ -181,6 +186,9 @@ function bindData() {
 
       // 6. 화면출력함수 호출
       bindData();
+
+      // 7. 수정선택박스 업데이트하기
+      updateItemList();
     };
   }); /////////forEach////////////////
 } //////////////bindData//////////////
@@ -208,7 +216,11 @@ mFn.qs("#sbtn").onclick = () => {
   // 배열.push({객체})
   localData.push({
     // 순번은 배열 객체 idx값 중 최대값을 구하여 1 더한다.
-    idx: Math.max.apply(null,localData.map(v=>v.idx)) + 1,
+    idx:
+      Math.max.apply(
+        null,
+        localData.map((v) => v.idx)
+      ) + 1,
     tit: mFn.qs("#tit").value,
     cont: mFn.qs("#cont").value,
   });
@@ -218,30 +230,119 @@ mFn.qs("#sbtn").onclick = () => {
 
   // 4. 회면출력 함수호출
   bindData();
+
+  // 5. 기존 입력데이터 지워주기
+  mFn.qs("#tit").value = "";
+  mFn.qs("#cont").value = "";
+
+  // 7. 수정선택박스 업데이트하기
+  updateItemList();
 }; ////////////click이벤트///////////////
 
-
 // CRUD 크루드!
-// >>Create/ Read / Update/ Delete 
+// >>Create/ Read / Update/ Delete
 //////////////////수정기능 구현하기///////////////////
+
+// 수정선택박스 - #sel
+const selBox = mFn.qs("#sel");
 
 // 수정항목선택박스 업데이트함수 호출
 updateItemList();
 
-// 수정할 항목 업데이트 함수
-function updateItemList(){
-  // 대상 : 수정선택박스 - #sel
-  const selBox=mFn.qs("#sel");
+// ♣ 수정선택박스 선택변경시 이벤트 설정하기
+mFn.addEvt(selBox, "change", (e) => {
+  // 1. 옵션값 읽어오기
+  let optVal = e.target.value;
+  console.log("선택값:", optVal);
 
-  // 데이터의 idx를 순회하며 option만들기
-  const localData=JSON.parse(localStorage.getItem("minfo"));
+  // 2. 선택항목이 아닌 경우 걸러내기
+  if (optVal == "opt") {
+    alert("수정할 항목을 선택하세요!");
+    // 입력창 초기화
+    mFn.qs("#tit2").value = "";
+    mFn.qs("#cont2").value = "";
+    return; // 여기서나감!
+  } /// if ///
 
+  // 3. 로컬쓰 데이터 읽어와서 배열로 변환
+  const localData = JSON.parse(localStorage.getItem("minfo"));
+
+  console.log(localData);
+
+  // 4. 배열데이터에서 읽어온 옵션값 idx와 비교하여
+  // 데이터 선택하기
+  // -> 변수 = 배열.find(v=>{if(조건){return true}})
+  let selRec = localData.find((v) => {
+    console.log(v.idx);
+    if (v.idx == optVal) return true;
+    // 선택idx와 순회하는 배열idx와 일치할 경우
+    // 이것을 저장하는 시그널은 return true다!
+  }); //// find ////
+
+  console.log("선택data:", selRec);
+
+  // 5. 선택 데이터로 수정창에 기존데이터 넣기
+  mFn.qs("#tit2").value = selRec.tit;
+  mFn.qs("#cont2").value = selRec.cont;
+}); ///////////// change ////////////
+
+// 수정버튼 클릭시 이벤트설정학
+mFn.qs("#mobtn").onclick = () => {
+  // 1. 선택박스 선택값 읽어오기
+  let optVal = selBox.value;
+  console.log("수정해라", optVal);
+
+  // 2. 선택항목이 아닌 경우 걸러내기
+  if (optVal == "opt") {
+    alert("수정할 항목을 선택하세요!");
+    // 입력창 초기화
+    mFn.qs("#tit2").value = "";
+    mFn.qs("#cont2").value = "";
+    return; // 여기서나감!
+  } /// if ///
+
+  // 3. 로컬쓰 데이터 읽어와서 배열로 변환
+  const localData = JSON.parse(localStorage.getItem("minfo"));
+
+  // 4. 배열데이터에서 읽어온 옵션값 idx와 비교하여 데이터 선택하기
+  //  >>> 하나만 선택하는것 - 배열.find(v=>{if() return true})
+  localData.find((v) => {
+    if (v.idx == optVal) {
+      //  해당항목값 업데이트하기
+      v.tit = mFn.qs("#tit2").value;
+      v.cont = mFn.qs("#cont2").value;
+      // 변수에 find()할당 시 저장하거나 여기서 순회를 끝낸다는 의미
+      return true;
+    }
+  });
+
+  console.log("변경후 : ", localData);
+
+  localStorage.setItem("minfo", JSON.stringify(localData));
+
+  // 6. 데이터바인딩 함수호출
+  bindData();
+}; ////////click//////////////
+
+///////////////////////////////////
+// 수정할 항목 업데이트 함수 //
+///////////////////////////////////
+function updateItemList() {
+  // 1. 대상 : 수정선택박스 - #sel -> selBox
+
+  // 2. 데이터의 idx를 순회하며 option만들기
+  const localData = JSON.parse(localStorage.getItem("minfo"));
 
   // >>map안에 {}가 있다면 return필수 뺐으면 return XXXX!!!
-  selBox.innerHTML=localData.map(v=>`
+  selBox.innerHTML =
+    `<option value="opt">수정항목 선택</option>` +
+    localData
+      .map(
+        (v) => `
     <option value="${v.idx}">
       ${v.idx}
     </option>
-  `).join("");
-};//////////////updateItemList////////////
-
+  `
+      )
+      .join("");
+} //////////////updateItemList////////////
