@@ -1,9 +1,10 @@
 // 보그 JS 갤러리 컴포넌트
 
 export default function Gallery() {
+  let swiper;
   // 스와이퍼 인스턴스 생성함수
   const setSwiper = () => {
-    var swiper = new Swiper(".mySwiper", {
+    swiper = new Swiper(".mySwiper", {
         // 한 화면당 슬라이드 수(아래 breakpoint로 설정함)
       slidesPerView: 1,
       //   슬라이드 간격
@@ -50,6 +51,14 @@ export default function Gallery() {
   // 화면 랜더링 전 실행구역
   React.useLayoutEffect(() => {
     setSwiper();
+    // 스와이퍼 API 테스트
+    // 갤러리 제목(.stit)클릭 시 다음 슬라이드 넘기기
+    $(".stit").click(()=>{
+      // 변수를 담은 스와이퍼 인스터스의 구체적인 API 메서드를 호출하여
+      // 기능을 수행한다
+      // swiper.slideNext();
+      swiper.slidePrev();
+    });
   }); /////////////useLayoutEffect
 
   // 코드리턴 구역
