@@ -1,6 +1,14 @@
 // 회원가입 컴포넌트
 
+
+// 유효성감사함수 불러오기
+import validateFn from "../validation";
+
 export default function Member(){
+
+  // 페이지 랜더링 후 실행구역
+  React.useEffect(validateFn,[]);
+
     // 코드리턴
     return(
         <div id="main-area">
