@@ -37,7 +37,7 @@ function App() {
           />
         </span>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          이제 리액트는 내것이오
         </p>
         <a
           className="App-link"
