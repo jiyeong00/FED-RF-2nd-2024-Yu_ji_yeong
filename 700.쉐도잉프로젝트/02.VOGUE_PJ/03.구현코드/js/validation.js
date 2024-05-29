@@ -32,7 +32,15 @@ form.logF input[type=password]`).blur(function () {
     // val() -> 입력값 읽어오기
     // trim() -> 앞뒤 공백 제거
     // cv는 current value, 현재 값
-    
+
+    // trim은 중간공백제거가 불가능
+    // 모든공백을 제거하는 함수를 만들어씀
+    const groSpace=x=>x.replace(/\s/g,"");
+    // 정규식은 /사이에 쓰며 \s(<<스페이스 다 찾기) / g는 전역(global) 플래그다
+    // 플래그는 기술용어로 처리표시기호를 뜻함
+
+    cv=cid=="mnm"?cv.trim():groSpace(cv);
+
     // 공백제거 후 입력창에 반영
     $(this).val(cv);
     /************************************* 
