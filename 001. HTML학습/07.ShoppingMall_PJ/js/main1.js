@@ -17,7 +17,7 @@ addEvt(window, "DOMContentLoaded", loadFn);
     2. 이벤트 대상: 이동버튼(.abtn)
     3. 변경 대상: 슬라이드 박스(#slide)
     4. 기능 설계:
-
+n
         (1) 오른쪽 버튼 클릭시 다음 슬라이드가
             나타나도록 슬라이드 박스의 left값을
             -100%로 변경시킨다.
