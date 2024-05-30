@@ -96,7 +96,7 @@ form.logF input[type=password]`).blur(function () {
     6. 비밀번호확인일 경우 유효성 검사
     - 검사기준: 비빌번호 항목과 일치여부
     ****************************************/
-      if (cv!=$("#mpw").val()) {
+      if (cv != $("#mpw").val()) {
         $(this).siblings(".msg").text("비밀번호가 일치하지 않습니다");
       } else {
         // 맞으면 메시지 삭제
@@ -117,6 +117,25 @@ form.logF input[type=password]`).blur(function () {
       $(this).siblings(".msg").text("");
     }
   }); //////blur.////////////////////////
+
+  /************************************** 
+        비밀번호 글자 보이기/숨기기 셋팅
+  **************************************/
+  $(".eye").css({
+    textDecoration: "line-through",
+    opacity: 0.5,
+    cursor: "pointer",
+  }).click(e=>{
+    let opa=$(e.target).css("opacity");
+    console.log(opa);
+    // 1. 글자보이기 전환 (투명도가 0.5일때 보이게함)
+    $("#mpw").attr("type",opa=="0.5"?"text":"password");
+    // 2. CSS디자인 전환
+    $(e.target).css({
+      textDecoration: opa=="0.5"?"none":"line-through",
+      opacity: opa=="0.5"?"1":"0.5"
+    });
+  });
 } //////////////////validateFn//////////////
 
 /*//////////////////////////////////////////////////////
