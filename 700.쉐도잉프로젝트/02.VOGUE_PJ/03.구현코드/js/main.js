@@ -1,6 +1,5 @@
 // 보그 PJ 메인 JS - main.js
 
-
 import TopArea from "./components/TopArea";
 import MainArea from "./components/MainArea";
 import FooterArea from "./components/FooterArea";
@@ -17,20 +16,39 @@ function Layout() {
   const [menu, setMenu] = React.useState("home");
 
   // 화면 랜더링 직전에 css로딩 변경하기
-  React.useLayoutEffect(()=>{
+  React.useLayoutEffect(() => {
     // menu 상태변수에 의존시킨다.
     // 메인 css대상요소 : #main-css
-    document.querySelector("#main-css").href=
-    menu=="home"?"./css/main.css":menu == "gallery"?"./css/gallery.css":menu == "login"?"./css/login.css":menu == "member"?"./css/member.css":"./css/intems.css";
-  },[menu]);
+    document.querySelector("#main-css").href =
+      menu == "home"
+        ? "./css/main.css"
+        : menu == "gallery"
+        ? "./css/gallery.css"
+        : menu == "login"
+        ? "./css/login.css"
+        : menu == "member"
+        ? "./css/member.css"
+        : "./css/intems.css";
 
+        window.scrollTo(0, 0);
+  }, [menu]);
 
   return (
     <React.Fragment>
       {/* // 1. 상단영역 컴포넌트 */}
-      <TopArea changeMenu={setMenu}/>
+      <TopArea changeMenu={setMenu} />
       {/* // 2. 메인영역 컴포넌트 */}
-      {menu == "home" ? <MainArea /> :menu == "gallery"?<Gallery/>:menu=="login"?<Login/>:menu=="member"?<Member/>: <ItemsArea catName={menu} />}
+      {menu == "home" ? (
+        <MainArea />
+      ) : menu == "gallery" ? (
+        <Gallery />
+      ) : menu == "login" ? (
+        <Login changeMenu={setMenu} />
+      ) : menu == "member" ? (
+        <Member changeMenu={setMenu} />
+      ) : (
+        <ItemsArea catName={menu} />
+      )}
       {/* // 3. 하단영역 컴포넌트 */}
       <FooterArea />
     </React.Fragment>

@@ -1,6 +1,11 @@
 // 보그 JS 로그인 컴포넌트
+import validateLogin from "../valid_login";
 
-export default function Login() {
+export default function Login({changeMenu}) {
+
+  // 페이지 랜더링 후 실행구역 ///
+  React.useEffect(()=>validateLogin(changeMenu),[]);
+
   // 코드 리턴구역
   return (
     <div id="main-area">
