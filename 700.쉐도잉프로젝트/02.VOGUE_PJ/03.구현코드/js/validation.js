@@ -151,7 +151,7 @@ form.logF input[type=password]`).blur(function () {
     // 2. 선택옵션별 분기
     // 2-1."선택해주세요"일 경우
     if (cv == "init") {
-      eml1.siblings(".msg").text("이메일 옵션선택 필수");
+      eml1.siblings(".msg").text("이메일 옵션선택 필수").removeClass("on");
       // 2-2. 직접입력창 숨기기
       eml2.fadeOut(300);
       // fadeOut(시간,이징,함수)
@@ -168,12 +168,11 @@ form.logF input[type=password]`).blur(function () {
       eml1.siblings(".msg").empty();
 
       // 3. 이메일 전체 주소 만들기
-      let comp =eml1.val() + "@"+cv;
+      let comp = eml1.val() + "@" + cv;
       // 이메일 뒷주소는 이미 cv에 담겨있음
 
       // 4. 이메일 유효성 검사함수 호출
       resEml(comp);
-
     } ////// else if : 직접입력 //////
 
     // 2-3. 기타 이메일주소 선택일 경우
@@ -184,6 +183,37 @@ form.logF input[type=password]`).blur(function () {
       eml1.siblings(".msg").empty();
     } ////// else : 기타 이메일주소 ////
   }); //////////change메서드////////////////
+
+  /*********************************************** 
+    키보드 입력시 이메일 체크하기
+    _______________________________
+
+    - 키보드 관련 이벤트 : keypress, keyup, keydown
+    1. keypress : 키가 눌려졌을때
+    2. keyup : 키가 눌렸다가 올라올때
+    3. keydown : 키가 눌려져서 내려가 있을때
+    -> 과연 글자가 입력되는 순간은 어떤 키보드 이벤트를
+    사용해야할까? ->>> 
+
+    - 이벤트 대상 : #email1, #email2
+    -> 모든 이벤트함수와 연결하는 제이쿼리 메서드는?
+    on(이벤트명,함수)
+ ***********************************************/
+  $("#email1, #email2").on("keyup", function () {
+    // 1. 현재 이벤트 발생 대상 아이디 읽어오기
+    let cid = $(this).attr("id");
+    console.log("입력창 아이디: ", cid);
+
+    // 2. 이메일 뒷주소 세팅하기 (선택!)
+    let backEml = cid == "email1" ? seleml.val() : eml2.val();
+
+    // 이메일 전체주소 만들기
+    let comp = eml1.val() + "@" + backEml;
+    // 이메일 유효성 검사함수 호출하기
+    resEml(comp);
+
+    console.log($(this).val());
+  }); //////////////////keyup////////////////////
 
   /****************************************** 
     함수명 : resEml (result Email)
