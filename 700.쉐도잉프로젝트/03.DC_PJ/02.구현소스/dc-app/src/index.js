@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
-import Charactor from "./components/pages/Charactor";
+import Character from "./components/pages/Character";
 import Main from "./components/pages/Main";
 import Comics from "./components/pages/Comics";
 
@@ -49,7 +49,7 @@ export default function MainComponent() {
         -> path설정대신 index키워드를 쓰면 첫페이지로 구성됨
         -> MainArea 컴포넌트 <Outlet/>에 출력된다*/}
           <Route index element={<Main />} />
-          <Route path="character" element={<Charactor />} />
+          <Route path="character" element={<Character />} />
           <Route path="comics" element={<Comics />} />
 
         </Route>
