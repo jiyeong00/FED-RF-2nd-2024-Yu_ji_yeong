@@ -5,7 +5,7 @@ export default function Series(){
   //// 코드 리턴구역 //////////////
   return(
       <>
-         <h1>코믹스 페이지</h1>
+         <h1>시리즈 페이지</h1>
       </>
   );
 

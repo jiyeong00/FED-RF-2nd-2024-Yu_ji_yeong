@@ -9,6 +9,8 @@ import Movies from "./components/pages/Movies";
 import Series from "./components/pages/Series";
 import Games from "./components/pages/Games";
 import News from "./components/pages/News";
+import Video from "./components/pages/Video";
+import Board from "./components/pages/Board";
 
 // 전체공통 css 불러오기
 import "../src/css/index.scss";
@@ -23,7 +25,7 @@ import "../src/css/index.scss";
         (속성)
             (1) path : 경로를 지정함
                     (Link의 to속성 경로와 일치함!)
-            (2) element : 연결할 컴포넌트 지정
+            (2) element : 연결할 컴포넌트 지정cd
 
         (하위 라우트 만들기)
             <Route path="/">
@@ -69,6 +71,8 @@ export default function MainComponent() {
           <Route path="movies/series" element={<Series />} />
           <Route path="games" element={<Games />} />
           <Route path="news" element={<News />} />
+          <Route path="video" element={<Video />} />
+          <Route path="board" element={<Board />} />
 
         </Route>
         {/* Layout루트 Route로 하위 Route를 감싼다 */}
