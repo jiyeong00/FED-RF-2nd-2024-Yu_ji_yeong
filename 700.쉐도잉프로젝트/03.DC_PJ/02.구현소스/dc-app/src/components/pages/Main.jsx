@@ -8,9 +8,7 @@ export default function Main(){
   return(
       <>
          {/* 1. 배너 컴포넌트 */}
-         <Banner catName="THE FLASH"/>
-         {/* 1. 배너 컴포넌트 */}
-         <Banner catName="CHARACTERS"/>
+         <Banner catName={"main"+Math.ceil(Math.random()*3)}/>
       </>
   );
 
