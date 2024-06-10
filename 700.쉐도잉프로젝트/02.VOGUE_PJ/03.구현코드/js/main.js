@@ -65,6 +65,7 @@ function Layout() {
       e.preventDefault();
       // 상단이동하기
       setPos(0);
+      window.scrollTo(0, 0);
     };
 
     // 슬림메뉴 적용하기 : "home"에서만 적용
