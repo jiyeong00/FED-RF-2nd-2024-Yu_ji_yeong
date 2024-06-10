@@ -12,6 +12,8 @@ import Movies from "./components/pages/Movies";
 import Series from "./components/pages/Series";
 import Games from "./components/pages/Games";
 import News from "./components/pages/News";
+import Video from "./components/pages/Video";
+import Board from "./components/pages/Board";
 
 /********************************************* 
     [ 리액트 라우터 ]
@@ -68,6 +70,8 @@ export default function MainComponent() {
           <Route path="movies/series" element={<Series />} />
           <Route path="games" element={<Games />} />
           <Route path="news" element={<News />} />
+          <Route path="video" element={<Video />} />
+          <Route path="board" element={<Board />} />
         </Route>
         {/* Layout 루트 Route로 하위 Route를 감싼다! */}
       </Routes>
