@@ -13,7 +13,8 @@ section.vidswbox >
 import React from "react";
 // 데이터불러오기
 import { catTit } from "../data/vid_swipe";
-import { SwiperApp } from "../plugin/SwiperApp";
+import {SwiperVid} from "../plugin/SwiperVid";
+import "../../css/vid_swipe.scss";
 
 function VidSwipe({catName}) {
     // catName - 카테고리명
@@ -24,7 +25,7 @@ function VidSwipe({catName}) {
         <h2 className="tit">{catTit[catName]}</h2>
         {/* 2. 스와이퍼 컴포넌트 : SwiperVid
             -> 전달속성 cat은 데이터선택을 위한값 */}
-        <SwiperApp/>
+        <SwiperVid catName="main"/>
         {/* 3. 비디오 재생창 */}
         <section className="vid-bx">
           {/* 비디오 중앙박스 */}
