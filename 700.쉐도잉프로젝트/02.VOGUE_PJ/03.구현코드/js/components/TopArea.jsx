@@ -1,9 +1,9 @@
-// 상단영역 컴포넌트
+// 상단영역 컴포넌트 ///////
 
-// [2] 상단영역 서브 컴포넌트 /////
 export default function TopArea({ changeMenu }) {
   // changeMenu - 부모의 setMenu 상태관리 메서드
-  // 메뉴배열
+
+  // 메뉴 배열
   const menuArr = [
     "FASHION",
     "BEAUTY",
@@ -15,16 +15,18 @@ export default function TopArea({ changeMenu }) {
     "SHOPPING",
   ];
 
-  // 메뉴 변경하기 함수
+  // 메뉴 변경하기 함수 ///////
   const chgMenuFn = (v) => {
+
     console.log(v);
 
-    // 전달값 변경하기 : 소문자,특수문자 변경
-    v=v.toLowerCase();
-    
+    // 전달값 변경하기 : 소문자 변경
+    v = v.toLowerCase();
+
     // 부모 메뉴변경 상태메서드로 메뉴변경
     changeMenu(v);
-  };
+
+  }; ////////// chgMenuFn 함수 /////////
 
   // 코드 리턴구역 /////
   return (
@@ -47,13 +49,16 @@ export default function TopArea({ changeMenu }) {
               <span className="ir">유튜브</span>
             </a>
 
-            <a href="#" className="fi fi-laptop" title="로그인"onClick={()=>chgMenuFn("login")}>
+            <a href="#" className="fi fi-laptop" title="로그인"
+            onClick={()=>chgMenuFn("login")}>
               <span className="ir">로그인</span>
             </a>
-            <a href="#" className="fi fi-user-secret" title="회원가입" onClick={()=>chgMenuFn("member")}>
+            <a href="#" className="fi fi-user-secret" title="회원가입"
+            onClick={()=>chgMenuFn("member")}>
               <span className="ir">회원가입</span>
             </a>
-            <a href="#" className="fi fi-camera" title="갤러리" onClick={()=>chgMenuFn("gallery")}>
+            <a href="#" className="fi fi-camera" title="갤러리" 
+            onClick={()=>chgMenuFn("gallery")}>
               <span className="ir">갤러리</span>
             </a>
             <a href="#" className="fi cas" title="카카오스토리">
@@ -84,7 +89,6 @@ export default function TopArea({ changeMenu }) {
             </ul>
           </div>
         </div>
-
         {/* <!-- 1-2.로고박스 --> */}
         <h1 className="logo">
           <a href="#" onClick={()=>chgMenuFn("home")}>
