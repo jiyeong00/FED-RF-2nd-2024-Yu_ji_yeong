@@ -40,9 +40,15 @@ const showVideo=(src,tit)=>{
     // 2. 변경하기
     // 2-1.아이프레임 src경로 변경하기
     ifr.attr("src",src+"?autoplay=1");
-
-    //박스보이기
+    // 2-2. 비디오 타이틀넣기
+    itit.text(tit);
+    //2-3. 박스보이기
     vbx.fadeIn(300);
+    // 2-4. 닫기버튼세팅
+    cbtn.on("click", () => {
+      vbx.fadeOut(300);
+    });
+
 };///////////////////showVideo
 
 
