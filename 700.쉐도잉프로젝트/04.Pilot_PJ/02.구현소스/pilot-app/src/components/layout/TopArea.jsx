@@ -1,4 +1,6 @@
 import React from "react";
+// 메뉴데이터 불러오기
+import { gnbData } from "../../js/data/gnb";
 
 function TopArea(props) {
   return (
@@ -13,6 +15,11 @@ function TopArea(props) {
           <nav className="gnb">
             <ul>
               <li className="bld">배너순번 li 숨기기</li>
+              {gnbData.main.map((v, i) => (
+                <li key={i}>
+                  <a href="#">{v}</a>
+                </li>
+              ))}
             </ul>
           </nav>
           <div className="ham">
