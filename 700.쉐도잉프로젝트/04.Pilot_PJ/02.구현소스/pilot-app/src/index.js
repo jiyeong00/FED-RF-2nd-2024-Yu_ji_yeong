@@ -4,6 +4,9 @@ import TopArea from './components/pages/TopArea';
 import MainArea from './components/pages/MainArea';
 import FooterArea from './components/pages/FooterArea';
 
+// 공통css
+import "./css/index.scss";
+
 function MainComponent(props) {
   return (
     <div>
