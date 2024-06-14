@@ -18,6 +18,7 @@ import "./css/swiper_cat.scss";
 // 데이터 불러오기
 import { catListData } from "../data/swiper_cat";
 import { Autoplay, Navigation } from "swiper/modules";
+import { Link } from "react-router-dom";
 
 export function SwiperCat() {
   // 선택데이터 변수할당
@@ -54,16 +55,26 @@ export function SwiperCat() {
             // idx가 문자형 숫자이므로 비교를 위해 숫자형으로 변환해줌 Number(변수)
             Number(v.idx) <= 7 && (
               <SwiperSlide key={i}>
-                <section className="sw-inbox2">
-                  {/* 캐릭터이미지영역 */}
-                  <div className="cat-img2">
-                    <img src={v.tmsrc} alt={v.cname} />
-                  </div>
-                  {/* 캐릭터타이틀영역 */}
-                  <div className="cat-tit2">
-                    <h3>{v.cname}</h3>
-                  </div>
-                </section>
+                <Link 
+                to="/detail"
+                // state로 3가지 값을 넘겨줌
+                state={{
+                  cname:v.cname,
+                  cdesc:v.cdesc,
+                  facts:v.facts
+                }}
+                >
+                  <section className="sw-inbox2">
+                    {/* 캐릭터이미지영역 */}
+                    <div className="cat-img2">
+                      <img src={v.tmsrc} alt={v.cname} />
+                    </div>
+                    {/* 캐릭터타이틀영역 */}
+                    <div className="cat-tit2">
+                      <h3>{v.cname}</h3>
+                    </div>
+                  </section>
+                </Link>
               </SwiperSlide>
             )
         )}
