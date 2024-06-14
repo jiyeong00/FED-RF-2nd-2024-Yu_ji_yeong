@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import MainCont from "../pages/MainCont";
 
 function MainArea(props) {
