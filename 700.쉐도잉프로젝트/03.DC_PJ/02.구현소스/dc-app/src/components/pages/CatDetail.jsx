@@ -21,7 +21,7 @@ function CatDetail() {
   return (
     <>
       {/* 1. 배너모듈 */}
-      <Banner catName={"SUPERMAN"} />
+      <Banner catName={cname} />
       {/* 2. 상세정보박스 */}
       <div className="detail">
         {/* 2-1. 캐릭터설명박스 */}
