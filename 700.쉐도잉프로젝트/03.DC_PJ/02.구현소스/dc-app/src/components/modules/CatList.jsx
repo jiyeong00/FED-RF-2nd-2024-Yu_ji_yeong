@@ -1,6 +1,7 @@
 import React from "react";
 import "../../css/cat_list.scss";
 import { SwiperCat } from "../plugin/SwiperCat";
+import { useNavigate } from "react-router-dom";
 // DC PJ 캐릭터 리스트 컴포넌트
 /* 
 Root >
@@ -16,6 +17,7 @@ Root >
                 div.cat-tit2 > h3
 */
 function CatList(props) {
+
   return (
     <section className="cat-swbox">
       {/* 1. 모듈타이틀 */}

@@ -1,7 +1,7 @@
 // DC PJ 캐릭터 상세페이지
 // -> 캐릭터 리스트로 부터 라우팅 이동하여 보이는 페이지
 
-import React from "react";
+import React, { useEffect } from "react";
 
 // 라우터로 전달한 state값을 읽기위한 객체
 import { useLocation } from "react-router-dom";
@@ -13,11 +13,18 @@ import CatList from "../modules/CatList";
 import "../../css/cat_detail.scss";
 
 function CatDetail() {
-  // 라우터호출 시 전달한 값을 받는다.
+  // 라우터호출 시 전달한 값을 받는다. (Link to state로 보낸거 받는 변수)
   const loc = useLocation();
   const cname = loc.state.cname;
   const cdesc = loc.state.cdesc;
   const facts = loc.state.facts;
+
+  // 화면 랜더링구역
+  // 매번실행해야 이미 생성된 컴포넌트의 랜더링 실행구역이 업데이트시에도 작동한다.
+  useEffect(()=>{
+    window.scrollTo(0,0);
+  });
+
   return (
     <>
       {/* 1. 배너모듈 */}
@@ -30,7 +37,12 @@ function CatDetail() {
           <h2>{cname}</h2>
           {/* 캐릭터소개 */}
           <div className="cdesc">
-            <p>{cdesc}</p>
+            <p>
+              {/* 문자데이터 중 "^"로 잘라서 배열로 만들고 각각 p태그로 랩핑해준다 */}
+              {cdesc.split("^").map((v, i) => (
+                <p key={i}>{v}</p>
+              ))}
+            </p>
           </div>
         </div>
         {/* 2-2. 캐릭터명세 */}
@@ -40,9 +52,16 @@ function CatDetail() {
             {/* 테이블로 명세배열만큼 tr을 만들어준다 */}
             <table>
               <tbody>
-                <tr>
-                  <td>{facts}</td>
-                </tr>
+                {facts.split("^").map((v, i) => (
+                  <tr key={i}>
+                    {v.split(":").map((v, i) => (
+                      <td key={i}>
+                        {v}
+                        {i == 0 && ":"}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
