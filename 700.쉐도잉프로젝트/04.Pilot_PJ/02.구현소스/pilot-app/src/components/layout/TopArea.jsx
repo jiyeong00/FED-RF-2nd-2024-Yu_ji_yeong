@@ -27,6 +27,10 @@ function TopArea(props) {
 
     // 햄버거 버튼에 ".on"있으면 재생 없으면 멈춤
     $(e.currentTarget).is(".on") ? bgm.get(0).play() : bgm.get(0).pause();
+
+    // 비교해서 JS는 선택 후 바로 play,pause를 사용함
+    // document.querySelector(".bgm").play();
+    // document.querySelector(".bgm").pause();
   }; //////showHideMenu////////////////////
 
   return (
