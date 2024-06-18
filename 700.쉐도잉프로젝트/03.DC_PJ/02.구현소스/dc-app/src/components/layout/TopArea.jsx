@@ -41,6 +41,9 @@ export default function TopArea() {
       console.log(txt);
       // 빈값이 아니면 검색함수 호출(검색어전달)
       if(txt!=''){
+        // 입력창 비우고 부모박스 닫기
+        $(e.target).val("").parent().hide();
+        // 검색 보내기
         goSearch(txt);
 
       }
@@ -128,6 +131,7 @@ export default function TopArea() {
                   id="schinGnb"
                   placeholder="Filter by Keyword"
                   onKeyUp={enterKey}
+                  
                 />
               </div>
               {/* 검색기능링크 - 클릭시 검색창보이기 */}
