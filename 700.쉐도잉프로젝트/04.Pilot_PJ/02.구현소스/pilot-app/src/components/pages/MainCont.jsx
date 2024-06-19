@@ -29,6 +29,8 @@ function MainCont(props) {
     // 컴포넌트 소멸시 이벤트삭제하기
     return () => {
       console.log("메인소멸!");
+      // 1. 자동휠함수 이벤트 삭제하기
+      window.removeEventListener("wheel", wFn.wheelFn);
     };
   }, []);
   // useLayoutEffect(()=>{
