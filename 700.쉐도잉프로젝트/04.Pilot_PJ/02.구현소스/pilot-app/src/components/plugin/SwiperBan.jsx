@@ -26,13 +26,13 @@ export function SwiperBan({ cat }) {
     for (let x = 0; x < num; x++) {
       temp[x] = (
         <SwiperSlide key={x}>
-          {cat == "men" && x == 2 ? (
+          {(cat == "men" || cat == "women") && x == 0 ? (
             <video
-              src={"./images/sub/" + cat + "/banner/cgv.mp4"}
+              src={"./images/sub/" + cat + "/banner/mv.mp4"}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
               muted
               loop
-              className="vid"
+              className={cat+"-vid"}
               //   autoPlay
             />
           ) : (
@@ -62,19 +62,25 @@ export function SwiperBan({ cat }) {
           delay: 3000,
           disableOnInteraction: false,
         }}
-        // loop={true}
+        loop={true}
         navigation={true}
         /* 사용할 모듈을 여기에 적용시킨다 */
         modules={[Pagination, Navigation, Autoplay]}
         className="mySwiper"
         onSlideChange={(swp) => {
           // swp - 내부로 전달되는 스와이퍼 자신객체
-          console.log("슬라이드 순번", swp.activeIndex);
-          if (swp.activeIndex == 2) {
-            document.querySelector(".vid").play();
-          } else {
-            document.querySelector(".vid").pause();
-          }
+          //   activeIndex는 loop 사용시 오류남 >> realIndex용거 사용
+          let idx = swp.realIndex;
+
+          //   현재 하위요소 슬라이드
+          let tg =swp.slides[idx];
+          console.log("슬라이드 순번", idx);
+          console.log("현재슬라이드", tg);
+            if (idx==0) {
+              document.querySelector(`.${cat}-vid`).play();
+            } else {
+              document.querySelector(`.${cat}-vid`).pause();
+            }
         }}
       >
         {makeList(cat == "style" ? 5 : 3)}
