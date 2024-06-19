@@ -1,6 +1,8 @@
 // 메인페이지 컨텐츠 컴포넌트 - MainCont.jsx
 import React, { useEffect, useLayoutEffect } from "react";
 
+import $ from "jquery";
+
 // 모듈 불러오기
 import Banner from "../modules/Banner";
 import FashionIntro from "../modules/FashionIntro";
@@ -29,8 +31,12 @@ function MainCont(props) {
     // 컴포넌트 소멸시 이벤트삭제하기
     return () => {
       console.log("메인소멸!");
+
       // 1. 자동휠함수 이벤트 삭제하기
       window.removeEventListener("wheel", wFn.wheelFn);
+      // 2. 상단이동 이벤트 제거하기
+      // 제이쿼리에서 이벤트 제거는 off()메서드
+      $("#logo a").off("click"); 
     };
   }, []);
   // useLayoutEffect(()=>{

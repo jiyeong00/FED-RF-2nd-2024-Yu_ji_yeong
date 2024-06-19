@@ -44,7 +44,7 @@ function FashionIntro({ catName, subCat, opt }) {
             속성을 사용한다! */}
             <a href="#" onClick={(e)=>{
               e.preventDefault();
-              myCon.setPgName("fashion");
+              myCon.setPgName(catName);
             }}>
               {selData.tit[0][0]}
               <br />
