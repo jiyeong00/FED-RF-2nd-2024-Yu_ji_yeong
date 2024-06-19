@@ -5,6 +5,7 @@ import React, { useEffect, useLayoutEffect } from "react";
 import Banner from "../modules/Banner";
 import FashionIntro from "../modules/FashionIntro";
 
+
 // 자동휠 함수 불러오기
 import * as wFn from "../../js/func/auto_wheel";
 
