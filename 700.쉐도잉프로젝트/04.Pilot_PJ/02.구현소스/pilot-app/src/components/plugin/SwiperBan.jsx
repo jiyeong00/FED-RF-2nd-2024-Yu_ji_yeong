@@ -62,7 +62,7 @@ export function SwiperBan({ cat }) {
           delay: 3000,
           disableOnInteraction: false,
         }}
-        loop={true}
+        // loop={true}
         navigation={true}
         /* 사용할 모듈을 여기에 적용시킨다 */
         modules={[Pagination, Navigation, Autoplay]}
