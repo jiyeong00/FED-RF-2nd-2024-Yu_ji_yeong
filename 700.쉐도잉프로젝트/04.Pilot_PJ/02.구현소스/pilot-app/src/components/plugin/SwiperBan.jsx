@@ -70,6 +70,9 @@ export function SwiperBan({ cat }) {
         onSlideChange={(swp) => {
           // swp - 내부로 전달되는 스와이퍼 자신객체
           //   activeIndex는 loop 사용시 오류남 >> realIndex용거 사용
+          // style에는 없으므로 여기서 리턴
+          if(cat=="style") return;
+          
           let idx = swp.realIndex;
 
           //   현재 하위요소 슬라이드
