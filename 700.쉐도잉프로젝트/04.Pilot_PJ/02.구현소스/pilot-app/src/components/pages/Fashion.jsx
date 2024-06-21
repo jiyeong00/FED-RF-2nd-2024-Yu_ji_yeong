@@ -1,23 +1,31 @@
 import React, { useContext, useEffect, useLayoutEffect } from "react";
 
-// 부드러운스크롤
+// 부드러운 스크롤 JS
 import { scrolled, setPos } from "../../js/func/smoothScroll24";
+
+// 컨텍스트 API 불러오기
 import { pCon } from "../modules/pCon";
 
+// 제이쿼리 불러오기
 import $ from "jquery";
 
-// css
+// CSS불러오기
 import "../../css/fashion.scss";
 import { SwiperBan } from "../plugin/SwiperBan";
+import SinSang from "../modules/SinSang";
+import { useState } from "react";
 
-function Fashion({ subCat }) {
-  // subCat = 서브 카테고리명
+function Fashion({subCat}) {
+    // subCat - 서브 카테고리명
+    // 값: men / women / style
+
   // 컨텍스트 API사용하기
   const myCon = useContext(pCon);
 
-  // [화면 랜더링 실행구역]
-  // 실제 DOM이 화면출력 전 가상 DOM에서 태그가 모두 만들어진 후임
-  // 뭔가 미리 DOM 세팅이 필요한 코드는 여기서성작성
+  // (( 화면랜더링 실행구역 : useLayoutEffect ))
+  // 실제DOM이 화면출력전 가상 DOM에서 태그가
+  // 모두 만들어진 후가 useLayoutEffect임!
+  // 뭔가 미리 DOM셋팅이 필요한 코드는 여기서작성!
   useLayoutEffect(() => {
     document.addEventListener("wheel", scrolled, { passive: false });
     // 이벤트 설정시 passive:false 설정의 이유는
@@ -29,48 +37,72 @@ function Fashion({ subCat }) {
 
     // 부드러운 스크롤 위치초기화
     // setPos(0);
+
     // 실제 스크롤위치값 초기화
     window.scrollTo(0, 0);
 
-    // 스크롤바 생성
+    // 스크롤바 생성하기(x축은 숨김)
     $("html,body").css({
       overflow: "visible",
       overflowX: "hidden",
     });
 
-    // 소멸자구역
+    // 소멸자 구역 //////////
     return () => {
+      // 부드러운 스크롤 해제하기
       document.removeEventListener("wheel", scrolled, { passive: false });
+
       // 스크롤바 없애기
       $("html,body").css({
         overflow: "hidden",
       });
+
       // 부드러운 스크롤 위치초기화
       setPos(0);
+
       // 실제 스크롤위치값 초기화
       window.scrollTo(0, 0);
     };
   }, []);
 
-  //  화면 랜더링 코드구역
-  // 화면에 요소가 실제로 출력된 후
-  // DOM이벤튼 설정시 여기서 코딩해야 적용됨
+  // (( 화면랜더링 실행구역 : useEffect ))
+  // -> 화면에 요소가 실제로 출력된후 ////
+  // DOM이벤트 설정시 여기서 코딩해야 적용됨!
   useEffect(() => {
-    // 로고클릭시 페이지 이동하기
+    // 로고 클릭시 페이지 이동하기
     $("#logo a").on("click", (e) => {
       e.preventDefault();
       myCon.setPgName("main");
-    });
+    }); ////////// click ////////////
   }, []);
 
+  
+
+  // 후크 상태변수
+  const [item, setItem] = useState("m1");
+
+  // 신상컴포넌트에서 상세컴포넌트로 값을 전하기 위한
+  // 상태변수를 셋팅하여 함수로 이것을 변경하게 해준다!
+  // 프롭스 펑션다운~!!
+  const chgItem = (v) => {
+    console.log("상품정보:", v);
+    // 상태변수 업데이트
+    setItem(v);
+    // 상세박스 슬라이드 애니로 보이기
+    $(".bgbx").slideDown(400);
+  }; /////////// chgItem 함수 //////
+
+  // 코드리턴구역 //////////////////
   return (
     <>
       {/* 1. 배너영역 */}
       <section id="ban" className="page">
-        {<SwiperBan cat={subCat} />}
+        <SwiperBan cat={subCat} />
       </section>
       {/* 2. 신상품영역 */}
-      <section id="c1" className="cont sc-ani c1"></section>
+      <section id="c1" className="cont sc-ani c1">
+        <SinSang cat={subCat} chgItemFn={chgItem} />
+      </section>
       {/* 2.5. 상세보기박스 */}
       <div className="bgbx"></div>
       {/* 3. 패럴랙스 영역 : 리액트용 패럴랙스 적용 */}
