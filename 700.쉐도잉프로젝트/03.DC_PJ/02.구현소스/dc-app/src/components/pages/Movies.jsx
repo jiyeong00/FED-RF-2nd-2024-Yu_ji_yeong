@@ -2,6 +2,7 @@
 
 import Banner from "../modules/Banner";
 import VidIntro from "../modules/VidIntro";
+import VidSwipe from "../modules/VidSwipe";
 
 export default function Movies() {
   //// 코드 리턴구역 //////////////
@@ -11,6 +12,8 @@ export default function Movies() {
       <Banner catName="MOVIES" />
       {/* 비디오소개 컴포넌트 */}
       <VidIntro catName="MOVIES" clsName="on" />
+      
+      <VidSwipe catName="movies"/>
     </>
   );
 } /////////// Movies /////////////////////
