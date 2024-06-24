@@ -29,7 +29,7 @@ export default function Logo({ logoStyle }) {
   };
   return (
     <h1 style={myStyle[logoStyle]}>
-      <img style={imgStyle[logoStyle]} src={isrc.logo} alt="DC로고" />
+      <img style={imgStyle[logoStyle]} src={process.env.PUBLIC_URL+isrc.logo} alt="DC로고" />
     </h1>
   );
 } ///////////Logo.////////////////

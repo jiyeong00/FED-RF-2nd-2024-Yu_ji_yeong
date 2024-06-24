@@ -17,7 +17,7 @@ function SetIntro(props) {
           <div key={i}>
             {/* 이미지박스 */}
             <div className="imbx">
-              <img src={v.isrc} alt={v.tit.split("^")[0]} />
+              <img src={process.env.PUBLIC_URL+v.isrc} alt={v.tit.split("^")[0]} />
               {/* split()으로 자르면 배열이됨 */}
             </div>
             {/* 타이틀박스 */}
