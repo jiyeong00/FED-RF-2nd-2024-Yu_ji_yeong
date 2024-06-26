@@ -123,6 +123,18 @@ export default function TopArea() {
                   icon={faSearch}
                   className="schbtnGnb"
                   title="Open search"
+                  onClick={(e)=>{
+                    // 검색어 읽기
+                    let stxt=e.currentTarget.nextSibling.value;
+                    if(stxt.trim()!=""){
+                      // 검색하기
+                      goSearch(stxt);
+                    }
+                    else{
+                      // 검색어 비었을때 메시지
+                      alert("검색어를 입력하세요");
+                    }
+                  }}
                 />
                 {/* 입력창 */}
                 <input
