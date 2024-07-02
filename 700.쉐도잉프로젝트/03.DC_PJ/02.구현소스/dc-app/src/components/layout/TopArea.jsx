@@ -78,6 +78,7 @@ export default function TopArea() {
       {/* 1.상단영역 */}
       <header className="top-area">
         {/* 로그인 환영메시지 박스 */}
+        <div className="logmsg">{myCon.loginMsg}</div>
 
         {/* 네비게이션 GNB파트 */}
         <nav className="gnb">
