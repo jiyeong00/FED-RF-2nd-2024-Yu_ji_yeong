@@ -16,7 +16,10 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import $ from "jquery";
 import { useContext } from "react";
 
-export default function TopArea() {
+import { memo } from "react";
+
+export const TopArea=memo(()=>{
+  console.log("상단영역");
   // 컨텍스트 사용하기
   const myCon = useContext(dCon);
 
@@ -198,4 +201,4 @@ export default function TopArea() {
       </header>
     </>
   );
-} /////////// TopArea /////////////////////
+}) /////////// TopArea /////////////////////

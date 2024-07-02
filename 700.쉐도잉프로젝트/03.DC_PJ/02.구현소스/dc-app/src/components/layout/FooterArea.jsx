@@ -3,8 +3,12 @@ import Logo from "../modules/Logo";
 import "../../css/footer_area.scss";
 
 import { bmData } from "../data/bmenu";
+import { memo } from "react";
 
-export default function FooterArea() {
+// 리액트.memo()을 사용한 컴포넌트 메모이제이션
+// >>>>>컴포넌트를 할당형으로 변경
+export const FooterArea= memo(()=>{
+  console.log("하단영역");
   return (
     <footer className="info">
       <ul>
@@ -33,4 +37,4 @@ export default function FooterArea() {
       </ul>
     </footer>
   );
-} ///////////////FooterArea//////////////
+}); ///////////////FooterArea//////////////
