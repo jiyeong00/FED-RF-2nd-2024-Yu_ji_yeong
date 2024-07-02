@@ -1,68 +1,80 @@
-// 상단영역 컴포넌트
-// gnb데이터 불러오기
-import { Link, Router, useNavigate } from "react-router-dom";
-import { menu } from "../data/gnb";
-import Logo from "../modules/Logo";
+// 상단영역 컴포넌트 ///
 
-// 상단영역 css 불러오기
+// GNB 데이터 불러오기
+import { Link, useNavigate } from "react-router-dom";
+import { menu } from "../data/gnb";
+
+// 상단영역 CSS 불러오기
 import "../../css/top_area.scss";
+import Logo from "../modules/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
+// 제이쿼리
 import $ from "jquery";
 
 export default function TopArea() {
-  // 이동함수
+  // 이동함수 ////
   const goNav = useNavigate();
-  // 사용시 goNav(라우터주소,{전달객체(없으면 비워놓기)})
+  // 사용시 goNav(라우터주소,{전달객체})
+  // 전달객체 없으면 비워놓음!
   // 사용법: 반드시 useNavigate()메서드를 변수에 담아
   // 이동할 라우터 주소를 쓰면 이동한다
   // 예) goNav('/news') -> 뉴스페이지이동
   // 예) goNav('news') -> 뉴스페이지이동
   // 예) goNav('/') -> 첫페이지이동
+  // 예) goNav('') -> 첫페이지이동
   // 이동주소는 대소문자 구분없음!
-  // 슬래쉬 없이써도 루트로 인식함 -> 빈값이어도 첫페이지 이동
+  // 슬래쉬 없이 써도 루트로 인식함
+  // -> 빈값이면 루트로 이동함!
 
-  // 검색관련함수들
-  // 1. 검색창 보이기 함수
-  const showSearch=(e)=>{
+  // 검색 관련 함수들 ///////////
+  // 1. 검색창 보이기함수
+  const showSearch = (e)=>{
+    // 기본기능막기
     e.preventDefault();
-    //1)검색창보이기
+    // 1. 검색창 보이기
     $(".searchingGnb").show();
-    //2)입력창에 포커스 보내기
+    // show() - display를 보이게함
+    // 2. 입력창에 포커스 보내기
     $("#schinGnb").focus();
-  };///////////////////////showSearch//////////////
+  }; ////// showSearch 함수 ///////
 
   // 2. 검색창에 엔터키 누르면 검색함수 호출
-  const enterKey=e=>{
+  const enterKey = e => {
+    // e.keyCode는 숫자, e.key문자로 리턴함
     // console.log(e.key,e.keyCode);
-    if(e.key=="Enter"){
-      // 입력창의 입력값 가져오기 : val()사용
+    if(e.key == "Enter"){
+      // 입력창의 입력값 읽어오기 : val()사용
       let txt = $(e.target).val().trim();
       console.log(txt);
-      // 빈값이 아니면 검색함수 호출(검색어전달)
+      // 빈값이 아니면 검색함수 호출(검색어전달!)
       if(txt!=''){
         // 입력창 비우고 부모박스 닫기
         $(e.target).val("").parent().hide();
         // 검색 보내기
         goSearch(txt);
 
-      }
-    }
-  };/////////////////////////enterKey////////////
+      } /// if ///
+    } //// if ////
 
-  // 3. 검색페이지로 검색어와 함께 이동하기 함수
-  const goSearch=txt=>{
-    console.log("검색");
+  }; ///////// enterKey //////////
+
+  // 3. 검색페이지로 검색어와 함께 이동하기함수
+  const goSearch = txt => {
+    console.log("나는 검색하러 간다규~!!!");
     // 라우터 이동함수로 이동하기
-    // 네비게이트 (라우터주소,{state:{보낼객체}})
+    // 네비게이트메서드(라우터주소,{state:{보낼객체}})
     goNav("search",{state:{keyword:txt}});
-  };
+  }; /////////// goSearch //////////////
 
+  //// 코드 리턴구역 //////////////
   return (
     <>
       {/* 1.상단영역 */}
       <header className="top-area">
         {/* 로그인 환영메시지 박스 */}
+
         {/* 네비게이션 GNB파트 */}
         <nav className="gnb">
           <ul>
@@ -71,8 +83,10 @@ export default function TopArea() {
               <a
                 href="#"
                 onClick={(e) => {
+                  // 기본이동막기
                   e.preventDefault();
-                  goNav("/");
+                  // 라우터 이동 메서드호출
+                  goNav("");
                 }}
               >
                 <Logo logoStyle="top" />
@@ -109,7 +123,7 @@ export default function TopArea() {
                 }
               </li>
             ))}
-            {/* 3. 검색,회원가입,로그인 링크 */}
+            {/* 3. 검색, 회원가입, 로그인링크 */}
             <li
               style={{
                 marginLeft: "auto",
@@ -117,7 +131,7 @@ export default function TopArea() {
               }}
             >
               {/* 검색입력박스 */}
-              <div className="searchingGnb" style={{ display: "block" }}>
+              <div className="searchingGnb">
                 {/* 검색버튼 돋보기 아이콘 */}
                 <FontAwesomeIcon
                   icon={faSearch}
@@ -125,14 +139,15 @@ export default function TopArea() {
                   title="Open search"
                   onClick={(e)=>{
                     // 검색어 읽기
-                    let stxt=e.currentTarget.nextSibling.value;
+                    let stxt = 
+                    e.currentTarget.nextElementSibling.value;
                     if(stxt.trim()!=""){
                       // 검색하기
                       goSearch(stxt);
                     }
                     else{
                       // 검색어 비었을때 메시지
-                      alert("검색어를 입력하세요");
+                      alert("Please enter a search term!");
                     }
                   }}
                 />
@@ -143,7 +158,6 @@ export default function TopArea() {
                   id="schinGnb"
                   placeholder="Filter by Keyword"
                   onKeyUp={enterKey}
-                  
                 />
               </div>
               {/* 검색기능링크 - 클릭시 검색창보이기 */}
@@ -151,9 +165,16 @@ export default function TopArea() {
                 <FontAwesomeIcon icon={faSearch} />
               </a>
             </li>
+            {/* 회원가입, 로그인 버튼 */}
+            <li>
+              <Link to="/member">JOIN US</Link>
+            </li>
+            <li>
+              <Link to="/login">LOGIN</Link>
+            </li>
           </ul>
         </nav>
       </header>
     </>
   );
-} ///////////////TopArea//////////////
+} /////////// TopArea /////////////////////
