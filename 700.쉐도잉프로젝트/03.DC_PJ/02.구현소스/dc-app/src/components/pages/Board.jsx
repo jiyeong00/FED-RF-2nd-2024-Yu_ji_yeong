@@ -27,7 +27,7 @@ export default function Board() {
   const totalCount = useRef(baseData.length);
 
   // 2. 페이지당 개수
-  const unitSize = 10;
+  const unitSize = 8;
   /*************************************************
    * 함수: bindList
    * 기능: 페이지별 리스트를 생성하여 바인딩함
@@ -54,13 +54,15 @@ export default function Board() {
     let selData = [];
     // for문으로 배열 만들기
     for (let i = sNum; i < eNum; i++) {
+      // 끝번호가 전체 개수보다 크면 나가라
+      if (i >= totalCount.current) break;
       selData.push(orgData[i]);
     }
     console.log("일부데이터", selData);
 
     return selData.map((v, i) => (
       <tr key={i}>
-        <td>{i + 1}</td>
+        <td>{i + 1 + sNum}</td>
         <td>
           <a href="#" data-idx="51">
             {v.cont}
