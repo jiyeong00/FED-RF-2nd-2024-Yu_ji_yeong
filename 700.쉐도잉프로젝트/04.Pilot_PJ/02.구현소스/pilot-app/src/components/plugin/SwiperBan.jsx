@@ -23,6 +23,9 @@ export function SwiperBan({ cat }) {
   // 스와이퍼 객체를 담기위한 참조변수
   const swpObj = useRef(null);
 
+  // 동영상 객체
+  let mvEle;
+
   // 화면 랜더링구역 ///////////
   useEffect(() => {
     // 스와이퍼 배너 첫페이지로 이동하기
@@ -33,8 +36,8 @@ export function SwiperBan({ cat }) {
     // 첫번째 슬라이드는 0번, 애니시간은 0으로 안보이게
 
     // 스와이퍼객체는 어디있지?
-    console.log("랜더링:", swpObj);
-    console.log("Swiper:", swpObj.current.swiper);
+    // console.log("랜더링:", swpObj);
+    // console.log("Swiper:", swpObj.current.swiper);
     // 플러그인 스와이퍼 컴포넌트 객체 생성시
     // ref속성에 useRef변수를 넣으면 거기에
     // 스와이퍼 객체가 담겨진다! -> 외부에서 사용가능!!!
@@ -75,6 +78,35 @@ export function SwiperBan({ cat }) {
     return temp;
   }; ///////////// makeList 함수 //////////
 
+
+  // 소멸자 만들기
+  useEffect(()=>{
+    return(()=>{
+      // 동영상 변수가 null이 아닐때만 이벤트 삭제
+      if(mvEle)
+      mvEle.removeEventListener("timeupdate",actionVideo);
+      console.log("소멸자!!!!!");
+    });////////////////return
+  },[]);/////////////////////////////useEffect
+
+  // 동영상 재생 시 작동 함수
+  const actionVideo=(e) => {
+    // 스와이퍼객체
+    let swp = swpObj.current.swiper;
+    // 비디오가 멈추면 멈춤속성값이 true임
+    // 멈춤속성 -> paused
+    // console.log("비디오재생중~!!!", e.target.paused);
+    // 비디오가 멈추면 슬라이드 이동
+    if (e.target.paused) {
+      // 슬라이드 이동
+      swp.slideNext();
+      // 자동넘김 시작
+      swp.autoplay.start();
+      // 자동넘김 속성 true전환!
+      swp.autoplay.running = true;
+    } ///// if ////////
+  };////////////////////////actionVideo
+
   // 리턴코드 ///////////////////
   return (
     <>
@@ -83,7 +115,7 @@ export function SwiperBan({ cat }) {
         /* ref 속성에 useRef 할당변수를 넣어서 
         외부에 연결함 */
         onInit={(swp) => {
-          console.log("스와이퍼 처음셋팅!", swp);
+          // console.log("스와이퍼 처음셋팅!", swp);
         }}
         slidesPerView={1}
         spaceBetween={0}
@@ -116,12 +148,12 @@ export function SwiperBan({ cat }) {
             return;
           } ///// if ////
 
-          // 선택 동영상 //
-          let mvEle = document.querySelector(`.${cat}-vid`);
+          // 선택 동영상 - 상단 전역변수로 변경//
+          mvEle = document.querySelector(`.${cat}-vid`);
 
           // 현재 진짜순번
           let idx = swp.realIndex;
-          console.log("슬라이드순번:", idx);
+          // console.log("슬라이드순번:", idx);
 
           // men / women 일때 첫페이지 영상플레이
           if (idx == 0) {
@@ -134,26 +166,15 @@ export function SwiperBan({ cat }) {
 
             // 비디오가 재생시 발생이벤트 체크
             // timeupdate : 비디오재생 이벤트
-            mvEle.addEventListener("timeupdate", (e) => {
-              // 비디오가 멈추면 멈춤속성값이 true임
-              // 멈춤속성 -> paused
-              console.log("비디오재생중~!!!", e.target.paused);
-              // 비디오가 멈추면 슬라이드 이동
-              if (e.target.paused) {
-                // 슬라이드 이동
-                swp.slideNext();
-                // 자동넘김 시작
-                swp.autoplay.start();
-                // 자동넘김 속성 true전환!
-                swp.autoplay.running = true;
-              } ///// if ////////
-            }); ///////// timeupdate /////////
+            mvEle.addEventListener("timeupdate",actionVideo); ///////// timeupdate /////////
           } /// if ///
           // 기타 페이지는 영상멈춤
           else {
+            // mvEle.pause(); << 에러남
             let playPromise = mvEle.play();
             if(playPromise !== undefined) playPromise.then(()=>mvEle.pause());
-            // mvEle.pause();
+            // 원래 then()메서드는 Promise객체를 만들고 쓰는 것
+            // 플레이 메서드가 기본적으로 Promise를 구성하고 있어서 then메서드 사용 가능
           } /// else ///
         }}
       >
