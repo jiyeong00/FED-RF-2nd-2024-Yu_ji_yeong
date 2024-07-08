@@ -1,11 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { addComma } from "../../js/func/common";
 
 import $ from "jquery";
+import { pCon } from "./pCon";
 
 function ItemDetail({ cat, ginfo, dt, setGinfo }) {
   // cat - 카테고리,
   // ginfo - 상품 정보
+
+  // 전역카트 사용여부값 업데이트 사용위해 전역 컨택스트 사용
+  const myCon=useContext(pCon);
 
   const getGinfo = useRef(ginfo);
 
@@ -239,7 +243,7 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
             </div>
             <div>
               <button className="btn btn1">BUY NOW</button>
-              <button className="btn">SHOPPING CART</button>
+              <button className="btn" onClick={()=>myCon.setCartSts(true)}>SHOPPING CART</button>
               <button className="btn">WISH LIST</button>
             </div>
           </section>
