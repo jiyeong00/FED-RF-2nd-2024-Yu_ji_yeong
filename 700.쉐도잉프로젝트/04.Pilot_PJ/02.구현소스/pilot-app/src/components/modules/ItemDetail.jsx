@@ -4,12 +4,13 @@ import { addComma } from "../../js/func/common";
 import $ from "jquery";
 import { pCon } from "./pCon";
 
-function ItemDetail({ cat, ginfo, dt, setGinfo }) {
+function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
   // cat - 카테고리,
   // ginfo - 상품 정보
+  // gIdx - 상품고유번호
 
   // 전역카트 사용여부값 업데이트 사용위해 전역 컨택스트 사용
-  const myCon=useContext(pCon);
+  const myCon = useContext(pCon);
 
   const getGinfo = useRef(ginfo);
 
@@ -71,7 +72,7 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
   }, []); ///////////////////////////////////useEffect
 
   // 화면랜더링구역 : 매번
-  useEffect(()=>{
+  useEffect(() => {
     // 매번 리랜더링될때마다 수량,총합계 초기화
     $("#sum").val(1);
     $("#total").text(addComma(getGinfo.current[3]) + "원");
@@ -243,7 +244,36 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
             </div>
             <div>
               <button className="btn btn1">BUY NOW</button>
-              <button className="btn" onClick={()=>myCon.setCartSts(true)}>SHOPPING CART</button>
+              <button
+                className="btn"
+                onClick={() => {
+                  // 로컬스에 넣기
+                  // 로컬스 없으면 만들어라
+                  if (!localStorage.getItem("cart-data")) {
+                    localStorage.setItem("cart-data", "[]");
+                  }
+
+                  // 로컬스 읽어와서 파싱하기
+                  let locals = localStorage.getItem("cart-data");
+                  locals = JSON.parse(locals);
+
+                  // 로컬스에 객체 데이터 추가하기
+                  locals.push({
+                    cat: cat,
+                    ginfo:ginfo,
+                    idx: gIdx,
+                    num: 1,
+                  });
+
+                  // 로컬스에 문자화하여 입력하기
+                  localStorage.setItem("cart-data", JSON.stringify(locals));
+                  
+                  // 카트상태값 변경
+                  myCon.setCartSts(true);
+                }}
+              >
+                SHOPPING CART
+              </button>
               <button className="btn">WISH LIST</button>
             </div>
           </section>
