@@ -4,88 +4,116 @@ import { addComma } from "../../js/func/common";
 import $ from "jquery";
 import { pCon } from "./pCon";
 
-function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
-  // cat - 카테고리,
-  // ginfo - 상품 정보
-  // gIdx - 상품고유번호
+function ItemDetail({ tot, setTot, dt }) {
+  // tot - 상품토탈정보
+  // setTot - 상품토탈정보 업데이트함수
+  // dt - 상품데이터
 
-  // 전역카트 사용여부값 업데이트 사용위해 전역 컨택스트 사용
+  // 상품정보 개별 셋업 ////
+  // cat - 카테고리
+  let cat = tot.cat;
+  // ginfo - 상품정보
+  let ginfo = tot.ginfo;
+  // gIdx - 상품고유번호
+  let gIdx = tot.idx;
+
+  console.log(cat, ginfo, gIdx);
+
+  // 전역 카트 사용여부값 업데이트 사용위해 전역 컨텍스트 사용
   const myCon = useContext(pCon);
 
+  // 제이쿼리 이벤트함수에 전달할 ginfo값 참조변수
   const getGinfo = useRef(ginfo);
-
+  // getGinfo참조변수는 새로들어온 ginfo전달값이 달라진 경우
+  // 업데이트한다!
   if (getGinfo.current != ginfo) getGinfo.current = ginfo;
 
-  // 배열 생성 테스트
-  // 1. 배열변수 = [] -> 배열 리터널
+  // [ 배열 생성 테스트 ]
+  // 1. 배열변수 = [] -> 배열리터럴
   // -> 생성된 배열을 for문을 돌려서 값을 할당함
-  // 2. 배열 객체로 만들기
-  // -> new Array(개수) -> 개수만큼 배열이 생김(빈배열)
-  // -> new생략하여 인스턴스 생성가능 (정적객체)
-  // -> Array(개수) >>> 그러나 빈배열은 map()을 못돌림..ㅠ
-  // 3. 배열에 값을 넣어주는 메서드 -> fill(값,시작번호,끝번호)
-  // fill(값) : 모든 배열 다 같은 값 채우기
+  // 2. 배열객체로 만들기
+  // -> new Array(개수) -> 개수만큼 배열생성(빈배열)
+  // -> new생략하여 인스턴스 생성가능! (정적객체)
+  // -> Array(개수) -> 그.러.나... 빈배열은 map() 못돌림!ㅠ.ㅠ
+  // 3. 배열에 값을 넣어주는 메서드
+  // ->>> 배열.fill(값,시작번호,끝번호)
+  // fill(값) : 모든배열 다 같은 값 채우기
   // fill(값,시작번호) : 0부터 시작하는 번호중 특정배열부터 끝까지 채움
-  // fill(값,시작번호,끝번호) : 시작번호부터 끝까지 채움
+  // fill(값,시작번호,끝번호) : 시작번호부터 끝번호까지 채움
   // console.log(Array(10));
-  // console.log(Array(10).fill(''));
-  // console.log(Array(10).fill(7));
-  // console.log(Array(10).fill(7,2));
-  // console.log(Array(10).fill(7,2,5));
+  // console.log(Array(10).fill(8));
+  // console.log(Array(10).fill(7, 2));
+  // console.log(Array(10).fill(7, 2, 5));
 
-  // 화면 랜더링 구역
+  // 화면랜더링구역 : 한번만 //////////
   useEffect(() => {
-    // [ 수량증감 버튼클릭시 증감기능 ]
+    // [ 수량증감 버튼클릭시 증감기능구현 ]
 
-    // 1. 대상 요소
-    // 숫자출력 input
+    // 1. 대상요소 ///////
+    // (1) 숫자출력 input
     const sum = $("#sum");
-    // 수량증감 이미지 버튼
+    // (2) 수량증감 이미지버튼
     const numBtn = $(".chg_num img");
-    // 총합계 요소
+    // (3) 총합계 요소
     const total = $("#total");
+    // console.log(sum,numBtn);
 
-    // 2. 수량증감 이벤트 함수
+    // 2. 수량증감 이벤트함수 ///
     numBtn.on("click", (e) => {
-      // 1. 이미지 순번
-      let seq = $(e.target).index();
-      // console.log(seq);
+      // (1) 이미지순번(구분하려고)
+      let seq = $(e.currentTarget).index();
+      console.log("버튼순번:", seq, e.target);
       // 0은 증가 / 1은 감소
 
-      // 2. 기존 숫자값 읽기
+      // (2) 기존 숫자값 읽기
       let num = Number(sum.val());
-      console.log("현재숫자", num);
+      console.log("현재숫자:", num);
 
-      // 3. 증감반영하기
-      sum.val(!seq ? ++num : num == 1 ? 1 : --num);
-      // 증감기호가 변수 앞에 있어야 먼저 증감하고 할당함
+      // (3) 증감반영하기(0은 false,1은 true 처리)
+      sum.val(seq == 0 ? ++num : num == 1 ? 1 : --num);
+      // seq가0이냐?그럼 증가:아니면 (num이 1이냐)
+      // 그럼1 아니면 감소 -> num이 1이하면 안되니까!
+      // 증감기호가 변수 앞에 있어야 먼저증감하고 할당함!
+      console.log("ginfo 전달변수확인:", ginfo);
+      console.log("getGinfo 참조변수확인:", getGinfo.current);
+      // [ 문제!!! ginfo값으로 읽으면 최초에 셋팅된 값이
+      // 그대로 유지된다! 왜? 본 함수는 최초한번만 셋팅되기때문! ]
+      // [ 해결책 : 새로들어오는 ginfo값을 참조변수에 넣어서
+      // 본 함수에서 그 값을 읽으면 된다! ]
 
-      // 문제!!! ginfo값으로 읽으면 최초에 세팅된 값이 그대로 유지된다.
-      // >>> 본 함수는 최초 한번만 세팅되기 떄문에
-      // 해결!! 새로 들어오는 ginfo값을 참조변수에 넣어서 본 함수에서 그 값을 읽으면 된다.
-
-      // 4. 토탈값 계산해서 넣기
-      // 원가격은 참조변수 getGinfo 사용 >> 매번 업데이트 됨
+      // (4) 총합계 반영하기
+      // 원가격은 컴포넌트 전달변수 ginfo[3] -> 갱신안됨!
+      // 원가격은 참조변수 getGinfo 사용 -> 매번 업데이트됨!
       total.text(addComma(getGinfo.current[3] * num) + "원");
-    });
-    // numBtn.off("click") <<제거용
-  }, []); ///////////////////////////////////useEffect
+    }); //////// click ////////
 
-  // 화면랜더링구역 : 매번
+    // 참고) 제거용 -> numBtn.off("click");
+  }, []); /// 현재컴포넌트 처음생성시 한번만 실행구역 ///
+
+  // [ 화면랜더링구역 : 매번 ] ///
   useEffect(() => {
-    // 매번 리랜더링될때마다 수량,총합계 초기화
+    // 매번 리랜더링 될때마다 수량초기화!
     $("#sum").val(1);
-    $("#total").text(addComma(getGinfo.current[3]) + "원");
-  });
+    // 총합계 초기화
+    $("#total").text(addComma(ginfo[3]) + "원");
+  }); ////////// useEffect //////
 
+  // 코드리턴구역 /////////////
   return (
     <>
       <a
         href="#"
         className="cbtn"
         onClick={(e) => {
+          // 기본이동막기
           e.preventDefault();
+          // 창닫기
           $(".bgbx").hide();
+          // 창닫을때 초기화하기!  
+          // 수량초기화!
+          $("#sum").val(1);
+          // 총합계 초기화
+          $("#total").text(addComma(ginfo[3]) + "원");
         }}
       >
         <span className="ir">닫기버튼</span>
@@ -93,43 +121,50 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
       <div id="imbx">
         <div className="inx">
           <section className="gimg">
-            {/* 선택한상품 큰 이미지 */}
+            {/* 선택한 상품 큰이미지 */}
             <img
               src={
                 process.env.PUBLIC_URL + `/images/goods/${cat}/${ginfo[0]}.png`
               }
               alt="큰 이미지"
             />
-            {/* 작은 상품이미지
-            - 본 상품을 제외한 5개의 상품이 나열되고 클릭시 본 상품을 변경해 준다
-            단 같은 카테고리 상품 상위 5개임
-            -> 배열을 임의로 만들고 값도 임의로 넣고 map을 사용하여 코드를 만들어보자 */}
+            {/* [작은 상품이미지]
+            - 본 상품을 제외한 5개의 상품이 나열되고
+            클릭시 본 화면에 상품을 변경해 준다!
+            단, 같은 카테고리 상품 상위 5개임 
+            -> 배열을 임의로 만들고 값도 임의로 넣고
+            map을 사용하여 코드를 만들어보자!!!
+            */}
             <div className="small">
               {Array(5)
                 .fill("")
                 .map((v, i) => {
-                  // 한줄리스트와 같은번호면 6번 오게함
+                  // 한줄리스트와 같은번호면 6번오게함!
+                  // 1~5까지니까!
                   let num = ginfo[0].substr(1) == i + 1 ? 6 : i + 1;
                   // 현재상품번호가 1~5중 같은게 있으면 6번
-                  // substr(시작순번,개수)->개수없으면 순번부터 다 가져옴
-                  // console.log("검사번호", num);
+                  // substr(시작순번,개수)->개수없으면 순번부터 전부다가져옴
+                  // console.log("검사번호:",ginfo[0].substr(1));
+                  // console.log("변경번호:",num);
+
                   return (
                     <a
                       href="#"
                       key={i}
                       onClick={(e) => {
+                        // 기본이동막기
                         e.preventDefault();
-                        // 선택데이터 찾기
+                        // 선택 데이터 찾기
+                        // -> cat항목값 + ginfo[0]항목
                         let res = dt.find((v) => {
-                          if (v.cat === cat && v.ginfo[0] == "m" + num) {
+                          if (v.cat == cat && v.ginfo[0] == "m" + num)
                             return true;
-                          }
-                        }); ////////////////find
+                        }); //// find /////
+                        console.log(res);
                         // 상품상세모듈 전달 상태변수 변경
-                        // find에서 받은 값은 객체값
-                        // 그중 ginfo속성값만 필요함
-                        setGinfo(res.ginfo);
-                        // 카테고리값은 바꿀필요없음
+                        // find에서 받은값은 객체값
+                        // 상품토탈정보로 모든 객체값을 업데이트함
+                        setTot(res);
                       }}
                     >
                       <img
@@ -248,10 +283,10 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
                 className="btn"
                 onClick={() => {
                   // 로컬스에 넣기
-                  // 로컬스 없으면 만들어라
+                  // 로컬스 없으면 만들어라!
                   if (!localStorage.getItem("cart-data")) {
                     localStorage.setItem("cart-data", "[]");
-                  }
+                  } //// if /////
 
                   // 로컬스 읽어와서 파싱하기
                   let locals = localStorage.getItem("cart-data");
@@ -259,16 +294,26 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
 
                   // 로컬스에 객체 데이터 추가하기
                   locals.push({
-                    cat: cat,
-                    ginfo:ginfo,
+                    num: locals.length+1,
                     idx: gIdx,
-                    num: 1,
+                    cat: cat,
+                    ginfo: ginfo,
+                    cnt: $("#sum").val()
                   });
+                  /************************** 
+                    [데이터 구조정의]
+                    1. num : 카트리스트 순번
+                    2. idx : 상품고유번호
+                    3. cat : 카테고리
+                    4. ginfo : 상품정보
+                    5. cnt : 상품개수
+                  **************************/
 
                   // 로컬스에 문자화하여 입력하기
-                  localStorage.setItem("cart-data", JSON.stringify(locals));
-                  
-                  // 카트상태값 변경
+                  localStorage.setItem(
+                    "cart-data", JSON.stringify(locals));
+
+                  // 카트 상태값 변경
                   myCon.setCartSts(true);
                 }}
               >
