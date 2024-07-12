@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 // 카트 리스트 CSS
 import "../../css/cart_list.scss";
@@ -9,6 +9,11 @@ import { addComma } from "../../js/func/common";
 import $ from "jquery";
 
 function CartList(props) {
+  // 강제리랜더링을 위한 상태변수
+  const [force, setForce] = useState(false);
+  // 불린값을 넣어놓고 강제 리랜더링이 필요한 경우
+  // setForce(!force); >> 기존 불린값을 반대로 넣어준다,
+
   // 컨텍스트 사용
   const myCon = useContext(pCon);
 
@@ -37,7 +42,7 @@ function CartList(props) {
     return result;
   }; ////////// totalFn ///////////
 
-  // 화면랜더링 구역 : dataCnt의존성 /////////
+  // 화면랜더링 구역 : dataCnt,force의존성 /////////
   useEffect(() => {
     console.log("dataCnt의존성");
     // 카트버튼 나타나기
@@ -51,7 +56,7 @@ function CartList(props) {
 
     // 총합계 찍기 : 3자리마다 콤마함수호출도함
     $(".total-num").text(addComma(totalFn()));
-  }, [dataCnt]); //-> 숫자값은 값할당이므로 변함없음!
+  }, [dataCnt, force]); //-> 숫자값은 값할당이므로 변함없음!
   // },[selData]); //-> 리랜더링시 객체주소값이 변경되어
   // 매번 새로운값이 업데이트 되기때문에 부적격임!
 
@@ -173,9 +178,9 @@ function CartList(props) {
                                     // 클릭 시 실제 데잍 수량변경 반영하기
                                     // 대상:selData -> 배열변환 데이터
                                     // i는 배열 순번
-                                    selData[i].cnt = $(
-                                      e.currentTarget
-                                    ).siblings(".item-cnt").val();
+                                    selData[i].cnt = $(e.currentTarget)
+                                      .siblings(".item-cnt")
+                                      .val();
                                     console.log("수량업데이트:", selData);
 
                                     // 2. 데이터 문자화하기 : 변경된 원본을 문자화
@@ -188,13 +193,39 @@ function CartList(props) {
                                     myCon.setLocalsCart(res);
 
                                     // 5. 반영버튼 숨기기
-                                    $(e.currentTarget).css({width:"0"});
+                                    $(e.currentTarget).hide().next().hide();
+
+                                    // -> 아래 5,6은 리랜더링 되면 해결됨
+                                    // 그리고 데이터 변경 싱크가 맞지않는 경우가 생기게 됨
+                                    // 데이터를 변경했음에도 리랜더링이 안된 이유는 배열의 객체값이 변경되거나 배열 순서를 변경한 경우 배열이 변경되었다고 체크되지 않는다,.
+                                    // >>>>> 따라서 강제 리랜더링이 필요하다
+                                    setForce(!force);
 
                                     // 6. 전체 총합계 계산 다시하기
-                                    $(".total-num").text(addComma(totalFn()));
+                                    // $(".total-num").text(addComma(totalFn()));
                                   }}
                                 >
                                   반영
+                                </button>
+                                {/* 취소버튼 */}
+                                <button
+                                  className="btn-cancel"
+                                  onClick={(e) => {
+                                    $(e.currentTarget)
+                                      .hide()
+                                      .prev() //반영버튼
+                                      .hide()
+                                      .siblings("input")
+                                      .val(v.cnt);
+                                    // 취소버튼 자신의
+                                    // CSS를 변경하고
+                                    // 이전버튼인 반영버튼도
+                                    // 안보이게 하고
+                                    // 형제요소 중 input을 찾아
+                                    // 값으로 기존값인 v.cnt를 넣는다
+                                  }}
+                                >
+                                  취소
                                 </button>
                                 <b
                                   className="btn-cnt"
@@ -226,7 +257,15 @@ function CartList(props) {
                                     // 클릭시 반영버튼 나타나기
                                     $(e.currentTarget)
                                       .siblings(".btn-insert")
-                                      .css({ width: "auto" });
+                                      .show()
+                                      .next() //취소버튼
+                                      .show();
+
+                                    $(e.currentTarget)
+                                      .siblings(".btn-insert")
+                                      .show()
+                                      .next() // 취소버튼
+                                      .show();
                                   }}
                                 >
                                   <img
