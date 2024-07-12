@@ -10,7 +10,7 @@ import { dCon } from "../modules/dCon";
 import { useNavigate } from "react-router-dom";
 
 import $ from "jquery";
-import "jquery.cookie";
+// import "jquery.cookie";
 
 export default function Layout() {
   // [ 상태관리 변수 ] //////////////
@@ -73,7 +73,7 @@ export default function Layout() {
       // -> 세션스의 unm(이름값)을 보내준다!
       makeMsg(JSON.parse(ss).unm);
     } ///// if ///////
-    $.cookie("aa", "bb", { expires: 2 });
+    // $.cookie("aa", "bb", { expires: 2 });
   }, []);
 
   //// 코드 리턴구역 //////////////
