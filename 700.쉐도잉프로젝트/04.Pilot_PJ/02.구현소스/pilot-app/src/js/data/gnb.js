@@ -10,5 +10,5 @@ export const gnbData = {
     ],
     style: ["SPECIAL SUMMER STYLE", 
     "GOLF LIFE", "CAMPING STYLE", "SPORT STYLE"],
-    glist: ["Filter List", "Paging List", "More List"],
+    "item-list": ["Filter List", "Paging List", "More List"],
   }; /////////// gnbData ////////////////
