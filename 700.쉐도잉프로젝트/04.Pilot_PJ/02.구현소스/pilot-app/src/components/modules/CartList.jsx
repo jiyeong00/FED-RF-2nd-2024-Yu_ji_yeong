@@ -44,7 +44,7 @@ function CartList(props) {
 
   // 화면랜더링 구역 : dataCnt,force의존성 /////////
   useEffect(() => {
-    console.log("dataCnt의존성"); 
+    console.log("dataCnt의존성");
     // 카트버튼 나타나기
     $("#mycart")
       .removeClass("on")
