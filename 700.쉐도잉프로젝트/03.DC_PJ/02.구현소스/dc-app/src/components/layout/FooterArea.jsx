@@ -4,6 +4,7 @@ import "../../css/footer_area.scss";
 
 import { bmData } from "../data/bmenu";
 import { memo } from "react";
+import Weather from "../modules/Weather";
 
 // 리액트.memo()을 사용한 컴포넌트 메모이제이션
 // >>>>>컴포넌트를 할당형으로 변경
@@ -35,6 +36,9 @@ export const FooterArea= memo(()=>{
         </li>
         <li>© & ™ DC. ALL RIGHTS RESERVED</li>
       </ul>
+
+      {/* 날씨정보 컴포넌트 */}
+      <Weather/>
     </footer>
   );
 }); ///////////////FooterArea//////////////
