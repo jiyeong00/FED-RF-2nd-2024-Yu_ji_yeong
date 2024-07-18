@@ -19,7 +19,7 @@ export default function Layout() {
 
   // 상태관리변수 변경함수도 전달시 콜백처리해야 메모이제이션됨!
   // const 콜백처리함수 = useCallback((x)=>{setLoginSts(x)},[loginSts])
-  
+
   // -> 초기값으로 세션스토리지 "minfo"를 할당함
 
   // 2. 로그인 환영 메시지 상태변수
@@ -34,7 +34,7 @@ export default function Layout() {
   // 함수메모처리 위해 useCallback()에 넣어준다!
   const goPage = useCallback((pm1, pm2) => {
     goNav(pm1, pm2);
-  },[]);
+  }, []);
 
   // 2. 로그인 환영메시지 생성함수
   const makeMsg = useCallback((name) => {
@@ -44,7 +44,9 @@ export default function Layout() {
     let rdm = Math.floor(Math.random() * 5);
     // 로그인 메시지 상태변수 업데이트
     setLoginMsg(`Welcome ${name} ${usrIcon[rdm]}`);
-  },[]); /////// makeMsg 함수 /////////
+    // 메시지 생성시 게시판 조회데이터 세션스 삭제(초기화)
+    sessionStorage.removeItem("bd-rec");
+  }, []); /////// makeMsg 함수 /////////
 
   // 3. 로그아웃 함수 /////////
   const logoutFn = useCallback(() => {
@@ -52,11 +54,13 @@ export default function Layout() {
     setLoginSts(null);
     // 2. 세션스 지우기 : minfo
     sessionStorage.removeItem("minfo");
+    // 추가삭제: 게시판 조회데이터 세션스
+    sessionStorage.removeItem("bd-rec");
     // 3. 로그인 메시지 초기화
     setLoginMsg(null);
     // 4. 메인 페이지로 돌아가기
     goPage("/");
-  },[]); //////// logoutFn 함수 /////////
+  }, []); //////// logoutFn 함수 /////////
 
   // 화면 랜더링 구역 ////////
   useEffect(() => {
@@ -72,8 +76,6 @@ export default function Layout() {
       // 로그인 메시지 업데이트 :
       // -> 세션스의 unm(이름값)을 보내준다!
       makeMsg(JSON.parse(ss).unm);
-
-      
     } ///// if ///////
     // $.cookie("aa","bb",{expires: 2});
   }, []);
@@ -93,7 +95,12 @@ export default function Layout() {
       }}
     >
       {/* 1.상단영역 : 메모이제이션을 위해 직접값전달! */}
-      <TopArea loginMsg={loginMsg} loginSts={loginSts} logoutFn={logoutFn} goPage={goPage} />
+      <TopArea
+        loginMsg={loginMsg}
+        loginSts={loginSts}
+        logoutFn={logoutFn}
+        goPage={goPage}
+      />
       {/* 2.메인영역 */}
       <MainArea />
       {/* 3.하단영역 */}
