@@ -8,7 +8,7 @@ function SearchPage(props) {
   const loc =useLocation();
 
   // 넘어온 키워드 받기
-  let keyword=loc.state.keyword;
+  let keyword=loc.  state.keyword;
 
   return (
     <>
