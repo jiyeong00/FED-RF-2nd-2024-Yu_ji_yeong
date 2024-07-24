@@ -102,8 +102,8 @@ export default function Board() {
       selData.push(orgData[i]);
     } ///// for //////
 
-    console.log("일부데이터:", selData);
-    console.log("여기:", selData.length);
+    // console.log("일부데이터:", selData);
+    // console.log("여기:", selData.length);
     if (selData.length == 0) setPageNum(pageNum - 1);
 
     return selData.map((v, i) => (
@@ -522,23 +522,26 @@ const ReadMode = ({ selRecord, sts }) => {
   // (2) 기존 배열값에 현재글번호 존재여부검사하기
   // 결과가 true이면 조회수를 증가하지 않는다!
   let isRec = rec.includes(data.idx);
-  console.log("이미있니?", isRec);
+  // console.log("이미있니?", isRec);
 
   // (3) 로그인한 사용자의 글이면 isRec값을 true처리
   // sts가 true이면 즉, 로그인한 사용자이면 처리
   if (sts) {
-    console.log(
-      "선택글 아이디:",
-      data.uid,
-      "로그인사용자 아이디:",
-      JSON.parse(sts).uid
-    );
+    // console.log(
+    //   "선택글 아이디:",
+    //   data.uid,
+    //   "로그인사용자 아이디:",
+    //   JSON.parse(sts).uid
+    // );
     // 글쓴이 아이디와 로그인사용자 아이디가 같은가?
     if (data.uid == JSON.parse(sts).uid) {
       // 글번호저장과 조회수증가를 하지 않도록 isRec값을
       // true로 변경한다!
       isRec = true;
     } //// if ///
+    else{
+      isRec = false;
+    }
   } /// if ///
 
   // (4) 배열에 값 추가하기 : 기존값에 없으면 넣기!
@@ -558,15 +561,18 @@ const ReadMode = ({ selRecord, sts }) => {
     bdData.some((v) => {
       if (v.idx == data.idx) {
         // 기존값에 1증가하여 넣기
-        v.cnt = Number(v.cnt) + 1;
+        v.cnt = Number(v.cnt)+1;
         return true;
       } /// if ///
     }); /// some ////
 
     // (3) 다시 로컬스에 저장하기
     localStorage.setItem("board-data", JSON.stringify(bdData));
+    // console.log("저장했어?",isRec);
+    // isRec = true;
   } /// if : (!isRec) ///
-
+  // console.log("나왔어!",isRec);
+  
   /////// 코드리턴 구역 ///////////
   return (
     <>
@@ -795,7 +801,7 @@ const PagingList = ({
     pgPgCount++;
   } /// if ////
 
-  console.log("페이징의 페이징개수:", pgPgCount);
+  // console.log("페이징의 페이징개수:", pgPgCount);
 
   // (2) 리스트 시작값 / 한계값 구하기
   // 시작값 : (페페넘-1)*페페단
@@ -803,7 +809,7 @@ const PagingList = ({
   // 한계값 : 페페넘*페페단
   let limitNum = pgPgNum.current * pgPgSize;
 
-  console.log("시작값:", initNum, "/한계값:", limitNum);
+  // console.log("시작값:", initNum, "/한계값:", limitNum);
 
   ///// [ 링크코드 만들기 ] /////////////////
   const pgCode = [];
