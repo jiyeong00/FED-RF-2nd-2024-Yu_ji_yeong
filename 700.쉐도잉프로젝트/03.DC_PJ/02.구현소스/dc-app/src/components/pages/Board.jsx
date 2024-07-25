@@ -2,7 +2,7 @@
 import { Fragment, useContext, useEffect, useRef, useState } from "react";
 
 // 사용자 기본정보 생성 함수
-import { initData } from "../func/mem_fn";
+// import { initData } from "../func/mem_fn";
 
 // 로컬스토리지 게시판 기본데이터 제이슨 -> 로컬쓰로 대체!!!
 // import baseData from "../data/board.json";
@@ -47,6 +47,9 @@ export default function Board() {
   // (2) 글보기 모드(R) : Read Mode
   // (3) 글쓰기 모드(W) : Write Mode
   // (4) 수정 모드(M) : Modify Mode (삭제포함)
+  // [3] 검색어 저장 변수: 배열[기준,검색어]
+  const [keyword, setKeyword] = useState(["", ""]);
+  console.log("[기준,키워드]", keyword);
 
   // [ 참조변수 ] ///
   // [1] 전체 개수 - 매번 계산하지 않도록 참조변수로!
@@ -73,6 +76,29 @@ export default function Board() {
 
     // 1. 전체 원본데이터 선택
     let orgData = baseData;
+
+    // 1-1. 검색어가 있는 경우 필터하기
+    // keyword[0]: 검색기준 / keyword[1]: 검색어
+    if (keyword[1] != "") {
+      orgData = baseData.filter((v) => {
+        // 소문자 처리하기
+        // (1) 검색원본데이터
+        let orgTxt = v[keyword[0]].toLowerCase();
+        // (2) 검색어 데이터
+        let txt = keyword[1].toLowerCase();
+
+        // console.log(v.tit);
+        // 필터검색조건 맞는 데이터 수집하기
+        if (orgTxt.indexOf(txt) != -1) return true;
+      }); ////////////filter
+    }
+    // 1-2. 검색어가 없는 경우 전체넣기
+    else {
+      orgData = baseData;
+    }
+
+    // 1-3. 새로 데이터를 담은 후 바로 전체 개수 업데이트 필수!
+    totalCount.current = orgData.length;
 
     // 2. 정렬 적용하기 : 내림차순
     orgData.sort((a, b) =>
@@ -104,31 +130,46 @@ export default function Board() {
 
     // console.log("일부데이터:", selData);
     // console.log("여기:", selData.length);
-    if (selData.length == 0) setPageNum(pageNum - 1);
 
-    return selData.map((v, i) => (
-      <tr key={i}>
-        {/* 시작번호를 더하여 페이지별 순번을 변경 */}
-        <td>{i + 1 + sNum}</td>
-        <td>
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              // 읽기모드로 변경!
-              setMode("R");
-              // 해당 데이터 저장하기
-              selRecord.current = v;
-            }}
-          >
-            {v.tit}
-          </a>
-        </td>
-        <td>{v.unm}</td>
-        <td>{v.date}</td>
-        <td>{v.cnt}</td>
-      </tr>
-    ));
+
+    // if (selData.length == 0) setPageNum(pageNum - 1);
+    // ->> ListMode컴포넌트가 업데이트 되는동안에 리스트 관련 상태변수를 업데이트를 하면 업데이트 불가 에러 메시지 발생
+    // 따라서 이런 코드는 다른 방식으로 변경해야함
+
+    return (
+      // 전체데이터 개수가 0 초과일 경우 출력
+      // 0초과 ? map돌기코드 : 없음코드
+      totalCount.current > 0 ? (
+        selData.map((v, i) => (
+          <tr key={i}>
+            {/* 시작번호를 더하여 페이지별 순번을 변경 */}
+            <td>{i + 1 + sNum}</td>
+            <td>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  // 읽기모드로 변경!
+                  setMode("R");
+                  // 해당 데이터 저장하기
+                  selRecord.current = v;
+                }}
+              >
+                {v.tit}
+              </a>
+            </td>
+            <td>{v.unm}</td>
+            <td>{v.date}</td>
+            <td>{v.cnt}</td>
+          </tr>
+        ))
+      ) : (
+        // 데이터가 없을 때 출력
+        <tr>
+          <td colSpan="5">맞는 검색결과가 없습니다.</td>
+        </tr>
+      )
+    );
   }; /////////// bindList 함수 /////////////////
 
   // 버튼 클릭시 변경함수 ////////
@@ -145,6 +186,8 @@ export default function Board() {
       // 리스트모드로 변경
       case "List":
         setMode("L");
+        // 검색시에도 전체 데이터 나오게 함
+        setKeyword(["", ""]);
         break;
       // 서브밋일 경우 함수호출!
       case "Submit":
@@ -338,6 +381,7 @@ export default function Board() {
             setPageNum={setPageNum}
             pgPgNum={pgPgNum}
             pgPgSize={pgPgSize}
+            setKeyword={setKeyword}
           />
         )
       }
@@ -430,6 +474,7 @@ const ListMode = ({
   setPageNum,
   pgPgNum,
   pgPgSize,
+  setKeyword,
 }) => {
   /******************************************* 
     [ 전달변수 ] - 2~5까지 4개는 페이징전달변수
@@ -454,7 +499,31 @@ const ListMode = ({
           <option value="1">Ascending</option>
         </select>
         <input id="stxt" type="text" maxLength="50" />
-        <button className="sbtn">Search</button>
+        <button
+          className="sbtn"
+          onClick={(e) => {
+            // 검색기준값 읽어오기
+            let creteria = $(e.target).siblings(".cta").val();
+            console.log("기준값 : ", creteria);
+            // 검색어 읽어오기
+            let txt = $(e.target).prev().val();
+            console.log(typeof txt, "검색어 : ", txt);
+            // input값은 안쓰면 빈스트링이 넘어옴
+            if (txt != "") {
+              console.log("검색해");
+              // [검색기준,검색어]-> setKeyword업데이트
+              setKeyword([creteria, txt]);
+              // 검색 후 첫페이지로 보내기
+              setPageNum(1);
+              // 검색 후엔 페이지의페이징 번호 초기화(1)
+              pgPgNum.current=1;
+            } else {
+              alert("검색어를 입력하시오");
+            }
+          }}
+        >
+          Search
+        </button>
       </div>
       <table className="dtbl" id="board">
         <thead>
@@ -471,14 +540,17 @@ const ListMode = ({
           <tr>
             <td colSpan="5" className="paging">
               {
-                <PagingList
-                  totalCount={totalCount}
-                  unitSize={unitSize}
-                  pageNum={pageNum}
-                  setPageNum={setPageNum}
-                  pgPgNum={pgPgNum}
-                  pgPgSize={pgPgSize}
-                />
+                // 데이터 개수가 0 이상일때만 출력
+                totalCount.current > 0 && (
+                  <PagingList
+                    totalCount={totalCount}
+                    unitSize={unitSize}
+                    pageNum={pageNum}
+                    setPageNum={setPageNum}
+                    pgPgNum={pgPgNum}
+                    pgPgSize={pgPgSize}
+                  />
+                )
               }
             </td>
           </tr>
@@ -539,7 +611,7 @@ const ReadMode = ({ selRecord, sts }) => {
       // true로 변경한다!
       isRec = true;
     } //// if ///
-    else{
+    else {
       isRec = false;
     }
   } /// if ///
@@ -561,7 +633,7 @@ const ReadMode = ({ selRecord, sts }) => {
     bdData.some((v) => {
       if (v.idx == data.idx) {
         // 기존값에 1증가하여 넣기
-        v.cnt = Number(v.cnt)+1;
+        v.cnt = Number(v.cnt) + 1;
         return true;
       } /// if ///
     }); /// some ////
@@ -572,7 +644,7 @@ const ReadMode = ({ selRecord, sts }) => {
     // isRec = true;
   } /// if : (!isRec) ///
   // console.log("나왔어!",isRec);
-  
+
   /////// 코드리턴 구역 ///////////
   return (
     <>
@@ -776,12 +848,19 @@ const PagingList = ({
     pagingCount++;
   }
 
-  // console.log(
-  //   "페이징개수:",
-  //   pagingCount,
-  //   "나머지개수:",
-  //   totalCount.current % unitSize
-  // );
+  console.log(
+    "페이징개수:",
+    pagingCount,
+    "전체 레토드 수",
+    totalCount.current,
+    "나머지개수:",
+    totalCount.current % unitSize
+  );
+
+  // console.log("페이징의 페이징 개수",pgPgCount);
+  console.log("페이징의 페이징 번호",pgPgNum.current);
+  // 검색 시 페이징 번호 초기화 필요
+
 
   // [ 페이징의 페이징 하기 ]
   // [1] 페이징 블록
@@ -940,7 +1019,7 @@ const PagingList = ({
     // (2) 끝페이징 이동은
     // 오른쪽(1)일 경우 맨끝 페이징번호로 이동(pgPgCount)
     // 왼쪽(-1)일 경우 맨 앞 페이징번호로 이동(1)
-    else newPgPgNum = dir==1?pgPgCount:1;
+    else newPgPgNum = dir == 1 ? pgPgCount : 1;
 
     // 2. 페이징의 페이징 번호 업데이트
     pgPgNum.current = newPgPgNum;
