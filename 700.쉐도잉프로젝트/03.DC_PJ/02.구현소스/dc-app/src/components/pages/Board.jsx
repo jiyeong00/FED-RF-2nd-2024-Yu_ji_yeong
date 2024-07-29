@@ -1,5 +1,5 @@
 // 오피니언 페이지 컴포넌트 ///
-import { Fragment, useContext, useEffect, useRef, useState } from "react";
+import { Fragment, useContext, useRef, useState } from "react";
 
 // 사용자 기본정보 생성 함수
 // import { initData } from "../func/mem_fn";
@@ -41,15 +41,24 @@ export default function Board() {
   ///////// [ 상태관리 변수 ] //////////////
   // [1] 페이지 번호
   const [pageNum, setPageNum] = useState(1);
+
   // [2] 기능모드
   const [mode, setMode] = useState("L");
   // (1) 리스트 모드(L) : List Mode
   // (2) 글보기 모드(R) : Read Mode
   // (3) 글쓰기 모드(W) : Write Mode
   // (4) 수정 모드(M) : Modify Mode (삭제포함)
-  // [3] 검색어 저장 변수: 배열[기준,검색어]
+
+  // [3] 검색어 저장변수 : 배열 [기준,검색어]
   const [keyword, setKeyword] = useState(["", ""]);
   console.log("[기준,키워드]", keyword);
+
+  // [4] 정렬 기준값 상태변수 : 값 (asc(-1) / desc(1))
+  const [sort, setSort] = useState(1);
+  // -> 기존 셋팅값에 1을 곱하면 원래값, -1을 곱하면 반대값셋팅
+
+  // [5] 정렬 항목값 상태변수 : 값 - idx / tit
+  const [sortCta, setSortCta] = useState("idx");
 
   // [ 참조변수 ] ///
   // [1] 전체 개수 - 매번 계산하지 않도록 참조변수로!
@@ -65,7 +74,7 @@ export default function Board() {
   // 페이지당 개수 : 페이지당 레코드수
   const unitSize = 4;
   // 페이징의 페이징 개수 : 한번에 보여줄 페이징개수
-  const pgPgSize = 4;
+  const pgPgSize = 3;
 
   /********************************************** 
         함수명: bindList
@@ -75,34 +84,49 @@ export default function Board() {
     // console.log(baseData);
 
     // 1. 전체 원본데이터 선택
-    let orgData = baseData;
+    let orgData;
 
-    // 1-1. 검색어가 있는 경우 필터하기
-    // keyword[0]: 검색기준 / keyword[1]: 검색어
+    // 1-1.검색어가 있는경우 필터하기
+    // keyword[0] : 검색기준 / keyword[1] : 검색어
     if (keyword[1] != "") {
       orgData = baseData.filter((v) => {
-        // 소문자 처리하기
-        // (1) 검색원본데이터
+        // 1. 소문자 처리하기
+        // (1) 검색원본 데이터
         let orgTxt = v[keyword[0]].toLowerCase();
         // (2) 검색어 데이터
         let txt = keyword[1].toLowerCase();
 
-        // console.log(v.tit);
-        // 필터검색조건 맞는 데이터 수집하기
+        // console.log(v[keyword[0]].indexOf(keyword[1]));
+        // 2. 필터 검색조건에 맞는 데이터 수집하기
         if (orgTxt.indexOf(txt) != -1) return true;
-      }); ////////////filter
-    }
-    // 1-2. 검색어가 없는 경우 전체넣기
+      });
+    } /////// if //////////
+    // 1-2.검색어가 없는경우 전체넣기
     else {
       orgData = baseData;
-    }
+    } //////// else ///////
 
-    // 1-3. 새로 데이터를 담은 후 바로 전체 개수 업데이트 필수!
+    // 1-3. 새로 데이터를 담은 후 바로 전체개수 업데이트 필수!
     totalCount.current = orgData.length;
 
     // 2. 정렬 적용하기 : 내림차순
+    // sort값이 1이면 desc(현재상태유지)
+    // sort값이 -1이면 asc(부호반대변경)
+    // 정렬항목은 sortCta값에 따름("idx"/"tit")
+
+    // "idx"정렬항목일 경우만 Number()처리함수
+    const chgVal = x => 
+    sortCta=="idx"
+    // idx는 숫자형으로 정렬
+    ?Number(x[sortCta])
+    // "tit"는 문자형이고 소문자로 비교
+    :x[sortCta].toLowerCase();
+
     orgData.sort((a, b) =>
-      Number(a.idx) > Number(b.idx) ? -1 : Number(a.idx) < Number(b.idx) ? 1 : 0
+      chgVal(a) > chgVal(b) 
+      ? -1 * sort 
+      : chgVal(a) < chgVal(b) 
+      ? 1 * sort : 0
     );
 
     // 3. 일부 데이터만 선택
@@ -128,16 +152,17 @@ export default function Board() {
       selData.push(orgData[i]);
     } ///// for //////
 
-    // console.log("일부데이터:", selData);
-    // console.log("여기:", selData.length);
-
+    console.log("일부데이터:", selData);
+    console.log("여기:", selData.length);
 
     // if (selData.length == 0) setPageNum(pageNum - 1);
-    // ->> ListMode컴포넌트가 업데이트 되는동안에 리스트 관련 상태변수를 업데이트를 하면 업데이트 불가 에러 메시지 발생
-    // 따라서 이런 코드는 다른 방식으로 변경해야함
+    // -> ListMode컴포넌트가 업데이트 되는동안에
+    // 리스트 관련 상태변수를 업데이트하면 
+    // 업데이트 불가 에러 메시지가 발생한다!
+    // 따라서 이런 코드는 다른 방식으로 변경해야함!
 
     return (
-      // 전체데이터 개수가 0 초과일 경우 출력
+      // 전체 데이터 개수가 0 초과일 경우 출력
       // 0초과 ? map돌기코드 : 없음코드
       totalCount.current > 0 ? (
         selData.map((v, i) => (
@@ -163,13 +188,12 @@ export default function Board() {
             <td>{v.cnt}</td>
           </tr>
         ))
-      ) : (
-        // 데이터가 없을 때 출력
+      ) : (// 데이터가 없을 때 출력 /////////
         <tr>
-          <td colSpan="5">맞는 검색결과가 없습니다.</td>
+          <td colSpan="5">There is no data.</td>
         </tr>
       )
-    );
+    ); //// return /////
   }; /////////// bindList 함수 /////////////////
 
   // 버튼 클릭시 변경함수 ////////
@@ -186,8 +210,8 @@ export default function Board() {
       // 리스트모드로 변경
       case "List":
         setMode("L");
-        // 검색시에도 전체 데이터 나오게 함
-        setKeyword(["", ""]);
+        // 검색시에도 전체 데이터나오게 함
+        setKeyword(['','']);
         break;
       // 서브밋일 경우 함수호출!
       case "Submit":
@@ -382,6 +406,11 @@ export default function Board() {
             pgPgNum={pgPgNum}
             pgPgSize={pgPgSize}
             setKeyword={setKeyword}
+            keyword={keyword}
+            sort={sort}
+            setSort={setSort}
+            sortCta={sortCta}
+            setSortCta={setSortCta}
           />
         )
       }
@@ -474,7 +503,12 @@ const ListMode = ({
   setPageNum,
   pgPgNum,
   pgPgSize,
+  keyword,
   setKeyword,
+  sort,
+  setSort,
+  sortCta,
+  setSortCta,
 }) => {
   /******************************************* 
     [ 전달변수 ] - 2~5까지 4개는 페이징전달변수
@@ -483,6 +517,14 @@ const ListMode = ({
     3. unitSize : 게시판 리스트 당 레코드 개수
     4. pageNum : 현재 페이지번호
     5. setPageNum : 현재 페이지번호 변경 메서드
+    6. pgPgNum : 페이지번호
+    7. pgPgSize : 페이징의 페이지 크기
+    8. keyword : 검색어
+    9. setKeyword : 검색어셋팅
+    10. sort : 정렬기준
+    11. setSort : 정렬기준셋팅
+    12. sortCta : 정렬항목
+    13. setSortCta : 정렬항목셋팅
   *******************************************/
 
   // 코드리턴구역 //////////////////////
@@ -494,36 +536,86 @@ const ListMode = ({
           <option value="cont">Contents</option>
           <option value="unm">Writer</option>
         </select>
-        <select name="sel" id="sel" className="sel">
-          <option value="0">Descending</option>
-          <option value="1">Ascending</option>
+        
+        <select name="sel" id="sel" className="sel"
+        onChange={()=>setSort(sort*-1)}
+        >
+          <option value="0" 
+          selected={sort==1?true:false}>
+            Descending</option>
+          <option value="1"
+          selected={sort==-1?true:false}>
+            Ascending</option>
         </select>
-        <input id="stxt" type="text" maxLength="50" />
+        <input id="stxt" type="text" maxLength="50"
+        onKeyUp={(e)=>{
+          // e.keyCode는 번호로 13이 엔터
+          // e.key 는 문자로 "Enter"가 엔터
+          // console.log(e.key,e.keyCode);
+          if(e.key=="Enter")
+          {$(e.currentTarget).next().trigger("click")}
+        }}
+        />
         <button
           className="sbtn"
           onClick={(e) => {
             // 검색기준값 읽어오기
             let creteria = $(e.target).siblings(".cta").val();
-            console.log("기준값 : ", creteria);
+            console.log("기준값:", creteria);
             // 검색어 읽어오기
             let txt = $(e.target).prev().val();
-            console.log(typeof txt, "검색어 : ", txt);
-            // input값은 안쓰면 빈스트링이 넘어옴
+            console.log(typeof txt, "/검색어:", txt);
+            // input값은 안쓰면 빈스트링이 넘어옴!
             if (txt != "") {
-              console.log("검색해");
-              // [검색기준,검색어]-> setKeyword업데이트
+              console.log("검색해!");
+              // [검색기준,검색어] -> setKeyword 업데이트
               setKeyword([creteria, txt]);
-              // 검색 후 첫페이지로 보내기
+              // 검색후엔 첫페이지로 보내기
               setPageNum(1);
-              // 검색 후엔 페이지의페이징 번호 초기화(1)
-              pgPgNum.current=1;
-            } else {
-              alert("검색어를 입력하시오");
+              // 검색후엔 페이지의 페이징 번호 초기화(1)
+              pgPgNum.current = 1;
+            }
+            // 빈값일 경우
+            else {
+              alert("Please enter a keyword!");
             }
           }}
         >
           Search
         </button>
+        {
+          // 키워드가 있는 경우에 전체 리스트 돌아가기 버튼출력
+          keyword[0] !== '' &&
+          <button className="back-total-list"
+            onClick={(e)=>{
+              // 검색어 초기화
+              setKeyword(['','']);
+              // 검색어삭제(input이니까 val())
+              $(e.currentTarget).siblings("#stxt").val('');
+              // 검색항목초기화
+              $(e.currentTarget).siblings("#cta").val("tit");
+              // 정렬초기화
+              setSort(1);
+              // 정렬항목초기화
+              setSortCta('idx');
+              // 첫페이지번호변경
+              setPageNum(1);
+            }}
+          >
+            Back to Total List
+          </button>
+
+        }
+        
+        {/* 정렬기준선택박스 */}
+        <select name="sort_cta" id="sort_cta" className="sort_cta"
+        onChange={(e)=>setSortCta(e.currentTarget.value)}
+        style={{float:"right",translate:"0 5px"}}>
+          <option value="idx" 
+          selected={sortCta=="idx"?true:false}>Recent</option>
+          <option value="tit" 
+          selected={sortCta=="tit"?true:false}>Title</option>
+        </select>
       </div>
       <table className="dtbl" id="board">
         <thead>
@@ -540,17 +632,16 @@ const ListMode = ({
           <tr>
             <td colSpan="5" className="paging">
               {
-                // 데이터 개수가 0 이상일때만 출력
-                totalCount.current > 0 && (
-                  <PagingList
-                    totalCount={totalCount}
-                    unitSize={unitSize}
-                    pageNum={pageNum}
-                    setPageNum={setPageNum}
-                    pgPgNum={pgPgNum}
-                    pgPgSize={pgPgSize}
-                  />
-                )
+                // 데이터 개수가 0이상일때만 출력
+                totalCount.current > 0 &&
+                <PagingList
+                  totalCount={totalCount}
+                  unitSize={unitSize}
+                  pageNum={pageNum}
+                  setPageNum={setPageNum}
+                  pgPgNum={pgPgNum}
+                  pgPgSize={pgPgSize}
+                />
               }
             </td>
           </tr>
@@ -594,26 +685,23 @@ const ReadMode = ({ selRecord, sts }) => {
   // (2) 기존 배열값에 현재글번호 존재여부검사하기
   // 결과가 true이면 조회수를 증가하지 않는다!
   let isRec = rec.includes(data.idx);
-  // console.log("이미있니?", isRec);
+  console.log("이미있니?", isRec);
 
   // (3) 로그인한 사용자의 글이면 isRec값을 true처리
   // sts가 true이면 즉, 로그인한 사용자이면 처리
   if (sts) {
-    // console.log(
-    //   "선택글 아이디:",
-    //   data.uid,
-    //   "로그인사용자 아이디:",
-    //   JSON.parse(sts).uid
-    // );
+    console.log(
+      "선택글 아이디:",
+      data.uid,
+      "로그인사용자 아이디:",
+      JSON.parse(sts).uid
+    );
     // 글쓴이 아이디와 로그인사용자 아이디가 같은가?
     if (data.uid == JSON.parse(sts).uid) {
       // 글번호저장과 조회수증가를 하지 않도록 isRec값을
       // true로 변경한다!
       isRec = true;
     } //// if ///
-    else {
-      isRec = false;
-    }
   } /// if ///
 
   // (4) 배열에 값 추가하기 : 기존값에 없으면 넣기!
@@ -640,10 +728,7 @@ const ReadMode = ({ selRecord, sts }) => {
 
     // (3) 다시 로컬스에 저장하기
     localStorage.setItem("board-data", JSON.stringify(bdData));
-    // console.log("저장했어?",isRec);
-    // isRec = true;
   } /// if : (!isRec) ///
-  // console.log("나왔어!",isRec);
 
   /////// 코드리턴 구역 ///////////
   return (
@@ -851,16 +936,11 @@ const PagingList = ({
   console.log(
     "페이징개수:",
     pagingCount,
-    "전체 레토드 수",
+    "전체레코드수:",
     totalCount.current,
     "나머지개수:",
     totalCount.current % unitSize
   );
-
-  // console.log("페이징의 페이징 개수",pgPgCount);
-  console.log("페이징의 페이징 번호",pgPgNum.current);
-  // 검색 시 페이징 번호 초기화 필요
-
 
   // [ 페이징의 페이징 하기 ]
   // [1] 페이징 블록
@@ -880,7 +960,9 @@ const PagingList = ({
     pgPgCount++;
   } /// if ////
 
-  // console.log("페이징의 페이징개수:", pgPgCount);
+  console.log("페이징의 페이징개수:", pgPgCount);
+  console.log("페이징의 페이징번호:", pgPgNum.current);
+  // 검색시 페이징번호 초기화필요!
 
   // (2) 리스트 시작값 / 한계값 구하기
   // 시작값 : (페페넘-1)*페페단
@@ -888,7 +970,7 @@ const PagingList = ({
   // 한계값 : 페페넘*페페단
   let limitNum = pgPgNum.current * pgPgSize;
 
-  // console.log("시작값:", initNum, "/한계값:", limitNum);
+  console.log("시작값:", initNum, "/한계값:", limitNum);
 
   ///// [ 링크코드 만들기 ] /////////////////
   const pgCode = [];
@@ -897,7 +979,8 @@ const PagingList = ({
   // 계산된 시작값, 한계값을 기준으로 코드를 생성!
   // [1] for : 페이징 리스트 출력 시작 ///////////
   for (let i = initNum; i < limitNum; i++) {
-    // 전체 페이징 번호를 만드는 i가 페이징 전체개수보다 클 경우 나가야함
+    // 전체 페이징 번호를 만드는 i가 페이징 전체개수보다
+    // 클 경우 나가야함!
     if (i >= pagingCount) break;
 
     pgCode.push(
@@ -977,7 +1060,6 @@ const PagingList = ({
         // key 값이 있어야함! 단, 중복되면 안됨!
         // 중복안되는 수인 마이너스로 셋팅한다!
         <Fragment key={-2}>
-          {/* &nbsp;&nbsp; */}
           <a
             href="#"
             onClick={(e) => {
@@ -1011,23 +1093,27 @@ const PagingList = ({
     // opt - 일반이동(true), 끝이동(false)
     console.log("방향:", dir, "/옵션:", opt);
 
-    // 새페이징의 페이징 번호
+    // 새 페이징의 페이징번호
     let newPgPgNum;
-    // 1. opt옵션에 따라 페이징의 페이징 이동번호 만들기
-    // (1) 일반 페이징이동은 현재 페이지번호의 증감
+
+    // 1. opt 옵션에 따라 페이징의 페이징이동번호 만들기
+    // (1) 일반 페이징이동은 현재페이징번호에 증감
     if (opt) newPgPgNum = pgPgNum.current + dir;
-    // (2) 끝페이징 이동은
+    // (2) 끝 페이징이동은
     // 오른쪽(1)일 경우 맨끝 페이징번호로 이동(pgPgCount)
-    // 왼쪽(-1)일 경우 맨 앞 페이징번호로 이동(1)
+    // 왼쪽(-1)일 경우 맨앞 페이징번호로 이동(1)
     else newPgPgNum = dir == 1 ? pgPgCount : 1;
 
-    // 2. 페이징의 페이징 번호 업데이트
+    // 2.페이징의 페이징 번호 업데이트하기
     pgPgNum.current = newPgPgNum;
 
-    // 3. 새로운 페이징의페이징 구역의 페이지번호 업데이트
-    // >>>항상 이전블록의 마지막 번호+1이 다음 페이지 첫번호임
+    // 3. 새로운 페이지의 페이징 구역의
+    // 첫번째 페이지번호 업데이트하기
+    // -> 항상 이전블록의 마지막번호 + 1 이 다음페이지 첫번호임!
+    // 이동할 페이지번호
     let landingPage = (pgPgNum.current - 1) * pgPgSize + 1;
-    // 페이지번호 상태변수 업데이트로 전체 리랜더링
+    console.log("도착페이지번호:", landingPage);
+    // 페이지번호 상태변수 업데이트로 전체 리랜더링!!!
     setPageNum(landingPage);
   }; //////////// goPaging /////////////
 
