@@ -1,5 +1,5 @@
 // 오피니언 페이지 컴포넌트 ///
-import { Fragment, useContext, useRef, useState } from "react";
+import { Fragment, useContext, useReducer, useRef, useState } from "react";
 
 // 사용자 기본정보 생성 함수
 // import { initData } from "../func/mem_fn";
@@ -84,6 +84,96 @@ export default function Board() {
   // 페이징의 페이징 개수 : 한번에 보여줄 페이징개수
   const pgPgSize = 3;
 
+  // 검색기능을 위한 리듀서 함수//////////////
+  const reducerFn = (gVal, action) => {
+    // gVal -> 리듀서 변수가 들어옴
+    // ->>> 들어오는 이유 왜?????들어옴??? 기존값을 활용하여 업데이트하기 위해 들어옴!
+    console.log(gVal);
+    // 1. 구조분해 할당으로 객채의 배열값 받기
+    const [key, ele] = action.type;
+    // action.type은 리듀서 호출 시 보낸 객체값(배열임)
+    console.log("key:", key, "ele:", ele);
+
+    // 2. key값에 따라 분기하기
+    switch (key) {
+      case "search": {
+        // 검색기준값 읽어오기
+        let creteria = $(ele).siblings(".cta").val();
+        console.log("지발", gVal);
+        // 검색어 읽어오기
+        let txt = $(ele).prev().val();
+        console.log(typeof txt, "/검색어:", txt);
+        // input값은 안쓰면 빈스트링이 넘어옴!
+        if (txt != "") {
+          console.log("검색해!");
+          // [검색기준,검색어] -> setKeyword 업데이트
+          setKeyword([creteria, txt]);
+          // 검색후엔 첫페이지로 보내기
+          setPageNum(1);
+          // 검색후엔 페이지의 페이징 번호 초기화(1)
+          pgPgNum.current = 1;
+        }
+        // 빈값일 경우
+        else {
+          alert("Please enter a keyword!");
+        }
+        // 리턴값은 리듀서 변수에 할당
+        return gVal + (gVal!=''?"*":"") + txt;
+      }
+
+      case "back":
+        {
+          // 검색어 초기화
+          setKeyword(["", ""]);
+          // 검색어삭제(input이니까 val())
+          $(ele).siblings("#stxt").val("");
+          // 검색항목초기화
+          $(ele).siblings("#cta").val("tit");
+          // 정렬초기화
+          setSort(1);
+          // 정렬항목초기화
+          setSortCta("idx");
+          // 첫페이지번호변경
+          setPageNum(1);
+        }
+        // 리턴값은 리듀서 변수에 할당
+        return gVal;
+    }
+  };
+  // 검색기능지원 후크 리듀서 : useReducer
+  // const [state, dispach] = useReducer(reducerFn, null);
+  const [memory, dispach] = useReducer(reducerFn, "");
+
+  /*********************************************** 
+ * [ 리듀서 후크 : useReducer ]
+ * 복잡한 리액트 변수값/코드 처리를 해주는 후크
+ *******************************************
+function 리듀서함수(리듀서변수, 호출때보낸객체) {
+  switch (호출때보낸객체.type) {
+    case 값1:
+      처리코드;
+      return 처리값;
+    case 값2:
+      처리코드;
+      return 처리값;
+    default:
+      처리코드;
+      return 처리값;
+  }
+}
+
+function 컴포넌트() {
+  const [리듀서변수, 호출메서드] = 
+  useReducer(리듀서함수, 리듀서변수초기값);
+
+  return(
+    <요소 on이벤트={()=>{
+      호출메서드({ type: 값 });      
+    } />
+  );
+} ///// 컴포넌트끝 ///////
+
+
   /********************************************** 
         함수명: bindList
         기능 : 페이지별 리스트를 생성하여 바인딩함
@@ -157,8 +247,8 @@ export default function Board() {
       selData.push(orgData[i]);
     } ///// for //////
 
-    console.log("일부데이터:", selData);
-    console.log("여기:", selData.length);
+    // console.log("일부데이터:", selData);
+    // console.log("여기:", selData.length);
 
     // if (selData.length == 0) setPageNum(pageNum - 1);
     // -> ListMode컴포넌트가 업데이트 되는동안에
@@ -466,6 +556,8 @@ export default function Board() {
             setSort={setSort}
             sortCta={sortCta}
             setSortCta={setSortCta}
+            dispach={dispach}
+            memory={memory}
           />
         )
       }
@@ -566,6 +658,8 @@ const ListMode = ({
   setSort,
   sortCta,
   setSortCta,
+  dispach,
+  memory,
 }) => {
   /******************************************* 
     [ 전달변수 ] - 2~5까지 4개는 페이징전달변수
@@ -599,13 +693,10 @@ const ListMode = ({
           id="sel"
           className="sel"
           onChange={() => setSort(sort * -1)}
+          value={sort == 1 ? "0" : "1"}
         >
-          <option value="0" selected={sort == 1 ? true : false}>
-            Descending
-          </option>
-          <option value="1" selected={sort == -1 ? true : false}>
-            Ascending
-          </option>
+          <option value="0">Descending</option>
+          <option value="1">Ascending</option>
         </select>
         <input
           id="stxt"
@@ -623,26 +714,9 @@ const ListMode = ({
         <button
           className="sbtn"
           onClick={(e) => {
-            // 검색기준값 읽어오기
-            let creteria = $(e.target).siblings(".cta").val();
-            console.log("기준값:", creteria);
-            // 검색어 읽어오기
-            let txt = $(e.target).prev().val();
-            console.log(typeof txt, "/검색어:", txt);
-            // input값은 안쓰면 빈스트링이 넘어옴!
-            if (txt != "") {
-              console.log("검색해!");
-              // [검색기준,검색어] -> setKeyword 업데이트
-              setKeyword([creteria, txt]);
-              // 검색후엔 첫페이지로 보내기
-              setPageNum(1);
-              // 검색후엔 페이지의 페이징 번호 초기화(1)
-              pgPgNum.current = 1;
-            }
-            // 빈값일 경우
-            else {
-              alert("Please enter a keyword!");
-            }
+            // 리듀서 메소드 호출
+            dispach({ type: ["search", e.target] });
+            // 보낼값 구성 : [구분문자열,이벤트발생요소]
           }}
         >
           Search
@@ -653,18 +727,9 @@ const ListMode = ({
             <button
               className="back-total-list"
               onClick={(e) => {
-                // 검색어 초기화
-                setKeyword(["", ""]);
-                // 검색어삭제(input이니까 val())
-                $(e.currentTarget).siblings("#stxt").val("");
-                // 검색항목초기화
-                $(e.currentTarget).siblings("#cta").val("tit");
-                // 정렬초기화
-                setSort(1);
-                // 정렬항목초기화
-                setSortCta("idx");
-                // 첫페이지번호변경
-                setPageNum(1);
+                // 리듀서 메소드 호출
+                dispach({ type: ["back", e.target] });
+                // 보낼값 구성 : [구분문자열,이벤트발생요소]
               }}
             >
               Back to Total List
@@ -679,14 +744,12 @@ const ListMode = ({
           className="sort_cta"
           onChange={(e) => setSortCta(e.currentTarget.value)}
           style={{ float: "right", translate: "0 5px" }}
+          value={sortCta}
         >
-          <option value="idx" selected={sortCta == "idx" ? true : false}>
-            Recent
-          </option>
-          <option value="tit" selected={sortCta == "tit" ? true : false}>
-            Title
-          </option>
+          <option value="idx">Recent</option>
+          <option value="tit">Title</option>
         </select>
+        <b>{memory}</b>
       </div>
       <table className="dtbl" id="board">
         <thead>
@@ -956,10 +1019,9 @@ const ModifyMode = ({ selRecord }) => {
   // console.log("전달된 참조변수:", selRecord.current);
   // 전달된 데이터 객체를 변수에 할당
   const data = selRecord.current;
-  
+
   // 이미지 미리보기 대상 이미지 확장자 배열변수
   const imgExt = ["jpg", "png", "gif"];
-
 
   return (
     <>
