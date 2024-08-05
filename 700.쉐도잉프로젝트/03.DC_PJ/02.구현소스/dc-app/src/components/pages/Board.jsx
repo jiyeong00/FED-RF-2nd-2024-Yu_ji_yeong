@@ -118,7 +118,7 @@ export default function Board() {
           alert("Please enter a keyword!");
         }
         // 리턴값은 리듀서 변수에 할당
-        return gVal + (gVal!=''?"*":"") + txt;
+        return gVal + (gVal != "" ? "*" : "") + txt;
       }
 
       case "back":
@@ -749,7 +749,17 @@ const ListMode = ({
           <option value="idx">Recent</option>
           <option value="tit">Title</option>
         </select>
-        <b>{memory}</b>
+        <button style={{ position: "relative" }}>
+          History
+          <b style={{ position: "absolute", lineHeight: "1.7" }}>
+            {memory.indexOf("*") != -1 &&
+              memory.split("*").map((v) => (
+                <div>
+                  <a href="#">{v}</a>
+                </div>
+              ))}
+          </b>
+        </button>
       </div>
       <table className="dtbl" id="board">
         <thead>
