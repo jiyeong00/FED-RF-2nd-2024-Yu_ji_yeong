@@ -43,9 +43,13 @@
 
         <!-- 3. 상품리스트파트 -->
         <section class="part gwrap">
-            <ol class="glist">
-                <li></li>
-            </ol>
+            <ol class="glist" 
+            v-for="(item,idx) in itemData">
+                <li v-html="makeImg(item.img)"></li>
+                <li>Item : {{item.name}}</li>
+                <li>Price : ￦{{addCommas(item.price)}}</li>
+            </li>
+        </ol>
         </section>
     </div>
     <!-- 
