@@ -753,11 +753,15 @@ const ListMode = ({
           History
           <b style={{ position: "absolute", lineHeight: "1.7" }}>
             {memory.indexOf("*") != -1 &&
-              memory.split("*").map((v) => (
-                <div>
-                  <a href="#">{v}</a>
-                </div>
-              ))}
+              memory.split("*").map((v) => 
+              <li>
+                <b>
+                  
+
+                </b>
+              </li>
+
+              )}
           </b>
         </button>
       </div>
