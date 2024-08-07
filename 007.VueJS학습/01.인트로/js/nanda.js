@@ -53,14 +53,14 @@ const vm = new Vue({
     bigTit: "Style NANDA",
     // 2-2. 로고 태그정보
     logo: `<img 
-          src="./images/logo_3ce.png" 
-          alt="nanda logo">`,
+        src="./images/logo_3ce.png" 
+        alt="nanda logo">`,
     // 2-3. 배너 데이터
     content: `
-              나는 날고 싶어~!
-              <h2>오늘도 당신은 날고 싶다~!</h2>
-              <img src="./images/sub_banner_e.jpg" alt="banner">
-          `,
+            나는 날고 싶어~!
+            <h2>오늘도 당신은 날고 싶다~!</h2>
+            <img src="./images/sub_banner_e.jpg" alt="banner">
+        `,
     // 2-4. 상품정보 배열
     // 데이터를 클래스를 통해 생성하자!
     itemData: [],
@@ -98,9 +98,9 @@ const vm = new Vue({
       // val - 이미지명만 들어옴!
       // 오버시 이미지까지 2개의 이미지를 리턴함!
       return `
-          <img src="./images/fashion1/${val}.jpg" alt="item">
-          <img src="./images/fashion2/${val}.png" alt="item">
-          `;
+        <img src="./images/fashion1/${val}.jpg" alt="item">
+        <img src="./images/fashion2/${val}.png" alt="item">
+        `;
     },
     //정규식함수(숫자 세자리마다 콤마해주는 기능)
     addCommas(x) {
@@ -108,7 +108,7 @@ const vm = new Vue({
     },
   }, /////// methods ////////////////
 
-  // [4. 뷰인트턴스 초기화 완료단계 : created]
+  // [ 4. 뷰인트턴스 초기화 완료단계 : created ]
   // -> 이 단계에서 데이터 셋팅함!!!
   created() {
     // 상품 데이터 클래스를 호출하여 객체를 생성하자!
@@ -138,32 +138,41 @@ const vm = new Vue({
           20000 * rdm2 // 상품가격
         )
       ); // push ///
-      // 생성된 데이터 확인
-      // console.log("itemData:", this.itemData);
     } //////// for ////////
-  }, // created ///
+    // 생성된 데이터 확인
+    // console.log("itemData:", this.itemData);
+  }, // created /////////////////////
 
-  // [5. 뷰 랜더링 완료 단계 : mounted]
-  // -> 이단계에서 DOM관련 스트립트 코딩을 해준다
+  // [ 5. 뷰 랜더링 완료 단계 : mounted ] ////
+  // -> 이 단계에서 DOM관련 스트립트 코딩을 해준다!
   mounted() {
-    // 랜더링 후 자동실행구역
+    // 랜더링후 자동실행구역 ///////
     // 1. 제목 숨겼다 보이기
     $(".tit").hide().delay(1000).slideDown(300);
+
     // 2. 로고 왼쪽에서 날아오기
     $(".logo")
-      .css({ translate: "-100vw" })
+      .css({
+        translate: "-100vw",
+      })
       .delay(2000)
       .animate(
-        { translate: "0" },
+        {
+          translate: "0",
+        },
         800,
         "easeOutElastic",
-        //애니메이션 후 실행구역
-        () => {
-          // 3. 상품리스트로 스크롤이동하기
-          //   -> 상품리스트 박스위치로동
-          //   $(상품리스트박스).offset().top
-          $("html,body").animate({ scrollTop: $(".gwrap").offset().top+"px" }, 600, "easeInOutExpo");
+        // 애니메이션 후 실행구역
+        ()=>{
+            // 3. 상품리스트로 스크롤 이동하기
+            // -> 상품리스트 박스위치로 이동
+            // $(상품리스트박스).offset().top
+            $("html,body")
+            .animate({
+                scrollTop: 
+                $(".gwrap").offset().top+"px"
+            }, 600, "easeInOutExpo");
         }
       );
-  }, //mounted//
+  }, // mounted //////////////////////
 }); /////// Vue ///////////////////
