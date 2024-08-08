@@ -37,28 +37,40 @@ Vue.component("list-comp", {
   // 변수를 사용할 수 있는 속성재구성해줌!
   template: `
       <div>
-        <img v-bind:src="gsrc" alt="의류아이템">
+        <img 
+          v-bind:src="gsrc" 
+          v-on:click="goPapa('나야나!')"
+          v-on:mouseover=
+          "goMama({이름:'김고은',나이:'34살'})"
+          alt="의류아이템"
+        >
         <aside>
           <h2 v-text="gname"></h2>
           <h3 v-text="gprice"></h3>
         </aside>
       </div>
     `, // template ////
+    // 자식컴포넌트에서 부모컴포넌트의 메서드를
+    // 바로 호출할 수 없다! 따라서 자신의 메서드를
+    // 만들고 그 곳에서 호출방식에 따라 부모 메서드를 호출함!
 
   // [ 상위 컴포넌트 전달변수 설정속성 : props ]
-  props: ["list-num", "my-seq", "end-let","ved-ifr"],
+  props: ["list-num","my-seq","end-let"],
 
   // 배열형은 설정한 변수명을 문자형으로 나열만 하면되고
   // 만약 각 변수의 데이터형(type)을 특정하고 싶으면
-  // 객체형을 사용하여 아래와 같이 표현한다.
-  // props:{변수명:변수형}
-  // 예) props:{"list-num":Number,
-  // "end-let":String
-  // }
+  // 객체형을 사용하여 아래와 같이 표현한다!
+  // props: {변수명:변수형}
 
-  // 이 변수를 사용할 때는 캐믈케이스 변수로 사용함
-  // 예) "list-num" ->> this.listNum
-  // -> 내부용 변수이므로 this키워드 사용!
+  // props: {
+  //   "list-num":Number,
+  //   "my-seq":Number,
+  //   "end-let":String
+  // },
+
+  // 이 변수를 사용할때는 캐믈케이스 변수로 사용함!
+  // "list-num" -> this.listNum
+  // -> 내부용 변수이므로 this 키워드 반드시 사용!
 
   // 2-2. data 옵션 : 컴포넌트 내부 변수셋팅
   // 실행원리 : 컴포넌트가 빌드할때
@@ -72,7 +84,7 @@ Vue.component("list-comp", {
       // 이미지 src
       gsrc: `./images/${this.listNum}.jpg`,
       // 상품명
-      gname: this.setName() + " " + this.endLet + this.mySeq,
+      gname: this.setName()+" "+this.endLet+this.mySeq,
       // 상품가격
       gprice: this.setPrice(),
     };
@@ -100,41 +112,92 @@ Vue.component("list-comp", {
     addCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
+
+    // (5) 부모컴포넌트 메서드 호출을 위한 함수
+    goPapa(txt){
+      console.log("내꺼니까 호출가능!",txt,this);
+
+      // 부모 메서드 직접 호출불가!
+      // goMsg(txt);
+
+      this.$emit('hull',txt);
+
+      // [ 부모 메서드 호출방법 ] //
+      // this.$emit(생성이벤트명,전달값)
+      // -> 생성 이벤트명이란? 내가 만든 이벤트명으로
+      // 서브 컴포넌트 태그에 이벤트를 등록하여
+      // 호출하는 방식이다!
+      // 아래와 같이 click이벤트가 아니고...
+      // <list-app v-on:click="함수명"></list-app>
+      // 아래와 같이 내가 만든 이벤트명이다!!!
+      // <list-app v-on:hull="함수명"></list-app>
+      // -> 이벤트명을 내가 만든 이유는...
+      // 이 이벤트명으로 특정한 일을 해주기위함이다!
+      // -> 여기서 특정한 일은 부모함수의 호출!!!
+    },
+    // (6) 부모 메서드 호출 함수 하나더!
+    goMama(pm){
+      console.log('갓김치 호출함수!');
+      this.$emit('oh-my-gotkimchi',pm);
+    },
   },
 }); ///// component ////////////
 
 // 뷰인스턴스 생성하기 : 리스트 컴포넌트
-makeVue(".grid");
+// makeVue(".grid");
+
+// lise-comp라는 자식 컴포넌트의 부모컴포넌트!
+new Vue({
+  // 1. 대상
+  el: ".grid",
+  // 2. 메서드
+  methods: {
+    // 자식 이벤트 전달후 실행메서드!
+    goMsg(txt){
+      alert("자식이 부모에게 이벤트 전달 성공!!!"+txt);
+    },
+    // 자식 컴포넌트의 오버 이벤트가 전달되어
+    // 호출하는 메서드
+    overMsg(pm){
+      // pm 전달받을 객체값 {이름:"어쩌구",나이:"저쩌구"}
+      console.log('오 마이 갓김치!'+pm.이름+' 나이는 '+pm.나이);
+    },
+
+  },
+});
+
 
 // 3. 유튜브 동영상 컴포넌트 만들기
-Vue.component("ifr-comp", {
-  // 3-1. template옵션
-  template: `
+Vue.component("ifr-comp",{
+    // 3-1. template옵션
+    template:`
     <iframe width="49%" style="aspect-ratio: 16/9;" 
     v-bind:src="ifrSrc" title="#고윤정 과 함께 차가운 겨울을 더욱 액티브하게!  l 디스커버리 23FW #goyounjung #크롭패딩" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
     `, /// template ////
-    // 프롭스다운 설정하기
-    props:["mv-code"],
-  // 3-2. data 옵션
-  data() {
-    return {
-      ifrSrc: this.getIframeSrc(this.mvCode),
-    };
-  }, //data
-  // 3-3. methods 속성
-  methods: {
-    getIframeSrc(code) {
-      return `https://www.youtube.com/embed/${code}?autoplay=1&mute=1&loop=1&playlist=${code}`;
+    // [ 프롭스다운 설정하기 ]
+    props: ["mv-code"],
+    // -> 사용시 this.mvCode
+    // 3-2. data 옵션
+    data(){
+        return{
+            ifrSrc: this.getIframeSrc(this.mvCode),
+        };
+    }, /// data ///
+    // 3-3. methods 속성
+    methods: {
+      // 동영상 정보 리턴함수
+      getIframeSrc(code) { // 동영상코드
+        return `https://www.youtube.com/embed/${code}?autoplay=1&mute=1&loop=1&playlist=${code}`;
+      },
     },
-  },
 });
 
 // 뷰인스턴스 생성하기 : 유튜브 동영상 컴포넌트
 makeVue(".you-box");
 
 // 4. 하단 컴포넌트 만들기
-Vue.component("footer-comp", {
-  template: `
+Vue.component("footer-comp",{
+    template:`
         <div style="background-color:black;text-align:center;color:white;line-height:2;font-weight:bold; padding:3vw; margin-top:1vw;">
             <h2>Discovery Expedition</h2>
             <h3>Copyright © F&F Corp. All Rights Reserved.</h3>        
